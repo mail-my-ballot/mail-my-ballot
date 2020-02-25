@@ -1,18 +1,18 @@
 import React from 'react'
 import Container from 'muicss/lib/react/container'
-import Button from 'muicss/lib/react/button'
 import styled from 'styled-components'
 
 import { add } from '@vbm/common'
 
+import { InitialForm } from './components/Form'
+
 const AppContainer = styled(Container)`
-  text-align: center;
 `
 
 function App() {
   return (
     <AppContainer>
-      <Button>Test Button</Button>
+      <InitialForm/>
       <div>
       Learn React {add(2, 3)}
       </div>
