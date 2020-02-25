@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@vbm/common": "1.0.0",
+    "muicss": "^0.10.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,10 +35,11 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
+    "@types/muicss": "^0.9.1",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@types/muicss": "^0.9.1",
+    "@types/styled-components": "^5.0.1",
     "react-scripts": "3.4.0",
     "typescript": "~3.7.2"
   }
