@@ -3,6 +3,7 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { SubmitButton } from '../util/Button'
+import { Signature } from '../util/Signature'
 
 export const FL = () => {
   let ref: any
@@ -20,6 +21,7 @@ export const FL = () => {
       floatingLabel={true}
       ref={el => ref = el}
     />
+    <Signature/>
     <SubmitButton color='primary' variant='raised'>Submit</SubmitButton>
   </Form>
 }
