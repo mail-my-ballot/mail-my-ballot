@@ -9,6 +9,8 @@ const SubmitButton = styled(Button)`
   border-radius: 2em;
 `
 
+const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
+
 export const InitialForm: React.StatelessComponent = () => {
   let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
   const [displayAddr, setAddr] = React.useState('')
@@ -26,7 +28,12 @@ export const InitialForm: React.StatelessComponent = () => {
 
   return <Form onSubmit={handleSubmit}>
     <legend>Address</legend>
-    <Input label='Address' floatingLabel={true} ref={el => ref = el} defaultValue='230 ashland pl, brooklyn ny'></Input>
+    <Input
+      label='Address'
+      floatingLabel={true}
+      ref={el => ref = el}
+      defaultValue={defaultAddr}
+    />
     {displayAddr ? <p>{displayAddr}</p> : null}
     <SubmitButton color='primary' variant='raised'>Submit</SubmitButton>
   </Form>
