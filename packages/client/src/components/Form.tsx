@@ -10,16 +10,20 @@ const SubmitButton = styled(Button)`
 `
 
 export const InitialForm: React.StatelessComponent = () => {
-  const addr = React.useRef<Input>(null)
+  let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
+  const [displayAddr, setAddr] = React.useState('')
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    const addrStr = '230 ashland pl, brooklyn ny'
-
-    fetch(`https://nominatim.openstreetmap.org/search/${addrStr}?format=json&countrycodes=us`)
+    const inputAddr = ref.controlEl.value
+    console.log(inputAddr)
+    fetch(`https://nominatim.openstreetmap.org/search/${inputAddr}?format=json&countrycodes=us`)
       .then(
         res => res.json()
       ).then(
-        json => console.log(json)
+        json => {
+          console.log(json[0].display_name)
+          setAddr(json[0].display_name)
+        }
       )
 
     event.preventDefault()
@@ -27,7 +31,8 @@ export const InitialForm: React.StatelessComponent = () => {
 
   return <Form onSubmit={handleSubmit}>
     <legend>Address</legend>
-    <Input label='Address' floatingLabel={true} ref={addr} defaultValue='230 ashland pl, brooklyn ny'></Input>
+    <Input label='Address' floatingLabel={true} ref={el => ref = el} ></Input>
+    {displayAddr ? <p>{displayAddr}</p> : null}
     <SubmitButton color='primary' variant='raised'>Submit</SubmitButton>
   </Form>
 }
