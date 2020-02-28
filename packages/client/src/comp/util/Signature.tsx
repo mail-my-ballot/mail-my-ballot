@@ -2,7 +2,7 @@ import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
 
-const Label = styled.div`
+const Label = styled.label`
   font-size: 12px;
   color: rgba(30, 134, 218, 0.918);;
 `
