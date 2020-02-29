@@ -6,5 +6,11 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "start-client": "cd packages/client && yarn start",
+    "start-server": "cd packages/server && yarn start",
+    "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
+    "clobber": "yarn clean && rm -f yarn.lock"
+  }
 }
