@@ -6,7 +6,7 @@ import { SubmitButton } from '../util/Button'
 import { Signature } from '../util/Signature'
 
 export const FL = () => {
-  let ref: any
+  let ref: any  // eslint-disable-line @typescript-eslint/no-unused-vars
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
