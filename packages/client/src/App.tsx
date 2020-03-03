@@ -2,17 +2,13 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
-import { makeClient, httpConnector } from '@tianhuil/simple-trpc/dist/client'
-import { IVbmRpc, processEnvOrThrow } from '@vbm/common'
-
+import { client } from './lib/trpc'
 import { InitialForm } from './comp/Form'
 import { FL } from './comp/states/FL'
 
 const AppContainer = styled(Container)`
   margin-top: 2em
 `
-
-const client = makeClient<IVbmRpc>(httpConnector(processEnvOrThrow('REACT_APP_SERVER')))
 
 function App() {
   const [sum, setSum] = React.useState(0)

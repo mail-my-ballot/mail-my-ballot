@@ -3,6 +3,7 @@ import { IRpc, RpcRet } from '@tianhuil/simple-trpc/dist/type'
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
+  addLocale(locale: RawLocale): Promise<RpcRet<string>>
 }
 
 export interface Locale {

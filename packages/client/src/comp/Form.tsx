@@ -5,7 +5,7 @@ import Input from 'muicss/lib/react/input'
 import { osmGeocode } from '../lib/osm'
 import { RawLocale } from '@vbm/common'
 import { SubmitButton } from './util/Button'
-
+import { client } from '../lib/trpc'
 
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
@@ -19,9 +19,10 @@ export const InitialForm: React.StatelessComponent = () => {
 
     const inputAddr = ref.controlEl.value
     console.log(inputAddr)
-    const results = await osmGeocode(inputAddr)
-    console.log(results)
-    setLocale(results)
+    const locale = await osmGeocode(inputAddr)
+    setLocale(locale)
+    const result = await client.addLocale(locale)
+    console.log(result)
   }
 
   return <Form onSubmit={handleSubmit}>
