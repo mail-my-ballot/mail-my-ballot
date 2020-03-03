@@ -12,6 +12,8 @@ const AppContainer = styled(Container)`
   margin-top: 2em
 `
 
+if (!process.env.REACT_APP_SERVER) throw new Error('REACT_APP_SERVER environemnet variable undefined')
+const client = makeClient<IVbmRpc>(httpConnector(process.env.REACT_APP_SERVER))
 
 function App() {
   const [sum, setSum] = React.useState(0)
