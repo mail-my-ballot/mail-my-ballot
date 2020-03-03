@@ -13,8 +13,6 @@
     "outDir": "./dist/",
     "moduleResolution": "node",
     "sourceMap": true,
-    "strictNullChecks": true,
-    "noImplicitAny": false,
     "target": "es6",
     "removeComments": true,
     "emitDecoratorMetadata": true,
