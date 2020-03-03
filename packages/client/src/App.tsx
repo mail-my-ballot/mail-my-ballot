@@ -9,8 +9,8 @@ import { InitialForm } from './comp/Form'
 import { FL } from './comp/states/FL'
 
 const AppContainer = styled(Container)`
+  margin-top: 2em
 `
-const client = makeClient<IVbmRpc>(httpConnector('http://localhost:8080'))
 
 
 function App() {
