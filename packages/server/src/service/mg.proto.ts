@@ -1,10 +1,10 @@
 import * as mailgun from 'mailgun-js'
 import { processEnvOrThrow } from '@vbm/common'
 
-const domain = processEnvOrThrow('MG_DOMAIN')
+const domain = processEnvOrThrow('MG_PROTO_DOMAIN')
 
 const mg = mailgun({
-  apiKey: processEnvOrThrow('MG_API_KEY'),
+  apiKey: processEnvOrThrow('MG_PROTO_API_KEY'),
   domain
 })
 const data = {
