@@ -45,6 +45,7 @@
     "@types/react-signature-canvas": "^1.0.0",
     "@types/styled-components": "^5.0.1",
     "react-scripts": "3.4.0",
+    "serve": "^11.3.0",
     "typescript": "~3.7.2"
   }
 }
