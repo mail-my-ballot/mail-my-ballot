@@ -31,7 +31,11 @@ function App() {
       <InitialForm/>
       <FL/>
       <div>
-      Learn React {sum}
+        Learn React {sum}
+      </div>
+      <div>
+        Variable {process.env.REACT_APP_SERVER}
+        Variable 2 {process.env.NODE_ENV}
       </div>
     </AppContainer>
 
