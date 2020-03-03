@@ -13,9 +13,9 @@
     "dotenv-flow": "^3.1.0"
   },
   "scripts": {
-    "start": "NODE_ENV=development node -r ./loader ./node_modules/.bin/react-scripts start",
-    "build": "NODE_ENV=production  node -r ./loader ./node_modules/.bin/react-scripts build",
-    "test":  "NODE_ENV=test        node -r ./loader ./node_modules/.bin/react-scripts test",
+    "start": "NODE_ENV=development node -r ../../env/loader ./node_modules/.bin/react-scripts start",
+    "build": "NODE_ENV=production  node -r ../../env/loader ./node_modules/.bin/react-scripts build",
+    "test":  "NODE_ENV=test        node -r ../../env/loader ./node_modules/.bin/react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -3,7 +3,7 @@ import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
 import { makeClient, httpConnector } from '@tianhuil/simple-trpc/dist/client'
-import { IVbmRpc } from '@vbm/common'
+import { IVbmRpc, processEnvOrThrow } from '@vbm/common'
 
 import { InitialForm } from './comp/Form'
 import { FL } from './comp/states/FL'
@@ -12,8 +12,7 @@ const AppContainer = styled(Container)`
   margin-top: 2em
 `
 
-if (!process.env.REACT_APP_SERVER) throw new Error('REACT_APP_SERVER environemnet variable undefined')
-const client = makeClient<IVbmRpc>(httpConnector(process.env.REACT_APP_SERVER))
+const client = makeClient<IVbmRpc>(httpConnector(processEnvOrThrow('REACT_APP_SERVER')))
 
 function App() {
   const [sum, setSum] = React.useState(0)

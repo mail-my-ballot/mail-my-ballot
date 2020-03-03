@@ -4,6 +4,8 @@ import { Request, Response } from 'express';
 import { AddressInfo } from 'net';
 import * as cors from 'cors'
 
+import { processEnvOrThrow } from '@vbm/common'
+
 import { VbmRpc } from './trpc';
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
@@ -22,7 +24,8 @@ registerExpressHandler(App, new VbmRpc())
 
 // https://github.com/GoogleCloudPlatform/nodejs-getting-started/tree/master/1-hello-world
 if (module === require.main) {
-  const server = App.listen(process.env.PORT || 8080, () => {
+  const port = parseInt(processEnvOrThrow('SERVER_PORT'))
+  const server = App.listen(port, () => {
     const port = (<AddressInfo>server.address()).port;
     console.log(`App listening on port ${port}`);
   });
