@@ -6,7 +6,7 @@ import * as cors from 'cors'
 
 import { processEnvOrThrow } from '@vbm/common'
 
-import { VbmRpc } from './trpc';
+import { VbmRpc } from './service/trpc';
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
 const App = Express();
