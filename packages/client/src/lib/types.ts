@@ -1,4 +1,5 @@
 export interface Locale {
+  queryAddr: string
   fullAddr: string
   country: string
   zip: string
