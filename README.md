@@ -22,8 +22,9 @@ Following this [SO answer](https://stackoverflow.com/a/54055525/8930600), put al
 We're using [Marked](https://www.npmjs.com/package/marked), which has more dependents, downloads, and is smaller than [Showdown](https://www.npmjs.com/package/showdown).  The documentation on how to run it in node is available [here](https://marked.js.org/#/USING_ADVANCED.md#options)
 
 ## Production
-To view logs in production, goto the [Log viewer](https://console.cloud.google.com/logs/viewer)
-
+To view logs in production, goto the [Log Viewer](https://console.cloud.google.com/logs/viewer)
+To view status of the app, goto the [Console](https://console.cloud.google.com/home/dashboard?project=vbm-test-dev)
+To view the data, goto [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
 
 ## TODO
 - Deploy client and server and get working
