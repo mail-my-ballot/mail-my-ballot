@@ -16,7 +16,7 @@
     "build:staging": "NODE_ENV=staging  node -r ../../env/loader ./node_modules/.bin/react-scripts build",
     "build:production": "NODE_ENV=production  node -r ../../env/loader ./node_modules/.bin/react-scripts build",
     "test":  "NODE_ENV=test        node -r ../../env/loader ./node_modules/.bin/react-scripts test",
-    "predeploy:staging": "# yarn build:staging",
+    "predeploy:staging": "yarn build:staging",
     "deploy:staging": "now ./build --local-config=./now.json --confirm",
     "predeploy:production": "yarn build:production",
     "deploy:production": "now --prod ./build",
