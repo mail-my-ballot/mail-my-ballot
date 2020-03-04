@@ -3,8 +3,8 @@ import { createContainer } from "unstated-next"
 import { Locale } from '../common'
 
 const useLocaleContainer = (initialState: (Locale | null) = null) => {
-  const [state, setState] = React.useState<Locale | null>(initialState)
-  return { state, setState }
+  const [locale, setLocale] = React.useState<Locale | null>(initialState)
+  return { locale, setLocale }
 }
 
 export const LocaleContainer = createContainer(useLocaleContainer)

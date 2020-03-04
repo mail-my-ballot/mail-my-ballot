@@ -11,7 +11,7 @@ const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
 export const InitialForm: React.StatelessComponent = () => {
   let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
-  const { state: locale, setState } = LocaleContainer.useContainer()
+  const { locale, setLocale } = LocaleContainer.useContainer()
   const { errMsg, startLoad, setError, clearError } = QueryContainer.useContainer()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -20,12 +20,14 @@ export const InitialForm: React.StatelessComponent = () => {
 
     const inputAddr = ref.controlEl.value
     startLoad()
-    const locale = await osmGeocode(inputAddr)
-    setState(locale)
-    if (locale) {
+    const newLocale = await osmGeocode(inputAddr)
+    setLocale(newLocale)
+    if (newLocale) {
       clearError()
-      const result = await client.addLocale(locale)
-      console.log(result)
+      const result = await client.addLocale(newLocale)
+      if (result.type === 'data') {
+        setLocale({...newLocale, id: result.data})
+      }
     } else {
       setError(`No address found for "${inputAddr}"`)
     }
