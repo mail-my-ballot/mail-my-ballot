@@ -32,8 +32,11 @@ function App() {
       </div>
       <div>
         Variable {process.env.REACT_APP_SERVER}
+      </div>
+      <div>
         Variable 2 {process.env.NODE_ENV}
       </div>
+
     </AppContainer>
 
   );
