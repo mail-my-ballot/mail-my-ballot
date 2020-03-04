@@ -29,8 +29,9 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 
 ## TODO
 - [x] Deploy client and server and get working on staging
-- [ ] Setup FL Code, handle other states
 - [ ] Setup FL By County Code
 - [ ] Setup Email Code
 - [ ] Buy Domain
+- [ ] Different Sites for different organizers
 - [ ] Setup Production
+- [ ] Setup FL Code, handle other states
