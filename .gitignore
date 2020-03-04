@@ -87,3 +87,6 @@ secrets
 dist/
 
 tsconfig.tsbuildinfo
+
+venv
+.vscode
