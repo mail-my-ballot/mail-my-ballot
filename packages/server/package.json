@@ -7,7 +7,9 @@
     "proto": "NODE_ENV=development node -r ../../env/loader ./node_modules/.bin/ts-node-dev --transpileOnly src/service/mg.proto.ts",
     "start": "NODE_ENV=development node -r ../../env/loader ./node_modules/.bin/ts-node-dev --respawn --transpileOnly src/index.ts",
     "build": "NODE_ENV=production  node -r ../../env/loader ./node_modules/.bin/tsc",
-    "test": "NODE_ENV=test         node -r ../../env/loader ./node_modules/.bin/jest"
+    "test": "NODE_ENV=test         node -r ../../env/loader ./node_modules/.bin/jest",
+    "deploy:staging": "gcloud app deploy --project vbm-test-dev",
+    "deploy:prod": "x"
   },
   "keywords": [],
   "author": "",

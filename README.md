@@ -4,6 +4,9 @@
 Almost all dependnecies are listed in devDependencies.  However,
 - you will need to install now globally (`npm i -g now`).
 
+To deploy the server using Google Cloud, follow the steps in `https://cloud.google.com/appengine/docs/standard/nodejs/quickstart`.
+
+
 ## Secrets
 ### Secrets in Dev
 Put all secrets in `env/.env.development`, which is not checked into source control
