@@ -27,9 +27,9 @@ To view status of the app, goto the [Console](https://console.cloud.google.com/h
 To view the data, goto [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
 
 ## TODO
-- Deploy client and server and get working
-- Setup FL Code, handle other states
-- Setup FL County Code
-- Setup Email Code
-- Buy Domain
-- Setup Staging
+- [x] Deploy client and server and get working on staging
+- [ ] Setup FL Code, handle other states
+- [ ] Setup FL By County Code
+- [ ] Setup Email Code
+- [ ] Buy Domain
+- [ ] Setup Production
