@@ -3,7 +3,7 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { osmGeocode } from '../lib/osm'
-import { RawLocale } from '../common'
+import { WithoutId, Locale } from '../common'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 
@@ -11,7 +11,7 @@ const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
 export const InitialForm: React.StatelessComponent = () => {
   let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
-  const [locale, setLocale] = React.useState<RawLocale | null>(null)
+  const [locale, setLocale] = React.useState<WithoutId<Locale> | null>(null)
   const [error,  setError ] = React.useState<string>('')
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

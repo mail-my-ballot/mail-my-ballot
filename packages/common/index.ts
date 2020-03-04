@@ -1,13 +1,11 @@
 // interface.ts
 import { IRpc, RpcRet } from '@tianhuil/simple-trpc/dist/type'
 
-export interface IVbmRpc extends IRpc<IVbmRpc> {
-  add(x: number, y: number): Promise<RpcRet<number>>
-  addLocale(locale: RawLocale): Promise<RpcRet<string>>
+export interface _Id {
+  id?: string
 }
 
-export interface Locale {
-  id: string
+export interface Locale extends _Id {
   queryAddr: string
   fullAddr: string
   country: string
@@ -17,7 +15,13 @@ export interface Locale {
   city: string
 }
 
-export type RawLocale = Omit<Locale, 'id'>
+export type WithoutId<T extends _Id> = Omit<T, 'id'>
+export type WithId<T extends _Id> = WithoutId<T> & {id: string}
+
+export interface IVbmRpc extends IRpc<IVbmRpc> {
+  add(x: number, y: number): Promise<RpcRet<number>>
+  addLocale(locale: WithoutId<Locale>): Promise<RpcRet<string>>
+}
 
 export function processEnvOrThrow(key: string): string {
   const val = process.env[key]
