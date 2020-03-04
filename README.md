@@ -33,5 +33,6 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 - [ ] Setup Email Code
 - [ ] Buy Domain
 - [ ] Different Sites for different organizers
+- [ ] Check all two-word Florida Counties
 - [ ] Setup Production
 - [ ] Setup FL Code, handle other states

@@ -6,7 +6,7 @@ export const floridaCounties = Object.fromEntries(
       const county = obj.title.split('Supervisor')[0].trim()
       return [county, {
         county,
-        supervisor: obj.name.split(',')[0].trim(),
+        name: obj.name.split(',')[0].trim(),
         email: obj.email.split(':')[1].trim(),  // ignore leading 'mailto:',
         url: obj.url
       }]

@@ -6,6 +6,7 @@ import { osmGeocode } from '../lib/osm'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, LocaleContainer } from '../lib/state'
+import { StateForm } from './states/'
 
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
@@ -33,17 +34,19 @@ export const InitialForm: React.StatelessComponent = () => {
     }
   }
 
-  return <Form onSubmit={handleSubmit}>
-    <legend>Address</legend>
-    <Input
-      label='Address'
-      floatingLabel={true}
-      ref={el => ref = el}
-      defaultValue={defaultAddr}
-    />
-    <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
+  return <>
+    <Form onSubmit={handleSubmit}>
+      <legend>Address</legend>
+      <Input
+        label='Address'
+        floatingLabel={true}
+        ref={el => ref = el}
+        defaultValue={defaultAddr}
+      />
+      <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
+    </Form>
     {locale ?
-      <p>You live in {locale.county}, {locale.state}.</p> :
+      <StateForm locale={locale}/> :
       (errMsg ? <p>{errMsg}</p> : null)}
-  </Form>
+  </>
 }
