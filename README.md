@@ -1,5 +1,8 @@
 # vbm
 
+## Manual Dependencies
+Almost all dependnecies are listed in devDependencies.  However,
+- you will need to install now globally (`npm i -g now`).
 
 ## Secrets
 ### Secrets in Dev
