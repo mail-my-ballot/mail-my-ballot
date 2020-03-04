@@ -1,5 +1,5 @@
 import * as mailgun from 'mailgun-js'
-import { processEnvOrThrow } from '@vbm/common'
+import { processEnvOrThrow } from '../common'
 
 const domain = processEnvOrThrow('MG_PROTO_DOMAIN')
 

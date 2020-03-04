@@ -3,7 +3,7 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { osmGeocode } from '../lib/osm'
-import { RawLocale } from '@vbm/common'
+import { RawLocale } from '../common'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 

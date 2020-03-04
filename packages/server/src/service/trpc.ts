@@ -1,5 +1,5 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
-import { IVbmRpc, RawLocale } from '@vbm/common'
+import { IVbmRpc, RawLocale } from '../common'
 import { FirestoreService } from './firestore'
 
 const firestore = new FirestoreService()

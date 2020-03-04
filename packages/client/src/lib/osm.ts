@@ -1,4 +1,4 @@
-import { RawLocale } from "@vbm/common"
+import { RawLocale } from "../common"
 
 export const osmGeocode = async (queryAddr: string): Promise<RawLocale> => {
   const result = await fetch(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`)

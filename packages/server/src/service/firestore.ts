@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, RawLocale, Locale } from '@vbm/common'
+import { processEnvOrThrow, RawLocale, Locale } from '../common'
 
 export class FirestoreService {
   db: admin.firestore.Firestore

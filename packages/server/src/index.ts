@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { AddressInfo } from 'net';
 import * as cors from 'cors'
 
-import { processEnvOrThrow } from '@vbm/common'
+import { processEnvOrThrow } from './common'
 
 import { VbmRpc } from './service/trpc';
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'

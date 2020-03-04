@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@tianhuil/simple-trpc": "^1.2.1",
-    "@vbm/common": "1.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.2",
