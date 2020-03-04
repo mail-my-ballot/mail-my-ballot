@@ -27,12 +27,3 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 - [Console](https://console.cloud.google.com/home/dashboard?project=vbm-test-dev)
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
 
-## TODO
-- [x] Deploy client and server and get working on staging
-- [ ] Setup FL By County Code
-- [ ] Setup Email Code
-- [ ] Buy Domain
-- [ ] Different Sites for different organizers
-- [ ] Check all two-word Florida Counties
-- [ ] Setup Production
-- [ ] Setup FL Code, handle other states
