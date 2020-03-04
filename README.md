@@ -21,6 +21,9 @@ Following this [SO answer](https://stackoverflow.com/a/54055525/8930600), put al
 ## Markdown Library
 We're using [Marked](https://www.npmjs.com/package/marked), which has more dependents, downloads, and is smaller than [Showdown](https://www.npmjs.com/package/showdown).  The documentation on how to run it in node is available [here](https://marked.js.org/#/USING_ADVANCED.md#options)
 
+## Production
+To view logs in production, goto the [Log viewer](https://console.cloud.google.com/logs/viewer)
+
 
 ## TODO
 - Deploy client and server and get working

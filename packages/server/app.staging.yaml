@@ -16,3 +16,6 @@ entrypoint: node ./dist/index.js
 
 env_variables:
   NODE_ENV: staging
+
+includes:
+  - secrets/env_variables.yaml
