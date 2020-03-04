@@ -12,17 +12,22 @@ const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 export const InitialForm: React.StatelessComponent = () => {
   let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
   const [locale, setLocale] = React.useState<RawLocale | null>(null)
+  const [error,  setError ] = React.useState<string>('')
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
 
     const inputAddr = ref.controlEl.value
-    console.log(inputAddr)
     const locale = await osmGeocode(inputAddr)
     setLocale(locale)
-    const result = await client.addLocale(locale)
-    console.log(result)
+    if (locale) {
+      setError('')
+      const result = await client.addLocale(locale)
+      console.log(result)
+    } else {
+      setError(`No address found for "${inputAddr}"`)
+    }
   }
 
   return <Form onSubmit={handleSubmit}>
@@ -34,6 +39,8 @@ export const InitialForm: React.StatelessComponent = () => {
       defaultValue={defaultAddr}
     />
     <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
-    {locale ? <p>You live in {locale.county}, {locale.state}.</p> : null}
+    {locale ?
+      <p>You live in {locale.county}, {locale.state}.</p> :
+      (error ? <p>{error}</p> : null)}
   </Form>
 }

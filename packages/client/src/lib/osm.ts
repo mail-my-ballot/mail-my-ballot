@@ -1,21 +1,30 @@
 import { RawLocale } from "../common"
 
-export const osmGeocode = async (queryAddr: string): Promise<RawLocale> => {
-  const result = await fetch(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`)
-  const json = await result.json()
-  const fullAddr: string = json[0].display_name
+const getJson = async <T>(url: string): Promise<T> => {
+  const result = await fetch(url)
+  return await result.json()
+}
 
-  // The above returns a long list, like the one below
-  // 301, North Olive Avenue, Palm Beach Lakes, West Palm Beach, Palm Beach County, Florida, 33401, United States of America
+export const osmGeocode = async (queryAddr: string): Promise<RawLocale | null> => {
+  const obj = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`))[0]
+  if (!obj) {
+    return null
+  }
+  const osmId = obj.osm_type[0].toUpperCase() + obj.osm_id
+  const detail = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/lookup?osm_ids=${osmId}&format=json`))[0]
+  if (!detail) {
+    return null
+  }
+  const { address } = detail
+  const { country, state, postcode, county, city } = address
 
-  const parts = fullAddr.split(',')
   return {
     queryAddr,
-    fullAddr,
-    country: parts[parts.length - 1].trim(),
-    zip: parts[parts.length - 2].trim(),
-    state: parts[parts.length - 3].trim(),
-    county: parts[parts.length - 4].trim(),
-    city: parts[parts.length - 5].trim(),
+    fullAddr: obj.display_name,
+    country,
+    zip: postcode,
+    state,
+    county,
+    city,
   }
 }
