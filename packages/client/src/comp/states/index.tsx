@@ -6,6 +6,6 @@ export const StateForm = ({locale}: {locale: Locale}) => {
   if (locale.state === 'Florida') {
     return <Florida locale={locale}/>
   } else {
-    return <p>Coming soon for your state!</p>
+    return <p>You live in {locale.county}, {locale.state}.  This is coming soon for {locale.state}!</p>
   }
 }
