@@ -4,13 +4,15 @@ import Form from 'muicss/lib/react/form'
 import { SubmitButton } from '../util/Button'
 import { MyInput } from '../util/Input'
 import { floridaCounties } from '../../common/data/florida'
-import { FloridaInfo } from '../../common/index'
+import { FloridaInfo, toUspsAddress } from '../../common/index'
 import { BareLocale } from '../../lib/type'
 import { client } from '../../lib/trpc'
+import { AddressContainer } from '../../lib/state'
 
 export const Florida = ({locale}: {locale: BareLocale}) => {
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]
+  const { address } = AddressContainer.useContainer()
   let nameRef: HTMLInputElement | null
   let birthdateRef: HTMLInputElement | null
   let emailRef: HTMLInputElement | null
@@ -18,11 +20,16 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
+    if (!address) return  // TODO: Add warning
+    const uspsAddress = new Array(toUspsAddress(address)).join(', ')
+
     const info: FloridaInfo = {
+      state: 'Florida',
       name: nameRef?.value!,
       birthdate: birthdateRef?.value!,
       email: emailRef?.value!,
-      address: 'foo',
+      addressId: address.id!,
+      uspsAddress,
     }
     const result = await client.register(info)
     if (result.type === 'data') {

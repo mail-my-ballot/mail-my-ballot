@@ -18,11 +18,33 @@ export interface Address extends _Id {
   county: string
 }
 
-export interface FloridaInfo extends _Id {
+export const toUspsAddress = (
+  {
+    houseNumber,
+    road,
+    unit,
+    city,
+    state,
+    postcode
+  }: Address
+): [string, string] => {
+  return [
+    `${houseNumber} ${road} Unit ${unit}`,
+    `${city}, ${state} ${postcode}`
+  ]
+}
+
+interface BaseInfo {
+  state: string
+  addressId: string
+}
+
+export interface FloridaInfo extends _Id, BaseInfo {
+  state: 'Florida'
   name: string
   birthdate: string
   email: string
-  address: string
+  uspsAddress: string
 }
 
 export type RegistrationInfo = FloridaInfo
