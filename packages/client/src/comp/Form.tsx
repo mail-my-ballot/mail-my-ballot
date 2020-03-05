@@ -1,10 +1,10 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
-import Input from 'muicss/lib/react/input'
 
 import { useHistory } from 'react-router-dom'
 
 import { osmGeocode } from '../lib/osm'
+import { MyInput } from './util/Input'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, LocaleContainer } from '../lib/state'
@@ -43,10 +43,10 @@ export const InitialForm: React.StatelessComponent = () => {
   return <>
     <Form onSubmit={handleSubmit}>
       <legend>Address</legend>
-      <Input
+      <MyInput
         label='Address'
         floatingLabel={true}
-        ref={el => ref = el ? ((el as any).controlEl as HTMLInputElement) : null}
+        inputRef={el => ref = el}
         defaultValue={defaultAddr}
       />
       <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
