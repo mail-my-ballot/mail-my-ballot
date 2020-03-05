@@ -13,7 +13,7 @@ import { StateForm } from './states/'
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
 export const InitialForm: React.StatelessComponent = () => {
-  let ref: any  // needs to be both `Input | null` and have undeclared value controlEl
+  let ref: HTMLInputElement | null
   const { setLocale } = LocaleContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
   const history = useHistory()
@@ -22,7 +22,9 @@ export const InitialForm: React.StatelessComponent = () => {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    const inputAddr = ref.controlEl.value
+    if (!ref) return
+
+    const inputAddr = ref.value
     startLoad()
     const newLocale = await osmGeocode(inputAddr)
     setLocale(newLocale)
@@ -44,7 +46,7 @@ export const InitialForm: React.StatelessComponent = () => {
       <Input
         label='Address'
         floatingLabel={true}
-        ref={el => ref = el}
+        ref={el => ref = el ? ((el as any).controlEl as HTMLInputElement) : null}
         defaultValue={defaultAddr}
       />
       <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
