@@ -49,9 +49,6 @@ const _DevBox = () => {
         setSum(result.data)
         break
       }
-      default: {
-        console.log('error')
-      }
     }
   })
 
