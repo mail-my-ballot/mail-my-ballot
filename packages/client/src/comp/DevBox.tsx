@@ -40,9 +40,9 @@ const ObjectTable = ({ obj, title }: React.PropsWithChildren<{obj: Object | null
     </Section>
 }
 
-const _DevBox = () => {
+const CheckAdd = () => {
   const [sum, setSum] = React.useState(0)
-  const { address } = AddressContainer.useContainer()
+
   client.add(2, 3).then(result => {
     switch (result.type) {
       case 'data': {
@@ -52,13 +52,21 @@ const _DevBox = () => {
     }
   })
 
+  return (
+    <Section>
+      <h4>Checking Add</h4>
+      <p>2 + 3 = {sum}</p>
+    </Section>
+  )
+}
+
+const _DevBox = () => {
+  const { address } = AddressContainer.useContainer()
+
   return <DevOutline>
     <h2>Dev Box</h2>
     <p>This only appears in development</p>
-    <Section>
-      <h4>Checking add</h4>
-      <p>2 + 3 = {sum}</p>
-    </Section>
+    <CheckAdd/>
     <ObjectTable title='Process Env' obj={process.env}/>
     <ObjectTable title='Address' obj={address}/>
   </DevOutline>
