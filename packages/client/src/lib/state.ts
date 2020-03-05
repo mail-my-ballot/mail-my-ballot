@@ -1,13 +1,13 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
-import { Locale } from '../common'
+import { Address } from '../common'
 
-const useLocaleContainer = (initialState: (Locale | null) = null) => {
-  const [locale, setLocale] = React.useState<Locale | null>(initialState)
-  return { locale, setLocale }
+const useAddressContainer = (initialState: (Address | null) = null) => {
+  const [address, setAddress] = React.useState<Address | null>(initialState)
+  return { address, setAddress }
 }
 
-export const LocaleContainer = createContainer(useLocaleContainer)
+export const AddressContainer = createContainer(useAddressContainer)
 
 const initialQueryState = {errMsg: '', isLoading: false}
 

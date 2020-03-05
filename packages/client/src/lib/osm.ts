@@ -1,11 +1,11 @@
-import { WithoutId, Locale } from "../common"
+import { WithoutId, Address } from "../common"
 
 const getJson = async <T>(url: string): Promise<T> => {
   const result = await fetch(url)
   return await result.json()
 }
 
-export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Locale> | null> => {
+export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Address> | null> => {
   const obj = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`))[0]
   if (!obj) {
     return null

@@ -7,14 +7,14 @@ import { osmGeocode } from '../lib/osm'
 import { MyInput } from './util/Input'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { QueryContainer, LocaleContainer } from '../lib/state'
+import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/'
 
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
 export const InitialForm: React.StatelessComponent = () => {
   let ref: HTMLInputElement | null
-  const { setLocale } = LocaleContainer.useContainer()
+  const { setAddress } = AddressContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
   const history = useHistory()
 
@@ -27,12 +27,12 @@ export const InitialForm: React.StatelessComponent = () => {
     const inputAddr = ref.value
     startLoad()
     const newLocale = await osmGeocode(inputAddr)
-    setLocale(newLocale)
+    setAddress(newLocale)
     if (newLocale) {
       clearError()
       const result = await client.addLocale(newLocale)
       if (result.type === 'data') {
-        setLocale({...newLocale, id: result.data})
+        setAddress({...newLocale, id: result.data})
         history.push(`/${newLocale.state}/${newLocale.county}`)
       }
     } else {

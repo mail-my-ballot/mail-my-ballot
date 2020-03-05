@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { client } from './lib/trpc'
 import { InitialForm } from './comp/Form'
-import { QueryContainer, LocaleContainer } from './lib/state'
+import { QueryContainer, AddressContainer } from './lib/state'
 import { BrowserRouter } from "react-router-dom"
 
 const AppContainer = styled(Container)`
@@ -14,9 +14,9 @@ const AppContainer = styled(Container)`
 const StateContainer = (props: React.PropsWithChildren<{}>) => (
   <BrowserRouter>
     <QueryContainer.Provider>
-      <LocaleContainer.Provider>
+      <AddressContainer.Provider>
         {props.children}
-      </LocaleContainer.Provider>
+      </AddressContainer.Provider>
     </QueryContainer.Provider>
   </BrowserRouter>
 )

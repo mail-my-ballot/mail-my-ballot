@@ -5,7 +5,7 @@ export interface _Id {
   id?: string
 }
 
-export interface Locale extends _Id {
+export interface Address extends _Id {
   queryAddr: string
   fullAddr: string
   country: string
@@ -29,7 +29,7 @@ export type WithId<T extends _Id> = WithoutId<T> & {id: string}
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
-  addLocale(locale: WithoutId<Locale>): Promise<RpcRet<string>>
+  addLocale(address: WithoutId<Address>): Promise<RpcRet<string>>
   register(info: RegistrationInfo): Promise<RpcRet<string>>
 }
 
