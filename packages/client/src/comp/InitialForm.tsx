@@ -1,5 +1,7 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
+import Row from 'muicss/lib/react/row'
+import Col from 'muicss/lib/react/col'
 
 import { useHistory } from 'react-router-dom'
 
@@ -9,6 +11,7 @@ import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states'
+
 
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
@@ -47,17 +50,23 @@ export const InitialForm: React.StatelessComponent = () => {
   return <>
     <Form onSubmit={handleSubmit}>
       <legend>Enter your address to see if you can Vote by Mail</legend>
-      <MyInput
-        label='Address (without Apt or Unit #)'
-        floatingLabel={true}
-        inputRef={el => addrRef = el}
-        defaultValue={defaultAddr}
-      />
-      <MyInput
-        label='Unit #'
-        floatingLabel={true}
-        inputRef={el => unitRef = el}
-      />
+      <Row>
+        <Col sm={10} xs={12}>
+          <MyInput
+            label='Address (without Apt or Unit #)'
+            floatingLabel={true}
+            inputRef={el => addrRef = el}
+            defaultValue={defaultAddr}
+          />
+        </Col>
+        <Col sm={2} xs={12}>
+          <MyInput
+            label='Unit #'
+            floatingLabel={true}
+            inputRef={el => unitRef = el}
+          />
+        </Col>
+      </Row>
       <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
     </Form>
     <StateForm />
