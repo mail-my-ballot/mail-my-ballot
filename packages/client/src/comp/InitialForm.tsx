@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 import { osmGeocode } from '../lib/osm'
 import { MyInput } from './util/Input'
-import { SubmitButton } from './util/Button'
+import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
@@ -65,7 +65,7 @@ export const InitialForm: React.StatelessComponent = () => {
           />
         </Col>
       </Row>
-      <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
+      <RoundedButton color='primary' variant='raised'>Can I vote by Mail?</RoundedButton>
     </Form>
     <StateForm />
   </>

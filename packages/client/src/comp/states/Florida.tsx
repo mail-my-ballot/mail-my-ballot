@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
 
-import { SubmitButton } from '../util/Button'
+import { RoundedButton } from '../util/Button'
 import { MyInput } from '../util/Input'
 import { floridaCounties } from '../../common/data/florida'
 import { FloridaInfo, uspsAddressOneLine } from '../../common/index'
@@ -63,6 +63,6 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       inputRef={el => emailRef = el}
       required
     />
-    <SubmitButton color='primary' variant='raised'>Receive my Registration email</SubmitButton>
+    <RoundedButton color='primary' variant='raised'>Receive my Registration email</RoundedButton>
   </Form>
 }
