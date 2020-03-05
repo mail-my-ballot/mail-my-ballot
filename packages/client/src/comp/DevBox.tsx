@@ -9,7 +9,7 @@ const DevOutline = styled.div`
   border-style: solid;
   border-width: thin;
   padding: 2em;
-  margin-top: 2em;
+  margin: 2em 0em;
 `
 
 const Section = styled.div`
