@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { client } from './lib/trpc'
 import { InitialForm } from './comp/Form'
 import { QueryContainer, LocaleContainer } from './lib/state'
-import { StateForm } from './comp/states'
 import { BrowserRouter } from "react-router-dom"
 
 const AppContainer = styled(Container)`
@@ -38,7 +37,6 @@ const Layout = () => {
   return (
     <AppContainer>
       <InitialForm/>
-      <StateForm/>
       <div>
         Learn React {sum}
       </div>
