@@ -16,15 +16,31 @@ export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Address> 
     return null
   }
   const { address } = detail
-  const { country, state, postcode, county, city } = address
+  const apartment = ''
+  const {
+    house_number,
+    road,
+    city,
+    state,
+    postcode,
+    country,
+    county
+  } = address
+
+  // OSM is often missing the house number on response.  So we'll infer it
+  const fullAddr = obj.display_name
+  const houseNumber = house_number ? house_number : fullAddr.split(',')[0].trim()
 
   return {
     queryAddr,
-    fullAddr: obj.display_name,
-    country,
-    zip: postcode,
-    state,
-    county,
+    fullAddr,
+    houseNumber,
+    road,
+    apartment,
     city,
+    state,
+    postcode,
+    country,
+    county,
   }
 }

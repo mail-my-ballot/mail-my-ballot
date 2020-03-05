@@ -8,11 +8,14 @@ export interface _Id {
 export interface Address extends _Id {
   queryAddr: string
   fullAddr: string
-  country: string
-  zip: string
-  state: string
-  county: string
+  houseNumber: string,
+  road: string,
+  apartment: string,
   city: string
+  state: string
+  postcode: string
+  country: string
+  county: string
 }
 
 export interface FloridaInfo extends _Id {

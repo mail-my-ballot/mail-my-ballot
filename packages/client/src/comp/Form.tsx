@@ -33,6 +33,7 @@ export const InitialForm: React.StatelessComponent = () => {
       const result = await client.addLocale(newLocale)
       if (result.type === 'data') {
         setAddress({...newLocale, id: result.data})
+        console.log(newLocale)
         history.push(`/${newLocale.state}/${newLocale.county}`)
       }
     } else {
