@@ -8,8 +8,11 @@ import { FloridaInfo, uspsAddressOneLine } from '../../common/index'
 import { BareLocale } from '../../lib/type'
 import { client } from '../../lib/trpc'
 import { AddressContainer } from '../../lib/state'
+import { useHistory } from 'react-router-dom'
 
 export const Florida = ({locale}: {locale: BareLocale}) => {
+  const history = useHistory()
+
   let nameRef: HTMLInputElement | null
   let birthdateRef: HTMLInputElement | null
   let emailRef: HTMLInputElement | null
@@ -34,8 +37,9 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
     }
     const result = await client.register(info)
     if (result.type === 'data') {
-      console.log(result.data)
+      history.push(`/success#${result.data}`)
     }
+    // TODO: Add warning if error
   }
 
   return <Form onSubmit={handleSubmit}>

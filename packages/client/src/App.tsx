@@ -2,10 +2,12 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 import { BrowserRouter } from "react-router-dom"
+import { Switch, Route } from "react-router-dom"
 
 import { InitialForm } from './comp/InitialForm'
 import { DevBox } from './comp/DevBox'
 import { QueryContainer, AddressContainer } from './lib/state'
+import { Success } from './comp/Success'
 
 
 const AppContainer = styled(Container)`
@@ -25,8 +27,16 @@ const StateContainer = (props: React.PropsWithChildren<{}>) => (
 const Layout = () => {
   return (
     <AppContainer>
-      <InitialForm/>
-      <DevBox/>
+      <Switch>
+        <Route path='/success'>
+          <Success/>
+        </Route>
+        <Route path='/'>
+          <InitialForm/>
+          <DevBox/>
+        </Route>
+      </Switch>
+
     </AppContainer>
   )
 }
