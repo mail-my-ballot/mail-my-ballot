@@ -18,7 +18,7 @@ export interface Address extends _Id {
   county: string
 }
 
-export const toUspsAddress = (
+export const uspsAddressTwoLines = (
   {
     houseNumber,
     road,
@@ -29,9 +29,14 @@ export const toUspsAddress = (
   }: Address
 ): [string, string] => {
   return [
-    `${houseNumber} ${road} Unit ${unit}`,
+    `${houseNumber} ${road}` + (unit ? ` Unit ${unit}` : ''),
     `${city}, ${state} ${postcode}`
   ]
+}
+
+export const uspsAddressOneLine = (address: Address): string => {
+  const [x, y] = uspsAddressTwoLines(address)
+  return x + ', ' + y
 }
 
 interface BaseInfo {
