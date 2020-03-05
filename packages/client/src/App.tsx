@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { client } from './lib/trpc'
 import { InitialForm } from './comp/Form'
 import { QueryContainer, LocaleContainer } from './lib/state'
+import { StateForm } from './comp/states'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 const AppContainer = styled(Container)`
   margin-top: 2em
@@ -34,24 +36,24 @@ const Layout = () => {
     }
   })
   return (
-    <QueryContainer.Provider>
-      <LocaleContainer.Provider>
-        <AppContainer>
-          <InitialForm/>
-          <div>
-            Learn React {sum}
-          </div>
-          <div>
-            Variable {process.env.REACT_APP_SERVER}
-          </div>
-          <div>
-            Variable 2 {process.env.NODE_ENV}
-          </div>
-
-        </AppContainer>
-      </LocaleContainer.Provider>
-    </QueryContainer.Provider>
-  );
+    <AppContainer>
+      <InitialForm/>
+      <Switch>
+        <Route path={`/:state/:county`}>
+          <StateForm/>
+        </Route>
+      </Switch>
+      <div>
+        Learn React {sum}
+      </div>
+      <div>
+        Variable {process.env.REACT_APP_SERVER}
+      </div>
+      <div>
+        Variable 2 {process.env.NODE_ENV}
+      </div>
+    </AppContainer>
+  )
 }
 
 const App = () => (
