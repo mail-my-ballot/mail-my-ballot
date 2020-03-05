@@ -25,7 +25,7 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       address: 'foo',
     }
     const result = await client.register(info)
-    if (result.type == 'data') {
+    if (result.type === 'data') {
       console.log(result.data)
     }
   }
