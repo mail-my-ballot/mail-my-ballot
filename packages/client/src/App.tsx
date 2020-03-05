@@ -1,11 +1,12 @@
 import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
-
-import { client } from './lib/trpc'
-import { InitialForm } from './comp/InitialForm'
-import { QueryContainer, AddressContainer } from './lib/state'
 import { BrowserRouter } from "react-router-dom"
+
+import { InitialForm } from './comp/InitialForm'
+import { DevBox } from './comp/DevBox'
+import { QueryContainer, AddressContainer } from './lib/state'
+
 
 const AppContainer = styled(Container)`
   margin-top: 2em
@@ -22,30 +23,10 @@ const StateContainer = (props: React.PropsWithChildren<{}>) => (
 )
 
 const Layout = () => {
-  const [sum, setSum] = React.useState(0)
-  client.add(2, 3).then(result => {
-    switch (result.type) {
-      case 'data': {
-        setSum(result.data)
-        break
-      }
-      default: {
-        console.log('error')
-      }
-    }
-  })
   return (
     <AppContainer>
       <InitialForm/>
-      <div>
-        Learn React {sum}
-      </div>
-      <div>
-        Variable {process.env.REACT_APP_SERVER}
-      </div>
-      <div>
-        Variable 2 {process.env.NODE_ENV}
-      </div>
+      <DevBox/>
     </AppContainer>
   )
 }
