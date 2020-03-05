@@ -3,7 +3,7 @@ import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
 import { client } from './lib/trpc'
-import { InitialForm } from './comp/Form'
+import { InitialForm } from './comp/InitialForm'
 import { QueryContainer, AddressContainer } from './lib/state'
 import { BrowserRouter } from "react-router-dom"
 
