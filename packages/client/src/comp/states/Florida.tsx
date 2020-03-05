@@ -3,7 +3,6 @@ import Form from 'muicss/lib/react/form'
 
 import { SubmitButton } from '../util/Button'
 import { MyInput } from '../util/Input'
-import { DateInput } from '../util/DateInput'
 import { floridaCounties } from '../../common/data/florida'
 import { BareLocale } from '../../lib/type'
 
