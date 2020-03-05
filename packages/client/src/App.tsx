@@ -6,7 +6,7 @@ import { client } from './lib/trpc'
 import { InitialForm } from './comp/Form'
 import { QueryContainer, LocaleContainer } from './lib/state'
 import { StateForm } from './comp/states'
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 
 const AppContainer = styled(Container)`
   margin-top: 2em
@@ -38,11 +38,7 @@ const Layout = () => {
   return (
     <AppContainer>
       <InitialForm/>
-      <Switch>
-        <Route path={`/:state/:county`}>
-          <StateForm/>
-        </Route>
-      </Switch>
+      <StateForm/>
       <div>
         Learn React {sum}
       </div>

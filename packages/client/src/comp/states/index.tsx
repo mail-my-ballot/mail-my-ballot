@@ -1,11 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Switch, Route } from "react-router-dom"
 
 import { Florida } from './Florida'
 import { BareLocale } from '../../lib/type'
 
 
-export const StateForm = () => {
+const StateFormChooser = () => {
   const locale = useParams<BareLocale>()
   if (locale.state === 'Florida') {
     return <Florida locale={locale}/>
@@ -15,3 +15,11 @@ export const StateForm = () => {
     return null
   }
 }
+
+export const StateForm = () => (
+  <Switch>
+    <Route path={`/:state/:county`}>
+      <StateFormChooser/>
+    </Route>
+  </Switch>
+)
