@@ -10,7 +10,7 @@ export interface Address extends _Id {
   fullAddr: string
   houseNumber: string,
   road: string,
-  apartment: string,
+  unit: string,
   city: string
   state: string
   postcode: string

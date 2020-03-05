@@ -5,7 +5,7 @@ const getJson = async <T>(url: string): Promise<T> => {
   return await result.json()
 }
 
-export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Address> | null> => {
+export const osmGeocode = async (queryAddr: string, unit: string): Promise<WithoutId<Address> | null> => {
   const obj = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`))[0]
   if (!obj) {
     return null
@@ -16,7 +16,6 @@ export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Address> 
     return null
   }
   const { address } = detail
-  const apartment = ''
   const {
     house_number,
     road,
@@ -36,7 +35,7 @@ export const osmGeocode = async (queryAddr: string): Promise<WithoutId<Address> 
     fullAddr,
     houseNumber,
     road,
-    apartment,
+    unit,
     city,
     state,
     postcode,

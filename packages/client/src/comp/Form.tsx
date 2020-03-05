@@ -13,7 +13,8 @@ import { StateForm } from './states/'
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
 
 export const InitialForm: React.StatelessComponent = () => {
-  let ref: HTMLInputElement | null
+  let addrRef: HTMLInputElement | null
+  let unitRef: HTMLInputElement | null
   const { setAddress } = AddressContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
   const history = useHistory()
@@ -22,11 +23,13 @@ export const InitialForm: React.StatelessComponent = () => {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!ref) return
+    if (!addrRef) return
+    if (!unitRef) return
 
-    const inputAddr = ref.value
+    const inputAddr = addrRef.value
+
     startLoad()
-    const newLocale = await osmGeocode(inputAddr)
+    const newLocale = await osmGeocode(inputAddr, unitRef.value)
     setAddress(newLocale)
     if (newLocale) {
       clearError()
@@ -43,12 +46,17 @@ export const InitialForm: React.StatelessComponent = () => {
 
   return <>
     <Form onSubmit={handleSubmit}>
-      <legend>Address</legend>
+      <legend>Enter your address to see if you can Vote by Mail</legend>
       <MyInput
-        label='Address'
+        label='Address (without Apt or Unit #)'
         floatingLabel={true}
-        inputRef={el => ref = el}
+        inputRef={el => addrRef = el}
         defaultValue={defaultAddr}
+      />
+      <MyInput
+        label='Unit #'
+        floatingLabel={true}
+        inputRef={el => unitRef = el}
       />
       <SubmitButton color='primary' variant='raised'>Can I vote by Mail?</SubmitButton>
     </Form>
