@@ -26,8 +26,7 @@ export const InitialForm: React.StatelessComponent = () => {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!addrRef) return
-    if (!unitRef) return
+    if (!addrRef || !unitRef) return
 
     const inputAddr = addrRef.value
 
