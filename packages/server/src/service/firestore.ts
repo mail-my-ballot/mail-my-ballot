@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, WithoutId, Locale } from '../common'
+import { processEnvOrThrow, WithoutId, Locale, RegistrationInfo } from '../common'
 
 export class FirestoreService {
   db: admin.firestore.Firestore
@@ -18,6 +18,11 @@ export class FirestoreService {
 
   async addLocale(locale: WithoutId<Locale>): Promise<string> {
     const doc = await this.db.collection('Locale').add(locale)
+    return doc.id
+  }
+
+  async addRegistration(info: RegistrationInfo): Promise<string> {
+    const doc = await this.db.collection('RegistrationInfo').add(info)
     return doc.id
   }
 }

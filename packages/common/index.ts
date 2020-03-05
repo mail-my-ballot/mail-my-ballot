@@ -15,12 +15,22 @@ export interface Locale extends _Id {
   city: string
 }
 
+export interface FloridaInfo extends _Id {
+  name: string
+  birthdate: string
+  email: string
+  address: string
+}
+
+export type RegistrationInfo = FloridaInfo
+
 export type WithoutId<T extends _Id> = Omit<T, 'id'>
 export type WithId<T extends _Id> = WithoutId<T> & {id: string}
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
   addLocale(locale: WithoutId<Locale>): Promise<RpcRet<string>>
+  register(info: RegistrationInfo): Promise<RpcRet<string>>
 }
 
 export function processEnvOrThrow(key: string): string {

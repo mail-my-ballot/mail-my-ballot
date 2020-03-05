@@ -4,19 +4,30 @@ import Form from 'muicss/lib/react/form'
 import { SubmitButton } from '../util/Button'
 import { MyInput } from '../util/Input'
 import { floridaCounties } from '../../common/data/florida'
+import { FloridaInfo } from '../../common/index'
 import { BareLocale } from '../../lib/type'
+import { client } from '../../lib/trpc'
 
 export const Florida = ({locale}: {locale: BareLocale}) => {
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]
-  let nameInput: HTMLInputElement | null
-  let birthdateInput: HTMLInputElement | null
-  let emailInput: HTMLInputElement | null
+  let nameRef: HTMLInputElement | null
+  let birthdateRef: HTMLInputElement | null
+  let emailRef: HTMLInputElement | null
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    console.log('hi')
+    const info: FloridaInfo = {
+      name: nameRef?.value!,
+      birthdate: birthdateRef?.value!,
+      email: emailRef?.value!,
+      address: 'foo',
+    }
+    const result = await client.register(info)
+    if (result.type == 'data') {
+      console.log(result.data)
+    }
   }
 
   return <Form onSubmit={handleSubmit}>
@@ -28,20 +39,20 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       label='Name'
       type='text'
       floatingLabel={true}
-      inputRef={el => nameInput = el}
+      inputRef={el => nameRef = el}
       required
     />
     <MyInput
       label='Birthdate (mm/dd/yyyy)'
       type='date'
-      inputRef={el => birthdateInput = el}
+      inputRef={el => birthdateRef = el}
       required
     />
     <MyInput
       label='Email'
       type='email'
       floatingLabel={true}
-      inputRef={el => emailInput = el}
+      inputRef={el => emailRef = el}
       required
     />
     <SubmitButton color='primary' variant='raised'>Receive my Registration email</SubmitButton>
