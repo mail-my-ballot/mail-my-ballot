@@ -4,10 +4,11 @@ import Input from 'muicss/lib/react/input'
 
 import { SubmitButton } from '../util/Button'
 import { floridaCounties } from '../../common/data/florida'
-import { Locale } from '../../common'
+import { BareLocale } from '../../lib/type'
 
-export const Florida = ({locale}: {locale: Locale}) => {
-  const { name, email } = floridaCounties[locale.county]
+export const Florida = ({locale}: {locale: BareLocale}) => {
+  const { county, state } = locale
+  const { name, email } = floridaCounties[county]
   let ref: any  // eslint-disable-line @typescript-eslint/no-unused-vars
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -17,8 +18,15 @@ export const Florida = ({locale}: {locale: Locale}) => {
   }
 
   return <Form onSubmit={handleSubmit}>
-    <p>You live in {locale.county}, {locale.state}.  Your county elections official is {name} and can be reached at {email}</p>
+    <h2>Great News!  You can Vote by Mail</h2>
+    <p>You live in {county}, {state}.
+    Your county elections official is {name} and can be reached at {email}</p>
     <legend>Vote by Mail Florida Application</legend>
+    <Input
+      label='Email'
+      floatingLabel={true}
+      ref={el => ref = el}
+    />
     <Input
       label='Email'
       floatingLabel={true}

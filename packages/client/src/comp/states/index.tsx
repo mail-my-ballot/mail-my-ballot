@@ -1,8 +1,8 @@
 import React from 'react'
 import { Florida } from './Florida'
-import { Locale } from '../../common'
+import { BareLocale } from '../../lib/type'
 
-export const StateForm = ({locale}: {locale: Locale}) => {
+export const StateForm = ({locale}: {locale: BareLocale}) => {
   if (locale.state === 'Florida') {
     return <Florida locale={locale}/>
   } else {
