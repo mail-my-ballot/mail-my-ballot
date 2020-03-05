@@ -10,7 +10,7 @@ import { MyInput } from './util/Input'
 import { SubmitButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
-import { StateForm } from './states'
+import { StateForm } from './states/StateForm'
 
 
 const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
