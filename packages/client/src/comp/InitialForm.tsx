@@ -3,8 +3,6 @@ import Form from 'muicss/lib/react/form'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 
-import { useHistory } from 'react-router-dom'
-
 import { osmGeocode } from '../lib/osm'
 import { MyInput } from './util/Input'
 import { RoundedButton } from './util/Button'
