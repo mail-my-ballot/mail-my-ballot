@@ -40,7 +40,8 @@
     "firebase-admin": "^8.9.2",
     "mailgun-js": "^0.22.0",
     "marked": "^0.8.0",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "strip-indent": "^3.0.0"
   },
   "jest": {
     "transform": {

@@ -1,8 +1,8 @@
-import * as Express from 'express';
-import * as Morgan from 'morgan';
+import Express from 'express';
+import Morgan from 'morgan';
 import { Request, Response } from 'express';
 import { AddressInfo } from 'net';
-import * as cors from 'cors'
+import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
 import { processEnvOrThrow } from './common'
