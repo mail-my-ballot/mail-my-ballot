@@ -2,7 +2,7 @@ import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { IVbmRpc, WithoutId, Address, RegistrationInfo } from '../common'
 import { firestoreService } from './firestore'
 import { sendMdEmail } from './mg'
-import { toEmail } from './states'
+import { toEmailData } from './states'
 
 export class VbmRpc implements IVbmRpc {
   public add = async (x: number, y: number) => data(x + y)
@@ -12,7 +12,7 @@ export class VbmRpc implements IVbmRpc {
   }
   public register = async (info: RegistrationInfo) => {
     const id = await firestoreService.addRegistration(info)
-    const emailData = toEmail(info)
+    const emailData = toEmailData(info)
     if (emailData) {
       await sendMdEmail(emailData)
       return data(id)

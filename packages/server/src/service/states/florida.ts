@@ -4,7 +4,7 @@ import stripIndent from 'strip-indent'
 import { floridaCounties } from "../../common/data/florida";
 import { State } from './util'
 
-const toEmail = (
+const toEmailData = (
   {
     name,
     birthdate,
@@ -42,6 +42,6 @@ const toEmail = (
 }
 
 export const Florida: State = {
-  toEmail,
+  toEmailData,
   name: 'Florida'
 }

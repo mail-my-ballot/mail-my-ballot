@@ -2,7 +2,7 @@ import { Router} from 'express'
 import marked from 'marked'
 
 import { firestoreService } from './firestore'
-import { toEmail } from './states'
+import { toEmailData } from './states'
 
 
 const router = Router()
@@ -15,7 +15,7 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  const emailData = toEmail(info)
+  const emailData = toEmailData(info)
 
   if (!emailData) {
     res.send('No email data supplied for this entry')
