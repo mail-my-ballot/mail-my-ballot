@@ -13,15 +13,26 @@ const _toEmailData = (info: RegistrationInfo): EmailData | null => {
   }
 }
 
-export const toEmailData = (info: RegistrationInfo): EmailData | null => {
+interface Options {
+  mockProduction: boolean
+}
+
+const defaultOptions = {
+  mockProduction: false
+}
+
+export const toEmailData = (
+  info: RegistrationInfo,
+  { mockProduction }: Options = defaultOptions
+): EmailData | null => {
   const emailData = _toEmailData(info)
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || mockProduction) {
     return emailData
   } else {
     if (!emailData) return emailData
     return {
       ...emailData,
-      to: info.email,
+      to: [info.email],
     }
   }
 }

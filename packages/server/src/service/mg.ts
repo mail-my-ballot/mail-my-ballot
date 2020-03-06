@@ -9,7 +9,7 @@ const mgData = () => ({
 })
 
 export interface EmailData {
-  to: string | string[]
+  to: string[]
   subject: string
   md: string
 }

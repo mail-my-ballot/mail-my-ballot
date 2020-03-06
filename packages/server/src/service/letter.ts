@@ -1,4 +1,5 @@
 import { Router} from 'express'
+import stripIndent from 'strip-indent'
 import marked from 'marked'
 
 import { firestoreService } from './firestore'
@@ -15,15 +16,21 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  const emailData = toEmailData(info)
+  const emailData = toEmailData(info, { mockProduction: true})
 
   if (!emailData) {
     res.send('No email data supplied for this entry')
     return
   }
 
-  const { md } = emailData
-  res.send(marked(md))
+  const { to, subject, md } = emailData
+  const header = stripIndent(`
+  ## Header Information
+  - To: ${(to).join(', ')}
+  - Subject: ${subject}
+  ----
+  `)
+  res.send(marked(header + md))
 })
 
 export default router
