@@ -13,7 +13,8 @@ import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 
 export const AppContainer = styled(Container)`
-  padding-top: 4em
+  padding-top: 4em;
+  min-height: 100vh;
 `
 
 const StateContainer = (props: React.PropsWithChildren<{}>) => (
@@ -38,7 +39,7 @@ const Layout = () => {
           <InitialForm/>
         </Route>
       </Switch>
-      <DevInfo/>
+      {/* <DevInfo/> */}
       <WarningMsg/>
     </AppContainer>
   </>)

@@ -51,7 +51,7 @@ export const Blurb = (props: React.PropsWithChildren<{}>) => {
   return <Background>
     <Container>
       <Row>
-        <Col lg={6} lg-offset={6}>
+        <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={6}>
           <FlexBox>
             <Title>Vote by Mail</Title>
             <Text>
