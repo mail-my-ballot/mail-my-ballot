@@ -36,8 +36,8 @@ const Layout = () => {
           <InitialForm/>
         </Route>
       </Switch>
-      <WarningMsg/>
       <DevInfo/>
+      <WarningMsg/>
     </AppContainer>
   )
 }
