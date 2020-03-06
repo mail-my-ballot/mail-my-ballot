@@ -20,7 +20,6 @@ export const InitialForm: React.StatelessComponent = () => {
   let unitRef: HTMLInputElement | null
   const { setAddress } = AddressContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
-  const history = useHistory()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -38,7 +37,6 @@ export const InitialForm: React.StatelessComponent = () => {
       const result = await client.addLocale(newLocale)
       if (result.type === 'data') {
         setAddress({...newLocale, id: result.data})
-        // history.push(`/${newLocale.state}/${newLocale.county}`)
       }
     } else {
       setError(`No address found for "${inputAddr}"`)
