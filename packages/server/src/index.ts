@@ -20,7 +20,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
 });
 
-app.use('/letter', letter)
+if (process.env.NODE_ENV === 'development') {
+  app.use('/letter', letter)
+}
 
 registerExpressHandler(app, new VbmRpc())
 
