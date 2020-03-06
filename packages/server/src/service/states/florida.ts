@@ -1,15 +1,24 @@
-import { FloridaInfo } from "../../common"
+import { FloridaInfo } from "../../common";
+import { MdEmailData } from "../mg";
 import stripIndent from 'strip-indent'
+import { floridaCounties } from "../../common/data/florida";
+import { State } from './util'
 
-export const md = (
+const toEmail = (
   {
     name,
     birthdate,
     email,
     uspsAddress,
+    county,
   }: FloridaInfo
-): string => {
-  return stripIndent(`
+): MdEmailData => {
+  const to = [
+    email,
+    floridaCounties[county].email,
+  ]
+
+  const md = stripIndent(`
   Dear County Supervisor of Elections,
 
   I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
@@ -24,4 +33,15 @@ export const md = (
 
   ${name}
   `)
+
+  return {
+    to,
+    subject: 'Vote By Mail Request',
+    md,
+  }
+}
+
+export const Florida: State = {
+  toEmail,
+  name: 'Florida'
 }

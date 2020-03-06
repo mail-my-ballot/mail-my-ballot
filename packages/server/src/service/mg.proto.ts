@@ -1,9 +1,9 @@
-import { sendEmail } from './mg'
+import { sendMdEmail } from './mg'
 
-sendEmail(
-	"tianhui.michael.li@gmail.com",
-	"Hello",
-	"**This is a test**",
-).then(
+sendMdEmail({
+	to: "tianhui.michael.li@gmail.com",
+	subject: "Hello",
+	md: "**This is a test**",
+}).then(
   (value) => console.log(value)
 )
