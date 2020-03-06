@@ -53,7 +53,7 @@ const CheckAdd = () => {
   )
 }
 
-const _DevInfo = () => {
+const RawDevInfo = () => {
   const { address } = AddressContainer.useContainer()
 
   return <RedOutline>
@@ -67,7 +67,7 @@ const _DevInfo = () => {
 
 export const DevInfo = () => {
   if (process.env.NODE_ENV === 'development') {
-    return <_DevInfo/>
+    return <RawDevInfo/>
   } else {
     return null
   }
