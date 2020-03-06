@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
+
 import { BrowserRouter } from "react-router-dom"
 import { Switch, Route } from "react-router-dom"
 
@@ -9,10 +10,10 @@ import { DevInfo } from './comp/DevInfo'
 import { QueryContainer, AddressContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
+import { Blurb } from './comp/Blurb'
 
-
-const AppContainer = styled(Container)`
-  margin-top: 2em
+export const AppContainer = styled(Container)`
+  margin-top: 4em
 `
 
 const StateContainer = (props: React.PropsWithChildren<{}>) => (
@@ -26,7 +27,8 @@ const StateContainer = (props: React.PropsWithChildren<{}>) => (
 )
 
 const Layout = () => {
-  return (
+  return (<>
+    <Blurb/>
     <AppContainer>
       <Switch>
         <Route path='/success'>
@@ -39,7 +41,7 @@ const Layout = () => {
       <DevInfo/>
       <WarningMsg/>
     </AppContainer>
-  )
+  </>)
 }
 
 const App = () => (

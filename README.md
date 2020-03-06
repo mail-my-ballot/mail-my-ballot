@@ -27,3 +27,6 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 - [Console](https://console.cloud.google.com/home/dashboard?project=vbm-test-dev)
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
 
+## Asthetics
+- [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
+- [Gradient Codegen](https://cssgradient.io/)
