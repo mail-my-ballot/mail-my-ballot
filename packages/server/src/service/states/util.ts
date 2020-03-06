@@ -1,7 +1,7 @@
 import { RegistrationInfo } from "../../common";
-import { MdEmailData } from "../mg";
+import { EmailData } from "../mg";
 
 export interface State {
-  toEmail: (info: RegistrationInfo) => MdEmailData
+  toEmail: (info: RegistrationInfo) => EmailData
   name: string
 }

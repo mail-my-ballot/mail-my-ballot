@@ -12,9 +12,9 @@ export class VbmRpc implements IVbmRpc {
   }
   public register = async (info: RegistrationInfo) => {
     const id = await firestoreService.addRegistration(info)
-    const mdEmailData = toEmail(info)
-    if (mdEmailData) {
-      await sendMdEmail(mdEmailData)
+    const emailData = toEmail(info)
+    if (emailData) {
+      await sendMdEmail(emailData)
       return data(id)
     } else {
       return error('Unable to find an appropriate email to send')

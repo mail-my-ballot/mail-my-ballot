@@ -8,14 +8,14 @@ const mgData = () => ({
   from: processEnvOrThrow('MG_FROM_ADDR'),
 })
 
-export interface MdEmailData {
+export interface EmailData {
   to: string | string[]
   subject: string
   md: string
 }
 
 export const sendMdEmail = (
-  {to, subject, md}: MdEmailData
+  {to, subject, md}: EmailData
 ): Promise<mailgun.messages.SendResponse> => {
   const {domain, apiKey, from} = mgData()
   const mg = mailgun({domain, apiKey})

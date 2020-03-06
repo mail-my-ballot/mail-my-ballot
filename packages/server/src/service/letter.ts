@@ -15,14 +15,14 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  const mdEmailData = toEmail(info)
+  const emailData = toEmail(info)
 
-  if (!mdEmailData) {
+  if (!emailData) {
     res.send('No email data supplied for this entry')
     return
   }
 
-  const { md } = mdEmailData
+  const { md } = emailData
   res.send(marked(md))
 })
 

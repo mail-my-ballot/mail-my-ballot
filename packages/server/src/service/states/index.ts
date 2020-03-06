@@ -1,8 +1,8 @@
 import { RegistrationInfo } from "../../common";
-import { MdEmailData } from "../mg";
+import { EmailData } from "../mg";
 import { Florida } from './florida'
 
-const _toEmail = (info: RegistrationInfo): MdEmailData | null => {
+const _toEmail = (info: RegistrationInfo): EmailData | null => {
   switch(info.state) {
     case Florida.name: {
       return Florida.toEmail(info)
@@ -13,7 +13,7 @@ const _toEmail = (info: RegistrationInfo): MdEmailData | null => {
   }
 }
 
-export const toEmail = (info: RegistrationInfo): MdEmailData | null => {
+export const toEmail = (info: RegistrationInfo): EmailData | null => {
   const emailData = _toEmail(info)
   if (process.env.NODE_ENV === 'production') {
     return emailData
