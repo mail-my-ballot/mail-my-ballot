@@ -3,11 +3,11 @@ import * as Morgan from 'morgan';
 import { Request, Response } from 'express';
 import { AddressInfo } from 'net';
 import * as cors from 'cors'
+import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
 import { processEnvOrThrow } from './common'
-
+import letter from './service/letter'
 import { VbmRpc } from './service/trpc';
-import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
 const app = Express();
 
@@ -19,6 +19,8 @@ app.use(cors())
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
 });
+
+app.use('/letter', letter)
 
 registerExpressHandler(app, new VbmRpc())
 
