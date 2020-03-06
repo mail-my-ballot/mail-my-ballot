@@ -3,14 +3,7 @@ import styled from 'styled-components'
 
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/state'
-
-const DevOutline = styled.div`
-  border-color: red;
-  border-style: solid;
-  border-width: thin;
-  padding: 2em;
-  margin: 2em 0em;
-`
+import { RedOutline } from './util/RedOutline'
 
 const Section = styled.div`
   margin-top: 2em
@@ -63,13 +56,13 @@ const CheckAdd = () => {
 const _DevInfo = () => {
   const { address } = AddressContainer.useContainer()
 
-  return <DevOutline>
-    <h2>Dev Box</h2>
+  return <RedOutline>
+    <h2>Dev Info</h2>
     <p>This only appears in development</p>
     <CheckAdd/>
     <ObjectTable title='Process Env' obj={process.env}/>
     <ObjectTable title='Address' obj={address}/>
-  </DevOutline>
+  </RedOutline>
 }
 
 export const DevInfo = () => {
