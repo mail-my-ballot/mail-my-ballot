@@ -1,7 +1,7 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { IVbmRpc, WithoutId, Address, RegistrationInfo } from '../common'
 import { firestoreService } from './firestore'
-import { sendMdEmail } from './mg'
+import { sendEmail } from './mg'
 import { toEmailData } from './states'
 
 export class VbmRpc implements IVbmRpc {
@@ -14,7 +14,7 @@ export class VbmRpc implements IVbmRpc {
     const id = await firestoreService.addRegistration(info)
     const emailData = toEmailData(info)
     if (emailData) {
-      await sendMdEmail(emailData)
+      await sendEmail(emailData)
       return data(id)
     } else {
       return error('Unable to find an appropriate email to send')

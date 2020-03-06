@@ -1,6 +1,6 @@
-import { sendMdEmail } from './mg'
+import { sendEmail } from './mg'
 
-sendMdEmail({
+sendEmail({
 	to: "tianhui.michael.li@gmail.com",
 	subject: "Hello",
 	md: "**This is a test**",

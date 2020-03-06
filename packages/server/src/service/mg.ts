@@ -14,7 +14,7 @@ export interface EmailData {
   md: string
 }
 
-export const sendMdEmail = (
+export const sendEmail = (
   {to, subject, md}: EmailData
 ): Promise<mailgun.messages.SendResponse> => {
   const {domain, apiKey, from} = mgData()
