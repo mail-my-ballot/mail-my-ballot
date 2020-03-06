@@ -50,6 +50,7 @@ export interface FloridaInfo extends _Id, BaseInfo {
   birthdate: string
   email: string
   uspsAddress: string
+  county: string
 }
 
 export type RegistrationInfo = FloridaInfo

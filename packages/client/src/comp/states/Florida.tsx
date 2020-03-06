@@ -34,6 +34,7 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       email: emailRef?.value!,
       addressId: address.id!,
       uspsAddress,
+      county,
     }
     const result = await client.register(info)
     if (result.type === 'data') {
