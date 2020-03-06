@@ -8,6 +8,7 @@ import { InitialForm } from './comp/InitialForm'
 import { DevInfo } from './comp/DevInfo'
 import { QueryContainer, AddressContainer } from './lib/state'
 import { Success } from './comp/Success'
+import { WarningMsg } from './comp/WarningMsg'
 
 
 const AppContainer = styled(Container)`
@@ -35,6 +36,7 @@ const Layout = () => {
           <InitialForm/>
         </Route>
       </Switch>
+      <WarningMsg/>
       <DevInfo/>
     </AppContainer>
   )
