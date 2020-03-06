@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
+import { Link, useHistory } from 'react-router-dom'
 
 const Background = styled.div`
   top: 0;
@@ -16,36 +17,52 @@ const Background = styled.div`
 
 const Title = styled.h1`
   font-weight: 100;
+  margin: 1em 0;
 `
 
 const Text = styled.p`
-  margin: 2em 0;
+  margin: 1em 0;
   font-size: 1.2em;
 `
 
 const FlexBox = styled.div`
-  display: table-cell;
-  vertical-align: middle;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`
+
+const MyButton = styled(RoundedButton)`
+  margin: 2em 0;
 `
 
 export const Blurb = (props: React.PropsWithChildren<{}>) => {
+  const history = useHistory()
+
+  const handleClick = () => {
+    document.getElementById('app')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+    history.push('/#app')
+  }
+
   return <Background>
     <Container>
       <Row>
         <Col lg={6} lg-offset={6}>
           <FlexBox>
-          <Title>Vote By Mail</Title>
-          <Text>
-            Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.
-          </Text>
-          <Text>
-            Your ballot arrives safely in the mail weeks before the election and can be filled out and mailed back at your convenience.
-          </Text>
-          <Text>
-            28 states now allow <i>any</i> registerecd voter to vote by mail.
-          </Text>
-          <RoundedButton variant='raised'>Do I Qualify?</RoundedButton>
+            <Title>Vote by Mail</Title>
+            <Text>
+              Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and mailed back at your convenience.
+            </Text>
+            <Text>
+              28 states now allow <i>any</i> registerecd voter to vote by mail.
+            </Text>
+            <MyButton variant='raised' onClick={handleClick}>
+              Do I Qualify?
+            </MyButton>
           </FlexBox>
         </Col>
       </Row>

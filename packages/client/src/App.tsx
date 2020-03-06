@@ -13,7 +13,7 @@ import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 
 export const AppContainer = styled(Container)`
-  margin-top: 4em
+  padding-top: 4em
 `
 
 const StateContainer = (props: React.PropsWithChildren<{}>) => (
@@ -29,7 +29,7 @@ const StateContainer = (props: React.PropsWithChildren<{}>) => (
 const Layout = () => {
   return (<>
     <Blurb/>
-    <AppContainer>
+    <AppContainer id='app'>
       <Switch>
         <Route path='/success'>
           <Success/>

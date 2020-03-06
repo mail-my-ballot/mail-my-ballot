@@ -14,7 +14,7 @@ export const Success = () => {
     ) : (
       null
     )}
-    <Link to='/'>
+    <Link to='/#app'>
       <RoundedButton color='primary' variant='raised'>
         Start Over
       </RoundedButton>
