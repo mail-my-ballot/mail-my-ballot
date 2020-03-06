@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start-common": "./sync_common.sh",
     "start-client": "yarn workspace @vbm/client start",
     "start-server": "yarn workspace @vbm/server start",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
