@@ -2,12 +2,17 @@ import json
 import glob
 
 files = glob.glob('data/*.json')
-data = []
+dict_ = {}
 for file in files:
   with open(file) as fh:
     datum = json.load(fh)
-    datum['name'] = datum['name'].replace(u'\xa0', ' ')
-    data += [datum]
+    county = datum['title'].split('Supervisor')[0].strip()
+    dict_[county] = {
+      'county': county,
+      'name': datum['name'].replace(u'\xa0', ' ').split(',')[0].strip(),
+      'email': datum['email'].split(':')[1].strip(),  # ignore leading 'mailto:'
+      'url': datum['url'],
+    }
 
 with open('florida.json', 'w') as fh:
-  json.dump(data, fh)
+  json.dump(dict_, fh, indent='  ')
