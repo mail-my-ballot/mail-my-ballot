@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import { Switch, Route } from "react-router-dom"
 
 import { InitialForm } from './comp/InitialForm'
-import { DevBox } from './comp/DevBox'
+import { DevInfo } from './comp/DevBox'
 import { QueryContainer, AddressContainer } from './lib/state'
 import { Success } from './comp/Success'
 
@@ -33,10 +33,9 @@ const Layout = () => {
         </Route>
         <Route path='/'>
           <InitialForm/>
-          <DevBox/>
         </Route>
       </Switch>
-
+      <DevInfo/>
     </AppContainer>
   )
 }

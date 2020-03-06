@@ -60,7 +60,7 @@ const CheckAdd = () => {
   )
 }
 
-const _DevBox = () => {
+const _DevInfo = () => {
   const { address } = AddressContainer.useContainer()
 
   return <DevOutline>
@@ -72,9 +72,9 @@ const _DevBox = () => {
   </DevOutline>
 }
 
-export const DevBox = () => {
+export const DevInfo = () => {
   if (process.env.NODE_ENV === 'development') {
-    return <_DevBox/>
+    return <_DevInfo/>
   } else {
     return null
   }
