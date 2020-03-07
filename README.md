@@ -30,3 +30,12 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 ## Asthetics
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
 - [Gradient Codegen](https://cssgradient.io/)
+
+# State Resources
+## Florida
+- [Vote by Mail](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/)
+- [County Supervisors](https://dos.elections.myflorida.com/supervisors/)
+
+
+# Issues with Geocoding
+- Cannot find 135 SE Martin Luther King, Jr. Blvd. Stuart, FL 34994 (https://dos.elections.myflorida.com/supervisors/countyInfo.asp?county=MRT)
