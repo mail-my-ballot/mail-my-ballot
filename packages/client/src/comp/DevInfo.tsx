@@ -14,13 +14,9 @@ const ObjectTable = ({ obj, title }: React.PropsWithChildren<{obj: Object | null
     <h4>{title}</h4>
     { obj ? (
       <table className='mui-table'>
-        <tr>
-          <th>Key</th>
-          <th>Value</th>
-        </tr>
         <tbody>
         {
-          Object.entries(obj).map(keyval => (<tr>
+          Object.entries(obj).map((keyval, i) => (<tr key={i}>
             <td style={{textAlign: 'right'}}>{keyval[0]}</td>
             <td>{keyval[1]}</td>
           </tr>))
