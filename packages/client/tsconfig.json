@@ -21,7 +21,6 @@
   },
   "include": [
     "src",
-    "../common",
   ],
   "exclude": [
     "node_modules",
