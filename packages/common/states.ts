@@ -11,7 +11,7 @@ export interface FloridaInfo extends _Id, BaseInfo {
   birthdate: string
   email: string
   uspsAddress: string
-  mailingAddress: string
+  mailingAddress?: string
   phone?: string
   county: string
 }
