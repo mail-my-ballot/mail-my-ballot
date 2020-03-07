@@ -35,7 +35,11 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 ## Florida
 - [Vote by Mail](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/)
 - [County Supervisors](https://dos.elections.myflorida.com/supervisors/)
-
+- Some useful addresses:
+  - 100 S Biscayne Blvd, Miami, FL 33131
+  - 5443 Main St, Port Richey, FL 34652
+  - 2000 W Commercial Blvd, Fort Lauderdale, FL 33309
 
 # Issues with Geocoding
 - Cannot find 135 SE Martin Luther King, Jr. Blvd. Stuart, FL 34994 (https://dos.elections.myflorida.com/supervisors/countyInfo.asp?county=MRT)
+
