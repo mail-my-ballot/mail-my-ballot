@@ -31,10 +31,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "env-cmd -f ../../env/.env.development react-app-rewired start",
-    "build:staging": "env-cmd -f ../../env/.env.staging react-app-rewired build",
-    "build:production": "env-cmd -f ../../env/.env.production react-app-rewired build",
-    "test": "env-cmd -f ../../env/.env.test react-app-rewired test",
+    "start": "env-cmd -f ./env/.env.development react-app-rewired start",
+    "build:staging": "env-cmd -f ./env/.env.staging react-app-rewired build",
+    "build:production": "env-cmd -f ./env/.env.production react-app-rewired build",
+    "test": "env-cmd -f ./env/.env.test react-app-rewired test",
     "predeploy:staging": "yarn build:staging",
     "deploy:staging": "now ./build --local-config=./now.json --confirm",
     "predeploy:production": "yarn build:production",
