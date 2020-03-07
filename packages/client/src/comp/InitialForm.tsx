@@ -11,7 +11,13 @@ import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
 
 
-const defaultAddr = '301 N Olive Ave, West Palm Beach, FL 33401'
+const defaultAddr = (
+  process.env.NODE_ENV === 'development'
+) ? (
+  '301 N Olive Ave, West Palm Beach, FL 33401'
+) : (
+  undefined
+)
 
 export const InitialForm: React.StatelessComponent = () => {
   let addrRef: HTMLInputElement | null
