@@ -31,7 +31,11 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
 - [Gradient Codegen](https://cssgradient.io/)
 
-# State Resources
+# Elections Resources
+## From Vote at Home Insitute
+- [Vote by Mail in the Primary](https://www.voteathome.org/wp-content/uploads/2019/08/2020-Presidential-Primary-Guide-to-Mail-Ballot-Voting.pdf)
+- [Vote by Mail in the General Election](https://www.voteathome.org/wp-content/uploads/2019/07/NVAHI-Guide-to-When_How-to-Apply-2020.pdf)
+
 ## Florida
 - [Vote by Mail](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/)
 - [County Supervisors](https://dos.elections.myflorida.com/supervisors/)
