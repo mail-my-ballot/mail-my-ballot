@@ -29,19 +29,24 @@ const StateContainer = (props: React.PropsWithChildren<{}>) => (
 
 const Layout = () => {
   return (<>
-    <Blurb/>
-    <AppContainer id='app'>
-      <Switch>
-        <Route path='/success'>
+    <Switch>
+      <Route path='/success'>
+        <AppContainer>
           <Success/>
-        </Route>
-        <Route path='/'>
+        </AppContainer>
+      </Route>
+      <Route path='/node-env'>
+        <p>{process.env.NODE_ENV}</p>
+      </Route>
+      <Route exact path='/'>
+        <Blurb/>
+        <AppContainer id='app'>
           <InitialForm/>
-        </Route>
-      </Switch>
-      {/* <DevInfo/> */}
-      <WarningMsg/>
-    </AppContainer>
+        </AppContainer>
+      </Route>
+    </Switch>
+    <DevInfo/>
+    <WarningMsg/>
   </>)
 }
 
