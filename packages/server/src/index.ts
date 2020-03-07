@@ -20,6 +20,10 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
 });
 
+app.get('/node-env', (req: Request, res: Response) => {
+  res.send(process.env.NODE_ENV);
+});
+
 if (process.env.NODE_ENV === 'development') {
   app.use('/letter', letter)
 }
