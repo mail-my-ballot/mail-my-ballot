@@ -9,15 +9,15 @@ import { BareLocale } from '../../lib/type'
 import { client } from '../../lib/trpc'
 import { AddressContainer } from '../../lib/state'
 import { useHistory } from 'react-router-dom'
-import { createControlRef } from '../util/ControlRef'
+import { useControlRef } from '../util/ControlRef'
 
 export const Florida = ({locale}: {locale: BareLocale}) => {
   const history = useHistory()
 
-  const nameRef = createControlRef<Input>()
-  const birthdateRef = createControlRef<Input>()
-  const emailRef = createControlRef<Input>()
-  const phoneRef = createControlRef<Input>()
+  const nameRef = useControlRef<Input>()
+  const birthdateRef = useControlRef<Input>()
+  const emailRef = useControlRef<Input>()
+  const phoneRef = useControlRef<Input>()
 
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]

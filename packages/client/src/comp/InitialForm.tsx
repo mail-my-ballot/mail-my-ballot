@@ -9,7 +9,7 @@ import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
-import { createControlRef } from './util/ControlRef'
+import { useControlRef } from './util/ControlRef'
 import { isProd } from '../common'
 
 const defaultAddr = (isProd()
@@ -18,8 +18,8 @@ const defaultAddr = (isProd()
 )
 
 export const InitialForm: React.StatelessComponent = () => {
-  const addrRef = createControlRef<Input>()
-  const unitRef = createControlRef<Input>()
+  const addrRef = useControlRef<Input>()
+  const unitRef = useControlRef<Input>()
   const { setAddress } = AddressContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
 
