@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
+import Checkbox from 'muicss/lib/react/checkbox'
 
 import { RoundedButton } from '../util/Button'
 import { floridaCounties } from '../../common/data/florida'
@@ -10,14 +11,27 @@ import { client } from '../../lib/trpc'
 import { AddressContainer } from '../../lib/state'
 import { useHistory } from 'react-router-dom'
 import { useControlRef } from '../util/ControlRef'
+import { createContainer } from 'unstated-next'
 
-export const Florida = ({locale}: {locale: BareLocale}) => {
+const useCheckbox = (init: boolean = false) => {
+  const [checked, setCheck] = React.useState<boolean>(init)
+  const toggleCheck = () => setCheck(!checked)
+  return { checked, toggleCheck }
+}
+const CheckboxContainer = createContainer(useCheckbox)
+
+type Props = PropsWithChildren<{locale: BareLocale}>
+
+const RawFlorida = ({locale}: Props) => {
   const history = useHistory()
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
+  const mailingRef = useControlRef<Input>()
+
+  const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]
@@ -35,7 +49,7 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       birthdate: birthdateRef.value(),
       email: emailRef.value(),
       addressId: address.id!,
-      mailingAddress: '',
+      mailingAddress: checked ? mailingRef.value() : undefined,
       phone: phoneRef.value(),
       uspsAddress,
       county,
@@ -79,6 +93,29 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       floatingLabel={true}
       ref={phoneRef}
     />
+    <Checkbox
+      label='Separate Mailing Address'
+      checked={checked}
+      onChange={toggleCheck}
+    />
+    {(
+      checked
+    ) ? (
+      <Input
+        label='Mailing Address'
+        floatingLabel={true}
+        ref={mailingRef}
+        required={checked}
+      />
+    ) : (
+      null
+    )}
     <RoundedButton color='primary' variant='raised'>Receive my Registration email</RoundedButton>
   </Form>
 }
+
+export const Florida = (props: Props) => (
+  <CheckboxContainer.Provider>
+    <RawFlorida {...props}/>
+  </CheckboxContainer.Provider>
+)
