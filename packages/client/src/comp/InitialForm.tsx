@@ -47,7 +47,7 @@ export const InitialForm: React.StatelessComponent = () => {
 
   return <>
     <Form onSubmit={handleSubmit}>
-      <legend>Enter your address to see if you can Vote by Mail</legend>
+      <legend>Enter your address to see if you qualify for Vote by Mail</legend>
       <Row>
         <Col sm={10} xs={12}>
           <MyInput
