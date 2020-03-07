@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const Background = styled.div`
   top: 0;
