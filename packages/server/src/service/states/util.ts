@@ -1,7 +1,7 @@
-import { RegistrationInfo } from "../../common";
+import { StateInfo } from "../../common";
 import { EmailData } from "../mg";
 
 export interface State {
-  toEmailData: (info: RegistrationInfo) => EmailData
+  toEmailData: (info: StateInfo) => EmailData
   name: string
 }

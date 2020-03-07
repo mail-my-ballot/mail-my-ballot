@@ -14,4 +14,4 @@ export interface FloridaInfo extends _Id, BaseInfo {
   county: string
 }
 
-export type RegistrationInfo = FloridaInfo
+export type StateInfo = FloridaInfo

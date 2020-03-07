@@ -1,8 +1,8 @@
-import { RegistrationInfo, isProd } from "../../common";
+import { StateInfo, isProd } from "../../common";
 import { EmailData } from "../mg";
 import { Florida } from './florida'
 
-const _toEmailData = (info: RegistrationInfo): EmailData | null => {
+const _toEmailData = (info: StateInfo): EmailData | null => {
   switch(info.state) {
     case Florida.name: {
       return Florida.toEmailData(info)
@@ -22,7 +22,7 @@ const defaultOptions = {
 }
 
 export const toEmailData = (
-  info: RegistrationInfo,
+  info: StateInfo,
   { mockProduction }: Options = defaultOptions
 ): EmailData | null => {
   const emailData = _toEmailData(info)
