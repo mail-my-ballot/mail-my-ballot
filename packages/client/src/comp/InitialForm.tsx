@@ -2,15 +2,15 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
+import Input from 'muicss/lib/react/input'
 
 import { osmGeocode } from '../lib/osm'
-import { MyInput } from './util/Input'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
+import { createControlRef } from './util/ControlRef'
 import { isProd } from '../common'
-
 
 const defaultAddr = (isProd()
   ? undefined
@@ -18,8 +18,8 @@ const defaultAddr = (isProd()
 )
 
 export const InitialForm: React.StatelessComponent = () => {
-  let addrRef: HTMLInputElement | null
-  let unitRef: HTMLInputElement | null
+  const addrRef = createControlRef<Input>()
+  const unitRef = createControlRef<Input>()
   const { setAddress } = AddressContainer.useContainer()
   const { startLoad, setError, clearError } = QueryContainer.useContainer()
 
@@ -27,12 +27,10 @@ export const InitialForm: React.StatelessComponent = () => {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!addrRef || !unitRef) return
-
-    const inputAddr = addrRef.value
+    if (!addrRef.current || !unitRef.current) return
 
     startLoad()
-    const newLocale = await osmGeocode(inputAddr, unitRef.value)
+    const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
     setAddress(newLocale)
     if (newLocale) {
       clearError()
@@ -41,7 +39,7 @@ export const InitialForm: React.StatelessComponent = () => {
         setAddress({...newLocale, id: result.data})
       }
     } else {
-      setError(`No address found for "${inputAddr}"`)
+      setError(`No address found for "${addrRef.value()}"`)
     }
   }
 
@@ -50,18 +48,18 @@ export const InitialForm: React.StatelessComponent = () => {
       <legend>Enter your address to see if you qualify for Vote by Mail</legend>
       <Row>
         <Col sm={10} xs={12}>
-          <MyInput
+          <Input
             label='Address (without Apt or Unit #)'
             floatingLabel={true}
-            inputRef={el => addrRef = el}
+            ref={addrRef}
             defaultValue={defaultAddr}
           />
         </Col>
         <Col sm={2} xs={12}>
-          <MyInput
+          <Input
             label='Unit #'
             floatingLabel={true}
-            inputRef={el => unitRef = el}
+            ref={unitRef}
           />
         </Col>
       </Row>

@@ -1,22 +1,23 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
+import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from '../util/Button'
-import { MyInput } from '../util/Input'
 import { floridaCounties } from '../../common/data/florida'
 import { FloridaInfo, uspsAddressOneLine } from '../../common/index'
 import { BareLocale } from '../../lib/type'
 import { client } from '../../lib/trpc'
 import { AddressContainer } from '../../lib/state'
 import { useHistory } from 'react-router-dom'
+import { createControlRef } from '../util/ControlRef'
 
 export const Florida = ({locale}: {locale: BareLocale}) => {
   const history = useHistory()
 
-  let nameRef: HTMLInputElement | null
-  let birthdateRef: HTMLInputElement | null
-  let emailRef: HTMLInputElement | null
-  let phoneRef: HTMLInputElement | null
+  const nameRef = createControlRef<Input>()
+  const birthdateRef = createControlRef<Input>()
+  const emailRef = createControlRef<Input>()
+  const phoneRef = createControlRef<Input>()
 
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]
@@ -30,12 +31,12 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
 
     const info: FloridaInfo = {
       state: 'Florida',
-      name: nameRef?.value!,
-      birthdate: birthdateRef?.value!,
-      email: emailRef?.value!,
+      name: nameRef.value(),
+      birthdate: birthdateRef.value(),
+      email: emailRef.value(),
       addressId: address.id!,
       mailingAddress: '',
-      phone: phoneRef?.value,
+      phone: phoneRef.value(),
       uspsAddress,
       county,
     }
@@ -51,32 +52,32 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
     <p>Your address {uspsAddress} is in {county}, {state}.</p>
     <p>Your county elections official is {name} who can be reached at <a href='mailto:{email}'>{email}</a> (<a href={url}>County Elections Website</a>)</p>
     <p>To send a registration email, fill out the following form</p>
-    <MyInput
+    <Input
       label='Name'
       type='text'
       floatingLabel={true}
-      inputRef={el => nameRef = el}
+      ref={nameRef}
       required
     />
-    <MyInput
+    <Input
       label='Birthdate (mm/dd/yyyy)'
       type='date'
-      inputRef={el => birthdateRef = el}
+      ref={birthdateRef}
       required
     />
-    <MyInput
+    <Input
       label='Email'
       type='email'
       floatingLabel={true}
-      inputRef={el => emailRef = el}
+      ref={emailRef}
       required
     />
-    <MyInput
+    <Input
       label='Phone (Optional) 123-456-7890'
       type='tel'
       pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
       floatingLabel={true}
-      inputRef={el => phoneRef = el}
+      ref={phoneRef}
     />
     <RoundedButton color='primary' variant='raised'>Receive my Registration email</RoundedButton>
   </Form>
