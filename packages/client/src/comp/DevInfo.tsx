@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/state'
 import { RedOutline } from './util/RedOutline'
+import { isProd } from '../common'
 
 const Section = styled.div`
   margin-top: 2em
@@ -62,9 +63,9 @@ const RawDevInfo = () => {
 }
 
 export const DevInfo = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return <RawDevInfo/>
-  } else {
+  if (isProd()) {
     return null
+  } else {
+    return <RawDevInfo/>
   }
 }

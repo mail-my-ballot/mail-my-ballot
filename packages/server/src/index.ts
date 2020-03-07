@@ -5,7 +5,7 @@ import { AddressInfo } from 'net';
 import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
-import { processEnvOrThrow } from './common'
+import { processEnvOrThrow, isProd } from './common'
 import letter from './service/letter'
 import { VbmRpc } from './service/trpc';
 
@@ -24,7 +24,7 @@ app.get('/node-env', (req: Request, res: Response) => {
   res.send(process.env.NODE_ENV);
 });
 
-if (process.env.NODE_ENV === 'development') {
+if (!isProd()) {
   app.use('/letter', letter)
 }
 

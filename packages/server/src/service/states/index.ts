@@ -1,4 +1,4 @@
-import { RegistrationInfo } from "../../common";
+import { RegistrationInfo, isProd } from "../../common";
 import { EmailData } from "../mg";
 import { Florida } from './florida'
 
@@ -26,7 +26,7 @@ export const toEmailData = (
   { mockProduction }: Options = defaultOptions
 ): EmailData | null => {
   const emailData = _toEmailData(info)
-  if (process.env.NODE_ENV === 'production' || mockProduction) {
+  if (isProd() || mockProduction) {
     return emailData
   } else {
     if (!emailData) return emailData

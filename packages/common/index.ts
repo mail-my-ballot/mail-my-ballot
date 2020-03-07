@@ -69,3 +69,6 @@ export function processEnvOrThrow(key: string): string {
   if (!val) throw new Error(`Need to set environment variable ${key}`)
   return val
 }
+
+export const isProd = (): boolean => (process.env.NODE_ENV === 'production')
+

@@ -9,14 +9,12 @@ import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
+import { isProd } from '../common'
 
 
-const defaultAddr = (
-  process.env.NODE_ENV === 'development'
-) ? (
-  '301 N Olive Ave, West Palm Beach, FL 33401'
-) : (
-  undefined
+const defaultAddr = (isProd()
+  ? undefined
+  : '301 N Olive Ave, West Palm Beach, FL 33401'
 )
 
 export const InitialForm: React.StatelessComponent = () => {
