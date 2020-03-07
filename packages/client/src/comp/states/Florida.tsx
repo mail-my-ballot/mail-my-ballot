@@ -16,6 +16,7 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
   let nameRef: HTMLInputElement | null
   let birthdateRef: HTMLInputElement | null
   let emailRef: HTMLInputElement | null
+  let phoneRef: HTMLInputElement | null
 
   const { county, state } = locale
   const { name, email, url } = floridaCounties[county]
@@ -33,6 +34,8 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       birthdate: birthdateRef?.value!,
       email: emailRef?.value!,
       addressId: address.id!,
+      mailingAddress: '',
+      phone: phoneRef?.value,
       uspsAddress,
       county,
     }
@@ -67,6 +70,13 @@ export const Florida = ({locale}: {locale: BareLocale}) => {
       floatingLabel={true}
       inputRef={el => emailRef = el}
       required
+    />
+    <MyInput
+      label='Phone (Optional) 123-456-7890'
+      type='tel'
+      pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+      floatingLabel={true}
+      inputRef={el => phoneRef = el}
     />
     <RoundedButton color='primary' variant='raised'>Receive my Registration email</RoundedButton>
   </Form>
