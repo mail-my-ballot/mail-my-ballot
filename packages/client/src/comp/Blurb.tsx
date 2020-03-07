@@ -35,6 +35,8 @@ const FlexBox = styled.div`
 
 const MyButton = styled(RoundedButton)`
   margin: 2em 0;
+  background: #4DB6AC;
+  color: #f1f1ff;
 `
 
 export const Blurb = (props: React.PropsWithChildren<{}>) => {
