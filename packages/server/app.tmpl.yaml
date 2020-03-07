@@ -1,0 +1,26 @@
+runtime: nodejs12
+
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: 1
+  min_pending_latency: 3000ms
+  max_pending_latency: automatic
+
+handlers:
+  - url: /.*
+    secure: always
+    redirect_http_response_code: 301
+    script: auto
+
+entrypoint: node ./dist/index.js
+
+env_variables:
+  NODE_ENV: "${NODE_ENV}"
+  SERVER_PORT: "${SERVER_PORT}"
+  REACT_APP_SERVER: "${REACT_APP_SERVER}"
+  REACT_APP_SHOW_WARNING: "${REACT_APP_SHOW_WARNING}"
+  FIRESTORE_URL: "${FIRESTORE_URL}"
+  GOOGLE_APPLICATION_CREDENTIALS: "${GOOGLE_APPLICATION_CREDENTIALS}"
+  MG_API_KEY: "${MG_API_KEY}"
+  MG_DOMAIN: "${MG_DOMAIN}"
+  MG_FROM_ADDR: "${MG_FROM_ADDR}"

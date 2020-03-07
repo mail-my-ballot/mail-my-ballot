@@ -10,7 +10,7 @@
     "build:production": "env-cmd -f ./env/.env.production tsc",
     "test": "env-cmd -f ./env/.env.test jest",
     "predeploy:staging": "yarn run build:staging",
-    "deploy:staging": "gcloud app deploy --project vbm-test-dev app.staging.yaml",
+    "deploy:staging": "./app_subst.sh staging && gcloud app deploy --project vbm-test-dev",
     "deploy:prod": "x"
   },
   "keywords": [],
@@ -25,6 +25,7 @@
     "@types/morgan": "^1.7.36",
     "@types/node": "^12.6.9",
     "@types/supertest": "^2.0.8",
+    "env-cmd": "^10.1.0",
     "jest": "^24.0.0",
     "nodemon": "^1.19.1",
     "serve": "^11.3.0",
