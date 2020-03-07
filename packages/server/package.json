@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "proto": "NODE_ENV=development node -r ../../env/loader ./node_modules/.bin/ts-node-dev --transpileOnly src/service/mg.proto.ts",
-    "start": "NODE_ENV=development node -r ../../env/loader ./node_modules/.bin/ts-node-dev --respawn --transpileOnly src/index.ts",
-    "build": "NODE_ENV=production  node -r ../../env/loader ./node_modules/.bin/tsc",
-    "test": "NODE_ENV=test         node -r ../../env/loader ./node_modules/.bin/jest",
+    "proto": "env-cmd -f ../../env/.env.development ts-node-dev --transpileOnly src/service/mg.proto.ts",
+    "start": "env-cmd -f ../../env/.env.development ts-node-dev --respawn --transpileOnly src/index.ts",
+    "build": "env-cmd -f ../../env/.env.production tsc",
+    "test": "env-cmd -f ../../env/.env.test jest",
     "predeploy:staging": "yarn run build",
     "deploy:staging": "gcloud app deploy --project vbm-test-dev app.staging.yaml",
     "deploy:prod": "x"
