@@ -1,5 +1,5 @@
 import { IRpc, RpcRet } from '@tianhuil/simple-trpc/dist/type'
-import { _Id, WithoutId } from './util'
+import { WithoutId } from './util'
 import { Address } from './address'
 import { StateInfo } from './states'
 
