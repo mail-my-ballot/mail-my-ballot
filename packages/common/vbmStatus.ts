@@ -1,12 +1,12 @@
 import { States } from "./states"
 
 type Status = (
-  { status: "Excuse" }
+  { status: "Excuse" }  // Not all voters automatically qualify
   | { status: "NoExcuse" }  // VBM but don't know how
   | { status: "Automatic" }  // Voters automatically enrolled
   | { status: "Website", regUrl: string, infoUrl: string }  // Can apply via state website
   | { status: "Mail", infoUrl: string }  // Must apply by mail
-  | { status: "VbmApp" }
+  | { status: "VbmApp" }  // Works with our app
 )
 
 export const vbmStatus = (state: States): Status => {
