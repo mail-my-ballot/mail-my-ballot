@@ -24,23 +24,17 @@ const StateChooser = () => {
     return null
   }
 
-  const vbm = vbmStatus(state)
+  const status = vbmStatus(state)
+  const arg = {...status, ...locale}
 
-  switch(vbm.status) {
-    case "Excuse": return <Excuse state={state}/>
-    case "NoExcuse": return <NoExcuse state={state}/>
-    case "Automatic": return <Automatic state={state}/>
-    case "Website": return <Website
-      state={state}
-      regUrl={vbm.regUrl}
-      infoUrl={vbm.infoUrl}
-    />
-    case "Mail": return <Mail
-      state={state}
-      infoUrl={vbm.infoUrl}
-    />
-    case "VbmApp": return <VbmApp state={state}>
-      <StateVbmApp state={state} county={county}/>
+  switch(arg.status) {
+    case "Excuse": return <Excuse {...arg}/>
+    case "NoExcuse": return <NoExcuse {...arg}/>
+    case "Automatic": return <Automatic {...arg}/>
+    case "Website": return <Website {...arg}/>
+    case "Mail": return <Mail {...arg}/>
+    case "VbmApp": return <VbmApp {...arg}>
+      <StateVbmApp {...locale}/>
     </VbmApp>
   }
 }

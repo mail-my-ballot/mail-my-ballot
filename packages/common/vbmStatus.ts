@@ -1,12 +1,22 @@
 import { State } from "./states"
 
+export declare namespace Statuses {
+  export interface Excuse { status: "Excuse" }  // Not all voters automatically qualify
+  export interface NoExcuse { status: "NoExcuse" }  // VBM but don't know how
+  export interface Automatic { status: "Automatic" }  // Voters automatically enrolled
+  export interface Website { status: "Website", regUrl: string, infoUrl: string }  // Can apply via state website
+  export interface Mail { status: "Mail", infoUrl: string }  // Must apply by mail
+  export interface VbmApp { status: "VbmApp" }  // Works with our app
+}
+
+
 export type Status = (
-  { status: "Excuse" }  // Not all voters automatically qualify
-  | { status: "NoExcuse" }  // VBM but don't know how
-  | { status: "Automatic" }  // Voters automatically enrolled
-  | { status: "Website", regUrl: string, infoUrl: string }  // Can apply via state website
-  | { status: "Mail", infoUrl: string }  // Must apply by mail
-  | { status: "VbmApp" }  // Works with our app
+  | Statuses.Excuse
+  | Statuses.NoExcuse
+  | Statuses.Automatic
+  | Statuses.Website
+  | Statuses.Mail
+  | Statuses.VbmApp
 )
 
 export const vbmStatus = (state: State): Status => {

@@ -1,7 +1,10 @@
 import React from 'react'
-import { State } from '../../common'
+import { State, Status, Statuses } from '../../common'
+import { BareLocale } from '../../lib/type'
 
-export const Excuse = ({state} : {state: State}) => (<>
+type StatusProps<T extends Status> = React.PropsWithChildren<T & BareLocale>
+
+export const Excuse = ({state} : StatusProps<Statuses.Excuse>) => (<>
   <h2>Sorry!</h2>
   <p>
     {state} does not allow all registered voters to vote by mail.
@@ -10,7 +13,7 @@ export const Excuse = ({state} : {state: State}) => (<>
   </p>
 </>)
 
-export const NoExcuse = ({state} : {state: State}) => (<>
+export const NoExcuse = ({state} : StatusProps<Statuses.NoExcuse>) => (<>
   <h2>Great News!</h2>
   <p>
     {state} allows all registered voters to vote by mail.
@@ -19,7 +22,7 @@ export const NoExcuse = ({state} : {state: State}) => (<>
   </p>
 </>)
 
-export const Automatic = ({state} : {state: State}) => (<>
+export const Automatic = ({state}: StatusProps<Statuses.Automatic>) => (<>
   <h2>Great News!</h2>
   <p>
     All registered voters in {state} are automatically enrolled in vote by mail.
@@ -27,13 +30,7 @@ export const Automatic = ({state} : {state: State}) => (<>
   </p>
 </>)
 
-export const Website = (
-  {state, regUrl, infoUrl} : {
-    state: State,
-    regUrl: string,
-    infoUrl: string
-  }
-) => (<>
+export const Website = ({state, regUrl, infoUrl}: StatusProps<Statuses.Website>) => (<>
   <h2>Great News!</h2>
   <p>
     {state} allows registered voters to vote by mail.
@@ -42,12 +39,7 @@ export const Website = (
   </p>
 </>)
 
-export const Mail = (
-  {state, infoUrl} : {
-    state: State,
-    infoUrl: string
-  }
-) => (<>
+export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
   <h2>Great News!</h2>
   <p>
     {state} allows registered voters to vote by mail.
@@ -56,9 +48,7 @@ export const Mail = (
   </p>
 </>)
 
-export const VbmApp = (
-  {state, children}: React.PropsWithChildren<{state: State}>,
-) => (<>
+export const VbmApp = ({state, children}: StatusProps<Statuses.VbmApp>) => (<>
   <h2>Great News!</h2>
   <p>Congratulations: your app</p>
   <p>
