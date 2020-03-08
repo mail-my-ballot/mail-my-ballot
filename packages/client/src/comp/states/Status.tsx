@@ -57,14 +57,12 @@ export const Mail = (
 </>)
 
 export const VbmApp = (
-  {children}: React.PropsWithChildren<{state: State}>,
+  {state, children}: React.PropsWithChildren<{state: State}>,
 ) => (<>
   <h2>Great News!</h2>
+  <p>Congratulations: your app</p>
   <p>
-    <p>Congratulations: your app</p>
-    <p>
-      {state} allows registered voters to vote by mail and we can help you enroll in VBM.
-    </p>
-    { children }
+    {state} allows registered voters to vote by mail and we can help you enroll in VBM.
   </p>
+  { children }
 </>)
