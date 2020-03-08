@@ -1,6 +1,6 @@
-import { States } from "./states"
+import { State } from "./states"
 
-type Status = (
+export type Status = (
   { status: "Excuse" }  // Not all voters automatically qualify
   | { status: "NoExcuse" }  // VBM but don't know how
   | { status: "Automatic" }  // Voters automatically enrolled
@@ -9,7 +9,7 @@ type Status = (
   | { status: "VbmApp" }  // Works with our app
 )
 
-export const vbmStatus = (state: States): Status => {
+export const vbmStatus = (state: State): Status => {
   switch (state) {
     case "Alabama": return { status: "Excuse" }
     case "Alaska": return { status: "NoExcuse" }
