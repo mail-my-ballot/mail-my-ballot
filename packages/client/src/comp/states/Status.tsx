@@ -50,7 +50,6 @@ export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
 
 export const VbmApp = ({state, children}: StatusProps<Statuses.VbmApp>) => (<>
   <h2>Great News!</h2>
-  <p>Congratulations: your app</p>
   <p>
     {state} allows registered voters to vote by mail and we can help you enroll in VBM.
   </p>

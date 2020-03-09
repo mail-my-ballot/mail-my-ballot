@@ -62,10 +62,8 @@ const RawFlorida = ({locale}: Props) => {
   }
 
   return <Form onSubmit={handleSubmit}>
-    <h2>Great News!  You can Vote by Mail</h2>
-    <p>Your address {uspsAddress} is in {county}, {state}.</p>
-    <p>Your county elections official is {name} who can be reached at <a href='mailto:{email}'>{email}</a> (<a href={url}>County Elections Website</a>)</p>
-    <p>To send a registration email, fill out the following form</p>
+    <p>Your county elections official is {name} who can be reached at <a href='mailto:{email}'>{email}</a> (<a href={url}>County Elections Website</a>).</p>
+    <p>To send a registration email, fill out the following form:</p>
     <Input
       label='Name'
       type='text'
