@@ -32,6 +32,7 @@ const Layout = () => {
     <Switch>
       <Route path='/success'>
         <AppContainer>
+          <WarningMsg/>
           <Success/>
         </AppContainer>
       </Route>
@@ -41,12 +42,12 @@ const Layout = () => {
       <Route exact path='/'>
         <Blurb/>
         <AppContainer id='app'>
+          <WarningMsg/>
           <InitialForm/>
         </AppContainer>
       </Route>
     </Switch>
     <DevInfo/>
-    <WarningMsg/>
   </>)
 }
 
