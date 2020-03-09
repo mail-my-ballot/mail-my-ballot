@@ -2,7 +2,7 @@ import React from 'react'
 import { Status, Statuses } from '../../common'
 import { BareLocale } from '../../lib/type'
 
-type StatusProps<T extends Status> = React.PropsWithChildren<T & BareLocale>
+type StatusProps<T extends Status> = React.PropsWithChildren<Omit<T, 'status'> & BareLocale>
 
 export const Excuse = ({state} : StatusProps<Statuses.Excuse>) => (<>
   <h2>Sorry!</h2>

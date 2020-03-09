@@ -9,7 +9,6 @@ export declare namespace Statuses {
   export interface VbmApp { status: "VbmApp" }  // Works with our app
 }
 
-
 export type Status = (
   | Statuses.Excuse
   | Statuses.NoExcuse
