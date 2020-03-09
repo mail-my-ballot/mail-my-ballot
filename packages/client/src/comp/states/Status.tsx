@@ -1,5 +1,5 @@
 import React from 'react'
-import { State, Status, Statuses } from '../../common'
+import { Status, Statuses } from '../../common'
 import { BareLocale } from '../../lib/type'
 
 type StatusProps<T extends Status> = React.PropsWithChildren<T & BareLocale>

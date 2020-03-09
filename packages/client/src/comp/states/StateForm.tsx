@@ -25,7 +25,7 @@ const StateChooser = () => {
   }
 
   const status = vbmStatus(state)
-  const arg = {...status, ...locale}
+  const arg = {...status, state, county}
 
   switch(arg.status) {
     case "Excuse": return <Excuse {...arg}/>
@@ -34,7 +34,7 @@ const StateChooser = () => {
     case "Website": return <Website {...arg}/>
     case "Mail": return <Mail {...arg}/>
     case "VbmApp": return <VbmApp {...arg}>
-      <StateVbmApp {...locale}/>
+      <StateVbmApp {...arg}/>
     </VbmApp>
   }
 }
