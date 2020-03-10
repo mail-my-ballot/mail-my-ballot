@@ -33,7 +33,7 @@ const RawFlorida = ({locale}: Props) => {
 
   const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
-  const { county, state } = locale
+  const { county } = locale
   const { name, email, url } = floridaCounties[county]
   const { address } = AddressContainer.useContainer()
   const uspsAddress = address ? uspsAddressOneLine(address) : null
