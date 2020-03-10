@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom"
 
 import { InitialForm } from './comp/InitialForm'
 import { DevInfo } from './comp/DevInfo'
+import { Notification } from './comp/Notification'
 import { QueryContainer, AddressContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
@@ -44,6 +45,7 @@ const Layout = () => {
         <AppContainer id='app'>
           <WarningMsg/>
           <InitialForm/>
+          <Notification />
         </AppContainer>
       </Route>
     </Switch>

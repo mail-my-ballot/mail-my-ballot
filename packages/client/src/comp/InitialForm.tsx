@@ -21,7 +21,7 @@ export const InitialForm: React.StatelessComponent = () => {
   const addrRef = useControlRef<Input>()
   const unitRef = useControlRef<Input>()
   const { setAddress } = AddressContainer.useContainer()
-  const { startLoad, setError, clearError } = QueryContainer.useContainer()
+  const { load, error, success } = QueryContainer.useContainer()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -29,17 +29,17 @@ export const InitialForm: React.StatelessComponent = () => {
 
     if (!addrRef.current || !unitRef.current) return
 
-    startLoad()
+    load('Fetching information about your address')
     const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
     setAddress(newLocale)
     if (newLocale) {
-      clearError()
+      await success(<><b>Success</b> fetching information about your address</>)
       const result = await client.addLocale(newLocale)
       if (result.type === 'data') {
         setAddress({...newLocale, id: result.data})
       }
     } else {
-      setError(`No address found for "${addrRef.value()}"`)
+      error(<><b>Error</b> No address found for {addrRef.value()}</>)
     }
   }
 
