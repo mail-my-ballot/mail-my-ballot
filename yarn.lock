@@ -2391,10 +2391,10 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-7.2.1.tgz#2ad4e844175a3738cb9e7064be5ea070b8863a1c"
   integrity sha512-oZ0Ib5I4Z2pUEcoo95cT1cr6slco9WY7yiPpG+RGNkj8YcYgJnM7pXmYmorNOReh8MIGcKSqXyeGjxnr8YiZbA==
 
-"@tianhuil/simple-trpc@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.2.1.tgz#68fc119e61d2a1da568c3966804feeb1c96275af"
-  integrity sha512-MClMjUAurId3eEVoLPnqf2ATMyP/ho1qqmGssSK/mXWEdP9VQjBuadNns2YcjRRFROb5+505pezKDTtQsRHHzg==
+"@tianhuil/simple-trpc@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.3.0.tgz#9bf96b2a11875390924e151dcce0861868f68cd3"
+  integrity sha512-D+g4sD8yfzR9cvML5kosHn6tR1afDDj3O55UrRuTJiA3XM7SHSET9EovmPxufNVdrS7LYr9Xk1suS19sM+5N3w==
 
 "@tootallnate/once@1":
   version "1.0.0"

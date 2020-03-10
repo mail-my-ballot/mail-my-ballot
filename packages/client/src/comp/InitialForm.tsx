@@ -11,6 +11,7 @@ import { QueryContainer, AddressContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
 import { useControlRef } from './util/ControlRef'
 import { isProd } from '../common'
+import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 
 const defaultAddr = (isProd()
   ? undefined
@@ -30,16 +31,33 @@ export const InitialForm: React.StatelessComponent = () => {
     if (!addrRef.current || !unitRef.current) return
 
     load('Fetching information about your address')
-    const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
-    setAddress(newLocale)
-    if (newLocale) {
-      await success(<><b>Success</b> fetching information about your address</>)
-      const result = await client.addLocale(newLocale)
-      if (result.type === 'data') {
-        setAddress({...newLocale, id: result.data})
+    try {
+      const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
+      setAddress(newLocale)
+
+      if (!newLocale) error(<><b>Error</b> No address found for {addrRef.value()}</>)
+      if (newLocale) {
+        await success(<><b>Success</b> fetching information about your address</>)
+        const result = await client.addLocale(newLocale)
+        switch(result.type) {
+          case 'data': {
+            setAddress({...newLocale, id: result.data})
+            break
+          }
+          case 'error': {
+            error(<><b>Server Error</b> {result.message}</>)
+            break
+          }
+        }
       }
-    } else {
-      error(<><b>Error</b> No address found for {addrRef.value()}</>)
+    } catch(e) {
+      if (e instanceof TimeoutError) {
+        error(<><b>Timeout Error</b> Try resubmitting.  If this persists, try again in a little while.</>)
+      } else if (e instanceof TypeError) {
+        error(<><b>Connection Error</b> Try resubmitting.  If this persists, try again in a little while.</>)
+      } else {
+        throw e
+      }
     }
   }
 
