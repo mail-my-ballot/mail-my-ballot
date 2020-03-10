@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tianhuil/simple-trpc": "^1.3.0",
+    "@tianhuil/simple-trpc": "^1.4.2",
     "muicss": "^0.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
