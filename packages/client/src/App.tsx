@@ -13,7 +13,7 @@ import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 
-export const AppContainer = styled(Container)`
+export const StyleContainer = styled(Container)`
   padding-top: 4em;
   min-height: 100vh;
 `
@@ -32,21 +32,21 @@ const Layout = () => {
   return (<>
     <Switch>
       <Route path='/success'>
-        <AppContainer>
+        <StyleContainer>
           <WarningMsg/>
           <Success/>
-        </AppContainer>
+        </StyleContainer>
       </Route>
       <Route path='/node-env'>
         <p>{process.env.NODE_ENV}</p>
       </Route>
       <Route exact path='/'>
         <Blurb/>
-        <AppContainer id='app'>
+        <StyleContainer id='app'>
           <WarningMsg/>
           <InitialForm/>
           <Notification />
-        </AppContainer>
+        </StyleContainer>
       </Route>
     </Switch>
     <DevInfo/>
