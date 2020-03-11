@@ -14,6 +14,6 @@
     "serve-client": "serve -s packages/client/build",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",
-    "jest-client": "yarn workspace @vbm/client test"
+    "test-client": "yarn workspace @vbm/client test"
   }
 }
