@@ -28,6 +28,7 @@
     "env-cmd": "^10.1.0",
     "jest": "^24.0.0",
     "nodemon": "^1.19.1",
+    "react-test-renderer": "^16.13.0",
     "serve": "^11.3.0",
     "supertest": "^4.0.0",
     "ts-jest": "^24.0.0",
