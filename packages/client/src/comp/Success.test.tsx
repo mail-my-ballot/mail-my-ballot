@@ -1,9 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Success } from './Success';
-import { MemoryRouter } from 'react-router-dom';
+import React from 'react'
+import { render } from '@testing-library/react'
+import { Success } from './Success'
+import { MemoryRouter } from 'react-router-dom'
 
-test('renders learn react link', () => {
+test('renders Success page', () => {
   const { getByText } = render(
     <Success/>, {
     wrapper: MemoryRouter
@@ -11,4 +11,4 @@ test('renders learn react link', () => {
   const h1 = getByText(/^Congratulations!$/i)
   expect(h1).toBeInTheDocument()
 
-});
+})

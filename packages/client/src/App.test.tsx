@@ -1,9 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from 'react'
+import { render } from '@testing-library/react'
+import App from './App'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/^Vote by Mail$/i);
-  expect(linkElement).toBeInTheDocument();
-});
+test('Renders Initial Blurb', () => {
+  const { getByText } = render(<App />)
+  const linkElement = getByText(/^Vote by Mail$/i)
+  expect(linkElement).toBeInTheDocument()
+})
