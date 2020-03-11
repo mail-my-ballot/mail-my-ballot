@@ -35,7 +35,7 @@ export const InitialForm: React.StatelessComponent = () => {
       const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
       setAddress(newLocale)
 
-      if (!newLocale) error(<><b>Error</b> No address found for {addrRef.value()}</>)
+      if (!newLocale) error(<><b>Address Error:</b> No address found for {addrRef.value()}</>)
       if (newLocale) {
         await success(<><b>Success</b> fetching information about your address</>)
         const result = await client.addLocale(newLocale)
@@ -45,16 +45,16 @@ export const InitialForm: React.StatelessComponent = () => {
             break
           }
           case 'error': {
-            error(<><b>Server Error</b> {result.message}</>)
+            error(<><b>Server Error:</b> {result.message}</>)
             break
           }
         }
       }
     } catch(e) {
       if (e instanceof TimeoutError) {
-        error(<><b>Timeout Error</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else if (e instanceof TypeError) {
-        error(<><b>Connection Error</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        error(<><b>Connection Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else {
         throw e
       }
