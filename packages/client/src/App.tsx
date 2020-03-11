@@ -42,7 +42,7 @@ const Layout = () => {
       </Route>
       <Route exact path='/'>
         <Blurb/>
-        <StyleContainer id='app'>
+        <StyleContainer id='app' data-testid='app'>
           <WarningMsg/>
           <InitialForm/>
           <Notification />

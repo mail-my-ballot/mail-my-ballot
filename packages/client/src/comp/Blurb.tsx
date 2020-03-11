@@ -66,7 +66,7 @@ export const Blurb = (props: React.PropsWithChildren<{}>) => {
             <Text>
               28 states now allow <i>any</i> registerecd voter to vote by mail.  Does yours?
             </Text>
-            <MyButton variant='raised' onClick={handleClick}>
+            <MyButton data-testid='start' variant='raised' onClick={handleClick}>
               Do I Qualify?
             </MyButton>
           </FlexBox>
