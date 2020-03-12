@@ -18,7 +18,8 @@ export const StyleContainer = styled(Container)`
   min-height: 100vh;
 `
 
-const StateContainer = (props: React.PropsWithChildren<{}>) => (
+// export for testing purposes
+export const StateContainer = (props: React.PropsWithChildren<{}>) => (
   <BrowserRouter>
     <QueryContainer.Provider>
       <AddressContainer.Provider>

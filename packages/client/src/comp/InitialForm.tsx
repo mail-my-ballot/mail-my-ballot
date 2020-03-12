@@ -69,6 +69,7 @@ export const InitialForm: React.StatelessComponent = () => {
       <Row>
         <Col sm={10} xs={12}>
           <Input
+            id='addr'
             label='Address (without Apt or Unit #)'
             floatingLabel={true}
             ref={addrRef}
@@ -77,6 +78,7 @@ export const InitialForm: React.StatelessComponent = () => {
         </Col>
         <Col sm={2} xs={12}>
           <Input
+            id='unit'
             label='Unit #'
             floatingLabel={true}
             ref={unitRef}
