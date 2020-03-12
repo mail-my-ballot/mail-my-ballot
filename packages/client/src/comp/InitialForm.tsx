@@ -85,7 +85,7 @@ export const InitialForm: React.StatelessComponent = () => {
           />
         </Col>
       </Row>
-      <RoundedButton color='primary' variant='raised'>Can I vote by Mail?</RoundedButton>
+      <RoundedButton color='primary' variant='raised' data-testid='initialform-submit'>Can I vote by Mail?</RoundedButton>
     </Form>
     <StateForm />
   </>
