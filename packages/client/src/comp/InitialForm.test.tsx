@@ -27,7 +27,7 @@ test('Initial Form is slow', () => {
     'unit': '1A',
   })
 
-  mocked(client, true).addLocale.mockResolvedValue({
+  mocked(client, true).addLocale = jest.fn().mockResolvedValue({
     type: 'data',
     data: 'xxx',
   })
