@@ -37,9 +37,9 @@
     "build:production": "env-cmd -f ./env/.env.production react-app-rewired build",
     "test": "env-cmd -f ./env/.env.test react-app-rewired test",
     "predeploy:staging": "yarn build:staging",
-    "deploy:staging": "now ./build --local-config=./now.json --confirm",
+    "deploy:staging": "now ./build --local-config=./now.json --confirm && ./tag.sh staging",
     "predeploy:production": "yarn build:production",
-    "deploy:production": "now --prod ./build",
+    "deploy:production": "now --prod ./build  && ./tag.sh production",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
