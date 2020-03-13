@@ -2,8 +2,7 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
-import { BrowserRouter } from "react-router-dom"
-import { Switch, Route } from "react-router-dom"
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import { InitialForm } from './comp/InitialForm'
 import { DevInfo } from './comp/DevInfo'
