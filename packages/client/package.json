@@ -40,7 +40,8 @@
     "deploy:staging": "now ./build --local-config=./now.json --confirm && ./tag.sh staging",
     "predeploy:production": "yarn build:production",
     "deploy:production": "now --prod ./build  && ./tag.sh production",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "eslintConfig": {
     "extends": "react-app"

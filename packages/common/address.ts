@@ -3,9 +3,9 @@ import { _Id } from './util'
 export interface Address extends _Id {
   queryAddr: string
   fullAddr: string
-  houseNumber: string,
-  road: string,
-  unit: string,
+  houseNumber: string
+  road: string
+  unit: string
   city: string
   state: string
   postcode: string

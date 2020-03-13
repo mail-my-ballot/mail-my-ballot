@@ -43,7 +43,7 @@ const MyButton = styled(RoundedButton)`
   color: #f1f1ff;
 `
 
-export const Blurb = (props: React.PropsWithChildren<{}>) => {
+export const Blurb: React.FC<{}> = () => {
   const history = useHistory()
 
   const handleClick = () => {

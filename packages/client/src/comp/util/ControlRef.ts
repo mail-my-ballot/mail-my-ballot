@@ -7,6 +7,7 @@ export function useControlRef<T>(): ControlRef<T> {
   return {
     ...ref,
     value: function() {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (this.current as any).controlEl.value
     }
   }

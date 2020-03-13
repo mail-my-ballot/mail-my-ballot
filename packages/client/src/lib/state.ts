@@ -28,7 +28,7 @@ const useQueryContainer = ({errMsg, infoMsg}: QueryState = initialQueryState) =>
     _setErr(errMsg)
     _setInfo('')
   }
-  const success = async (infoMsg: JSX.Element | string, durationMs: number = 2000) => {
+  const success = async (infoMsg: JSX.Element | string, durationMs = 2000) => {
     _setErr('')
     _setInfo(infoMsg)
     await new Promise(r => setTimeout(r, durationMs))

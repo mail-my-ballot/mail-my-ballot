@@ -13,7 +13,7 @@ import { BareLocale } from '../../lib/type';
 import { RoundedButton } from '../util/Button';
 import { useControlRef } from '../util/ControlRef';
 
-const useCheckbox = (init: boolean = false) => {
+const useCheckbox = (init = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
   const toggleCheck = () => setCheck(!checked)
   return { checked, toggleCheck }
@@ -48,7 +48,7 @@ const RawFlorida = ({locale}: Props) => {
       name: nameRef.value(),
       birthdate: birthdateRef.value(),
       email: emailRef.value(),
-      addressId: address.id!,
+      addressId: address.id || '',
       mailingAddress: checked ? mailingRef.value() : undefined,
       phone: phoneRef.value(),
       uspsAddress,

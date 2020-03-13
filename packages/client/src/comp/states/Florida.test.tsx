@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitForDomChange, act, wait, getByTestId } from '@testing-library/react'
+import { render, fireEvent, act, wait } from '@testing-library/react'
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
 

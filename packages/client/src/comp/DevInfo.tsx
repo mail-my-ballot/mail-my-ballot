@@ -10,7 +10,10 @@ const Section = styled.div`
   margin-top: 2em
 `
 
-const ObjectTable = ({ obj, title }: React.PropsWithChildren<{obj: Object | null, title: string}>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Props = React.PropsWithChildren<{obj: Record<string, any> | null, title: string}>
+
+const ObjectTable = ({ obj, title }: Props) => {
   return <Section>
     <h4>{title}</h4>
     { obj ? (

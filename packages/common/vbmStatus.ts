@@ -1,5 +1,6 @@
 import { State } from "./states"
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export declare namespace Statuses {
   export interface Excuse { status: "Excuse" }  // Not all voters automatically qualify
   export interface NoExcuse { status: "NoExcuse" }  // VBM but don't know how
