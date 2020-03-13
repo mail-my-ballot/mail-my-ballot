@@ -111,7 +111,7 @@ const RawFlorida = ({locale}: Props) => {
     ) : (
       null
     )}
-    <RoundedButton color='primary' variant='raised'>Receive my Registration email</RoundedButton>
+    <RoundedButton color='primary' variant='raised'>Send my application email</RoundedButton>
   </Form>
 }
 
