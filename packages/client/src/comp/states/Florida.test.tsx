@@ -8,13 +8,13 @@ import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { AddressContainer } from '../../lib/state';
-import { sampleFloridaAddress } from '../../testData';
+import { sampleFloridaAddress } from '../../common/testData';
 jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
   const history = createMemoryHistory();
 
-  const { getByLabelText, getByText, getByTestId } = render(
+  const { getByLabelText, getByTestId } = render(
     <AddressContainer.Provider initialState={sampleFloridaAddress}>
       <Router history={history}>
         <Florida locale={{state: 'Flordida', county: 'Miami-Dade County'}}/>
