@@ -9,7 +9,7 @@ jest.mock('../lib/osm')
 jest.mock('../lib/trpc')
 
 test('InitialForm works', async () => {
-  const { getByLabelText, getByTestId, getByText } = render(
+  const { getByLabelText, getByTestId } = render(
     <InitialForm/>,
     { wrapper: StateContainer }
   )
@@ -34,9 +34,6 @@ test('InitialForm works', async () => {
     data: 'xxx',
   })
 
-  const addr = getByLabelText(/^Address/i)
-  const unit = getByLabelText(/^Unit/i)
-
   act(() => {
     fireEvent.change(getByLabelText(/^Address/i), {
       target: {
@@ -49,11 +46,11 @@ test('InitialForm works', async () => {
     })
   })
 
-  await waitForElement(() => getByText('Great News!'))
+  await waitForElement(() => getByTestId('status-title'))
 
   expect(mockedOsmGeocode).toHaveBeenCalled()
   expect(addLocale).toHaveBeenCalled()
-  expect(getByText('Great News!')).toBeInTheDocument()
-  expect(getByText(new RegExp(osmData.state))).toBeInTheDocument()
-  expect(getByText(new RegExp(osmData.county))).toBeInTheDocument()
+  expect(getByTestId('status-title')).toHaveTextContent('Great News!')
+  expect(getByTestId('status-detail')).toHaveTextContent(osmData.state)
+  expect(getByTestId('status-detail')).toHaveTextContent(osmData.county)
 })
