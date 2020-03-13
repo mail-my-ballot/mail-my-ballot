@@ -1,18 +1,18 @@
 import React from 'react'
 import { render, fireEvent, act, wait } from '@testing-library/react'
-import { createMemoryHistory } from "history";
-import { Router } from "react-router";
+import { createMemoryHistory } from "history"
+import { Router } from "react-router"
 
 import { Florida } from './Florida'
 import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { AddressContainer } from '../../lib/state';
-import { sampleFloridaAddress } from '../../common/testData';
+import { AddressContainer } from '../../lib/state'
+import { sampleFloridaAddress } from '../../common/testData'
 jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
-  const history = createMemoryHistory();
+  const history = createMemoryHistory()
 
   const { getByLabelText, getByTestId } = render(
     <AddressContainer.Provider initialState={sampleFloridaAddress}>

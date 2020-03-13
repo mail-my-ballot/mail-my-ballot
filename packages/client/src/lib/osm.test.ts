@@ -12,10 +12,10 @@ test('OSM is returning stable results', async () => {
       testCases.map(async (pair) => {
         const [addr, county] = pair
         const result = await osmGeocode(addr, '1A')
-        expect(result).toMatchSnapshot(county);
+        expect(result).toMatchSnapshot(county)
       })
     )
   } catch(e) {
-    fail();
+    fail()
   }
 })

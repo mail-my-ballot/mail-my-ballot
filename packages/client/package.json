@@ -41,7 +41,8 @@
     "predeploy:production": "yarn build:production",
     "deploy:production": "now --prod ./build  && ./tag.sh production",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

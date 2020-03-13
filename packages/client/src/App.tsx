@@ -59,4 +59,4 @@ const App = () => (
   </StateContainer>
 )
 
-export default App;
+export default App

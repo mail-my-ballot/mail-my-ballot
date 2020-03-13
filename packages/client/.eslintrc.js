@@ -41,6 +41,8 @@ module.exports = {
           "delimiter": "comma",
           "requireLast": false
       }
-    }]
+    }],
+    'semi': 'off',
+    '@typescript-eslint/semi': ['error', 'never']
   }
 };

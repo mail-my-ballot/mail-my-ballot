@@ -1,17 +1,17 @@
-import Checkbox from 'muicss/lib/react/checkbox';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-import React, { PropsWithChildren } from 'react';
-import { useHistory } from 'react-router-dom';
-import { createContainer } from 'unstated-next';
+import Checkbox from 'muicss/lib/react/checkbox'
+import Form from 'muicss/lib/react/form'
+import Input from 'muicss/lib/react/input'
+import React, { PropsWithChildren } from 'react'
+import { useHistory } from 'react-router-dom'
+import { createContainer } from 'unstated-next'
 
-import { floridaCounties } from '../../common/data/florida';
-import { FloridaInfo, uspsAddressOneLine } from '../../common/index';
-import { AddressContainer } from '../../lib/state';
-import { client } from '../../lib/trpc';
-import { BareLocale } from '../../lib/type';
-import { RoundedButton } from '../util/Button';
-import { useControlRef } from '../util/ControlRef';
+import { floridaCounties } from '../../common/data/florida'
+import { FloridaInfo, uspsAddressOneLine } from '../../common/index'
+import { AddressContainer } from '../../lib/state'
+import { client } from '../../lib/trpc'
+import { BareLocale } from '../../lib/type'
+import { RoundedButton } from '../util/Button'
+import { useControlRef } from '../util/ControlRef'
 
 const useCheckbox = (init = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
