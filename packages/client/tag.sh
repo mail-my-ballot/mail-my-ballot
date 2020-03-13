@@ -1,5 +1,6 @@
 dt=$(date '+%Y-%m-%d:%H:%M')
 environ=$1
-msg="deploy/client/$environ/$(date '+%Y-%m-%d-%H-%M')"
-echo "tagging" $msg
-git tag -a $msg -m $msg
+tag="deploy/client/$environ/$(date '+%Y-%m-%d-%H-%M')"
+echo "tagging" $tag
+git tag -a $tag -m $tag
+git push origin $tag
