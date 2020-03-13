@@ -38,7 +38,7 @@ export const Website = ({county, state, regUrl, infoUrl}: StatusProps<Statuses.W
   <p>
     Your address is in {county}, {state}.&nbsp;
     {state} allows registered voters to vote by mail.
-    You can enroll on the <a href={regUrl}>official state election enrollment page</a>.
+    You can apply on the <a href={regUrl}>official state election application page</a>.
     For more information, visit your <a href={infoUrl}>state election website</a>.
   </p>
 </>)

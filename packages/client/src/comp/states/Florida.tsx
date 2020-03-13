@@ -66,7 +66,7 @@ const RawFlorida = ({locale}: Props) => {
       Your county elections official is {name} and can be reached at <a href='mailto:{email}'>{email}</a>
       For more information, visit the (<a href={url}>County Elections Website</a>).
     </p>
-    <p>To send a registration email, fill out the following form:</p>
+    <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the county official:</p>
     <Input
       label='Name'
       type='text'
