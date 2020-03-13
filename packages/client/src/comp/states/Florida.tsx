@@ -68,6 +68,7 @@ const RawFlorida = ({locale}: Props) => {
     </p>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the county official:</p>
     <Input
+      id='name'
       label='Name'
       type='text'
       floatingLabel={true}
@@ -75,12 +76,14 @@ const RawFlorida = ({locale}: Props) => {
       required
     />
     <Input
+      id='birthdate'
       label='Birthdate (mm/dd/yyyy)'
       type='date'
       ref={birthdateRef}
       required
     />
     <Input
+      id='email'
       label='Email'
       type='email'
       floatingLabel={true}
@@ -88,6 +91,7 @@ const RawFlorida = ({locale}: Props) => {
       required
     />
     <Input
+      id='tel'
       label='Phone (Optional) 123-456-7890'
       type='tel'
       pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
@@ -95,6 +99,7 @@ const RawFlorida = ({locale}: Props) => {
       ref={phoneRef}
     />
     <Checkbox
+      id='separate'
       label='Separate Mailing Address'
       checked={checked}
       onChange={toggleCheck}
@@ -103,6 +108,7 @@ const RawFlorida = ({locale}: Props) => {
       checked
     ) ? (
       <Input
+        id='mailing'
         label='Mailing Address'
         floatingLabel={true}
         ref={mailingRef}
@@ -111,7 +117,9 @@ const RawFlorida = ({locale}: Props) => {
     ) : (
       null
     )}
-    <RoundedButton color='primary' variant='raised'>Send my application email</RoundedButton>
+    <RoundedButton color='primary' variant='raised' data-testid='florida-submit'>
+      Send my application email
+    </RoundedButton>
   </Form>
 }
 
