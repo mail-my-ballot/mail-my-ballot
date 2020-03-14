@@ -9,7 +9,7 @@ for file in files:
     county = datum['title'].split('Supervisor')[0].strip()
     dict_[county] = {
       'county': county,
-      'name': datum['name'].replace(u'\xa0', ' ').split(',')[0].strip(),
+      'clerk': datum['name'].replace(u'\xa0', ' ').split(',')[0].strip(),
       'email': datum['email'].split(':')[1].strip(),  # ignore leading 'mailto:'
       'url': datum['url'],
     }
