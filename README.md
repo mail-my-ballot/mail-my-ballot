@@ -26,6 +26,7 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 - [Log Viewer](https://console.cloud.google.com/logs/viewer)
 - [Console](https://console.cloud.google.com/home/dashboard?project=vbm-test-dev)
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-test-dev/database/firestore/rules)
 
 ## Asthetics
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
