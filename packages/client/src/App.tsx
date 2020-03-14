@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { InitialForm } from './comp/InitialForm'
 import { DevInfo } from './comp/DevInfo'
 import { Notification } from './comp/Notification'
-import { QueryContainer, AddressContainer } from './lib/state'
+import { QueryContainer, AddressContainer, ContactContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
@@ -22,7 +22,9 @@ export const StateContainer = (props: React.PropsWithChildren<{}>) => (
   <BrowserRouter>
     <QueryContainer.Provider>
       <AddressContainer.Provider>
-        {props.children}
+        <ContactContainer.Provider>
+          {props.children}
+        </ContactContainer.Provider>
       </AddressContainer.Provider>
     </QueryContainer.Provider>
   </BrowserRouter>

@@ -2,30 +2,42 @@ import React from 'react'
 import { useParams, Switch, Route } from "react-router-dom"
 
 import { Florida } from './Florida'
-import { BareLocale } from '../../lib/type'
-import { AddressContainer } from '../../lib/state'
-import { isState, vbmStatus } from '../../common'
+import { AddressContainer, ContactContainer } from '../../lib/state'
+import { isState, vbmStatus, Locale, FloridaContact, Contact } from '../../common'
 import { Excuse, NoExcuse, Automatic, Website, Mail, VbmApp } from './Status'
 
-const StateVbmApp = ({state, county}: BareLocale) => {
-  if (state === 'Florida') {
-    return <Florida locale={{ state, county }}/>
-  } else {
-    throw Error('Unrecognized VBM State')
+const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
+  locale,
+  contact
+}) => {
+  if (!contact) return null
+  if (contact.state !== locale.state) throw Error(`States ${contact.state} and ${locale.state} do not match`)
+
+  switch (locale.state) {
+    case 'Florida': return <Florida locale={locale as Locale<'Florida'>} contact={contact as FloridaContact}/>
+    // case 'Michigan': return <Michigan locale={locale as Locale<'Michigan'>} contact={contact as MichiganContact}/>
+    default: throw Error('Unrecognized VBM State')
   }
 }
 
-const StateChooser = () => {
+const useLocale = (): Locale | null => {
   const { address } = AddressContainer.useContainer()
-  const locale = useParams<BareLocale>()
-  const { state, county } = {...address, ...locale}
+  const params = useParams<Locale>() as Locale
 
-  if (!isState(state)) {
-    return null
-  }
+  const { state, city, county } = {...address, ...params}
+  if (!isState(state)) return null
+  return { state, city, county }
+}
 
-  const status = vbmStatus(state)
-  const arg = {...status, state, county}
+const StateChooser = () => {
+  // must call all hooks first
+  const locale = useLocale()
+  const { contact } = ContactContainer.useContainer()
+
+  if (!locale) return null
+
+  const status = vbmStatus(locale.state)
+  const arg = {...status, ...locale}
 
   switch(arg.status) {
     case "Excuse": return <Excuse {...arg}/>
@@ -34,7 +46,7 @@ const StateChooser = () => {
     case "Website": return <Website {...arg}/>
     case "Mail": return <Mail {...arg}/>
     case "VbmApp": return <VbmApp {...arg}>
-      <StateVbmApp {...arg}/>
+      <StateVbmApp locale={locale} contact={contact}/>
     </VbmApp>
   }
 }

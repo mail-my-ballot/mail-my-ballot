@@ -1,6 +1,7 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
 import { Address } from '../common'
+import { Contact } from '../common'
 
 const useAddressContainer = (initialState: (Address | null) = null) => {
   const [address, setAddress] = React.useState<Address | null>(initialState)
@@ -8,6 +9,12 @@ const useAddressContainer = (initialState: (Address | null) = null) => {
 }
 
 export const AddressContainer = createContainer(useAddressContainer)
+
+const useContactContainer = (initialState: (Contact | null) = null) => {
+  const [contact, setContact] = React.useState<Contact | null>(initialState)
+  return { contact, setContact }
+}
+export const ContactContainer = createContainer(useContactContainer)
 
 interface QueryState{
   errMsg: JSX.Element | string

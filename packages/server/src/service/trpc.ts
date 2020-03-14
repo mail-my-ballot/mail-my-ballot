@@ -1,14 +1,18 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
-import { IVbmRpc, WithoutId, Address, StateInfo } from '../common'
+import { IVbmRpc, WithoutId, Address, StateInfo, isState, State, Locale } from '../common'
 import { firestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './states'
+import { getContact } from './contact'
 
 export class VbmRpc implements IVbmRpc {
   public add = async (x: number, y: number) => data(x + y)
-  public addLocale = async (address: WithoutId<Address>) => {
+  public addLocale = async(address: WithoutId<Address>) => {
     const id = await firestoreService.addLocale(address)
-    return data(id)
+    const { city, county, state } = address
+    if (!isState(state)) return data({id, contact: null})
+    const contact = getContact({ city, county, state })
+    return data({id, contact})
   }
   public register = async (info: StateInfo) => {
     const id = await firestoreService.addRegistration(info)

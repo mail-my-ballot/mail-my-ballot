@@ -1,12 +1,6 @@
-interface Town {
-  county: string
-  clerk: string
-  email: string | null
-  fax: string
-  phone: string
-}
+import { MichiganContact } from '../../common'
 
-export const michiganCounties: Record<string, Town>  = {
+export const michiganContacts: Record<string, Omit<MichiganContact, 'state'>>  = {
   "Acme Township": {
     "clerk": "Cathy Dye",
     "county": "Grand Traverse County",

@@ -1,7 +1,7 @@
 import { FloridaInfo } from "../../common";
 import { EmailData } from "../mg";
 import stripIndent from 'strip-indent'
-import { floridaCounties } from "../../common/data/florida";
+import { floridaContacts } from "../contact/florida";
 import { State } from './util'
 
 const toEmailData = (
@@ -15,7 +15,7 @@ const toEmailData = (
 ): EmailData => {
   const to = [
     email,
-    floridaCounties[county].email,
+    floridaContacts[county].email,
   ]
 
   const md = stripIndent(`

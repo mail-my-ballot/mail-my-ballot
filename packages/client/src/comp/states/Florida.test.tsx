@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, wait } from '@testing-library/react'
-import { createMemoryHistory } from "history"
-import { Router } from "react-router"
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router'
 
 import { Florida } from './Florida'
 import { StateContainer } from '../../App'
@@ -13,11 +13,19 @@ jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
   const history = createMemoryHistory()
+  const locale: Locale = {state: 'Florida', county: 'Miami-Dade County', city: 'Miami'}
+  const contact = {
+    state: 'Florida', 
+    county: 'Miami-Dade County',
+    clerk: 'Christina  White',
+    email: 'soedade@miamidade.gov',
+    url: 'http://www.miamidade.gov/elections/',
+  }
 
   const { getByLabelText, getByTestId } = render(
     <AddressContainer.Provider initialState={sampleFloridaAddress}>
       <Router history={history}>
-        <Florida locale={{state: 'Flordida', county: 'Miami-Dade County'}}/>
+        <Florida locale={locale} contact={contact}/>
       </Router>
     </AddressContainer.Provider>,
     { wrapper: StateContainer }
@@ -50,6 +58,6 @@ test('Florida Form works', async () => {
     })
   })
 
-  await wait(() => expect(history.location.pathname).toBe("/success"))
+  await wait(() => expect(history.location.pathname).toBe('/success'))
   await wait(() => expect(register).toHaveBeenCalled())
 })

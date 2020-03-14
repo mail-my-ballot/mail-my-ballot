@@ -5,11 +5,9 @@ import React, { PropsWithChildren } from 'react'
 import { useHistory } from 'react-router-dom'
 import { createContainer } from 'unstated-next'
 
-import { floridaCounties } from '../../common/data/florida'
-import { FloridaInfo, uspsAddressOneLine } from '../../common/index'
+import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact } from '../../common'
 import { AddressContainer } from '../../lib/state'
 import { client } from '../../lib/trpc'
-import { BareLocale } from '../../lib/type'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 
@@ -20,9 +18,12 @@ const useCheckbox = (init = false) => {
 }
 const CheckboxContainer = createContainer(useCheckbox)
 
-type Props = PropsWithChildren<{locale: BareLocale}>
+type Props = PropsWithChildren<{
+  locale: Locale<'Florida'>
+  contact: FloridaContact
+}>
 
-const RawFlorida = ({locale}: Props) => {
+const RawFlorida = ({locale, contact}: Props) => {
   const history = useHistory()
 
   const nameRef = useControlRef<Input>()
@@ -34,7 +35,7 @@ const RawFlorida = ({locale}: Props) => {
   const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
   const { county } = locale
-  const { name, email, url } = floridaCounties[county]
+  const { clerk, email, url } = contact
   const { address } = AddressContainer.useContainer()
   const uspsAddress = address ? uspsAddressOneLine(address) : null
 
@@ -63,7 +64,7 @@ const RawFlorida = ({locale}: Props) => {
 
   return <Form onSubmit={handleSubmit}>
     <p>
-      Your county elections official is {name} and can be reached at <a href='mailto:{email}'>{email}</a>
+      Your county elections official is {clerk} and can be reached at <a href='mailto:{email}'>{email}</a>
       For more information, visit the (<a href={url}>County Elections Website</a>).
     </p>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the county official:</p>

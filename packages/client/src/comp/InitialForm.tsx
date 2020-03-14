@@ -7,7 +7,7 @@ import Input from 'muicss/lib/react/input'
 import { osmGeocode } from '../lib/osm'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { QueryContainer, AddressContainer } from '../lib/state'
+import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
 import { useControlRef } from './util/ControlRef'
 import { isProd } from '../common'
@@ -23,6 +23,7 @@ export const InitialForm: React.StatelessComponent = () => {
   const unitRef = useControlRef<Input>()
   const { setAddress } = AddressContainer.useContainer()
   const { load, error, success } = QueryContainer.useContainer()
+  const { setContact } = ContactContainer.useContainer()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -32,18 +33,20 @@ export const InitialForm: React.StatelessComponent = () => {
 
     load('Fetching information about your address')
     try {
-      const newLocale = await osmGeocode(addrRef.value(), unitRef.value())
-      setAddress(newLocale)
+      const address = await osmGeocode(addrRef.value(), unitRef.value())
+      setAddress(address)
 
-      if (!newLocale) {
+      if (!address) {
         error(<><b>Address Error:</b> No address found for {addrRef.value()}</>)
         return
       }
 
-      const result = await client.addLocale(newLocale)
+      const result = await client.addLocale(address)
       switch(result.type) {
         case 'data': {
-          setAddress({...newLocale, id: result.data})
+          const { id, contact } = result.data
+          setAddress({...address, id})
+          setContact(contact)
           break
         }
         case 'error': {
