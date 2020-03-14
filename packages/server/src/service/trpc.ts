@@ -7,8 +7,8 @@ import { getContact } from './contact'
 
 export class VbmRpc implements IVbmRpc {
   public add = async (x: number, y: number) => data(x + y)
-  public addLocale = async(address: WithoutId<Address>) => {
-    const id = await firestoreService.addLocale(address)
+  public addAddress = async(address: WithoutId<Address>) => {
+    const id = await firestoreService.addAddress(address)
     const { city, county, state } = address
     if (!isState(state)) return data({id, contact: null})
     const contact = getContact({ city, county, state })

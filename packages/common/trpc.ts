@@ -6,6 +6,6 @@ import { Contact } from './contact'
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
-  addLocale(address: WithoutId<Address>): Promise<RpcRet<{ id: string, contact: Contact | null}>>
+  addAddress(address: WithoutId<Address>): Promise<RpcRet<{ id: string, contact: Contact | null}>>
   register(info: StateInfo): Promise<RpcRet<string>>
 }

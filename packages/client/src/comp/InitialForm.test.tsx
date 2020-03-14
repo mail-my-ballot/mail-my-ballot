@@ -18,7 +18,7 @@ test('InitialForm works', async () => {
   const mockedOsmGeocode = mocked(osmGeocode)
   mockedOsmGeocode.mockResolvedValue(sampleAddress)
 
-  const addLocale = mocked(client, true).addLocale = jest.fn().mockResolvedValue({
+  const addAddress = mocked(client, true).addAddress = jest.fn().mockResolvedValue({
     type: 'data',
     data: 'xxx',
   })
@@ -38,7 +38,7 @@ test('InitialForm works', async () => {
   await waitForElement(() => getByTestId('status-title'))
 
   expect(mockedOsmGeocode).toHaveBeenCalled()
-  expect(addLocale).toHaveBeenCalled()
+  expect(addAddress).toHaveBeenCalled()
   expect(getByTestId('status-title')).toHaveTextContent('Great News!')
   expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.state)
   expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.county)

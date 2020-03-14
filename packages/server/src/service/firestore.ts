@@ -16,7 +16,7 @@ class FirestoreService {
     this.db = admin.firestore()
   }
 
-  async addLocale(address: WithoutId<Address>): Promise<string> {
+  async addAddress(address: WithoutId<Address>): Promise<string> {
     const doc = await this.db.collection('Address').add(address)
     return doc.id
   }

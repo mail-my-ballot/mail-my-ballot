@@ -41,7 +41,7 @@ export const InitialForm: React.StatelessComponent = () => {
         return
       }
 
-      const result = await client.addLocale(address)
+      const result = await client.addAddress(address)
       switch(result.type) {
         case 'data': {
           const { id, contact } = result.data
