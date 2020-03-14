@@ -5,7 +5,7 @@ interface County {
   url: string
 }
 
-export const floridaCounties: { [key: string]: County }  = {
+export const floridaCounties: Record<string, County>  = {
   "Indian River County": {
       "county": "Indian River County",
       "name": "Leslie  Rossway Swan",

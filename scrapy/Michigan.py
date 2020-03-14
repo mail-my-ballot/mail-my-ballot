@@ -29,16 +29,15 @@ def parse_data(response):
     email = None
 
   first_line = body.css('::text').getall()[0].strip().split(',')
-  if len(first_line) == 2:
-    clerk, title = first_line
+  if len(first_line) >= 2:
+    clerk, title = first_line[0], first_line[-1] 
   elif len(first_line) == 1:
     clerk, title = first_line[0], None
-  else:
-    clerk, title = first_line, None
 
   return {
     'clerk': clerk,
     'title': title,
+    'info': [l.strip() for l in body.css('::text').getall()],
     'phone': phone,
     'fax': fax,
     'email': email,
