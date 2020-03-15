@@ -15,7 +15,7 @@ import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 
 const defaultAddr = (isProd()
   ? undefined
-  : '301 N Olive Ave, West Palm Beach, FL 33401'
+  : '2125 Butterfield Dr, Troy, MI 48084'
 )
 
 export const InitialForm: React.StatelessComponent = () => {
