@@ -6,6 +6,7 @@ interface BaseContact {
 
 export interface MichiganContact extends BaseContact {
   state: "Michigan"
+  city: string
   county: string
   clerk: string
   email: string | null
