@@ -12,11 +12,15 @@ const BottomLine = styled.div`
   width: 500px;
 `
 
-export const Signature = () => <div>
-  <Label>Signature</Label>
-  <BottomLine>
-    <SignatureCanvas
-      canvasProps={{width: 500, height: 200}}
-    />
-  </BottomLine>
-</div>
+export const Signature: React.FC<{inputRef: React.RefObject<SignatureCanvas>}> = ({
+  inputRef
+}) => (<div>
+    <Label>Signature</Label>
+    <BottomLine>
+      <SignatureCanvas
+        canvasProps={{width: 500, height: 200}}
+        ref={inputRef}
+      />
+    </BottomLine>
+  </div>
+)
