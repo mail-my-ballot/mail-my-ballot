@@ -33,11 +33,12 @@ export const InitialForm: React.StatelessComponent = () => {
 
     load('Fetching information about your address')
     try {
+      const addrInput = addrRef.value()
       const address = await osmGeocode(addrRef.value(), unitRef.value())
       setAddress(address)
 
       if (!address) {
-        error(<><b>Address Error:</b> No address found for {addrRef.value()}</>)
+        error(<><b>Address Error:</b> No address found for {addrInput}</>)
         return
       }
 
