@@ -52,10 +52,10 @@ export const Mail = ({county, state, infoUrl}: StatusProps<Statuses.Mail>) => (<
   </p>
 </>)
 
-export const VbmApp = ({county, state, children}: StatusProps<Statuses.VbmApp>) => (<>
+export const VbmApp = ({city, county, state, children}: StatusProps<Statuses.VbmApp>) => (<>
   <h2 data-testid='status-title'>Great News!</h2>
   <p data-testid='status-detail'>
-    Your address is in {county}, {state}.&nbsp;
+    Your address is in {city}, {county}, {state}.&nbsp;
     {state} allows registered voters to vote by mail and we can help you enroll.
   </p>
   { children }
