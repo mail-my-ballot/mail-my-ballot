@@ -27,7 +27,7 @@ with open('Michigan.jl') as fh:
 
     output += [value]
 
-with open('Michigan.json', 'w') as fh:
+with open('MichiganData.json', 'w') as fh:
   json.dump(output, fh,
     sort_keys=True, indent=2, separators=(',', ': ')
   )
