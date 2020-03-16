@@ -3,7 +3,7 @@ import { IVbmRpc, WithoutId, Address, StateInfo, isState, State, Locale, toLocal
 import { firestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './email'
-import { getContact } from './contact'
+import { toContact } from './contact'
 
 export class VbmRpc implements IVbmRpc {
   public add = async (x: number, y: number) => data(x + y)
@@ -11,7 +11,7 @@ export class VbmRpc implements IVbmRpc {
     const id = await firestoreService.addAddress(address)
     const locale = toLocale(address)
     if (!locale) return data({id, contact: null})
-    const contact = getContact(locale)
+    const contact = toContact(locale)
     return data({id, contact})
   }
   public register = async (info: StateInfo) => {
