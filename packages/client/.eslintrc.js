@@ -43,6 +43,7 @@ module.exports = {
       }
     }],
     'semi': 'off',
-    '@typescript-eslint/semi': ['error', 'never']
+    '@typescript-eslint/semi': ['error', 'never'],
+    'react/prop-types': 'off',
   }
 };

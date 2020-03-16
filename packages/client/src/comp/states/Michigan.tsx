@@ -69,7 +69,8 @@ const RawMichigan = ({locale, contact}: Props) => {
   if (!contact.email) {
     return <p>
       The local elections official for {city} is {contact.clerk};
-      Unfortunately, they are one of the few that do not list an email on the <a href='https://mvic.sos.state.mi.us/'>Michigan Secretary of State's Website</a>.&nbsp;
+      Unfortunately, they are one of the few that do not list an email on the
+        <a href='https://mvic.sos.state.mi.us/'>Michigan Secretary of State&apos;s Website</a>.&nbsp;
       {contact.phone && <>Their phone number is {contact.phone}.&nbsp;</>}
       {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
     </p>
