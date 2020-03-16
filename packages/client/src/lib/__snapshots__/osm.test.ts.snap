@@ -30,6 +30,51 @@ Object {
 }
 `;
 
+exports[`OSM is returning stable results: Canton, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Canton",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "45525, Hanford Road, Cherry Hill, Canton, Wayne County, Michigan, 48187, United States of America",
+  "houseNumber": "45525",
+  "postcode": "48187",
+  "queryAddr": "45525 Hanford Rd, Canton, MI 48187",
+  "road": "Hanford Road",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Dearborn Heights, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Dearborn Heights",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "24624, West Warren Street, Dearborn Heights, Wayne County, Michigan, 48127, United States of America",
+  "houseNumber": "24624",
+  "postcode": "48127",
+  "queryAddr": "24624 W Warren St, Dearborn Heights, MI",
+  "road": "West Warren Street",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Dearborn, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Dearborn",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "22100, Michigan Avenue, Dearborn, Wayne County, Michigan, 48124, United States of America",
+  "houseNumber": "22100",
+  "postcode": "48124",
+  "queryAddr": "22100 Michigan Ave. Dearborn, MI 48124",
+  "road": "Michigan Avenue",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
 exports[`OSM is returning stable results: Miami-Dade County, Florida 1`] = `
 Object {
   "city": "Miami",
@@ -71,51 +116,6 @@ Object {
   "queryAddr": "5443 Main St, Port Richey, FL 34652",
   "road": "Main Street",
   "state": "Florida",
-  "unit": "1A",
-}
-`;
-
-exports[`OSM is returning stable results: Wayne County, Michigan 1`] = `
-Object {
-  "city": "Canton",
-  "country": "United States of America",
-  "county": "Wayne County",
-  "fullAddr": "45525, Hanford Road, Cherry Hill, Canton, Wayne County, Michigan, 48187, United States of America",
-  "houseNumber": "45525",
-  "postcode": "48187",
-  "queryAddr": "45525 Hanford Rd, Canton, MI 48187",
-  "road": "Hanford Road",
-  "state": "Michigan",
-  "unit": "1A",
-}
-`;
-
-exports[`OSM is returning stable results: Wayne County, Michigan 2`] = `
-Object {
-  "city": "Dearborn Heights",
-  "country": "United States of America",
-  "county": "Wayne County",
-  "fullAddr": "24624, West Warren Street, Dearborn Heights, Wayne County, Michigan, 48127, United States of America",
-  "houseNumber": "24624",
-  "postcode": "48127",
-  "queryAddr": "24624 W Warren St, Dearborn Heights, MI",
-  "road": "West Warren Street",
-  "state": "Michigan",
-  "unit": "1A",
-}
-`;
-
-exports[`OSM is returning stable results: Wayne County, Michigan 3`] = `
-Object {
-  "city": "Dearborn",
-  "country": "United States of America",
-  "county": "Wayne County",
-  "fullAddr": "22100, Michigan Avenue, Dearborn, Wayne County, Michigan, 48124, United States of America",
-  "houseNumber": "22100",
-  "postcode": "48124",
-  "queryAddr": "22100 Michigan Ave. Dearborn, MI 48124",
-  "road": "Michigan Avenue",
-  "state": "Michigan",
   "unit": "1A",
 }
 `;
