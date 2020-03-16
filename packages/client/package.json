@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@tianhuil/simple-trpc": "^1.5.0",
+    "jest-canvas-mock": "^2.2.0",
     "muicss": "^0.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
