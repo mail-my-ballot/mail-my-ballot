@@ -13,19 +13,24 @@ jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
   const history = createMemoryHistory()
-  const locale: Locale = {state: 'Florida', county: 'Miami-Dade County', city: 'Miami'}
-  const contact = {
-    state: 'Florida', 
-    county: 'Miami-Dade County',
-    clerk: 'Christina  White',
-    email: 'soedade@miamidade.gov',
-    url: 'http://www.miamidade.gov/elections/',
-  }
 
   const { getByLabelText, getByTestId } = render(
     <AddressContainer.Provider initialState={sampleFloridaAddress}>
       <Router history={history}>
-        <Florida locale={locale} contact={contact}/>
+        <Florida
+          locale={{
+            state: 'Florida',
+            county: 'Miami-Dade County',
+            city: 'Miami'
+          }}
+          contact={{
+            state: 'Florida', 
+            county: 'Miami-Dade County',
+            clerk: 'Christina  White',
+            email: 'soedade@miamidade.gov',
+            url: 'http://www.miamidade.gov/elections/',
+          }}
+        />
       </Router>
     </AddressContainer.Provider>,
     { wrapper: StateContainer }
