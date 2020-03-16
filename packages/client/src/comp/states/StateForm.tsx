@@ -4,7 +4,7 @@ import { useParams, Switch, Route } from "react-router-dom"
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { isState, vbmStatus, Locale, FloridaContact, Contact, MichiganContact } from '../../common'
+import { Address, toLocale, vbmStatus, Locale, FloridaContact, Contact, MichiganContact } from '../../common'
 import { Excuse, NoExcuse, Automatic, Website, Mail, VbmApp } from './Status'
 
 const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
@@ -23,11 +23,8 @@ const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
 
 const useLocale = (): Locale | null => {
   const { address } = AddressContainer.useContainer()
-  const params = useParams<Locale>() as Locale
-
-  const { state, city, county } = {...address, ...params}
-  if (!isState(state)) return null
-  return { state, city, county }
+  const params = useParams<Locale>() as Address
+  return toLocale({...address, ...params})
 }
 
 const StateChooser = () => {
