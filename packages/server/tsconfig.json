@@ -8,7 +8,8 @@
       "es2015.collection",
       "es2015.symbol.wellknown",
       "esnext.asynciterable",
-      "es2017"
+      "es2017",
+      "esnext",
     ],
     "outDir": "./dist/",
     "moduleResolution": "node",
@@ -20,6 +21,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
   },
   "include": [
     "src"
