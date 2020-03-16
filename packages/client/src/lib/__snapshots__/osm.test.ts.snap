@@ -32,7 +32,7 @@ Object {
 
 exports[`OSM is returning stable results: Pasco County, Florida 1`] = `
 Object {
-  "city": undefined,
+  "city": "New Port Richey",
   "country": "United States of America",
   "county": "Pasco County",
   "fullAddr": "5443, Main Street, New Port Richey, Pasco County, Florida, 34652, United States of America",
