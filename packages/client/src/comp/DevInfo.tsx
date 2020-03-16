@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/state'
 import { RedOutline } from './util/RedOutline'
-import { isProd } from '../common'
 
 const Section = styled.div`
   margin-top: 2em
@@ -65,10 +64,6 @@ const RawDevInfo = () => {
   </RedOutline>
 }
 
-export const DevInfo = () => {
-  if (isProd()) {
-    return null
-  } else {
-    return <RawDevInfo/>
-  }
-}
+export const DevInfo = () => (
+  process.env.REACT_APP_SHOW_DEV_INFO ? <RawDevInfo/> : null
+)
