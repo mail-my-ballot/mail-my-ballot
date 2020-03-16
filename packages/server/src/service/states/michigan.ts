@@ -1,34 +1,27 @@
-import { FloridaInfo } from "../../common";
+import { MichiganInfo } from "../../common";
 import { EmailData } from "../mg";
 import stripIndent from 'strip-indent'
-import { floridaContacts } from "../contact/florida";
+import { search } from "../contact/Michigan";
 
 export const toEmailData = (
   {
     name,
-    birthdate,
+    birthyear,
     email,
     uspsAddress,
     county,
-  }: FloridaInfo
+    city,
+  }: MichiganInfo
 ): EmailData => {
   const to = [
     email,
-    floridaContacts[county].email,
+    search(county, city),
   ]
 
   const md = stripIndent(`
-  Dear County Supervisor of Elections,
+  Dear Elections Official,
 
   I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
-
-  - Name: **${name}**
-  - Address: **${uspsAddress}**
-  - Birthdate: **${birthdate}**
-
-  Thank you in advance for your assistance.  If you have any questions, my email is ${email}
-
-  Sincerely,
 
   ${name}
   `)

@@ -1,15 +1,13 @@
 import { StateInfo, isProd } from "../../common";
 import { EmailData } from "../mg";
-import { Florida } from './florida'
+import * as Florida from './florida'
+import * as Michigan from './michigan'
 
 const _toEmailData = (info: StateInfo): EmailData | null => {
   switch(info.state) {
-    case Florida.name: {
-      return Florida.toEmailData(info)
-    }
-    default: {
-      return null
-    }
+    case 'Florida': return Florida.toEmailData(info)
+    case 'Michigan': return Michigan.toEmailData(info)
+    default: return null
   }
 }
 
