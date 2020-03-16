@@ -5,23 +5,40 @@ import { search } from "../contact/Michigan";
 
 export const toEmailData = (
   {
+    state,
     name,
-    birthyear,
-    email,
     uspsAddress,
+    email,
+    phone,
     county,
     city,
+    birthyear,
+    mailingAddress,
+    signature,
   }: MichiganInfo
 ): EmailData => {
-  const to = [
-    email,
-    search(county, city),
-  ]
+  const electionsEmail = search(county, city)?.email
+  if (!electionsEmail) throw Error(`No email for ${city}, ${county}, ${state}`)
+
+  const to = [email, electionsEmail]
 
   const md = stripIndent(`
   Dear Elections Official,
 
   I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
+
+  - Name: **${name}**
+  - Voter Registration Address: **${uspsAddress}**
+  - Birth Year: **${birthyear}**
+  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as registration address' }
+  - Email: ${email}
+  - Phone: **${phone}**
+  - City / Township: **${city}**
+  - County: **${county}**
+
+  Thank you in advance for your assistance.  If you have any questions, my email is ${email}.
+
+  Sincerely,
 
   ${name}
   `)

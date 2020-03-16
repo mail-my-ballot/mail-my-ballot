@@ -5,6 +5,7 @@ import { floridaContacts } from "../contact/florida";
 
 export const toEmailData = (
   {
+    state,
     name,
     birthdate,
     email,
@@ -13,9 +14,12 @@ export const toEmailData = (
     county,
   }: FloridaInfo
 ): EmailData => {
+  const electionsEmail = floridaContacts[county].email
+  if (!electionsEmail) throw Error(`No email for ${county}, ${state}`)
+
   const to = [
     email,
-    floridaContacts[county].email,
+    electionsEmail,
   ]
 
   const md = stripIndent(`
@@ -26,7 +30,7 @@ export const toEmailData = (
   - Name: **${name}**
   - Voter Registration Address: **${uspsAddress}**
   - Birthdate: **${birthdate}**
-  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'same registration address' }
+  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as egistration address' }
 
   Thank you in advance for your assistance.  If you have any questions, my email is ${email}.
 
