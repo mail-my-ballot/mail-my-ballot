@@ -6,7 +6,6 @@ const mgData = () => ({
   domain: processEnvOrThrow('MG_DOMAIN'),
   apiKey: processEnvOrThrow('MG_API_KEY'),
   from: processEnvOrThrow('MG_FROM_ADDR'),
-  disable: processEnvOrThrow('MG_DISABLE'),
 })
 
 export interface EmailData {
@@ -18,8 +17,8 @@ export interface EmailData {
 export const sendEmail = (
   {to, subject, md}: EmailData
 ): Promise<mailgun.messages.SendResponse | null> => {
-  const {domain, apiKey, from, disable} = mgData()
-  if (disable) {
+  const {domain, apiKey, from} = mgData()
+  if (process.env.MG_DISABLE) {
     console.log('No email sent (disabled')
     return new Promise(() => null)
   }
