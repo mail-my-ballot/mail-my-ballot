@@ -24,10 +24,10 @@ export const toEmailData = (
   { mockProduction }: Options = defaultOptions
 ): EmailData | null => {
   const emailData = _toEmailData(info)
+  if (!emailData) return null
   if (isProd() || mockProduction) {
     return emailData
   } else {
-    if (!emailData) return emailData
     return {
       ...emailData,
       to: [info.email],
