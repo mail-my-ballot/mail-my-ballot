@@ -21,9 +21,34 @@ const development = {
   GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
 }
 
+const staging = {
+  ...base,
+  NODE_ENV: 'staging',
+  REACT_APP_SERVER: 'https://vbm-test-dev.appspot.com/',
+  REACT_APP_SHOW_WARNING: 1,
+  REACT_APP_TIMEOUT: 10000,
+  REACT_APP_DEBUG: 1,
+  DEBUG_LETTER: 1,
+  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
+}
+
+const test = {
+  ...base,
+  NODE_ENV: 'test',
+  REACT_APP_SERVER: 'https://exaample.com',
+  REACT_APP_TIMEOUT: 2000,
+  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
+  MG_DISABLE: 1,
+}
+
+const ci = {
+  ...test,
+  CI='true',
+}
+
 module.exports = {
-  "development": development,
-  "bar": {
-    "BAR": 2
-  }
+  development,
+  staging,
+  test,
+  ci,
 }
