@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
 import { InitialForm } from './InitialForm'
 import { StateContainer } from '../App'
-import { osmGeocode } from '../lib/osm'
+import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../common/testData'
@@ -15,7 +15,7 @@ test('InitialForm works', async () => {
     { wrapper: StateContainer }
   )
 
-  const mockedOsmGeocode = mocked(osmGeocode)
+  const mockedOsmGeocode = mocked(geocode)
   mockedOsmGeocode.mockResolvedValue(sampleAddress)
 
   const addAddress = mocked(client, true).addAddress = jest.fn().mockResolvedValue({

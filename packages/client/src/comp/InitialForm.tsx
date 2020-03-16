@@ -4,7 +4,7 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import Input from 'muicss/lib/react/input'
 
-import { osmGeocode } from '../lib/osm'
+import { geocode } from '../lib/osm'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
@@ -34,7 +34,7 @@ export const InitialForm: React.StatelessComponent = () => {
     load('Fetching information about your address')
     try {
       const addrInput = addrRef.value()
-      const address = await osmGeocode(addrRef.value(), unitRef.value())
+      const address = await geocode(addrRef.value(), unitRef.value())
       setAddress(address)
 
       if (!address) {

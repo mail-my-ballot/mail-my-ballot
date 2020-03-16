@@ -1,4 +1,4 @@
-import { osmGeocode } from './osm'
+import { geocode } from './osm'
 
 test('OSM is returning stable results', async () => {
   const testCases: [string, string][] = [
@@ -16,7 +16,7 @@ test('OSM is returning stable results', async () => {
     await Promise.all(
       testCases.map(async (pair) => {
         const [addr, county] = pair
-        const result = await osmGeocode(addr, '1A')
+        const result = await geocode(addr, '1A')
         expect(result).toMatchSnapshot(county)
       })
     )
