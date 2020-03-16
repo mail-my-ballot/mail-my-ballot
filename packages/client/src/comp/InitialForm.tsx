@@ -10,10 +10,9 @@ import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
 import { StateForm } from './states/StateForm'
 import { useControlRef } from './util/ControlRef'
-import { isProd } from '../common'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 
-const defaultAddr = (isProd()
+const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
   ? undefined
   : '2125 Butterfield Rd, Troy, MI 48084'
 )
