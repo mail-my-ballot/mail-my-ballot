@@ -111,7 +111,7 @@ const RawMichigan = ({locale, contact}: Props) => {
       id='tel'
       label='Phone (123-456-7890)'
       type='tel'
-      pattern='[0-9]{3}-?[0-9]{3}-[0-9]{4}'
+      pattern='[0-9]{3}-?[0-9]{3}-?[0-9]{4}'
       floatingLabel={true}
       required
       ref={phoneRef}
