@@ -17,6 +17,7 @@
     "test-client": "yarn workspace @vbm/client test",
     "test-common": "yarn workspace @vbm/common test",
     "build:staging": "lerna run build:staging",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "lint": "lerna run lint"
   }
 }
