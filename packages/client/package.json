@@ -44,7 +44,8 @@
     "deploy:production": "now --prod ./build  && ./tag.sh production",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "foo": "env-cmd -r ../../env/.env-cmdrc.js -e development node test.js"
   },
   "eslintConfig": {
     "extends": "react-app"
