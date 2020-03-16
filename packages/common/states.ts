@@ -74,4 +74,20 @@ export interface FloridaInfo extends _Id, BaseInfo {
   county: string
 }
 
-export type StateInfo = FloridaInfo
+export interface MichiganInfo extends _Id, BaseInfo {
+  state: 'Michigan'
+  name: string
+  uspsAddress: string
+  email: string
+  phone: string
+  county: string
+  city: string
+  birthyear: string
+  mailingAddress?: string
+  signature: string
+}
+
+export type StateInfo = (
+  | FloridaInfo
+  | MichiganInfo
+)

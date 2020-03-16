@@ -54,7 +54,7 @@ export const vbmStatus = (state: State): Status => {
     }
     case "Maryland": return { status: "NoExcuse" }
     case "Massachusetts": return { status: "Excuse" }
-    case "Michigan": return { status: "NoExcuse" }
+    case "Michigan": return { status: "VbmApp" }
     case "Minnesota": return {
       status: "Website",
       regUrl: "https://mnvotes.sos.state.mn.us/ABRegistration/ABRegistrationStep1.aspx",

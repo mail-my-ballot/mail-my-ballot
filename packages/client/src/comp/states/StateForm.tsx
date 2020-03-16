@@ -2,8 +2,9 @@ import React from 'react'
 import { useParams, Switch, Route } from "react-router-dom"
 
 import { Florida } from './Florida'
+import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { isState, vbmStatus, Locale, FloridaContact, Contact } from '../../common'
+import { isState, vbmStatus, Locale, FloridaContact, Contact, MichiganContact } from '../../common'
 import { Excuse, NoExcuse, Automatic, Website, Mail, VbmApp } from './Status'
 
 const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
@@ -15,7 +16,7 @@ const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
 
   switch (locale.state) {
     case 'Florida': return <Florida locale={locale as Locale<'Florida'>} contact={contact as FloridaContact}/>
-    // case 'Michigan': return <Michigan locale={locale as Locale<'Michigan'>} contact={contact as MichiganContact}/>
+    case 'Michigan': return <Michigan locale={locale as Locale<'Michigan'>} contact={contact as MichiganContact}/>
     default: throw Error('Unrecognized VBM State')
   }
 }
