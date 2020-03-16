@@ -40,7 +40,9 @@ export const toEmailData = (
 
   Sincerely,
 
-  ${name}
+  ${name} (Signature Below)
+
+  <img src="${signature}">
   `)
 
   return {
