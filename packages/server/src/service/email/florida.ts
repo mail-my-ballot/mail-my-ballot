@@ -9,6 +9,7 @@ export const toEmailData = (
     birthdate,
     email,
     uspsAddress,
+    mailingAddress,
     county,
   }: FloridaInfo
 ): EmailData => {
@@ -23,10 +24,11 @@ export const toEmailData = (
   I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
 
   - Name: **${name}**
-  - Address: **${uspsAddress}**
+  - Voter Registration Address: **${uspsAddress}**
   - Birthdate: **${birthdate}**
+  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'same registration address' }
 
-  Thank you in advance for your assistance.  If you have any questions, my email is ${email}
+  Thank you in advance for your assistance.  If you have any questions, my email is ${email}.
 
   Sincerely,
 
