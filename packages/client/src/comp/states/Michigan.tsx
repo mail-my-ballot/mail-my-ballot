@@ -84,7 +84,7 @@ const RawMichigan = ({locale, contact}: Props) => {
 
   return <Form onSubmit={handleSubmit}>
     <p>
-      The local elections official for {city} is {contact.clerk} and can be reached at <a href={`mailto:{contact.email}`}>{contact.email}</a>.&nbsp;
+      The local elections official for {contact.city} is {contact.clerk} and can be reached at <a href={`mailto:{contact.email}`}>{contact.email}</a>.&nbsp;
       {contact.phone && <>Their phone number is {contact.phone}.&nbsp;</>}
       {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
     </p>
