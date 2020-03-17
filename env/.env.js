@@ -1,8 +1,10 @@
 // https://www.npmjs.com/package/env-cmd
-const { MG_API_KEY } = require('./secrets/secrets.json')
+const { MG_API_KEY, DEV_EMAIL } = require('./secrets/secrets.json')
 
 const base = {
   SERVER_PORT: 8080,
+  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
+  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
   MG_API_KEY,
   MG_DOMAIN: 'email.vbmreg.org',
   MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.vbmreg.org>',
@@ -17,8 +19,7 @@ const development = {
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
-  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
-  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
+  DEV_EMAIL,
 }
 
 const staging = {
@@ -29,7 +30,6 @@ const staging = {
   REACT_APP_TIMEOUT: 10000,
   REACT_APP_DEBUG: 1,
   DEBUG_LETTER: 1,
-  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
 }
 
 const test = {
@@ -37,13 +37,12 @@ const test = {
   NODE_ENV: 'test',
   REACT_APP_SERVER: 'https://exaample.com',
   REACT_APP_TIMEOUT: 2000,
-  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
   MG_DISABLE: 1,
 }
 
 const ci = {
   ...test,
-  CI='true',
+  CI: 'true',
 }
 
 module.exports = {
