@@ -19,7 +19,7 @@ export const sendEmail = (
 ): Promise<mailgun.messages.SendResponse | null> => {
   const {domain, apiKey, from} = mgData()
   if (process.env.MG_DISABLE) {
-    console.log('No email sent (disabled')
+    console.log('No email sent (disabled)')
     return new Promise(() => null)
   }
   const mg = mailgun({domain, apiKey})
