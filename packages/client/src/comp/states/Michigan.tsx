@@ -45,6 +45,10 @@ const RawMichigan = ({locale, contact}: Props) => {
     event.persist()  // allow async function call
     event.preventDefault()
     if (!address || !uspsAddress || !signatureRef.current) return  // TODO: Add warning
+    if (signatureRef.current.isEmpty()) {
+      alert('Please sign form')
+      return
+    }
 
     const info: MichiganInfo = {
       addressId: address.id || '',
@@ -66,7 +70,7 @@ const RawMichigan = ({locale, contact}: Props) => {
     // TODO: Add warning if error
   }
 
-  if (!contact.email) {
+  if (!contact || !contact.email) {
     return <p>
       The local elections official for {city} is {contact.clerk};
       Unfortunately, they are one of the few that do not list an email on the
