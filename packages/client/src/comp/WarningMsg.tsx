@@ -15,6 +15,9 @@ const RawWarningMsg = () => {
       <li>100 S Biscayne Blvd, Miami, FL 33131 (Miami-Dade County)</li>
       <li>5443 Main St, Port Richey, FL 34652 (Pasco County)</li>
       <li>2000 W Commercial Blvd, Fort Lauderdale, FL 33309 (Broward County)</li>
+      <li>2125 Butterfield Rd, Troy, MI 48084 (Oakland County)</li>
+      <li>24624 W Warren St, Dearborn Heights, MI (Wayne County)</li>
+      <li>700 Broad Street St Joseph, MI 49085 (Berrien County)</li>
     </ul>
     <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
   </RedOutline>)
