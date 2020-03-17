@@ -45,6 +45,8 @@ const RawMichigan = ({locale, contact}: Props) => {
     event.persist()  // allow async function call
     event.preventDefault()
     if (!address || !uspsAddress || !signatureRef.current) return  // TODO: Add warning
+
+    // TODO: find a more elegant solution
     if (signatureRef.current.isEmpty()) {
       alert('Please sign form')
       return
