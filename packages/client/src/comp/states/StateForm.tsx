@@ -11,7 +11,10 @@ const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
   locale,
   contact
 }) => {
-  if (!contact) return null
+  // TODO: improve message below.
+  if (!contact) return <p>
+    Unfortunately, we could not find the contact details for your local elections official.
+  </p>
   if (contact.state !== locale.state) throw Error(`States ${contact.state} and ${locale.state} do not match`)
 
   switch (locale.state) {
