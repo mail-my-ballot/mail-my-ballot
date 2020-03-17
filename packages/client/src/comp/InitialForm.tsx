@@ -13,8 +13,8 @@ import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 
 const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
-  ? undefined
-  : '2125 Butterfield Rd, Troy, MI 48084'
+  ? '2125 Butterfield Rd, Troy, MI 48084'
+  : undefined
 )
 
 export const InitialForm: React.StatelessComponent = () => {
