@@ -10,7 +10,8 @@
     "build:production": "env-cmd -r ./env/.env.js -e production tsc",
     "test": "env-cmd -r ./env/.env.js -e test jest",
     "predeploy:staging": "yarn run build:staging",
-    "deploy:staging": "./app_subst.sh staging && gcloud app deploy --project vbm-test-dev",
+    "appsubst:staging": "env-cmd -r ./env/.env.js -e staging envsubst < app.tmpl.yaml > app.yaml",
+    "deploy:staging": "yarn appsubst:staging && gcloud app deploy --project vbm-test-dev",
     "deploy:prod": "x"
   },
   "keywords": [],
