@@ -2,11 +2,11 @@ import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
 
-const width = 350;
+const width = 350
 
 const Label = styled.label`
   font-size: 12px;
-  color: rgba(30, 134, 218, 0.918);;
+  color: rgba(30, 134, 218, 0.918);
 `
 
 const BottomLine = styled.div`
