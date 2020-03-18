@@ -12,10 +12,13 @@ const BottomLine = styled.div`
   width: 500px;
 `
 
-export const Signature: React.FC<{inputRef: React.RefObject<SignatureCanvas>}> = ({
-  inputRef
-}) => (<div>
-    <Label>Signature</Label>
+type Props = React.PropsWithChildren<{
+  inputRef: React.RefObject<SignatureCanvas>
+  label: string
+}>
+
+export const Signature = ({ inputRef, label }: Props) => (<div>
+    <Label>{label}</Label>
     <BottomLine>
       <SignatureCanvas
         canvasProps={{width: 500, height: 200}}

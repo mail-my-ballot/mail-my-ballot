@@ -142,7 +142,7 @@ const RawMichigan = ({locale, contact}: Props) => {
     ) : (
       null
     )}
-    <Signature inputRef={signatureRef}/>
+    <Signature inputRef={signatureRef} label='Signature'/>
     <RoundedButton color='primary' variant='raised' data-testid='michigan-submit'>
       Send my application email
     </RoundedButton>
