@@ -3,6 +3,8 @@ import 'jest-canvas-mock'
 import { render, fireEvent, act, wait } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router'
+import SignatureCanvas from 'react-signature-canvas'
+jest.mock('react-signature-canvas')
 
 import { Michigan } from './Michigan'
 import { StateContainer } from '../../App'
@@ -65,6 +67,11 @@ test('Michigan Form works', async () => {
         value: '123-456-7890'
       },
     })
+
+    // Mock signing
+    SignatureCanvas.prototype.isEmpty = jest.fn(() => false)
+    SignatureCanvas.prototype.toDataURL = jest.fn(() => 'abcd')
+
     fireEvent.click(getByTestId('michigan-submit'), {
       bubbles: true,
       cancelable: true,
