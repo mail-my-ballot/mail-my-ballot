@@ -12,6 +12,11 @@ import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
+import styled from 'styled-components'
+
+const SigWrap = styled.div`
+  margin: 2em 0;
+`
 
 const useCheckbox = (init = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
@@ -103,6 +108,7 @@ const RawMichigan = ({locale, contact}: Props) => {
       type='number'
       min={1900}
       max={2100}
+      floatingLabel={true}
       ref={birthyearRef}
       required
     />
@@ -142,7 +148,10 @@ const RawMichigan = ({locale, contact}: Props) => {
     ) : (
       null
     )}
-    <Signature inputRef={signatureRef} label='Signature'/>
+    <SigWrap>
+      <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
+    </SigWrap>
+
     <RoundedButton color='primary' variant='raised' data-testid='michigan-submit'>
       Send my application email
     </RoundedButton>
