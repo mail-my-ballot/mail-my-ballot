@@ -1,6 +1,6 @@
 import Express from 'express';
 import Morgan from 'morgan';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { AddressInfo } from 'net';
 import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
@@ -16,11 +16,11 @@ app.use(Morgan('combined'));
 
 app.use(cors())
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_, res: Response) => {
   res.send('Hello World');
 });
 
-app.get('/node-env', (req: Request, res: Response) => {
+app.get('/node-env', (_, res: Response) => {
   res.send(process.env.NODE_ENV);
 });
 

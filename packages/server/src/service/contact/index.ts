@@ -1,6 +1,6 @@
 import { floridaContacts } from './florida'
 import * as michigan from './michigan'
-import { Contact, State, Locale, FloridaContact } from '../../common'
+import { Contact, State, Locale } from '../../common'
 
 export const toContact = <S extends State>({state, county, city}: Locale<S>): Contact | null => {
   switch(state) {
