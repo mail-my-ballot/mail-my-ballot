@@ -14,7 +14,6 @@ const development = {
   ...base,
   NODE_ENV: 'development',
   REACT_APP_SERVER: 'http://localhost:8080',
-  REACT_APP_SHOW_WARNING: 1,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,

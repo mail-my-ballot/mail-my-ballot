@@ -51,7 +51,9 @@ const Layout = () => {
         </StyleContainer>
       </Route>
     </Switch>
-    <DevInfo/>
+    <StyleContainer>
+      <DevInfo/>
+    </StyleContainer>
   </>)
 }
 
