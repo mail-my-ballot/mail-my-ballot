@@ -34,15 +34,17 @@ const ObjectTable = ({ obj, title }: Props) => {
 
 const CheckAdd = () => {
   const [sum, setSum] = React.useState(0)
-
-  client.add(2, 3).then(result => {
-    switch (result.type) {
-      case 'data': {
-        setSum(result.data)
-        break
+  React.useEffect(() => {
+    client.add(2, 3).then(result => {
+      switch (result.type) {
+        case 'data': {
+          setSum(result.data)
+          break
+        }
       }
-    }
-  })
+    })
+  }, [])
+  
 
   return (
     <Section>
