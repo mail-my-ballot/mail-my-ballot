@@ -41,7 +41,7 @@
     "predeploy:staging": "yarn build:staging",
     "deploy:staging": "now --prod ./build --local-config=./now.staging.json --confirm && ./tag.sh client staging",
     "predeploy:production": "yarn build:staging",
-    "deploy:production": "now --prod ./build --local-config=./now.production.json ./build  && ./tag.sh client production",
+    "deploy:production": "now --prod ./build --local-config=./now.production.json --confirm  && ./tag.sh client production",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
