@@ -1,5 +1,5 @@
 {
-  "name": "vote-by-mail",
   "scope": "vote-by-mail",
+  "alias": ["staging.vbmreg.org"],
   "public": false
 }
