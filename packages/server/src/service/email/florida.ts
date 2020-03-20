@@ -25,7 +25,10 @@ export const toEmailData = (
   const md = stripIndent(`
   Dear County Supervisor of Elections,
 
-  I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
+  I am writing to request an Absentee or Vote-by-Mail ballot through [vbmreg.org](https://vbmreg.org).
+  As per [state guidelines](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/),
+  I am applying for all elections through the end of the calendar year for the second ensuing regularly scheduled general election.
+  Below are my voter registration details:
 
   - Name: **${name}**
   - Voter Registration Address: **${uspsAddress}**

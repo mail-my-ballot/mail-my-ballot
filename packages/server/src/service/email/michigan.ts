@@ -25,7 +25,9 @@ export const toEmailData = (
   const md = stripIndent(`
   Dear Elections Official,
 
-  I am writing to request Vote By Mail for all elections.  Below are my voter registration details:
+  I am writing to request an Absentee or Vote-by-Mail ballot through [vbmreg.org](https://vbmreg.org).
+  I am requesting to be added to the "permanent absentee voter list" for all upcoming elections.
+  Below are my voter registration details:
 
   - Name: **${name}**
   - Voter Registration Address: **${uspsAddress}**
