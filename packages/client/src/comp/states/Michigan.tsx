@@ -152,7 +152,7 @@ const RawMichigan = ({locale, contact}: Props) => {
       <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
     </SigWrap>
 
-    <RoundedButton color='primary' variant='raised' data-testid='michigan-submit'>
+    <RoundedButton color='primary' type='submit' variant='raised' data-testid='michigan-submit'>
       Send my application email
     </RoundedButton>
   </Form>
