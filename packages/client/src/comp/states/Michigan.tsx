@@ -131,7 +131,7 @@ const RawMichigan = ({locale, contact}: Props) => {
     />
     <Checkbox
       id='separate'
-      label='Separate Mailing Address'
+      label='Mail my Ballot to a Separate Mailing'
       checked={checked}
       onChange={toggleCheck}
     />
