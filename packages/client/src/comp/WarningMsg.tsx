@@ -5,9 +5,9 @@ const RawWarningMsg = () => {
   return (<RedOutline>
     <h3>Warning: Not Production!</h3>
     <p>This is <b>not</b> a production build.
-      In production, the application email is sent to both the county official and yourself.
+      In production, the application email is sent to both the local elections official and yourself.
       Since this is not production, the email is only sent to you.
-      No email is sent to a county official so you can safely play with this demo.
+      No email is sent to a local elections official so you can safely play with this demo.
     </p>
     <h4>Filling out the form:</h4>
     <p><b>Address:</b> You can fill this out with any address but to see it in action, use one of the following addresses:</p>

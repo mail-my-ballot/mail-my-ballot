@@ -93,7 +93,7 @@ const RawMichigan = ({locale, contact}: Props) => {
       {contact.phone && <>Their phone number is {contact.phone}.&nbsp;</>}
       {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
     </p>
-    <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the county official:</p>
+    <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
     <Input
       id='name'
       label='Name'
