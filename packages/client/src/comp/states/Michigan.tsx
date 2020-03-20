@@ -1,8 +1,8 @@
+import React, { PropsWithChildren } from 'react'
 import Checkbox from 'muicss/lib/react/checkbox'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
-import React, { PropsWithChildren } from 'react'
 import { useHistory } from 'react-router-dom'
 import { createContainer } from 'unstated-next'
 
@@ -13,6 +13,7 @@ import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
 import styled from 'styled-components'
+import { PhoneInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
 
 const SigWrap = styled.div`
   margin: 2em 0;
@@ -94,40 +95,25 @@ const RawMichigan = ({locale, contact}: Props) => {
       {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
     </p>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
-    <Input
+    <NameInput
       id='name'
-      label='Name'
-      type='text'
-      floatingLabel={true}
       ref={nameRef}
       required
     />
-    <Input
+    <BirthYearInput
       id='birthyear'
-      label='Birth Year (yyyy)'
-      type='number'
-      min={1900}
-      max={2100}
-      floatingLabel={true}
       ref={birthyearRef}
       required
     />
-    <Input
+    <EmailInput
       id='email'
-      label='Email'
-      type='email'
-      floatingLabel={true}
       ref={emailRef}
       required
     />
-    <Input
-      id='tel'
-      label='Phone (123-456-7890)'
-      type='tel'
-      pattern='[0-9]{3}-?[0-9]{3}-?[0-9]{4}'
-      floatingLabel={true}
-      required
+    <PhoneInput
+      id='phone'
       ref={phoneRef}
+      required
     />
     <Checkbox
       id='separate'

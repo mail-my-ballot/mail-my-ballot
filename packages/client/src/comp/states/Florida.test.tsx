@@ -42,7 +42,7 @@ test('Florida Form works', async () => {
   })
 
   act(() => {
-    fireEvent.change(getByLabelText(/^Name/i), {
+    fireEvent.change(getByLabelText(/^Full Name/i), {
       target: {
         value: 'Bob Smith'
       },

@@ -10,6 +10,7 @@ import { AddressContainer } from '../../lib/state'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
+import { PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 
 const useCheckbox = (init = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
@@ -68,35 +69,23 @@ const RawFlorida = ({locale, contact}: Props) => {
       For more information, visit the (<a href={url}>County Elections Website</a>).
     </p>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
-    <Input
+    <NameInput
       id='name'
-      label='Name'
-      type='text'
-      floatingLabel={true}
       ref={nameRef}
       required
     />
-    <Input
+    <BirthDateInput
       id='birthdate'
-      label='Birthdate (mm/dd/yyyy)'
-      type='date'
       ref={birthdateRef}
       required
     />
-    <Input
+    <EmailInput
       id='email'
-      label='Email'
-      type='email'
-      floatingLabel={true}
       ref={emailRef}
       required
     />
-    <Input
+    <PhoneInput
       id='tel'
-      label='Phone (Optional) 123-456-7890'
-      type='tel'
-      pattern='[0-9]{3}-?[0-9]{3}-?[0-9]{4}'
-      floatingLabel={true}
       ref={phoneRef}
     />
     <Checkbox
