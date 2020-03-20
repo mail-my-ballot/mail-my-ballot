@@ -1,6 +1,7 @@
 import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
+import { RoundedButton } from './Button'
 
 const width = 350
 
@@ -14,12 +15,22 @@ const BottomLine = styled.div`
   width: ${width}px;
 `
 
+const Margin = styled.div`
+  margin: 1em 0;
+`
+
 type Props = React.PropsWithChildren<{
   inputRef: React.RefObject<SignatureCanvas>
   label: string
 }>
 
-export const Signature = ({ inputRef, label }: Props) => (<div>
+export const Signature = ({ inputRef, label }: Props) => {
+  const handleClick: React.MouseEventHandler = (event) => {
+    event.preventDefault()
+    inputRef.current && inputRef.current.clear()
+  }
+
+  return <div>
     <Label>{label}</Label>
     <BottomLine>
       <SignatureCanvas
@@ -27,5 +38,8 @@ export const Signature = ({ inputRef, label }: Props) => (<div>
         ref={inputRef}
       />
     </BottomLine>
+    <Margin>
+      <RoundedButton onClick={handleClick} variant='raised'>Clear Signature</RoundedButton>
+    </Margin>
   </div>
-)
+}
