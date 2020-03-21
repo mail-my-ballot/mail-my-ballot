@@ -4,7 +4,6 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 import { useHistory } from 'react-router-dom'
-import { createContainer } from 'unstated-next'
 
 import { MichiganInfo, uspsAddressOneLine, Locale, MichiganContact } from '../../common'
 import { AddressContainer } from '../../lib/state'
@@ -13,25 +12,21 @@ import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
 import styled from 'styled-components'
-import { PhoneInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
+import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
+import { togglableInput } from '../util/Togglable'
 
 const SigWrap = styled.div`
   margin: 2em 0;
 `
-
-const useCheckbox = (init = false) => {
-  const [checked, setCheck] = React.useState<boolean>(init)
-  const toggleCheck = () => setCheck(!checked)
-  return { checked, toggleCheck }
-}
-const CheckboxContainer = createContainer(useCheckbox)
 
 type Props = PropsWithChildren<{
   locale: Locale<'Michigan'>
   contact: MichiganContact
 }>
 
-const RawMichigan = ({locale, contact}: Props) => {
+const TogglableInput = togglableInput(BaseInput)
+
+export const Michigan = ({locale, contact}: Props) => {
   const history = useHistory()
 
   const nameRef = useControlRef<Input>()
@@ -40,8 +35,6 @@ const RawMichigan = ({locale, contact}: Props) => {
   const birthyearRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
   const signatureRef = React.useRef<SignatureCanvas>(null)
-
-  const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
   const { city, county } = locale
   const { address } = AddressContainer.useContainer()
@@ -68,7 +61,7 @@ const RawMichigan = ({locale, contact}: Props) => {
       county,
       city,
       birthyear: birthyearRef.value(),
-      mailingAddress: checked ? mailingRef.value() : undefined,
+      mailingAddress: mailingRef.value() || undefined,
       signature: signatureRef.current.toDataURL()
     }
     const result = await client.register(info)
@@ -115,25 +108,16 @@ const RawMichigan = ({locale, contact}: Props) => {
       ref={phoneRef}
       required
     />
-    <Checkbox
-      id='separate'
-      label='Mail my Ballot to a Separate Mailing'
-      checked={checked}
-      onChange={toggleCheck}
-    />
-    {(
-      checked
-    ) ? (
-      <Input
-        id='mailing'
-        label='Mailing Address'
-        floatingLabel={true}
-        ref={mailingRef}
-        required={checked}
+    <TogglableInput
+      toggle={{
+        id: 'separate',
+        label: 'Mail my Ballot to a Separate Mailing'
+      }}
+      id='mailing'
+      label='Mailing Address'
+      ref={mailingRef}
+
       />
-    ) : (
-      null
-    )}
     <SigWrap>
       <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
     </SigWrap>
@@ -143,9 +127,3 @@ const RawMichigan = ({locale, contact}: Props) => {
     </RoundedButton>
   </Form>
 }
-
-export const Michigan = (props: Props) => (
-  <CheckboxContainer.Provider>
-    <RawMichigan {...props}/>
-  </CheckboxContainer.Provider>
-)
