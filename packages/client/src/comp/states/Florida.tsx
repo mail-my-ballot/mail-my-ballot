@@ -1,30 +1,22 @@
-import Checkbox from 'muicss/lib/react/checkbox'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import React, { PropsWithChildren } from 'react'
 import { useHistory } from 'react-router-dom'
-import { createContainer } from 'unstated-next'
 
 import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact } from '../../common'
 import { AddressContainer } from '../../lib/state'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
-import { PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
-
-const useCheckbox = (init = false) => {
-  const [checked, setCheck] = React.useState<boolean>(init)
-  const toggleCheck = () => setCheck(!checked)
-  return { checked, toggleCheck }
-}
-const CheckboxContainer = createContainer(useCheckbox)
+import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
+import { TogglableInput } from '../util/Togglable'
 
 type Props = PropsWithChildren<{
   locale: Locale<'Florida'>
   contact: FloridaContact
 }>
 
-const RawFlorida = ({locale, contact}: Props) => {
+export const Florida = ({locale, contact}: Props) => {
   const history = useHistory()
 
   const nameRef = useControlRef<Input>()
@@ -32,8 +24,6 @@ const RawFlorida = ({locale, contact}: Props) => {
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
-
-  const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
   const { county } = locale
   const { clerk, email, url } = contact
@@ -51,7 +41,7 @@ const RawFlorida = ({locale, contact}: Props) => {
       birthdate: birthdateRef.value(),
       email: emailRef.value(),
       addressId: address.id || '',
-      mailingAddress: checked ? mailingRef.value() : undefined,
+      mailingAddress: mailingRef.value() || '',
       phone: phoneRef.value(),
       uspsAddress,
       county,
@@ -88,33 +78,19 @@ const RawFlorida = ({locale, contact}: Props) => {
       id='tel'
       ref={phoneRef}
     />
-    <Checkbox
+    <TogglableInput
       id='separate'
-      label='Mail my Ballot to a Separate Mailing'
-      checked={checked}
-      onChange={toggleCheck}
-    />
-    {(
-      checked
-    ) ? (
-      <Input
+      label='Mail My Ballot to a Separate Mailing Address'
+    >{
+      (checked) => <BaseInput
         id='mailing'
         label='Mailing Address'
-        floatingLabel={true}
         ref={mailingRef}
         required={checked}
       />
-    ) : (
-      null
-    )}
+    }</TogglableInput>
     <RoundedButton color='primary' variant='raised' data-testid='florida-submit'>
       Send my application email
     </RoundedButton>
   </Form>
 }
-
-export const Florida = (props: Props) => (
-  <CheckboxContainer.Provider>
-    <RawFlorida {...props}/>
-  </CheckboxContainer.Provider>
-)
