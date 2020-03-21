@@ -109,13 +109,14 @@ export const Michigan = ({locale, contact}: Props) => {
     <TogglableInput
       id='separate'
       label='Mail My Ballot to a Separate Mailing Address'
-      children={(checked) => <BaseInput
+    >{
+      (checked) => <BaseInput
         id='mailing'
         label='Mailing Address'
         ref={mailingRef}
         required={checked}
-      />}
-    />
+      />
+    }</TogglableInput>
 
     <SigWrap>
       <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>

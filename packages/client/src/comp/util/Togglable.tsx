@@ -10,8 +10,8 @@ const useCheckbox = (init: boolean = false) => {
 }
 const CheckboxContainer = createContainer(useCheckbox)
 
-type Props = CheckboxProps & {
-  children(checked: boolean): React.ReactNode
+interface Props extends CheckboxProps {
+  children?: (checked: boolean) => React.ReactNode
 }
 
 const RawTogglableInput: React.FC<Props> = ({children, ...props}) => {
@@ -24,7 +24,7 @@ const RawTogglableInput: React.FC<Props> = ({children, ...props}) => {
       onChange={toggleCheck}
     />
     {(
-      checked
+      checked && children
     ) ? (
       children(checked)
     ) : (
