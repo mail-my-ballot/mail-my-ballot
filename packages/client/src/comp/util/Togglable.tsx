@@ -3,7 +3,7 @@ import Checkbox from 'muicss/lib/react/checkbox'
 import { CheckboxProps } from 'muicss/react'
 import { createContainer } from 'unstated-next'
 
-const useCheckbox = (init: boolean = false) => {
+const useCheckbox = (init = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
   const toggleCheck = () => setCheck(!checked)
   return { checked, toggleCheck }
