@@ -1,9 +1,7 @@
 import React from 'react'
 import Checkbox from 'muicss/lib/react/checkbox'
-import { CheckboxProps, InputProps } from 'muicss/react'
-import Input from 'muicss/lib/react/input'
+import { CheckboxProps } from 'muicss/react'
 import { createContainer } from 'unstated-next'
-import { BaseInput } from './Input'
 
 const useCheckbox = (init: boolean = false) => {
   const [checked, setCheck] = React.useState<boolean>(init)
@@ -12,27 +10,31 @@ const useCheckbox = (init: boolean = false) => {
 }
 const CheckboxContainer = createContainer(useCheckbox)
 
-type Props<P extends InputProps> = Omit<P, 'required'> & { toggleProps: CheckboxProps }
-
-export const togglableInput = <P extends InputProps>(InputComponent: React.ComponentType<P>) => {
-  return React.forwardRef<Input, Props<P>>(({toggleProps, ...props}, ref) => {
-    const { checked, toggleCheck } = CheckboxContainer.useContainer()
-
-    return <CheckboxContainer.Provider>
-      <Checkbox
-        {...toggleProps}
-        checked={checked}
-        onChange={toggleCheck}
-      />
-      {(
-        checked
-      ) ? (
-        <InputComponent {...props} required={checked} ref={ref}/>
-      ) : (
-        null
-      )}
-    </CheckboxContainer.Provider>
-  })
+type Props = CheckboxProps & {
+  children(checked: boolean): React.ReactNode
 }
 
-export const TogglableInput = togglableInput(BaseInput)
+const RawTogglableInput: React.FC<Props> = ({children, ...props}) => {
+  const { checked, toggleCheck } = CheckboxContainer.useContainer()
+
+  return <CheckboxContainer.Provider>
+    <Checkbox
+      {...props}
+      checked={checked}
+      onChange={toggleCheck}
+    />
+    {(
+      checked
+    ) ? (
+      children(checked)
+    ) : (
+      null
+    )}
+  </CheckboxContainer.Provider>
+}
+
+export const TogglableInput: React.FC<Props> = (props) => {
+  return <CheckboxContainer.Provider>
+    <RawTogglableInput {...props}/>
+  </CheckboxContainer.Provider>
+}

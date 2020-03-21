@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from 'react'
-import Checkbox from 'muicss/lib/react/checkbox'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
@@ -13,7 +12,7 @@ import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
 import styled from 'styled-components'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
-import { togglableInput } from '../util/Togglable'
+import { TogglableInput } from '../util/Togglable'
 
 const SigWrap = styled.div`
   margin: 2em 0;
@@ -23,8 +22,6 @@ type Props = PropsWithChildren<{
   locale: Locale<'Michigan'>
   contact: MichiganContact
 }>
-
-const TogglableInput = togglableInput(BaseInput)
 
 export const Michigan = ({locale, contact}: Props) => {
   const history = useHistory()
@@ -108,16 +105,18 @@ export const Michigan = ({locale, contact}: Props) => {
       ref={phoneRef}
       required
     />
-    <TogglableInput
-      toggle={{
-        id: 'separate',
-        label: 'Mail my Ballot to a Separate Mailing'
-      }}
-      id='mailing'
-      label='Mailing Address'
-      ref={mailingRef}
 
-      />
+    <TogglableInput
+      id='separate'
+      label='Mail My Ballot to a Separate Mailing Address'
+      children={(checked) => <BaseInput
+        id='mailing'
+        label='Mailing Address'
+        ref={mailingRef}
+        required={checked}
+      />}
+    />
+
     <SigWrap>
       <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
     </SigWrap>
