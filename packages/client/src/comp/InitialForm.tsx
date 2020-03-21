@@ -11,6 +11,7 @@ import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state
 import { StateForm } from './states/StateForm'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
+import { BaseInput } from './util/Input'
 
 const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
   ? '2125 Butterfield Rd, Troy, MI 48084'
@@ -71,19 +72,16 @@ export const InitialForm: React.StatelessComponent = () => {
       <legend>Enter your address to see if you qualify for Vote by Mail</legend>
       <Row>
         <Col sm={10} xs={12}>
-          <Input
+          <BaseInput
             id='addr'
             label='Address (without Apt or Unit #)'
-            floatingLabel={true}
             ref={addrRef}
             defaultValue={defaultAddr}
           />
         </Col>
         <Col sm={2} xs={12}>
-          <Input
-            id='unit'
+          <BaseInput id='unit'
             label='Unit #'
-            floatingLabel={true}
             ref={unitRef}
           />
         </Col>
