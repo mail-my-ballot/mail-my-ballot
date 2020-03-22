@@ -1,5 +1,6 @@
 import React from 'react'
 import { RedOutline } from './util/RedOutline'
+import { sampleAddresses } from '../common/sampleAddresses'
 
 const RawWarningMsg = () => {
   return (<RedOutline>
@@ -12,12 +13,7 @@ const RawWarningMsg = () => {
     <h4>Filling out the form:</h4>
     <p><b>Address:</b> You can fill this out with any address but to see it in action, use one of the following addresses:</p>
     <ul>
-      <li>100 S Biscayne Blvd, Miami, FL 33131 (Miami-Dade County)</li>
-      <li>5443 Main St, Port Richey, FL 34652 (Pasco County)</li>
-      <li>2000 W Commercial Blvd, Fort Lauderdale, FL 33309 (Broward County)</li>
-      <li>2125 Butterfield Rd, Troy, MI 48084 (Oakland County)</li>
-      <li>24624 W Warren St, Dearborn Heights, MI (Wayne County)</li>
-      <li>700 Broad Street St Joseph, MI 49085 (Berrien County)</li>
+      {sampleAddresses.map(([addr, county], key) => <li key={key}>{addr} ({county})</li>)}
     </ul>
     <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
   </RedOutline>)
