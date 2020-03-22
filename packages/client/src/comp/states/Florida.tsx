@@ -8,7 +8,7 @@ import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
-import { TogglableInput } from '../util/Togglable'
+import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/history'
 
 type Props = PropsWithChildren<{
@@ -76,7 +76,7 @@ export const Florida = ({locale, contact}: Props) => {
       id='tel'
       ref={phoneRef}
     />
-    <TogglableInput
+    <Togglable
       id='separate'
       label='Mail My Ballot to a Separate Mailing Address'
     >{
@@ -86,7 +86,7 @@ export const Florida = ({locale, contact}: Props) => {
         ref={mailingRef}
         required={checked}
       />
-    }</TogglableInput>
+    }</Togglable>
     <RoundedButton color='primary' variant='raised' data-testid='florida-submit'>
       Send my application email
     </RoundedButton>

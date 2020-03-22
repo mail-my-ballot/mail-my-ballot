@@ -11,7 +11,7 @@ import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
 import styled from 'styled-components'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
-import { TogglableInput } from '../util/Togglable'
+import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/history'
 
 const SigWrap = styled.div`
@@ -103,7 +103,7 @@ export const Michigan = ({locale, contact}: Props) => {
       ref={phoneRef}
       required
     />
-    <TogglableInput
+    <Togglable
       id='separate'
       label='Mail My Ballot to a Separate Mailing Address'
     >{
@@ -113,7 +113,7 @@ export const Michigan = ({locale, contact}: Props) => {
         ref={mailingRef}
         required={checked}
       />
-    }</TogglableInput>
+    }</Togglable>
     <SigWrap>
       <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
     </SigWrap>
