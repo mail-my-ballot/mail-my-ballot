@@ -8,7 +8,7 @@ import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { AddressContainer } from '../../lib/state'
-import { sampleFloridaAddress } from '../../common/testData'
+import { sampleFloridaAddress } from '../../common/sampleAddresses'
 jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {

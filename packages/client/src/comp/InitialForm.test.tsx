@@ -5,7 +5,7 @@ import { StateContainer } from '../App'
 import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { sampleAddress } from '../common/testData'
+import { sampleAddress } from '../common/sampleAddresses'
 jest.mock('../lib/osm')
 jest.mock('../lib/trpc')
 

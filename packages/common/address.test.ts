@@ -1,5 +1,5 @@
 import { uspsAddressTwoLines, uspsAddressOneLine, Address } from './address'
-import { sampleAddress } from './testData'
+import { sampleAddress } from './sampleAddresses'
 
 describe('USPS address', () => {
   it('should work without unit', () => {
