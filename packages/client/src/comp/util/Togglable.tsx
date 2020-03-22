@@ -17,7 +17,7 @@ interface Props extends CheckboxProps {
 const RawTogglable: React.FC<Props> = ({children, ...props}) => {
   const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
-  return <CheckboxContainer.Provider>
+  return <>
     <Checkbox
       {...props}
       checked={checked}
@@ -30,11 +30,11 @@ const RawTogglable: React.FC<Props> = ({children, ...props}) => {
     ) : (
       null
     )}
-  </CheckboxContainer.Provider>
+  </>
 }
 
 export const Togglable: React.FC<Props> = (props) => {
-  return <CheckboxContainer.Provider>
+  return <CheckboxContainer.Provider initialState={props.checked || false}>
     <RawTogglable {...props}/>
   </CheckboxContainer.Provider>
 }
