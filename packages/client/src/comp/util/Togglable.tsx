@@ -23,13 +23,7 @@ const RawTogglable: React.FC<Props> = ({children, ...props}) => {
       checked={checked}
       onChange={toggleCheck}
     />
-    {(
-      checked && children
-    ) ? (
-      children(checked)
-    ) : (
-      null
-    )}
+    {(checked && children) && children(checked)}
   </>
 }
 
