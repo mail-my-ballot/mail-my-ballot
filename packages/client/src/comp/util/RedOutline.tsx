@@ -7,4 +7,3 @@ export const RedOutline = styled.div`
   padding: 2em;
   margin: 2em 0em;
 `
-
