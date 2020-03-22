@@ -2,9 +2,11 @@ import React from 'react'
 
 import { RoundedButton } from './util/Button'
 import { Link } from 'react-router-dom'
+import { useAppHistory } from '../lib/history'
 
 export const Success = () => {
-  const confirmationId = window.location.hash
+  const { query } = useAppHistory()
+  const confirmationId = query('id')
 
   return <>
     <h1>Congratulations!</h1>

@@ -1,7 +1,6 @@
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import React, { PropsWithChildren } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact } from '../../common'
 import { AddressContainer } from '../../lib/state'
@@ -10,6 +9,7 @@ import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { TogglableInput } from '../util/Togglable'
+import { useAppHistory } from '../../lib/history'
 
 type Props = PropsWithChildren<{
   locale: Locale<'Florida'>
@@ -17,7 +17,7 @@ type Props = PropsWithChildren<{
 }>
 
 export const Florida = ({locale, contact}: Props) => {
-  const history = useHistory()
+  const { pushSuccess } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
@@ -47,9 +47,7 @@ export const Florida = ({locale, contact}: Props) => {
       county,
     }
     const result = await client.register(info)
-    if (result.type === 'data') {
-      history.push(`/success#${result.data}`)
-    }
+    result.type === 'data' && pushSuccess(result.data)
     // TODO: Add warning if error
   }
 

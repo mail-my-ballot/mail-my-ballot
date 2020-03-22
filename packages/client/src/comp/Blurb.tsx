@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
-import { useHistory } from 'react-router-dom'
+import { useAppHistory } from '../lib/history'
 
 const Background = styled.div`
   top: 0;
@@ -44,14 +44,10 @@ const MyButton = styled(RoundedButton)`
 `
 
 export const Blurb: React.FC<{}> = () => {
-  const history = useHistory()
+  const {pushApp} = useAppHistory()
 
   const handleClick = () => {
-    document.getElementById('app')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-    history.push('/#app')
+    pushApp()
   }
 
   return <Background>

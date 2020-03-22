@@ -2,7 +2,6 @@ import React, { PropsWithChildren } from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
-import { useHistory } from 'react-router-dom'
 
 import { MichiganInfo, uspsAddressOneLine, Locale, MichiganContact } from '../../common'
 import { AddressContainer } from '../../lib/state'
@@ -13,6 +12,7 @@ import { Signature } from '../util/Signature'
 import styled from 'styled-components'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
 import { TogglableInput } from '../util/Togglable'
+import { useAppHistory } from '../../lib/history'
 
 const SigWrap = styled.div`
   margin: 2em 0;
@@ -24,7 +24,7 @@ type Props = PropsWithChildren<{
 }>
 
 export const Michigan = ({locale, contact}: Props) => {
-  const history = useHistory()
+  const { pushSuccess } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
   const emailRef = useControlRef<Input>()
@@ -62,9 +62,7 @@ export const Michigan = ({locale, contact}: Props) => {
       signature: signatureRef.current.toDataURL()
     }
     const result = await client.register(info)
-    if (result.type === 'data') {
-      history.push(`/success#${result.data}`)
-    }
+    result.type === 'data' && pushSuccess(result.data)
     // TODO: Add warning if error
   }
 
