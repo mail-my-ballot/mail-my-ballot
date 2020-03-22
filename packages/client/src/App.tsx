@@ -2,7 +2,7 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { HashRouter, Switch, Route } from "react-router-dom"
 
 import { InitialForm } from './comp/InitialForm'
 import { DevInfo } from './comp/DevInfo'
@@ -19,7 +19,7 @@ export const StyleContainer = styled(Container)`
 
 // export for testing purposes
 export const StateContainer = (props: React.PropsWithChildren<{}>) => (
-  <BrowserRouter>
+  <HashRouter>
     <QueryContainer.Provider>
       <AddressContainer.Provider>
         <ContactContainer.Provider>
@@ -27,7 +27,7 @@ export const StateContainer = (props: React.PropsWithChildren<{}>) => (
         </ContactContainer.Provider>
       </AddressContainer.Provider>
     </QueryContainer.Provider>
-  </BrowserRouter>
+  </HashRouter>
 )
 
 const Layout = () => {

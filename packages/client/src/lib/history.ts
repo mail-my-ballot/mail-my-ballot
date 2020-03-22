@@ -14,6 +14,7 @@ export const useAppHistory = () => {
     },
     pushSuccess: (id: string) => {
       history.push(`/success?id=${id}`)
+      window.scrollTo(0, 0)
     },
     query: (id: string) => {
       return _query.get(id)
