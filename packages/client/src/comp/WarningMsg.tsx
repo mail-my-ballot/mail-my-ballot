@@ -23,10 +23,6 @@ const RawWarningMsg = () => {
   </RedOutline>)
 }
 
-export const WarningMsg = () => {
-  if (process.env.REACT_APP_SHOW_WARNING) {
-    return <RawWarningMsg/>
-  } else {
-    return null
-  }
-}
+export const WarningMsg = () => (
+  process.env.REACT_APP_SHOW_WARNING ? <RawWarningMsg/> : null
+)
