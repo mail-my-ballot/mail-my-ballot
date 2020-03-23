@@ -36,11 +36,11 @@ const FlexBox = styled.div`
 const MyButton = styled(RoundedButton)`
   margin: 2em 0;
   background: #4DB6AC;
+  color: #f1f1ff;
   :hover {
     background: #5DC6BC;
     color: #f1f1ff;
   }
-  color: #f1f1ff;
 `
 
 export const Blurb: React.FC<{}> = () => {
