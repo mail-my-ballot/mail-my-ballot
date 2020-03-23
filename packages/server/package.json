@@ -9,6 +9,7 @@
     "build:staging": "env-cmd -r ./env/.env.js -e staging tsc",
     "build:production": "env-cmd -r ./env/.env.js -e production tsc",
     "test": "env-cmd -r ./env/.env.js -e test jest",
+    "test:watch": "env-cmd -r ./env/.env.js -e test jest --watchAll",
     "predeploy:staging": "yarn run build:staging && yarn appsubst:staging",
     "appsubst:staging": "env-cmd -r ./env/.env.js -e staging envsubst < app.tmpl.yaml > app.yaml",
     "deploy:staging": "gcloud app deploy --project vbm-test-dev && ./tag.sh server staging",
@@ -40,6 +41,7 @@
   "dependencies": {
     "@tianhuil/simple-trpc": "^1.5.0",
     "cors": "^2.8.5",
+    "csv-parser": "^2.3.2",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.2",
     "mailgun-js": "^0.22.0",
