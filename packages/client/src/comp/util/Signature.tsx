@@ -15,8 +15,14 @@ const BottomLine = styled.div`
   width: ${width}px;
 `
 
-const Margin = styled.div`
+const WhiteButton = styled(RoundedButton)`
   margin: 1em 0;
+  background: #ffffff;
+  color: #000;
+  :hover {
+    background: #fbfbfb;
+    color: #000;
+  }
 `
 
 type Props = React.PropsWithChildren<{
@@ -38,8 +44,8 @@ export const Signature = ({ inputRef, label }: Props) => {
         ref={inputRef}
       />
     </BottomLine>
-    <Margin>
-      <RoundedButton onClick={handleClick} variant='raised'>Clear Signature</RoundedButton>
-    </Margin>
+    <WhiteButton onClick={handleClick} variant='raised'>
+      Clear Signature
+    </WhiteButton>
   </div>
 }
