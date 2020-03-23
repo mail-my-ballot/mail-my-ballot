@@ -45,6 +45,7 @@ test('Michigan Form works', async () => {
     type: 'data',
     data: 'xxx',
   })
+  window.scrollTo = jest.fn()
 
   act(() => {
     fireEvent.change(getByLabelText(/^Full Name/i), {
