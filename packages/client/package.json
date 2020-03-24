@@ -10,6 +10,7 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-signature-canvas": "^1.0.3",
+    "source-map-explorer": "^2.4.1",
     "styled-components": "^5.0.1",
     "unstated-next": "^1.1.0"
   },
@@ -44,7 +45,8 @@
     "deploy:production": "now --prod ./build --local-config=./now.production.json --confirm  && ./tag.sh client production",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
