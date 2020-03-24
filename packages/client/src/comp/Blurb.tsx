@@ -76,6 +76,7 @@ export const Blurb: React.FC<{}> = () => {
     if (!zip) return
     const state = await client.state(zip)
     if (state.type === 'data') {
+      console.error(pushAddress)
       pushAddress(state.data, zip)
     }
     // TODO: handle error
@@ -96,8 +97,8 @@ export const Blurb: React.FC<{}> = () => {
             <h2>Enter your zipcode to see if you're eligible</h2>
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
-                <ZipInput type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
-                <SubmitButton data-testid='start' variant='raised'>Do I Qualify?</SubmitButton>
+                <ZipInput data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
+                <SubmitButton data-testid='start-submit' variant='raised'>Do I Qualify?</SubmitButton>
               </FlexContainer>
             </Form>
           </FlexBox>

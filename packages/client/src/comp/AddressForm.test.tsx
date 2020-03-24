@@ -6,12 +6,15 @@ import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../common/sampleAddresses'
+import { MemoryRouter } from 'react-router-dom'
 jest.mock('../lib/osm')
 jest.mock('../lib/trpc')
 
 test('AddressForm works', async () => {
   const { getByLabelText, getByTestId } = render(
-    <AddressForm/>,
+    <MemoryRouter initialEntries={['/address/Florida/33131']}>
+      <AddressForm/>  
+    </MemoryRouter>,
     { wrapper: StateContainer }
   )
 

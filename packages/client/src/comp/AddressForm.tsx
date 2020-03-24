@@ -30,13 +30,15 @@ export const AddressForm: React.StatelessComponent = () => {
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
 
-  if (!state) return null
+  if (!state) throw Error('state not set')
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!addrRef.current || !unitRef.current || !state) return
+    if (!addrRef.current) throw Error('address ref not set')
+    if (!!unitRef.current) throw Error('unit ref not set')
+    if (!state) throw Error('state not set')
 
     load('Fetching information about your address')
     try {
