@@ -57,6 +57,7 @@ const allStatesArray = [
 export type State = (typeof allStatesArray)[number]
 const allStatesSet = new Set(allStatesArray)
 export const isState = (x: string): x is State => allStatesSet.has(x as State)
+export type StateField = {state: State}
 
 interface BaseInfo {
   state: State

@@ -32,9 +32,9 @@ fs.createReadStream(__dirname + '/uszips.csv')
     )
   })
 
-export const search = (zip: string): State | null => {
+export const search = (zip: string): string | null => {
   if (!obj) return null
   const {stateName} = obj[zip]
-  if (!isState(stateName)) return null
+  if (!stateName) return null
   return stateName
 }

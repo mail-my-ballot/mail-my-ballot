@@ -1,64 +1,25 @@
 import React from 'react'
-import { useParams, Switch, Route } from "react-router-dom"
 
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { Address, toLocale, vbmStatus, Locale, FloridaContact, Contact, MichiganContact } from '../../common'
-import { Excuse, NoExcuse, Automatic, Website, Mail, VbmApp } from './Status'
+import { toLocale, Locale } from '../../common'
 
-const StateVbmApp: React.FC<{locale: Locale, contact: Contact | null}> = ({
-  locale,
-  contact
-}) => {
-  // TODO: improve message below.
-  if (!contact) return <p>
-    Unfortunately, we could not find the contact details for your local elections official.
-  </p>
-  if (contact.state !== locale.state) throw Error(`States ${contact.state} and ${locale.state} do not match`)
-
-  switch (locale.state) {
-    case 'Florida': return <Florida locale={locale as Locale<'Florida'>} contact={contact as FloridaContact}/>
-    case 'Michigan': return <Michigan locale={locale as Locale<'Michigan'>} contact={contact as MichiganContact}/>
-    default: throw Error('Unrecognized VBM State')
-  }
-}
-
-const useLocale = (): Locale | null => {
+export const StateForm = () => {
   const { address } = AddressContainer.useContainer()
-  const params = useParams<Locale>() as Address
-  return toLocale({...address, ...params})
-}
-
-const StateChooser = () => {
-  // must call all hooks first
-  const locale = useLocale()
   const { contact } = ContactContainer.useContainer()
 
-  if (!locale) return null
+  if (!address || !contact) throw Error('StateForm should only be called if address and contact are set')
+  
 
-  const status = vbmStatus(locale.state)
-  const arg = {...status, ...locale}
+  const locale = toLocale(address)
+  if (!locale) throw Error(`Could not derive locale from Address`)
 
-  switch(arg.status) {
-    case "Excuse": return <Excuse {...arg}/>
-    case "NoExcuse": return <NoExcuse {...arg}/>
-    case "Automatic": return <Automatic {...arg}/>
-    case "Website": return <Website {...arg}/>
-    case "Mail": return <Mail {...arg}/>
-    case "VbmApp": return <VbmApp {...arg}>
-      <StateVbmApp locale={locale} contact={contact}/>
-    </VbmApp>
+  if (address.state !== contact.state) throw Error(`Address state ${address.state} does not match ${contact.state}`)
+  if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
+
+  switch(contact.state) {
+    case 'Florida': return <Florida address={address} locale={locale as Locale<'Florida'>} contact={contact}/>
+    case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} contact={contact}/>
   }
 }
-
-export const StateForm = () => (
-  <Switch>
-    <Route path={`/:state/:county`}>
-      <StateChooser/>
-    </Route>
-    <Route path='/'>
-      <StateChooser/>
-    </Route>
-  </Switch>
-)

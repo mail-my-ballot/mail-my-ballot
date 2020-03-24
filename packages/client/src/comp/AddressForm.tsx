@@ -8,28 +8,35 @@ import { geocode } from '../lib/osm'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
-import { StateForm } from './states/StateForm'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
+import { StatusReport } from './status/StatusReport'
+import { useParams } from 'react-router-dom'
+import { useAppHistory } from '../lib/history'
+import { Notification } from './Notification'
 
 const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
   ? '2125 Butterfield Rd, Troy, MI 48084'
   : undefined
 )
 
-export const InitialForm: React.StatelessComponent = () => {
+export const AddressForm: React.StatelessComponent = () => {
+  const { state } = useParams()
+  const { pushStateForm } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const unitRef = useControlRef<Input>()
-  const { setAddress } = AddressContainer.useContainer()
   const { load, error, success } = QueryContainer.useContainer()
+  const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
+
+  if (!state) return null
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!addrRef.current || !unitRef.current) return
+    if (!addrRef.current || !unitRef.current || !state) return
 
     load('Fetching information about your address')
     try {
@@ -56,6 +63,7 @@ export const InitialForm: React.StatelessComponent = () => {
         }
       }
       await success(<><b>Success</b> fetching information about your address</>)
+      pushStateForm(state)
     } catch(e) {
       if (e instanceof TimeoutError) {
         error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
@@ -68,26 +76,29 @@ export const InitialForm: React.StatelessComponent = () => {
   }
 
   return <>
-    <Form onSubmit={handleSubmit}>
-      <legend>Enter your address to see if you qualify for Vote by Mail</legend>
-      <Row>
-        <Col sm={10} xs={12}>
-          <BaseInput
-            id='addr'
-            label='Address (without Apt or Unit #)'
-            ref={addrRef}
-            defaultValue={defaultAddr}
-          />
-        </Col>
-        <Col sm={2} xs={12}>
-          <BaseInput id='unit'
-            label='Unit #'
-            ref={unitRef}
-          />
-        </Col>
-      </Row>
-      <RoundedButton color='primary' variant='raised' data-testid='initialform-submit'>Can I vote by Mail?</RoundedButton>
-    </Form>
-    <StateForm />
+    <StatusReport state={state}>
+      <Form onSubmit={handleSubmit}>
+        <legend>Enter your address to find your local election official</legend>
+        <p></p>
+        <Row>
+          <Col sm={10} xs={12}>
+            <BaseInput
+              id='addr'
+              label='Address (without Apt or Unit #)'
+              ref={addrRef}
+              defaultValue={defaultAddr}
+            />
+          </Col>
+          <Col sm={2} xs={12}>
+            <BaseInput id='unit'
+              label='Unit #'
+              ref={unitRef}
+            />
+          </Col>
+        </Row>
+        <RoundedButton color='primary' variant='raised' data-testid='submit'>Can I vote by Mail?</RoundedButton>
+      </Form>
+      <Notification/>
+    </StatusReport>
   </>
 }

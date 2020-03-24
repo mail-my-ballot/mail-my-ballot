@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
-import { InitialForm } from './InitialForm'
+import { AddressForm } from './AddressForm'
 import { StateContainer } from '../App'
 import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
@@ -9,9 +9,9 @@ import { sampleAddress } from '../common/sampleAddresses'
 jest.mock('../lib/osm')
 jest.mock('../lib/trpc')
 
-test('InitialForm works', async () => {
+test('AddressForm works', async () => {
   const { getByLabelText, getByTestId } = render(
-    <InitialForm/>,
+    <AddressForm/>,
     { wrapper: StateContainer }
   )
 
@@ -29,7 +29,7 @@ test('InitialForm works', async () => {
         value: '100 S Biscayne Blvd, Miami, FL 33131'
       },
     })
-    fireEvent.click(getByTestId('initialform-submit'), {
+    fireEvent.click(getByTestId('submit'), {
         bubbles: true,
         cancelable: true,
     })

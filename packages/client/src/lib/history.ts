@@ -5,12 +5,13 @@ export const useAppHistory = () => {
   const _query = new URLSearchParams(useLocation().search)
 
   return {
-    pushApp: () => {
-      document.getElementById('app')?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-      history.push('/#app')
+    pushAddress: (state: string, zip: string) => {
+      history.push(`/address/${state}/${zip}`)
+      window.scrollTo(0, 0)
+    },
+    pushStateForm: (state: string) => {
+      history.push(`/state/${state}`)
+      window.scrollTo(0, 0)
     },
     pushSuccess: (id: string) => {
       history.push(`/success?id=${id}`)

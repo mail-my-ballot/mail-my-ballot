@@ -4,13 +4,13 @@ import styled from 'styled-components'
 
 import { HashRouter, Switch, Route } from "react-router-dom"
 
-import { InitialForm } from './comp/InitialForm'
+import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
-import { Notification } from './comp/Notification'
 import { QueryContainer, AddressContainer, ContactContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
+import { StateForm } from './comp/states/StateForm'
 
 export const StyleContainer = styled(Container)`
   padding-top: 4em;
@@ -33,21 +33,29 @@ export const StateContainer = (props: React.PropsWithChildren<{}>) => (
 const Layout = () => {
   return (<>
     <Switch>
+    <Route path='/node-env'>
+        <p>{process.env.NODE_ENV}</p>
+      </Route>
       <Route path='/success'>
         <StyleContainer>
           <WarningMsg/>
           <Success/>
         </StyleContainer>
       </Route>
-      <Route path='/node-env'>
-        <p>{process.env.NODE_ENV}</p>
+      <Route path='/address/:state/:zip?'>
+        <StyleContainer>
+          <AddressForm/>
+        </StyleContainer>
+      </Route>
+      <Route path='/state/:state/'>
+        <StyleContainer>
+          <StateForm/>
+        </StyleContainer>
       </Route>
       <Route exact path='/'>
         <Blurb/>
         <StyleContainer id='app' data-testid='app'>
           <WarningMsg/>
-          <InitialForm/>
-          <Notification />
         </StyleContainer>
       </Route>
     </Switch>

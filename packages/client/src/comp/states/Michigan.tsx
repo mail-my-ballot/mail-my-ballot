@@ -1,10 +1,9 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
-import { MichiganInfo, uspsAddressOneLine, Locale, MichiganContact } from '../../common'
-import { AddressContainer } from '../../lib/state'
+import { MichiganInfo, uspsAddressOneLine, Locale, MichiganContact, Address } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -18,12 +17,13 @@ const SigWrap = styled.div`
   margin: 2em 0;
 `
 
-type Props = PropsWithChildren<{
-  locale: Locale<'Michigan'>
+type Props = React.PropsWithChildren<{
+  address: Address,
+  locale: Locale<'Michigan'>,
   contact: MichiganContact
 }>
 
-export const Michigan = ({locale, contact}: Props) => {
+export const Michigan = ({address, locale, contact}: Props) => {
   const { pushSuccess } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
@@ -34,7 +34,6 @@ export const Michigan = ({locale, contact}: Props) => {
   const signatureRef = React.useRef<SignatureCanvas>(null)
 
   const { city, county } = locale
-  const { address } = AddressContainer.useContainer()
   const uspsAddress = address ? uspsAddressOneLine(address) : null
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

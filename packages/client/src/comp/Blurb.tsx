@@ -1,9 +1,11 @@
 import React from 'react'
+import Form from 'muicss/lib/react/form'
 import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
 import { useAppHistory } from '../lib/history'
+import { client } from '../lib/trpc'
 
 const Background = styled.div`
   top: 0;
@@ -33,8 +35,28 @@ const FlexBox = styled.div`
   align-items: flex-start;
 `
 
-const MyButton = styled(RoundedButton)`
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-contnet: flex-start;
+  align-content: center;
+`
+
+const ZipInput = styled.input`
   margin: 2em 0;
+  padding: 0.5em 1em;
+  height: 22px;
+  border: none;
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+  border-radius: 2em 0 0 2em;
+`
+
+const SubmitButton = styled(RoundedButton)`
+  margin: 2em 0;
+  border-radius: 0 2em 2em 0;
+  z-index: 0;
   background: #4DB6AC;
   color: #f1f1ff;
   :hover {
@@ -44,10 +66,19 @@ const MyButton = styled(RoundedButton)`
 `
 
 export const Blurb: React.FC<{}> = () => {
-  const {pushApp} = useAppHistory()
+  const { pushAddress } = useAppHistory()
+  const zipRef = React.useRef<HTMLInputElement>(null)
 
-  const handleClick = () => {
-    pushApp()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.persist()  // allow async function call
+    event.preventDefault()
+    const zip = zipRef?.current?.value
+    if (!zip) return
+    const state = await client.state(zip)
+    if (state.type === 'data') {
+      pushAddress(state.data, zip)
+    }
+    // TODO: handle error
   }
 
   return <Background>
@@ -62,9 +93,13 @@ export const Blurb: React.FC<{}> = () => {
             <Text>
               28 states now allow <i>any</i> registerecd voter to vote by mail.  Does yours?
             </Text>
-            <MyButton data-testid='start' variant='raised' onClick={handleClick}>
-              Do I Qualify?
-            </MyButton>
+            <h2>Enter your zipcode to see if you're eligible</h2>
+            <Form onSubmit={handleSubmit}>
+              <FlexContainer> 
+                <ZipInput type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
+                <SubmitButton data-testid='start' variant='raised'>Do I Qualify?</SubmitButton>
+              </FlexContainer>
+            </Form>
           </FlexBox>
         </Col>
       </Row>

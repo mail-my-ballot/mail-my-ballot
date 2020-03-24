@@ -1,9 +1,8 @@
+import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
-import React, { PropsWithChildren } from 'react'
 
-import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact } from '../../common'
-import { AddressContainer } from '../../lib/state'
+import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact, Address } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -11,12 +10,13 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/history'
 
-type Props = PropsWithChildren<{
-  locale: Locale<'Florida'>
+type Props = React.PropsWithChildren<{
+  address: Address,
+  locale: Locale<'Florida'>,
   contact: FloridaContact
 }>
 
-export const Florida = ({locale, contact}: Props) => {
+export const Florida = ({address, locale, contact}: Props) => {
   const { pushSuccess } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
@@ -25,10 +25,9 @@ export const Florida = ({locale, contact}: Props) => {
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
 
+  const uspsAddress = address ? uspsAddressOneLine(address) : null
   const { county } = locale
   const { clerk, email, url } = contact
-  const { address } = AddressContainer.useContainer()
-  const uspsAddress = address ? uspsAddressOneLine(address) : null
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
