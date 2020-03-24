@@ -1,6 +1,5 @@
 import fs from 'fs'
 import csv from 'csv-parser' 
-import { State, isState } from '../../common'
 
 interface Line {
   zip: string
