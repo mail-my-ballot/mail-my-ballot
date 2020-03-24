@@ -33,7 +33,7 @@ export const toEmailData = (
   - Name: **${name}**
   - Voter Registration Address: **${uspsAddress}**
   - Birthdate: **${birthdate}**
-  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as egistration address' }
+  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as registration address' }
 
   Thank you in advance for your assistance.  If you have any questions, my email is ${email}.
 
