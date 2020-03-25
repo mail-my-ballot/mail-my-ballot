@@ -43,18 +43,24 @@ const Layout = () => {
         </StyleContainer>
       </Route>
       <Route path='/address/:state/:zip?'>
-        <StyleContainer>
+        <Blurb/>
+        <StyleContainer id='address-form' data-testid='address-form'>
+          <WarningMsg/>
           <AddressForm/>
         </StyleContainer>
       </Route>
       <Route path='/state/:state/'>
         <StyleContainer>
-          <StateForm/>
+          <WarningMsg/>
+          <AddressForm/>
+          <div id='state-form' data-testid='state-form'>
+            <StateForm/>
+          </div>
         </StyleContainer>
       </Route>
       <Route exact path='/'>
         <Blurb/>
-        <StyleContainer id='app' data-testid='app'>
+        <StyleContainer>
           <WarningMsg/>
         </StyleContainer>
       </Route>

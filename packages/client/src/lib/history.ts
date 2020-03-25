@@ -7,11 +7,17 @@ export const useAppHistory = () => {
   return {
     pushAddress: (state: string, zip: string) => {
       history.push(`/address/${state}/${zip}`)
-      window.scrollTo(0, 0)
+      document.getElementById('address-form')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
     },
     pushStateForm: (state: string) => {
       history.push(`/state/${state}`)
-      window.scrollTo(0, 0)
+      document.getElementById('state-form')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
     },
     pushSuccess: (id: string) => {
       history.push(`/success?id=${id}`)
