@@ -76,7 +76,6 @@ export const Blurb: React.FC<{}> = () => {
     if (!zip) return
     const state = await client.state(zip)
     if (state.type === 'data') {
-      console.error(pushAddress)
       pushAddress(state.data, zip)
     }
     // TODO: handle error
