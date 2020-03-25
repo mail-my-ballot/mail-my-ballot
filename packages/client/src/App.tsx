@@ -11,6 +11,7 @@ import { Success } from './comp/Success'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
+import { Notification } from './comp/Notification'
 
 export const StyleContainer = styled(Container)`
   min-height: 100vh;
@@ -47,6 +48,7 @@ const Layout = () => {
           <div id='address-form' data-testid='address-form'>
             <AddressForm/>
           </div>
+          <Notification/>
           <WarningMsg/>
         </StyleContainer>
       </Route>
@@ -57,6 +59,7 @@ const Layout = () => {
           <div id='state-form' data-testid='state-form'>
             <StateForm/>
           </div>
+          <Notification/>
           <WarningMsg/>
         </StyleContainer>
       </Route>

@@ -14,7 +14,6 @@ import { BaseInput } from './util/Input'
 import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/history'
-import { Notification } from './Notification'
 
 
 const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
@@ -99,7 +98,6 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
         </Row>
         <RoundedButton color='primary' variant='raised' data-testid='submit'>Can I vote by Mail?</RoundedButton>
       </Form>
-      <Notification/>
     </StatusReport>
   </div>
 }
