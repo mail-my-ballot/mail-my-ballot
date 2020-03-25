@@ -1,69 +1,89 @@
 import { useHistory, useLocation, matchPath } from "react-router-dom"
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-export interface Start {
-  path: '/'
-}
-export const startPath = '/'
+const allPathEnums = [
+  'start',
+  'address',
+  'state',
+  'success',
+] as const
+export type PathEnum = (typeof allPathEnums)[number]
 
-export interface Address {
-  path: '/address/:state/:zip?'
+interface PathBase {
+  type: PathEnum
+}
+
+export interface StartPath extends PathBase {
+  type: 'start'
+}
+export interface AddressPath extends PathBase {
+  type: 'address'
   state: string
   zip?: string
 }
-export const addressPath = '/address/:state/:zip?'
-
-export interface State {
-  path: '/state/:state'
+export interface StatePath extends PathBase {
+  type: 'state'
   state: string
 }
-export const statePath = '/state/:state'
-
-export interface Success {
-  path: '/success'
+export interface SuccessPath extends PathBase {
+  type: 'success'
   id: string
 }
-export const successPath = '/success'
 
 export type Path = (
-  | Start
-  | Address
-  | State
-  | Success
+  | StartPath
+  | AddressPath
+  | StatePath
+  | SuccessPath
 )
 
-export const toUrl = (path: Path): string => {
-  switch(path.path) {
-    case startPath: return startPath
-    case addressPath: return `/address/${path.state}/${path.zip}`
-    case statePath: return `/state/${path.state}`
-    case successPath: return successPath
+interface PathDatum<P extends Path = Path> {
+  path: string
+  toUrl: (path: P) => string
+  scrollId: string
+}
+
+type ByEnum<E extends PathEnum, P> = P extends {type: E} ? P : never
+type PathByEnum<E extends PathEnum> = ByEnum<E, Path>
+type PathData = { [E in PathEnum]: PathDatum<PathByEnum<E>> }
+
+const pathData: PathData = {
+  'start': {
+    path: '/',
+    toUrl: (_) => '/',
+    scrollId: 'start',
+  },
+  'address': {
+    path: '/address/:state/:zip?',
+    toUrl: (path) => `/address/${path.state}/${path.zip}`,
+    scrollId: 'address'
+  },
+  'state': {
+    path: '/state/:state',
+    toUrl: (path) => `/state/${path.state}`,
+    scrollId: 'address',
+  },
+  'success': {
+    path: '/success',
+    toUrl: (path) => `/succcess/${path.id}`,
+    scrollId: 'address',
   }
 }
 
-const rawToPath = <T extends Path>(url: string, path: string, exact: boolean = false): T | null => {
+const toUrl = <P extends Path>(path: P): string => {
+  // arg -- can't get around this typecast
+  return (pathData[path.type] as PathDatum<P>).toUrl(path)
+}
+
+const rawToPath = <T extends Path>(url: string, pathEnum: PathEnum, exact: boolean = false): T | null => {
+  const { path } = pathData[pathEnum]
   const match = matchPath<T>(url, { path, exact })
   if (!match) return null
   return match.params
 }
 
-export const toPath = (url: string): Path | null => {
-  return (
-    rawToPath<Start>(url, startPath, true) ||
-    rawToPath<Address>(url, addressPath) ||
-    rawToPath<State>(url, statePath) ||
-    rawToPath<Success>(url, successPath) ||
-    null
-  )
-}
-
-export const toScrollId = (path: Path) => {
-  switch(path.path) {
-    case startPath: return 'start'
-    case addressPath: return 'address-form'
-    case statePath: return 'state-form'
-    case successPath: return 'success'
-  }
+const toPath = (pathname: string): Path | null => {
+  const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, true))
+  return matches.reduce((x, y) => x || y, null)
 }
 
 const scrollToId = (id: string) => {
@@ -75,27 +95,29 @@ const scrollToId = (id: string) => {
 
 export const useAppHistory = () => {
   const history = useHistory()
-  const _query = new URLSearchParams(useLocation().search)
+  const { pathname, search } = useLocation()
+  const _query = new URLSearchParams(search)
+  
   const pushScroll = (path: Path) => {
     history.push(toUrl(path))
-    scrollToId(toScrollId(path))
+    scrollToId(pathData[path.type].scrollId)
   }
 
   return {
     pushScroll,
-    pushStart: () => pushScroll({path: startPath}),
+    path: toPath(pathname),
+    pushStart: () => pushScroll({type: 'start'}),
     pushAddress: (state: string, zip?: string) => {
-      pushScroll({path: addressPath, state, zip})
+      pushScroll({type: 'address', state, zip})
     },
     pushStateForm: (state: string) => {
-      pushScroll({path: statePath, state})
+      pushScroll({type: 'state', state})
     },
     pushSuccess: (id: string) => {
-      pushScroll({path: successPath, id})
+      pushScroll({type: 'success', id})
     },
     query: (id: string) => {
       return _query.get(id)
     }
-
   }
 }
