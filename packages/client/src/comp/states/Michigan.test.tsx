@@ -10,34 +10,32 @@ import { Michigan } from './Michigan'
 import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { AddressContainer } from '../../lib/state'
-import { sampleFloridaAddress } from '../../common/sampleAddresses'
+import { sampleAddress } from '../../common/sampleAddresses'
 jest.mock('../../lib/trpc')
 
 test('Michigan Form works', async () => {
   const history = createMemoryHistory()
 
   const { getByLabelText, getByTestId } = render(
-    <AddressContainer.Provider initialState={sampleFloridaAddress}>
-      <Router history={history}>
-        <Michigan
-          locale={{
-            state: 'Michigan',
-            county: 'Wayne County',
-            city: 'Canton'
-          }}
-          contact={{
-            state: 'Michigan', 
-            city: 'Canton',
-            county: 'Wayne County',
-            clerk: 'Christina  White',
-            email: 'soedade@miamidade.gov',
-            fax: '',
-            phone: '',
-          }}
-        />
-      </Router>
-    </AddressContainer.Provider>,
+    <Router history={history}>
+      <Michigan
+        locale={{
+          state: 'Michigan',
+          county: 'Wayne County',
+          city: 'Canton'
+        }}
+        address={sampleAddress}
+        contact={{
+          state: 'Michigan', 
+          city: 'Canton',
+          county: 'Wayne County',
+          clerk: 'Christina  White',
+          email: 'soedade@miamidade.gov',
+          fax: '',
+          phone: '',
+        }}
+      />
+    </Router>,
     { wrapper: StateContainer }
   )
 

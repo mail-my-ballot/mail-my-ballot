@@ -7,32 +7,30 @@ import { Florida } from './Florida'
 import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { AddressContainer } from '../../lib/state'
-import { sampleFloridaAddress } from '../../common/sampleAddresses'
+import { sampleAddress } from '../../common/sampleAddresses'
 jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
   const history = createMemoryHistory()
 
   const { getByLabelText, getByTestId } = render(
-    <AddressContainer.Provider initialState={sampleFloridaAddress}>
-      <Router history={history}>
-        <Florida
-          locale={{
-            state: 'Florida',
-            county: 'Miami-Dade County',
-            city: 'Miami'
-          }}
-          contact={{
-            state: 'Florida', 
-            county: 'Miami-Dade County',
-            clerk: 'Christina  White',
-            email: 'soedade@miamidade.gov',
-            url: 'http://www.miamidade.gov/elections/',
-          }}
-        />
-      </Router>
-    </AddressContainer.Provider>,
+    <Router history={history}>
+      <Florida
+        locale={{
+          state: 'Florida',
+          county: 'Miami-Dade County',
+          city: 'Miami'
+        }}
+        address={sampleAddress}
+        contact={{
+          state: 'Florida', 
+          county: 'Miami-Dade County',
+          clerk: 'Christina  White',
+          email: 'soedade@miamidade.gov',
+          url: 'http://www.miamidade.gov/elections/',
+        }}
+      />
+    </Router>,
     { wrapper: StateContainer }
   )
 

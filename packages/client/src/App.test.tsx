@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, wait } from '@testing-library/react'
 import App from './App'
 import { useAppHistory } from './lib/history'
 import { client } from './lib/trpc'
@@ -8,25 +8,22 @@ jest.mock('./lib/history')
 jest.mock('./lib/trpc')
 
 describe('App', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     mocked(client, true).state = jest.fn().mockResolvedValue({
       type: 'data',
       data: 'Florida',
     })
+    mocked(useAppHistory).mockReturnValue({pushAddress: jest.fn()} as any)
   })
 
   it('Renders Initial Blurb', () => {
-    const pushAddress = jest.fn()
-    mocked(useAppHistory).mockReturnValue({pushAddress} as any)
-
     const { getByText } = render(<App />)
     const linkElement = getByText(/^Vote by Mail$/i)
     expect(linkElement).toBeInTheDocument()
   })
 
   it('Scrolls when clicked on Blurb page', () => {
-    let calls = 0
-    const pushAddress = jest.fn((x, y) => {calls += 1; console.error('f');})
+  const pushAddress = jest.fn()
     mocked(useAppHistory).mockReturnValue({pushAddress} as any)
 
     const { getByTestId } = render(<App />)
@@ -49,7 +46,6 @@ describe('App', () => {
       )
     })
 
-    expect(calls).toBeGreaterThanOrEqual(1)
-    expect(pushAddress).toHaveBeenCalled()
+    wait(() => expect(pushAddress).toHaveBeenCalled())
   })
 })
