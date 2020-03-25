@@ -5,12 +5,11 @@ import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
 import { toLocale, Locale } from '../../common'
 
-export const StateForm = () => {
+export const StateForm: React.FC<{}> = () => {
   const { address } = AddressContainer.useContainer()
   const { contact } = ContactContainer.useContainer()
 
   if (!address || !contact) throw Error('StateForm should only be called if address and contact are set')
-  
 
   const locale = toLocale(address)
   if (!locale) throw Error(`Could not derive locale from Address`)
