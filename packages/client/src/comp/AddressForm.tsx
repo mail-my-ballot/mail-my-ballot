@@ -16,13 +16,14 @@ import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/history'
 import { Notification } from './Notification'
 
+
 const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
   ? '2125 Butterfield Rd, Troy, MI 48084'
   : undefined
 )
 
-export const AddressForm: React.StatelessComponent = () => {
-  const { state } = useParams()
+// pulled out for testing
+export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
   const { pushStateForm } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const unitRef = useControlRef<Input>()
@@ -30,15 +31,13 @@ export const AddressForm: React.StatelessComponent = () => {
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
 
-  if (!state) throw Error('state not set')
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
 
     if (!addrRef.current) throw Error('address ref not set')
-    if (!!unitRef.current) throw Error('unit ref not set')
-    if (!state) throw Error('state not set')
+    if (!unitRef.current) throw Error('unit ref not set')
+    if (!state) throw Error('state not set in AddressForm.handleSubmit')
 
     load('Fetching information about your address')
     try {
@@ -103,4 +102,10 @@ export const AddressForm: React.StatelessComponent = () => {
       <Notification/>
     </StatusReport>
   </>
+}
+
+export const AddressForm = () => {
+  const { state } = useParams()
+  if (!state) throw Error('state not set in AddressForm')
+  return <RawAddressForm state={state}/>
 }

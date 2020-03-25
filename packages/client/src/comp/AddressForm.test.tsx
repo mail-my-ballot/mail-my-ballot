@@ -1,20 +1,17 @@
 import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
-import { AddressForm } from './AddressForm'
+import { RawAddressForm } from './AddressForm'
 import { StateContainer } from '../App'
 import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../common/sampleAddresses'
-import { MemoryRouter } from 'react-router-dom'
 jest.mock('../lib/osm')
 jest.mock('../lib/trpc')
 
 test('AddressForm works', async () => {
   const { getByLabelText, getByTestId } = render(
-    <MemoryRouter initialEntries={['/address/Florida/33131']}>
-      <AddressForm/>  
-    </MemoryRouter>,
+    <RawAddressForm state='Florida'/>,
     { wrapper: StateContainer }
   )
 
@@ -44,5 +41,4 @@ test('AddressForm works', async () => {
   expect(addAddress).toHaveBeenCalled()
   expect(getByTestId('status-title')).toHaveTextContent('Great News!')
   expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.state)
-  expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.county)
 })
