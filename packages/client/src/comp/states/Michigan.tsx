@@ -18,8 +18,8 @@ const SigWrap = styled.div`
 `
 
 type Props = React.PropsWithChildren<{
-  address: Address,
-  locale: Locale<'Michigan'>,
+  address: Address
+  locale: Locale<'Michigan'>
   contact: MichiganContact
 }>
 

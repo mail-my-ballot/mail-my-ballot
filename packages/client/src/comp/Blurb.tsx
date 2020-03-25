@@ -93,7 +93,7 @@ export const Blurb: React.FC<{}> = () => {
             <Text>
               28 states now allow <i>any</i> registerecd voter to vote by mail.  Does yours?
             </Text>
-            <h2>Enter your zipcode to see if you're eligible</h2>
+            <h2>Enter your zipcode to see if you&apos;re eligible</h2>
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
                 <ZipInput data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>

@@ -11,8 +11,8 @@ import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/history'
 
 type Props = React.PropsWithChildren<{
-  address: Address,
-  locale: Locale<'Florida'>,
+  address: Address
+  locale: Locale<'Florida'>
   contact: FloridaContact
 }>
 

@@ -13,6 +13,7 @@ describe('App', () => {
       type: 'data',
       data: 'Florida',
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mocked(useAppHistory).mockReturnValue({pushAddress: jest.fn()} as any)
   })
 
@@ -23,7 +24,8 @@ describe('App', () => {
   })
 
   it('Scrolls when clicked on Blurb page', () => {
-  const pushAddress = jest.fn()
+    const pushAddress = jest.fn()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mocked(useAppHistory).mockReturnValue({pushAddress} as any)
 
     const { getByTestId } = render(<App />)
