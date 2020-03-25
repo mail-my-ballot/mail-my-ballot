@@ -50,13 +50,13 @@ export const Michigan = ({address, locale, contact}: Props) => {
     const info: MichiganInfo = {
       addressId: address.id || '',
       state: 'Michigan',
-      name: nameRef.value(),
+      name: nameRef.value() || '',
       uspsAddress,
-      email: emailRef.value(),
-      phone: phoneRef.value(),
+      email: emailRef.value() || '',
+      phone: phoneRef.value() || '',
       county,
       city,
-      birthyear: birthyearRef.value(),
+      birthyear: birthyearRef.value() || '',
       mailingAddress: mailingRef.value() || undefined,
       signature: signatureRef.current.toDataURL()
     }

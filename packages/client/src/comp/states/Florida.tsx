@@ -36,12 +36,12 @@ export const Florida = ({address, locale, contact}: Props) => {
 
     const info: FloridaInfo = {
       state: 'Florida',
-      name: nameRef.value(),
-      birthdate: birthdateRef.value(),
-      email: emailRef.value(),
+      name: nameRef.value() || '',
+      birthdate: birthdateRef.value() || '',
+      email: emailRef.value() || '',
       addressId: address.id || '',
       mailingAddress: mailingRef.value() || '',
-      phone: phoneRef.value(),
+      phone: phoneRef.value() || '',
       uspsAddress,
       county,
     }

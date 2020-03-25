@@ -1,6 +1,6 @@
 import React from 'react'
 
-type ControlRef<T> = React.RefObject<T> & { value: () => string }
+type ControlRef<T> = React.RefObject<T> & { value: () => string | null }
 
 export function useControlRef<T>(): ControlRef<T> {
   const ref = React.useRef<T>(null)

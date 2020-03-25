@@ -35,14 +35,14 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
     event.persist()  // allow async function call
     event.preventDefault()
 
-    if (!addrRef.current) throw Error('address ref not set')
-    if (!unitRef.current) throw Error('unit ref not set')
-    if (!state) throw Error('state not set in AddressForm.handleSubmit')
+    const addrInput = addrRef.value()
+    const unit = unitRef.value()
+    if (addrInput === null) throw Error('address ref not set')
+    if (unit === null) throw Error('unit ref not set')
 
     load('Fetching information about your address')
     try {
-      const addrInput = addrRef.value()
-      const address = await geocode(addrRef.value(), unitRef.value())
+      const address = await geocode(addrInput, unit)
       setAddress(address)
 
       if (!address) {
