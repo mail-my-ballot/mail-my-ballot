@@ -36,7 +36,7 @@ const Layout = () => {
         <p>{process.env.NODE_ENV}</p>
       </Route>
       <Route path='/success'>
-        <StyleContainer>
+        <StyleContainer id='success'>
           <WarningMsg/>
           <Success/>
         </StyleContainer>
@@ -61,7 +61,9 @@ const Layout = () => {
         </StyleContainer>
       </Route>
       <Route exact path='/'>
-        <Blurb/>
+        <div id='start' data-testid='start'>
+          <Blurb/>
+        </div>
         <StyleContainer>
           <WarningMsg/>
         </StyleContainer>
