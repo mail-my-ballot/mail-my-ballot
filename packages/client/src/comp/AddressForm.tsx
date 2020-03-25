@@ -76,7 +76,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
     }
   }
 
-  return <>
+  return <div style={{paddingTop: '4em' }}>
     <StatusReport state={state}>
       <Form onSubmit={handleSubmit}>
         <legend>Enter your address to find your local election official</legend>
@@ -101,7 +101,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
       </Form>
       <Notification/>
     </StatusReport>
-  </>
+  </div>
 }
 
 export const AddressForm = () => {

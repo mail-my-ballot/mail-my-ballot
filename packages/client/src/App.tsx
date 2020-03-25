@@ -13,7 +13,6 @@ import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
 
 export const StyleContainer = styled(Container)`
-  padding-top: 4em;
   min-height: 100vh;
 `
 
@@ -44,18 +43,20 @@ const Layout = () => {
       </Route>
       <Route path='/address/:state/:zip?'>
         <Blurb/>
-        <StyleContainer id='address-form' data-testid='address-form'>
+        <StyleContainer>
+          <div id='address-form' data-testid='address-form'>
+            <AddressForm/>
+          </div>
           <WarningMsg/>
-          <AddressForm/>
         </StyleContainer>
       </Route>
       <Route path='/state/:state/'>
         <StyleContainer>
-          <WarningMsg/>
           <AddressForm/>
           <div id='state-form' data-testid='state-form'>
             <StateForm/>
           </div>
+          <WarningMsg/>
         </StyleContainer>
       </Route>
       <Route exact path='/'>
