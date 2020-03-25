@@ -51,6 +51,7 @@ const Layout = () => {
         </StyleContainer>
       </Route>
       <Route path='/state/:state/'>
+      <Blurb/>
         <StyleContainer>
           <AddressForm/>
           <div id='state-form' data-testid='state-form'>

@@ -4,8 +4,9 @@ import { Florida } from './Florida'
 import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
 import { toLocale, Locale } from '../../common'
+import styled from 'styled-components'
 
-export const StateForm: React.FC<{}> = () => {
+export const RawStateForm: React.FC<{}> = () => {
   const { address } = AddressContainer.useContainer()
   const { contact } = ContactContainer.useContainer()
 
@@ -21,4 +22,14 @@ export const StateForm: React.FC<{}> = () => {
     case 'Florida': return <Florida address={address} locale={locale as Locale<'Florida'>} contact={contact}/>
     case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} contact={contact}/>
   }
+}
+
+export const PaddingTop = styled.div`
+  padding-top: 4em;
+`
+
+export const StateForm = () => {
+  return <PaddingTop>
+    <RawStateForm/>
+  </PaddingTop>
 }
