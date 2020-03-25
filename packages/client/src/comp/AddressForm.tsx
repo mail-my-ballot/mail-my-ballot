@@ -63,8 +63,8 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
           break
         }
       }
-      await success(<><b>Success</b> fetching information about your address</>)
       pushStateForm(state)
+      await success(<><b>Success</b> fetching information about your address</>)
     } catch(e) {
       if (e instanceof TimeoutError) {
         error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
