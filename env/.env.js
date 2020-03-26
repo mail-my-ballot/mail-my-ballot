@@ -1,5 +1,6 @@
 // https://www.npmjs.com/package/env-cmd
-const { MG_API_KEY, DEV_EMAIL } = require('./secrets/secrets.json')
+const { MG_API_KEY } = require('./secrets/secrets.json')
+const { developmentRaw } = require('./.env.dev.js')
 
 const base = {
   SERVER_PORT: 8080,
@@ -14,12 +15,13 @@ const development = {
   ...base,
   NODE_ENV: 'development',
   REACT_APP_SERVER: 'http://localhost:8080',
-  REACT_APP_SHOW_WARNING: undefined,
-  REACT_APP_SHOW_DEV_INFO: undefined,
+  REACT_APP_SHOW_WARNING: 1,
+  REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
-  DEV_EMAIL,
+  DEV_EMAIL: 'email@exampe.com',
+  ...developmentRaw,
 }
 
 const staging = {
