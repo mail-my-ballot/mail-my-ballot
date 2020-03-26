@@ -54,34 +54,34 @@ export const pathData: PathData = {
   },
   'address': {
     path: '/address/:state/:zip?',
-    toUrl: (path) => `/address/${path.state}/${path.zip}`,
+    toUrl: ({state, zip}) => `/address/${state}/${zip || ''}`,
     scrollId: 'address'
   },
   'state': {
     path: '/state/:state',
-    toUrl: (path) => `/state/${path.state}`,
+    toUrl: ({state}) => `/state/${state}`,
     scrollId: 'address',
   },
   'success': {
     path: '/success/:id?',
-    toUrl: (path) => `/success/${path.id}`,
+    toUrl: ({id}) => `/success/${id || ''}`,
     scrollId: 'address',
   }
 }
 
-const toUrl = <P extends Path>(path: P): string => {
+export const toUrl = <P extends Path>(path: P): string => {
   // arg -- can't get around this typecast
   return (pathData[path.type] as PathDatum<P>).toUrl(path)
 }
 
-const rawToPath = <T extends Path>(url: string, pathEnum: PathEnum, exact = false): T | null => {
+const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, exact = false): P | null => {
   const { path } = pathData[pathEnum]
-  const match = matchPath<T>(url, { path, exact })
+  const match = matchPath<P>(url, { path, exact })
   if (!match) return null
-  return match.params
+  return { type: pathEnum, ...match.params }
 }
 
-const toPath = (pathname: string): Path | null => {
+export const toPath = (pathname: string): Path | null => {
   const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, true))
   return matches.reduce((x, y) => x || y, null)
 }
