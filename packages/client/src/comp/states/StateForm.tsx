@@ -19,7 +19,7 @@ export const RawStateForm: React.FC<{}> = () => {
     }
     switch (path.type) {
       case 'state': {
-        pushAddress(path.state);
+        pushAddress(path.state)
         return null
       }
       default: {

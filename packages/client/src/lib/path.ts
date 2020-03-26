@@ -74,7 +74,7 @@ const toUrl = <P extends Path>(path: P): string => {
   return (pathData[path.type] as PathDatum<P>).toUrl(path)
 }
 
-const rawToPath = <T extends Path>(url: string, pathEnum: PathEnum, exact: boolean = false): T | null => {
+const rawToPath = <T extends Path>(url: string, pathEnum: PathEnum, exact = false): T | null => {
   const { path } = pathData[pathEnum]
   const match = matchPath<T>(url, { path, exact })
   if (!match) return null
