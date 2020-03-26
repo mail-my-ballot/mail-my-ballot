@@ -8,7 +8,7 @@ import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
-import { useAppHistory } from '../../lib/history'
+import { useAppHistory } from '../../lib/path'
 
 type Props = React.PropsWithChildren<{
   address: Address

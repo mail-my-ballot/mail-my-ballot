@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
-import { useAppHistory } from '../lib/history'
+import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
 
 const Background = styled.div`

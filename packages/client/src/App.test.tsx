@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, wait } from '@testing-library/react'
 import App from './App'
-import { useAppHistory } from './lib/history'
+import { useAppHistory } from './lib/path'
 import { client } from './lib/trpc'
 import { mocked } from 'ts-jest/utils'
 jest.mock('./lib/history')

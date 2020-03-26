@@ -11,7 +11,7 @@ import { Signature } from '../util/Signature'
 import styled from 'styled-components'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
-import { useAppHistory } from '../../lib/history'
+import { useAppHistory } from '../../lib/path'
 
 const SigWrap = styled.div`
   margin: 2em 0;

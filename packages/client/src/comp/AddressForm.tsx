@@ -13,7 +13,7 @@ import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
 import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
-import { useAppHistory } from '../lib/history'
+import { useAppHistory } from '../lib/path'
 import { Notification } from './Notification'
 
 

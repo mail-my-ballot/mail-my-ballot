@@ -5,7 +5,7 @@ import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
 import { toLocale, Locale } from '../../common'
 import styled from 'styled-components'
-import { useAppHistory } from '../../lib/history'
+import { useAppHistory } from '../../lib/path'
 
 export const RawStateForm: React.FC<{}> = () => {
   const { address } = AddressContainer.useContainer()

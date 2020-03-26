@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { RoundedButton } from './util/Button'
-import { useAppHistory } from '../lib/history'
+import { useAppHistory } from '../lib/path'
 
 export const Success = () => {
   const { query, pushStart } = useAppHistory()
