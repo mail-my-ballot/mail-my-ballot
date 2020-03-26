@@ -29,7 +29,7 @@ if (process.env.REACT_APP_DEFAULT_ADDRESS) {
 
 // pulled out for testing
 export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
-  const { pushStateForm } = useAppHistory()
+  const { pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const unitRef = useControlRef<Input>()
   const { load, error, success } = QueryContainer.useContainer()
@@ -66,7 +66,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
           return
         }
       }
-      pushStateForm(state)
+      pushState(state)
       await success(<><b>Success</b> fetching information about your address</>)
     } catch(e) {
       if (e instanceof TimeoutError) {

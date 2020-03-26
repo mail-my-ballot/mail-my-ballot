@@ -116,7 +116,7 @@ export const useAppHistory = () => {
     pushAddress: (state: string, zip?: string) => {
       pushScroll({org, type: 'address', state, zip})
     },
-    pushStateForm: (state: string) => {
+    pushState: (state: string) => {
       pushScroll({org, type: 'state', state})
     },
     pushSuccess: (id: string) => {
