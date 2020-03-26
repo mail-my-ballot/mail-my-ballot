@@ -74,7 +74,7 @@ export const Blurb: React.FC<{}> = () => {
     event.preventDefault()
     const zip = zipRef?.current?.value
     if (!zip) return
-    const state = await client.state(zip)
+    const state = await client.fetchState(zip)
     if (state.type === 'data') {
       pushAddress(state.data, zip)
     }

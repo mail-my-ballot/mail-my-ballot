@@ -1,4 +1,4 @@
-import { WithoutId, Address } from "../common"
+import { Address } from "../common"
 
 const getJson = async <T>(url: string): Promise<T> => {
   const result = await fetch(url)
@@ -37,7 +37,7 @@ const parseDisplayName = (displayName: string, unit: string): BasicAddress | nul
   }
 }
 
-export const geocode = async (queryAddr: string, unit: string): Promise<WithoutId<Address> | null> => {
+export const geocode = async (queryAddr: string, unit: string): Promise<Address | null> => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const summary = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`))[0]
   if (!summary) {

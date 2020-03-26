@@ -48,7 +48,6 @@ export const Michigan = ({address, locale, contact}: Props) => {
     }
 
     const info: MichiganInfo = {
-      addressId: address.id || '',
       state: 'Michigan',
       name: nameRef.value() || '',
       uspsAddress,

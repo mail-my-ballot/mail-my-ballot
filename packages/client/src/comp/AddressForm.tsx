@@ -55,12 +55,10 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
         return
       }
 
-      const result = await client.addAddress(address)
+      const result = await client.fetchContact(address)
       switch(result.type) {
         case 'data': {
-          const { id, contact } = result.data
-          setAddress({...address, id})
-          setContact(contact)
+          setContact(result.data)
           break
         }
         case 'error': {

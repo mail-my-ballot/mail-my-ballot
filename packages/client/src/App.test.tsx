@@ -9,7 +9,7 @@ jest.mock('./lib/trpc')
 
 describe('App', () => {
   beforeAll(() => {
-    mocked(client, true).state = jest.fn().mockResolvedValue({
+    mocked(client, true).fetchState = jest.fn().mockResolvedValue({
       type: 'data',
       data: 'Florida',
     })

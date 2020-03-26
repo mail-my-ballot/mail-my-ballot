@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, WithoutId, Address, StateInfo, WithId } from '../common'
+import { processEnvOrThrow, StateInfo, WithId } from '../common'
 
 class FirestoreService {
   db: admin.firestore.Firestore
@@ -14,11 +14,6 @@ class FirestoreService {
     }
 
     this.db = admin.firestore()
-  }
-
-  async addAddress(address: WithoutId<Address>): Promise<string> {
-    const doc = await this.db.collection('Address').add(address)
-    return doc.id
   }
 
   async addRegistration(info: StateInfo): Promise<string> {

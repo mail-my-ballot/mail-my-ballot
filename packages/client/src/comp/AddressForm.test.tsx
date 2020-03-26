@@ -18,9 +18,9 @@ test('AddressForm works', async () => {
   const mockedOsmGeocode = mocked(geocode)
   mockedOsmGeocode.mockResolvedValue(sampleAddress)
 
-  const addAddress = mocked(client, true).addAddress = jest.fn().mockResolvedValue({
+  const fetchContact = mocked(client, true).fetchContact = jest.fn().mockResolvedValue({
     type: 'data',
-    data: 'xxx',
+    data: null,
   })
 
   act(() => {
@@ -38,7 +38,7 @@ test('AddressForm works', async () => {
   await waitForElement(() => getByTestId('status-title'))
 
   expect(mockedOsmGeocode).toHaveBeenCalled()
-  expect(addAddress).toHaveBeenCalled()
+  expect(fetchContact).toHaveBeenCalled()
   expect(getByTestId('status-title')).toHaveTextContent('Great News!')
   expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.state)
 })

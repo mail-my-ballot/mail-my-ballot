@@ -1,6 +1,4 @@
-import { _Id } from './util'
-
-export interface Address extends _Id {
+export interface Address {
   queryAddr: string
   fullAddr: string
   houseNumber: string

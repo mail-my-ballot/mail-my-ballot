@@ -39,7 +39,6 @@ export const Florida = ({address, locale, contact}: Props) => {
       name: nameRef.value() || '',
       birthdate: birthdateRef.value() || '',
       email: emailRef.value() || '',
-      addressId: address.id || '',
       mailingAddress: mailingRef.value() || '',
       phone: phoneRef.value() || '',
       uspsAddress,
