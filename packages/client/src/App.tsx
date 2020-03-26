@@ -12,6 +12,8 @@ import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
 import { Notification } from './comp/Notification'
+import { ScrollHook } from './comp/Path'
+import { pathData } from './lib/path'
 
 export const StyleContainer = styled(Container)`
   min-height: 100vh;
@@ -33,41 +35,43 @@ export const StateContainer: React.FC<{}> = (props) => (
 const Layout = () => {
   return (<>
     <Switch>
-    <Route path='/node-env'>
+      <Route path='/node-env'>
         <p>{process.env.NODE_ENV}</p>
       </Route>
-      <Route path='/success'>
-        <StyleContainer id='success'>
+      <Route exact path={pathData['start'].path}>
+        <ScrollHook pathEnum='start'>
+          <Blurb/>
+        </ScrollHook>
+        <StyleContainer>
           <WarningMsg/>
-          <Success/>
         </StyleContainer>
       </Route>
-      <Route path='/address/:state/:zip?'>
+      <Route path={pathData['success'].path}>
+        <ScrollHook pathEnum='success'>
+          <StyleContainer>
+            <WarningMsg/>
+            <Success/>
+          </StyleContainer>
+        </ScrollHook>
+      </Route>
+      <Route path={pathData['address'].path}>
         <Blurb/>
         <StyleContainer>
-          <div id='address-form' data-testid='address-form'>
+          <ScrollHook pathEnum='address'>
             <AddressForm/>
-          </div>
+          </ScrollHook>
           <Notification/>
           <WarningMsg/>
         </StyleContainer>
       </Route>
-      <Route path='/state/:state/'>
-      <Blurb/>
+      <Route path={pathData['state'].path}>
+        <Blurb/>
         <StyleContainer>
           <AddressForm/>
-          <div id='state-form' data-testid='state-form'>
+          <ScrollHook pathEnum='state'>
             <StateForm/>
-          </div>
+          </ScrollHook>
           <Notification/>
-          <WarningMsg/>
-        </StyleContainer>
-      </Route>
-      <Route exact path='/'>
-        <div id='start' data-testid='start'>
-          <Blurb/>
-        </div>
-        <StyleContainer>
           <WarningMsg/>
         </StyleContainer>
       </Route>
