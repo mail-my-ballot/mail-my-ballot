@@ -15,11 +15,17 @@ import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 
+let defaultAddr = (_: string): (string | undefined) => undefined
 
-const defaultAddr = (process.env.REACT_APP_DEFAULT_ADDRESS
-  ? '2125 Butterfield Rd, Troy, MI 48084'
-  : undefined
-)
+if (process.env.REACT_APP_DEFAULT_ADDRESS) {
+  const addrMap: Record<string,string> = {
+    'Michigan': '2125 Butterfield Rd, Troy, MI 48084',
+    'Florida': '100 S Biscayne Blvd, Miami, FL 33131',
+  }
+  defaultAddr = (state: string) => {
+    return addrMap[state]
+  }
+}
 
 // pulled out for testing
 export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
@@ -29,6 +35,8 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
   const { load, error, success } = QueryContainer.useContainer()
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
+
+  console.log(state)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -86,7 +94,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
               id='addr'
               label='Address (without Apt or Unit #)'
               ref={addrRef}
-              defaultValue={defaultAddr}
+              value={defaultAddr(state)}
             />
           </Col>
           <Col sm={2} xs={12}>
