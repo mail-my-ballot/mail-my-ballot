@@ -67,7 +67,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
         }
         case 'error': {
           error(<><b>Server Error:</b> {result.message}</>)
-          break
+          return
         }
       }
       pushStateForm(state)
