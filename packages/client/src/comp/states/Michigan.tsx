@@ -24,7 +24,7 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Michigan = ({address, locale, contact}: Props) => {
-  const { pushSuccess } = useAppHistory()
+  const { pushSuccess, org } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
   const emailRef = useControlRef<Input>()
@@ -49,6 +49,7 @@ export const Michigan = ({address, locale, contact}: Props) => {
 
     const info: MichiganInfo = {
       state: 'Michigan',
+      org,
       name: nameRef.value() || '',
       uspsAddress,
       email: emailRef.value() || '',
