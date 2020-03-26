@@ -11,6 +11,7 @@ import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
+import { toPath } from '../../lib/path'
 jest.mock('../../lib/trpc')
 
 test('Michigan Form works', async () => {
@@ -41,7 +42,7 @@ test('Michigan Form works', async () => {
 
   const register = mocked(client, true).register = jest.fn().mockResolvedValue({
     type: 'data',
-    data: 'xxx',
+    data: 'confirmationId',
   })
   window.scrollTo = jest.fn()
 
@@ -77,6 +78,8 @@ test('Michigan Form works', async () => {
     })
   })
 
-  await wait(() => expect(history.location.pathname).toBe('/success/xxx'))
+  await wait(() => expect(toPath(history.location.pathname)).toEqual(
+    {"id": "confirmationId", "org": "default", "type": "success"}
+  ))
   await wait(() => expect(register).toHaveBeenCalled())
 })

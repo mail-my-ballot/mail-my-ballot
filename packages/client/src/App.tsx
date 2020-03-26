@@ -2,7 +2,7 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
-import { HashRouter, Switch, Route } from "react-router-dom"
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
 
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
@@ -13,7 +13,7 @@ import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
 import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
-import { pathData } from './lib/path'
+import { pathData, defaultUrl } from './lib/path'
 
 export const StyleContainer = styled(Container)`
   min-height: 100vh;
@@ -38,6 +38,7 @@ const Layout = () => {
       <Route path='/node-env'>
         <p>{process.env.NODE_ENV}</p>
       </Route>
+      <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path={pathData['start'].path}>
         <ScrollHook pathEnum='start'>
           <Blurb/>
@@ -73,6 +74,7 @@ const Layout = () => {
           <WarningMsg/>
         </StyleContainer>
       </Route>
+      <Redirect to={defaultUrl}/>
     </Switch>
     <StyleContainer>
       <DevInfo/>

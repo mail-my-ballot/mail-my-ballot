@@ -10,6 +10,7 @@ export type PathEnum = (typeof allPathEnums)[number]
 
 interface PathBase {
   type: PathEnum
+  org: string
 }
 
 export interface StartPath extends PathBase {
@@ -48,23 +49,23 @@ type PathData = { [E in PathEnum]: PathDatum<PathByEnum<E>> }
 
 export const pathData: PathData = {
   'start': {
-    path: '/',
-    toUrl: (_) => '/',
+    path: '/org/:org',
+    toUrl: ({org}) => `/org/${org}`,
     scrollId: 'start',
   },
   'address': {
-    path: '/address/:state/:zip?',
-    toUrl: ({state, zip}) => `/address/${state}/${zip || ''}`,
+    path: '/org/:org/address/:state/:zip?',
+    toUrl: ({org, state, zip}) => `/org/${org}/address/${state}/${zip || ''}`,
     scrollId: 'address'
   },
   'state': {
-    path: '/state/:state',
-    toUrl: ({state}) => `/state/${state}`,
+    path: '/org/:org/state/:state',
+    toUrl: ({org, state}) => `/org/${org}/state/${state}`,
     scrollId: 'address',
   },
   'success': {
-    path: '/success/:id?',
-    toUrl: ({id}) => `/success/${id || ''}`,
+    path: '/org/:org/success/:id?',
+    toUrl: ({org, id}) => `/org/${org}/success/${id || ''}`,
     scrollId: 'address',
   }
 }
@@ -73,6 +74,9 @@ export const toUrl = <P extends Path>(path: P): string => {
   // arg -- can't get around this typecast
   return (pathData[path.type] as PathDatum<P>).toUrl(path)
 }
+
+const defaultOrg = 'default'
+export const defaultUrl = toUrl({type:'start', org:defaultOrg})
 
 const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, exact = false): P | null => {
   const { path } = pathData[pathEnum]
@@ -97,6 +101,8 @@ export const useAppHistory = () => {
   const history = useHistory()
   const { pathname, search } = useLocation()
   const _query = new URLSearchParams(search)
+  const path = toPath(pathname)
+  const org = path?.org || defaultOrg
   
   const pushScroll = (path: Path) => {
     history.push(toUrl(path))
@@ -104,16 +110,16 @@ export const useAppHistory = () => {
   }
 
   return {
-    path: toPath(pathname),
-    pushStart: () => pushScroll({type: 'start'}),
+    path,
+    pushStart: () => pushScroll({org, type: 'start'}),
     pushAddress: (state: string, zip?: string) => {
-      pushScroll({type: 'address', state, zip})
+      pushScroll({org, type: 'address', state, zip})
     },
     pushStateForm: (state: string) => {
-      pushScroll({type: 'state', state})
+      pushScroll({org, type: 'state', state})
     },
     pushSuccess: (id: string) => {
-      pushScroll({type: 'success', id})
+      pushScroll({org, type: 'success', id})
     },
     query: (id: string) => {
       return _query.get(id)
