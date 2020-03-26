@@ -36,8 +36,6 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
 
-  console.log(state)
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
