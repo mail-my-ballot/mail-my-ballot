@@ -26,7 +26,7 @@ export interface StatePath extends PathBase {
 }
 export interface SuccessPath extends PathBase {
   type: 'success'
-  id: string
+  id?: string
 }
 
 export type Path = (
@@ -63,7 +63,7 @@ export const pathData: PathData = {
     scrollId: 'address',
   },
   'success': {
-    path: '/success',
+    path: '/success/:id?',
     toUrl: (path) => `/succcess/${path.id}`,
     scrollId: 'address',
   }
