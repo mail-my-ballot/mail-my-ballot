@@ -64,7 +64,7 @@ export const pathData: PathData = {
   },
   'success': {
     path: '/success/:id?',
-    toUrl: (path) => `/succcess/${path.id}`,
+    toUrl: (path) => `/success/${path.id}`,
     scrollId: 'address',
   }
 }

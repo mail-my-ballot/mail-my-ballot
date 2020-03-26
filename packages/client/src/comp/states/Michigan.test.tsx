@@ -77,6 +77,6 @@ test('Michigan Form works', async () => {
     })
   })
 
-  await wait(() => expect(history.location.pathname).toBe('/success'))
+  await wait(() => expect(history.location.pathname).toBe('/success/xxx'))
   await wait(() => expect(register).toHaveBeenCalled())
 })

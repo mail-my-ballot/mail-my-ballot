@@ -4,7 +4,7 @@ import App from './App'
 import { useAppHistory } from './lib/path'
 import { client } from './lib/trpc'
 import { mocked } from 'ts-jest/utils'
-jest.mock('./lib/history')
+jest.mock('./lib/path')
 jest.mock('./lib/trpc')
 
 describe('App', () => {
