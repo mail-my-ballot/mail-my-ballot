@@ -46,7 +46,7 @@ type ByEnum<E extends PathEnum, P> = P extends {type: E} ? P : never
 type PathByEnum<E extends PathEnum> = ByEnum<E, Path>
 type PathData = { [E in PathEnum]: PathDatum<PathByEnum<E>> }
 
-const pathData: PathData = {
+export const pathData: PathData = {
   'start': {
     path: '/',
     toUrl: (_) => '/',
@@ -104,7 +104,6 @@ export const useAppHistory = () => {
   }
 
   return {
-    pushScroll,
     path: toPath(pathname),
     pushStart: () => pushScroll({type: 'start'}),
     pushAddress: (state: string, zip?: string) => {
