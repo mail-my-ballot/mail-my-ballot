@@ -92,7 +92,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
               id='addr'
               label='Address (without Apt or Unit #)'
               ref={addrRef}
-              value={defaultAddr(state)}
+              defaultValue={defaultAddr(state)}
             />
           </Col>
           <Col sm={2} xs={12}>
