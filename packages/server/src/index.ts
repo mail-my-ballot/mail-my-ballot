@@ -22,13 +22,16 @@ app.use(cors({
   ]
 }))
 
+app.set('view engine', 'pug')
+app.set('views', __dirname + '/views')
+
 app.get('/', (_, res: Response) => {
-  res.send('Hello World');
-});
+  res.render('index')
+})
 
 app.get('/node-env', (_, res: Response) => {
   res.send(process.env.NODE_ENV);
-});
+})
 
 if (process.env.DEBUG_LETTER) {
   app.use('/letter', letter)
