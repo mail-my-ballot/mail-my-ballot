@@ -1,3 +1,6 @@
+import * as admin from 'firebase-admin'
+import { StateInfo } from '../common'
+
 export interface User {
   displayName: string
   name?: {
@@ -19,3 +22,5 @@ export interface Role {
   admin: boolean
   pending?: boolean
 }
+
+export type RichStateInfo = StateInfo & { created: admin.firestore.Timestamp }
