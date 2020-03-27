@@ -1,0 +1,1 @@
+export { registerPassportEndpoints } from './passport'

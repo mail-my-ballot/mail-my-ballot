@@ -1,11 +1,17 @@
 // https://www.npmjs.com/package/env-cmd
-const { MG_API_KEY } = require('./secrets/secrets.json')
+const {
+  MG_API_KEY,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET
+} = require('./secrets/secrets.json')
 const { developmentRaw } = require('./.env.dev.js')
 
 const base = {
   SERVER_PORT: 8080,
   FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
   GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
   MG_API_KEY,
   MG_DOMAIN: 'email.vbmreg.org',
   MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.vbmreg.org>',
@@ -21,6 +27,7 @@ const development = {
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@exampe.com',
+  GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   ...developmentRaw,
 }
 
