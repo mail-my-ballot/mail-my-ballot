@@ -14,7 +14,13 @@ const app = Express();
 // logging middleware
 app.use(Morgan('combined'));
 
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://staging.vbmreg.org',
+    'https://vbmreg.org'
+  ]
+}))
 
 app.get('/', (_, res: Response) => {
   res.send('Hello World');
