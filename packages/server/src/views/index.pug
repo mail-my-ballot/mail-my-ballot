@@ -1,6 +1,11 @@
-doctype html
-html(lang='en')
- head
-   title Hello, World!
- body
-   h1 Hello, World!
+extends layout.pug
+
+block pageName
+  title Organization Login Page
+
+block content
+  .container.mt-5
+    h1 Organization Login Page
+  .container.mt-5
+    a(href='/auth/google')
+      button.btn.btn-primary Signin with Google

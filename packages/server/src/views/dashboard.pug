@@ -1,0 +1,11 @@
+extends layout.pug
+
+block pageName
+  title Dashboard
+
+block content
+  .container.mt-5
+    h1 Dashboard
+  .container.mt-5
+    a(href='/auth/google/logout')
+      button.btn.btn-primary Signout

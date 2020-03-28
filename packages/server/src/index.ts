@@ -8,6 +8,7 @@ import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/expre
 import { processEnvOrThrow } from './common'
 import letter from './service/letter'
 import { VbmRpc } from './service/trpc';
+import { registerPassportEndpoints } from './service/org';
 
 const app = Express();
 
@@ -38,6 +39,7 @@ if (process.env.DEBUG_LETTER) {
 }
 
 registerExpressHandler(app, new VbmRpc())
+registerPassportEndpoints(app)
 
 // https://github.com/GoogleCloudPlatform/nodejs-getting-started/tree/master/1-hello-world
 if (module === require.main) {

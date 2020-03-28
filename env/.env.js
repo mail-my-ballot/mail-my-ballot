@@ -2,7 +2,8 @@
 const {
   MG_API_KEY,
   GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET
+  GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET,
 } = require('./secrets/secrets.json')
 const { developmentRaw } = require('./.env.dev.js')
 
@@ -12,6 +13,7 @@ const base = {
   GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET,
   MG_API_KEY,
   MG_DOMAIN: 'email.vbmreg.org',
   MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.vbmreg.org>',

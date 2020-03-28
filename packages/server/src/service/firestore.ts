@@ -88,6 +88,7 @@ class FirestoreService {
       roles: [],
     }
     const uid = `${provider}:${id}`
+    await this.db.collection('User').doc(uid).set(user, { merge: true })
     return uid
   }
   
