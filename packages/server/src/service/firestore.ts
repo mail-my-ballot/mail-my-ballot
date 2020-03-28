@@ -87,8 +87,7 @@ class FirestoreService {
       refreshToken,
       roles: [],
     }
-    const uid = `${provider}/${id}`
-    await this.db.collection('User').doc(uid).set(user)
+    const uid = `${provider}:${id}`
     return uid
   }
   
