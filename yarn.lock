@@ -5320,6 +5320,11 @@ csv-parser@^2.3.2:
     minimist "^1.2.0"
     ndjson "^1.4.0"
 
+csv-writer@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/csv-writer/-/csv-writer-1.6.0.tgz#d0cea44b6b4d7d3baa2ecc6f3f7209233514bcf9"
+  integrity sha512-NOx7YDFWEsM/fTRAJjRpPp8t+MKRVvniAg9wQlUKx20MFrPs73WLJhFf5iteqrxNYnsy924K3Iroh3yNHeYd2g==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -14521,6 +14526,11 @@ ts-pnp@^1.1.2:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.1.6.tgz#389a24396d425a0d3162e96d2b4638900fdc289a"
   integrity sha512-CrG5GqAAzMT7144Cl+UIFP7mz/iIhiy+xQ6GGcnjTezhALT02uPMRw7tgDSESgB5MsfKt55+GPWw4ir1kVtMIQ==
+
+ts-transformer-keys@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.4.1.tgz#209a07caea19cf6258ee2e159d5ad20982d8bb5d"
+  integrity sha512-CahLCOHt6MS8Sixz5cU8XovuKOoP6hnQd91pxG3a7iuuLsdrbWLveQvKi7d/FJjRhEtVELp3bMnqvSpm+nCgKw==
 
 tsconfig@^7.0.0:
   version "7.0.0"

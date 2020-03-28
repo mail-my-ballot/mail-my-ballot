@@ -6,6 +6,7 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 import { processEnvOrThrow } from '../../common'
 import { firestoreService } from '../firestore'
 import { FirestoreStore } from '@google-cloud/connect-firestore'
+import { toCSVSting } from '../csvWriter'
 
 const scope = [
   'https://www.googleapis.com/auth/userinfo.email',
@@ -27,11 +28,11 @@ export const registerPassportEndpoints = (app: Express.Application) => {
   )
 
   passport.serializeUser((uid, done) => {
-    done(null, uid);
+    done(null, uid)
   })
   
   passport.deserializeUser((uid, done) => {
-    done(null, uid);
+    done(null, uid)
   })
 
   const authenticate = passport.authenticate(
@@ -39,8 +40,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
   )
 
   const validSession: Express.RequestHandler = (req, res, next) => {
-    console.log(req.session)
-    if (!req.session?.passport) {
+    if (!req.user) {
       res.sendStatus(403)
     } else {
       next()
@@ -57,10 +57,10 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: true },
-  }));
+  }))
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(passport.initialize())
+  app.use(passport.session())
   
   app.get('/auth/google',
     passport.authenticate(
@@ -84,5 +84,18 @@ export const registerPassportEndpoints = (app: Express.Application) => {
 
   app.get('/dashboard', validSession,
     (_, res) => res.render('dashboard')
+  )
+
+  app.get('/download/:org', validSession,
+    async (req, res) => {
+      const { org } = req.params
+      const uid = req.user as string | undefined
+      if (!uid) throw Error('Valid uid required')
+      const stateInfos = await firestoreService.fetchRegistrations(uid, org) || []
+      const csvString = toCSVSting(stateInfos)
+      res.contentType('text/csv')
+      res.setHeader('Content-Disposition', 'attachment; filename=data.csv')
+      res.send(csvString)
+    }
   )
 }
