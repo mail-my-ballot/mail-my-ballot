@@ -8,18 +8,38 @@ type DocumentReference = admin.firestore.DocumentReference<admin.firestore.Docum
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
 type Transaction = admin.firestore.Transaction
 
-class FirestoreService {
+export class FirestoreService {
   db: admin.firestore.Firestore
 
-  constructor() {
-    if (!admin.apps.length) {
-      admin.initializeApp({
+  // Firebase generates a warning if `admin.initializeApp` is called multiple times
+  // However, if `projectId` is provided, (e.g. for testing), we do want to initialize app
+  // 
+  // Warning Below:
+  // 
+  // The default Firebase app already exists. This means you called initializeApp()
+  // more than once without providing an app name as the second argument. In most
+  // cases you only need to call initializeApp() once.But if you do want to initialize
+  // multiple apps, pass a second argument to initializeApp() to give each app a
+  // unique name.
+
+  // https://stackoverflow.com/questions/57763991/initializeapp-when-adding-firebase-to-app-and-to-server
+  constructor(projectId?: string) {
+    if (projectId === undefined) {
+      if (!admin.apps.length) {
+        admin.initializeApp({
+          credential: admin.credential.applicationDefault(),
+          databaseURL: processEnvOrThrow('FIRESTORE_URL'),
+        })
+      }
+  
+      this.db = admin.firestore()
+    } else {
+      this.db = admin.initializeApp({
+        projectId,
         credential: admin.credential.applicationDefault(),
         databaseURL: processEnvOrThrow('FIRESTORE_URL'),
-      })
+      }).firestore()
     }
-
-    this.db = admin.firestore()
   }
 
   async addRegistration(info: StateInfo): Promise<string> {
@@ -31,20 +51,22 @@ class FirestoreService {
     return id
   }
 
+  // helpers
+
   private async get<T>(ref: DocumentReference, trans?: Transaction): Promise<T | null> {
     const snap = await (trans ? trans.get(ref) : ref.get())
     const doc = snap.data() as T | undefined
     return doc || null
   }
 
-  private async getAll<T>(refs: DocumentReference[], trans?: Transaction): Promise<Array<T | null>> {
-    refs.map(v => v)
+  async getAll<T>(refs: DocumentReference[], trans?: Transaction): Promise<Array<T | null>> {
+    if (refs.length === 0) return []
     const snaps = await (trans ? trans.getAll(...refs) : this.db.getAll(...refs))
     const docs = snaps.map(snap => snap.data() as T | undefined)
     return docs.map(doc => doc || null)
   }
 
-  private async query<T>(ref: Query, trans?: Transaction): Promise<Array<T>> {
+  async query<T>(ref: Query, trans?: Transaction): Promise<Array<T>> {
     const snap = await (trans ? trans.get(ref) : ref.get())
     return snap.docs.map(doc => doc.data as unknown as T)
   }
@@ -53,19 +75,29 @@ class FirestoreService {
     return this.get(this.db.collection('StateInfo').doc('' + id))
   }
 
-  async getUserRoles(uid: string, trans?: Transaction): Promise<[User | null, Array<Role | null>]> {
-    const userRef = this.db.collection('User').doc(uid)
-    const user = await this.get<User>(userRef, trans)
-
-    if (!user) return [null, []]
-
-    return [
-      user,
-      await this.getAll<Role>(user.roles.map(id => this.db.collection('Role').doc(id)), trans)
-    ]
+  // user queries
+  uid(provider: string, id: string) {
+    return `${provider}:${id}`
   }
 
-  // user queries
+  userRef(uid: string): DocumentReference
+  userRef(provider: string, id: string): DocumentReference
+  userRef(...arg: [string] | [string, string]): DocumentReference {
+    switch (arg.length) {
+      case 1: {
+        const [uid] = arg
+        return this.db.collection('User').doc(uid)
+      }
+      case 2: {
+        const [provider, id] = arg
+        return this.db.collection('User').doc(this.uid(provider, id))
+      }
+    }
+  }
+
+  roleRef(uid: string, org: string): DocumentReference {
+    return this.db.collection('User').doc(uid).collection('Role').doc(org)
+  }
 
   // new user
   async newUser(
@@ -73,7 +105,6 @@ class FirestoreService {
       provider,
       id,
       displayName,
-      name,
       emails
     }: Profile,
     accessToken: string,
@@ -81,43 +112,38 @@ class FirestoreService {
   ): Promise<string> {
     const user: User = {
       displayName,
-      name,
       emails: emails || [],
       accessToken,
       refreshToken,
-      roles: [],
     }
-    const uid = `${provider}:${id}`
-    await this.db.collection('User').doc(uid).set(user, { merge: true })
+    const uid = this.uid(provider, id)
+    await this.userRef(uid).set(user, { merge: true })
     return uid
   }
   
   // claim (globally unique) org as role
-  async claimNewOrg(uid: string, org: string): Promise<string | null> {
-    const roleRef = this.db.collection('Role').where('org', '==', org)
-    const userRef = this.db.collection('User').doc(uid)
+  async claimNewOrg(uid: string, org: string): Promise<boolean> {
+    const roleQuery = this.db.collectionGroup('Role').where('org', '==', org)
+    const newRoleRef = this.roleRef(uid, org)
     const newRole: Role = {
       org,
       admin: true,
     }
-
     return this.db.runTransaction(async t => {
-      const [roles, user] = await Promise.all([
-        this.query<Role>(roleRef, t),
-        this.get<User>(userRef, t),
-      ])
+      const roles = await this.query<Role>(roleQuery, t)
 
-      if (roles || !user) return null
+      // if existing role for this org, cannot claim as a new org
+      if (roles.length > 0) return false
 
-      const doc = await this.db.collection('Role').add(newRole)
-      await userRef.update({roles: [...user.roles, doc.id]})
-      return doc.id
+      t.create(newRoleRef, newRole)
+      return true
     })
   }
   
   // user grants another user role in an org where they are an admin
-  async grantExistingOrg(adminUid: string, newUid: string, org: string): Promise<string | null> {
-    const newUserRef = this.db.collection('User').doc(newUid)
+  async grantExistingOrg(adminUid: string, newUid: string, org: string): Promise<boolean> {
+    const adminRoleRef = this.roleRef(adminUid, org)
+    const newRoleRef = this.roleRef(newUid, org)
     const newRole: Role = {
       org,
       admin: true,
@@ -125,30 +151,20 @@ class FirestoreService {
     }
 
     return this.db.runTransaction(async t => {
-      const [[_, adminRoles], [newUser, newUserRoles]] = await Promise.all([
-        this.getUserRoles(adminUid),
-        this.getUserRoles(newUid),
-      ])
+      const adminRole = await this.get<Role>(adminRoleRef, t)
 
       // admin user must be an admin for this org
-      if (!adminRoles || !(adminRoles.some(role => role && role.admin && role.org === org))) return null
+      if (!adminRole || !adminRole.admin) return false
 
-      // new users must exist
-      if (!newUser) return null
-
-      // newUser must not have existing role
-      if (newUserRoles && !newUserRoles.every(role => !role || role.org !== org)) return null
-
-      const doc = await this.db.collection('Role').add(newRole)
-      await newUserRef.update({roles: [...newUser.roles, doc.id]})
-      return doc.id
+      t.create(newRoleRef, newRole)
+      return true
     })
   }
 
   // user pulls all registration from org
   async fetchRegistrations(uid: string, org: string, limit = 5000): Promise<Array<RichStateInfo> | null> {
-    const [_, roles] = await this.getUserRoles(uid)
-    if (!roles.some(role => role && role.org === org)) return null
+    const role = await this.get<Role>(this.roleRef(uid, org))
+    if (!role) return null
     return this.query<RichStateInfo>(
       this.db.collection('StateInfo')
         .where('org', '==', org)
@@ -157,5 +173,3 @@ class FirestoreService {
     )
   }
 }
-
-export const firestoreService = new FirestoreService()

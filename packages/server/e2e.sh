@@ -1,0 +1,1 @@
+env-cmd -r ./env/.env.js -e test jest \\.e2e\\.ts --watchAll

@@ -10,17 +10,20 @@
     "postbuild:staging": "ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv",
     "build:production": "env-cmd -r ./env/.env.js -e production tsc",
     "postbuild:production": "ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv",
-    "test": "env-cmd -r ./env/.env.js -e test jest",
-    "test:watch": "env-cmd -r ./env/.env.js -e test jest --watchAll",
+    "test": "env-cmd -r ./env/.env.js -e test jest \\.test\\.ts",
+    "test:watch": "env-cmd -r ./env/.env.js -e test jest \\.test\\.ts --watchAll",
     "predeploy:staging": "yarn run build:staging && yarn appsubst:staging",
     "appsubst:staging": "env-cmd -r ./env/.env.js -e staging envsubst < app.tmpl.yaml > app.yaml",
     "deploy:staging": "gcloud app deploy --project vbm-test-dev && ./tag.sh server staging",
-    "deploy:prod": "x && ./tag.sh server production"
+    "deploy:prod": "x && ./tag.sh server production",
+    "e2e": "firebase emulators:exec --only firestore ./e2e.sh",
+    "emulator": "firebase emulators:exec --only firestore"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/body-parser": "^1.19.0",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.0",
     "@types/express-session": "^1.17.0",
@@ -44,8 +47,10 @@
     "typescript": "~3.7.2"
   },
   "dependencies": {
+    "@firebase/testing": "^0.18.1",
     "@google-cloud/connect-firestore": "^1.0.6",
     "@tianhuil/simple-trpc": "^1.5.0",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "csv-parser": "^2.3.2",
     "csv-writer": "^1.6.0",
@@ -58,14 +63,14 @@
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "pug": "^2.0.4",
-    "strip-indent": "^3.0.0",
-    "ts-transformer-keys": "^0.4.1"
+    "strip-indent": "^3.0.0"
   },
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|e2e))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

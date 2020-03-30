@@ -2,11 +2,13 @@ import { Router} from 'express'
 import stripIndent from 'strip-indent'
 import marked from 'marked'
 
-import { firestoreService } from './firestore'
+import { FirestoreService } from './firestore'
 import { toEmailData } from './email'
 
 
 const router = Router()
+
+const firestoreService = new FirestoreService()
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id

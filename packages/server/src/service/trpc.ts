@@ -1,10 +1,12 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { IVbmRpc, Address, StateInfo, toLocale } from '../common'
-import { firestoreService } from './firestore'
+import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './email'
 import { toContact } from './contact'
 import { search } from './zip'
+
+const firestoreService = new FirestoreService()
 
 export class VbmRpc implements IVbmRpc {
   public add = async (x: number, y: number) => data(x + y)

@@ -46,8 +46,9 @@ const staging = {
 const test = {
   ...base,
   NODE_ENV: 'test',
-  REACT_APP_SERVER: 'https://exaample.com',
+  REACT_APP_SERVER: 'https://example.com',
   REACT_APP_TIMEOUT: 2000,
+  FIRESTORE_EMULATOR_HOST: 'localhost:8081',
   MG_DISABLE: 1,
 }
 
