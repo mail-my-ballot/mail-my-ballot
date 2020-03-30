@@ -51,7 +51,7 @@ export class FirestoreService {
     return id
   }
 
-  // helpers
+  // user helpers
 
   private async get<T>(ref: DocumentReference, trans?: Transaction): Promise<T | null> {
     const snap = await (trans ? trans.get(ref) : ref.get())
@@ -68,7 +68,7 @@ export class FirestoreService {
 
   async query<T>(ref: Query, trans?: Transaction): Promise<Array<T>> {
     const snap = await (trans ? trans.get(ref) : ref.get())
-    return snap.docs.map(doc => doc.data as unknown as T)
+    return snap.docs.map(doc => doc.data() as unknown as T)
   }
 
   async getRegistration(id: string): Promise<RichStateInfo | null> {
@@ -97,6 +97,12 @@ export class FirestoreService {
 
   roleRef(uid: string, org: string): DocumentReference {
     return this.db.collection('User').doc(uid).collection('Role').doc(org)
+  }
+
+  // user role
+  async getUserRole(uid: string, org: string): Promise<boolean> {
+    const role = await this.get<Role>(this.roleRef(uid, org))
+    return (!!role && !role.pending)
   }
 
   // new user
@@ -159,6 +165,11 @@ export class FirestoreService {
       t.create(newRoleRef, newRole)
       return true
     })
+  }
+
+  async acceptRole(uid: string, org:string): Promise<boolean> {
+    await this.roleRef(uid, org).update({pending: false})
+    return true
   }
 
   // user pulls all registration from org
