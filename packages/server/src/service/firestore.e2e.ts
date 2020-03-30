@@ -85,6 +85,6 @@ describe('Firestore methods', () => {
 
   test('can accept a pending role', async() => {
     await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
-    await expect(fs.acceptRole(uids[1], 'nonexistent_org')).rejects.toThrow()
+    await expect(fs.acceptRole(uids[1], org)).resolves.toBe(true)
   })
 })
