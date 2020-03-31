@@ -66,7 +66,7 @@ export class FirestoreService {
     return docs.map(doc => doc || null)
   }
 
-  async query<T>(ref: Query, trans?: Transaction): Promise<Array<T>> {
+  async query<T>(ref: Query, trans?: Transaction): Promise<T []> {
     const snap = await (trans ? trans.get(ref) : ref.get())
     return snap.docs.map(doc => doc.data() as unknown as T)
   }
@@ -173,7 +173,7 @@ export class FirestoreService {
   }
 
   // user pulls all registration from org
-  async fetchRegistrations(uid: string, org: string, limit = 5000): Promise<Array<RichStateInfo> | null> {
+  async fetchRegistrations(uid: string, org: string, limit = 5000): Promise<RichStateInfo[] | null> {
     const role = await this.get<Role>(this.roleRef(uid, org))
     if (!role) return null
     return this.query<RichStateInfo>(
