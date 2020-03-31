@@ -100,9 +100,16 @@ export class FirestoreService {
   }
 
   // user role
-  async getUserRole(uid: string, org: string): Promise<boolean> {
+  async userRole(uid: string, org: string): Promise<boolean> {
     const role = await this.get<Role>(this.roleRef(uid, org))
     return (!!role && !role.pending)
+  }
+
+  async getUserRoles(uid: string): Promise<[User | null, Role[] | null]> {
+    return Promise.all([
+      this.get<User>(this.userRef(uid)),
+      this.query<Role>(this.userRef(uid).collection('Role')),
+    ])
   }
 
   // new user

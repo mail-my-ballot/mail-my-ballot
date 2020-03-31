@@ -1,20 +1,35 @@
-import { keys } from 'ts-transformer-keys'
-import { createObjectCsvStringifier } from 'csv-writer'
+import { createArrayCsvStringifier } from 'csv-writer'
 import { RichStateInfo } from './types'
 
-export const toCSVStingGeneral = <R extends Record<string, any>>(infos: R[], keys: string[]): string => {
-  const writer = createObjectCsvStringifier({
+export const toCSVStingGeneral = <K extends string>(infos: Record<K, any>[], keys: K[]): string => {
+  const writer = createArrayCsvStringifier({
     header: keys
   })
 
   return (
     writer.getHeaderString() +
-    writer.stringifyRecords(infos)
+    writer.stringifyRecords(infos.map(info => keys.map(k => info[k])))
   )
 }
 
 type KeysOfUnion<T> = T extends any ? keyof T: never
-type WideStateInfo = Record<KeysOfUnion<RichStateInfo>, any>
-const wideKeys = keys<WideStateInfo>()
+type StateKeys = KeysOfUnion<RichStateInfo>
 
-export const toCSVSting = (infos: RichStateInfo[]) => toCSVStingGeneral<RichStateInfo>(infos, wideKeys)
+// Must keep this list manually updated
+const keys: StateKeys[] = [
+  'created',
+  'id',
+  'org',
+  'name',
+  'state',
+  'city',
+  'county',
+  'uspsAddress',
+  'mailingAddress',
+  'birthdate',
+  'birthyear',
+  'email',
+  'phone',
+]
+
+export const toCSVSting = (infos: RichStateInfo[]) => toCSVStingGeneral(infos as Record<StateKeys, any>[], keys)

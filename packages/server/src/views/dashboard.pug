@@ -5,7 +5,51 @@ block pageName
 
 block content
   .container.mt-5
-    h1 Dashboard
-  .container.mt-5
-    a(href='/auth/google/logout')
+    .d-flex.justify-content-between
+      h1 Dashboard
       button.btn.btn-primary Signout
+    
+  .container.card.mt-4
+    .mt-3
+      h2 Account Details
+    .mt-2
+      p #{user.displayName}
+      ul
+        each email in user.emails
+          li= email.value
+            a(href='/auth/google/logout')
+
+  .container.mt-4
+    h2 Organizations
+    .row
+
+      .col-md.mt-3
+        h4 Claim a new organization
+        form(action='/claimNewOrg' method='post')
+          .mt-2
+            label(for='org')
+            .input-group
+              .input-group-prepend
+                span.input-group-text(id='prepend')= frontEnd
+              input.form-control(type='text' name='org' id='org' aria-describedby='prepend')
+          .mt-2.d-flex.justify-content-end
+            button.btn.btn-primary(type='submit') Claim
+
+      .col-md.mt-3
+        h4 Organizations
+        if roles
+          ul.mt-2.list-group
+            each role in roles
+              li.list-group-item
+                .mt-1.d-flex.justify-content-between
+                  .d-flex.justify-content-start
+                    a.mr-1(href=frontEnd + 'org/' + role.org)= frontEnd + 'org/' + role.org
+                    if role.admin
+                      p.text-muted (admin)
+                    if role.pending
+                      p.text-muted (pending)
+                  a(href='/download/' + role.org)
+                    include cloud-download.html
+        else
+          span No orgs claimed!
+
