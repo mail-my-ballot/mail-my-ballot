@@ -1,17 +1,42 @@
 {
-  "indexes": [{
-    "collectionGroup": "Role",
-    "queryScope": "COLLECTION_GROUP",
-    "fields": [
-      { "fieldPath": "org", "mode": "ASCENDING" }
-    ]
-  }, {
-    "collectionGroup": "Role",
-    "queryScope": "COLLECTION_GROUP",
-    "fields": [
-      { "fieldPath": "org", "mode": "ASCENDING" },
-      { "fieldPath": "created", "mode": "ASCENDING" }
-    ]
-  }],
-  "fieldOverrides": []
+  "indexes": [
+    {
+      "collectionGroup": "Role",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "org",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "Role",
+      "fieldPath": "org",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "arrayConfig": "CONTAINS",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
 }

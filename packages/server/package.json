@@ -15,7 +15,7 @@
     "predeploy:staging": "yarn run build:staging && yarn appsubst:staging",
     "appsubst:staging": "env-cmd -r ./env/.env.js -e staging envsubst < app.tmpl.yaml > app.yaml",
     "deploy:staging": "gcloud app deploy --project vbm-test-dev && ./tag.sh server staging",
-    "index:staging": "firebase deploy --project vbm-test-dev --only firestore:indexes",
+    "index:staging": "firebase --project vbm-test-dev deploy --only firestore:indexes",
     "deploy:prodroduction": "x && ./tag.sh server production",
     "e2e": "firebase emulators:exec --only firestore ./e2e.sh",
     "emulator": "firebase emulators:exec --only firestore"

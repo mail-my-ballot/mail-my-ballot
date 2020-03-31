@@ -3,5 +3,9 @@
     "firestore": {
       "port": "8081"
     }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
