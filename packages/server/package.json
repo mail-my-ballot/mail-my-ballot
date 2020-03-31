@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "proto": "env-cmd -r ./env/.env.js -e development ts-node-dev --transpileOnly src/service/csvWriter.proto.ts",
+    "proto": "env-cmd -r ./env/.env.js -e development ts-node-dev --transpileOnly src/service/csv.proto.ts",
     "start": "env-cmd -r ./env/.env.js -e development ts-node-dev --respawn --transpileOnly src/index.ts",
     "build:staging": "env-cmd -r ./env/.env.js -e staging tsc",
     "postbuild:staging": "ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv",

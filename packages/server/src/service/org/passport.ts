@@ -7,7 +7,7 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 import { processEnvOrThrow } from '../../common'
 import { FirestoreService } from '../firestore'
 import { FirestoreStore } from '@google-cloud/connect-firestore'
-import { toCSVSting } from '../csvWriter'
+import { toCSVSting } from '../csv'
 
 const scope = [
   'https://www.googleapis.com/auth/userinfo.email',
