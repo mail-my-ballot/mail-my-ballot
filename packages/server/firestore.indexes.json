@@ -1,0 +1,17 @@
+{
+  "indexes": [{
+    "collectionGroup": "Role",
+    "queryScope": "COLLECTION_GROUP",
+    "fields": [
+      { "fieldPath": "org", "mode": "ASCENDING" }
+    ]
+  }, {
+    "collectionGroup": "Role",
+    "queryScope": "COLLECTION_GROUP",
+    "fields": [
+      { "fieldPath": "org", "mode": "ASCENDING" },
+      { "fieldPath": "created", "mode": "ASCENDING" }
+    ]
+  }],
+  "fieldOverrides": []
+}
