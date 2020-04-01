@@ -62,6 +62,8 @@ export type StateField = {state: State}
 interface BaseInfo {
   state: State
   org: string
+  ip?: string
+  userAgent?: string
 }
 
 export interface FloridaInfo extends _Id, BaseInfo {

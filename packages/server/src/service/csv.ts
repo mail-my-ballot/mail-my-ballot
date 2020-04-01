@@ -19,6 +19,8 @@ type StateKeys = KeysOfUnion<RichStateInfo>
 const keys: StateKeys[] = [
   'created',
   'id',
+  'ip',
+  'userAgent',
   'org',
   'name',
   'state',

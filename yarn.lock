@@ -2657,6 +2657,11 @@
   resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.5.0.tgz#06b029102e0f2930f38aaaf54782f4da343d2316"
   integrity sha512-gi5QbkuM1qX94N5mqso7uxXnNHlLi3QPChns8c6eClyEXx5Sbk+hdFZY8dY5QYh8nqUcT+QFSsfzinvMjIsivg==
 
+"@tianhuil/simple-trpc@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.6.0.tgz#4c3c21ae3ca84fcad36db834ccf521a499e5c5cb"
+  integrity sha512-Ss6eSkryWhPhoLOxAEntxYfuSg2Qav9KYrdvas42DYsjqOnOfBCFQjnqlPnU9tk62V6pX8lOad2npDq2mI+pxQ==
+
 "@tootallnate/once@1":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.0.0.tgz#9c13c2574c92d4503b005feca8f2e16cc1611506"
