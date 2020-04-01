@@ -91,7 +91,7 @@ export const Blurb: React.FC<{}> = () => {
               Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and mailed back at your convenience.
             </Text>
             <Text>
-              28 states now allow <i>any</i> registerecd voter to vote by mail.  Does yours?
+              28 states now allow <i>any</i> registered voter to vote by mail.  Does yours?
             </Text>
             <h2>Enter your zipcode to see if you&apos;re eligible</h2>
             <Form onSubmit={handleSubmit}>
