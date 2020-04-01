@@ -66,9 +66,14 @@ export class FirestoreService {
     return docs.map(doc => doc || null)
   }
 
-  async query<T>(ref: Query, trans?: Transaction): Promise<T []> {
+  async query<T extends Object>(ref: Query, trans?: Transaction): Promise<T []> {
     const snap = await (trans ? trans.get(ref) : ref.get())
-    return snap.docs.map(doc => doc.data() as unknown as T)
+    return snap.docs.map(doc => {
+      return {
+        ...doc.data() as unknown as T,
+        id: doc.id
+      } 
+    })
   }
 
   async getRegistration(id: string): Promise<RichStateInfo | null> {
