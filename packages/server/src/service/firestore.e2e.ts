@@ -74,12 +74,20 @@ describe('Firestore methods', () => {
     await expect(fs.fetchRegistrations(uids[0], 'new_org')).resolves.toBeNull()
   })
 
-  test('cannot accpet non-existent org', async() => {
+  test('cannot accept non-existent org', async() => {
     await expect(fs.acceptRole(uids[1], 'nonexistent_org')).resolves.toBe(false)
   })
 
-  test('can accept a pending org', async() => {
+  test('can grant permissions and accept a pending org', async() => {
     await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
     await expect(fs.acceptRole(uids[1], org)).resolves.toBe(true)
+  })
+
+  test('cannot grant for a non-existent org org', async() => {
+    await expect(fs.grantExistingOrg(uids[0], uids[1], 'new_org')).resolves.toBe(false)
+  })
+
+  test('cannot grant for an org where you are not an admin', async() => {
+    await expect(fs.grantExistingOrg(uids[1], uids[0], org)).resolves.toBe(false)
   })
 })
