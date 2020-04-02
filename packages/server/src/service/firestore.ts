@@ -181,7 +181,7 @@ export class FirestoreService {
     })
   }
 
-  async acceptRole(uid: string, org:string): Promise<boolean> {
+  async acceptOrg(uid: string, org:string): Promise<boolean> {
     return this.db.runTransaction(async trans => {
       const orgObj = await this.fetchOrg(org, trans)
       if (!orgObj) return false
