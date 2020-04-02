@@ -20,12 +20,12 @@ export const StyleContainer = styled(Container)`
 `
 
 // export for testing purposes
-export const StateContainer: React.FC<{}> = (props) => (
+export const StateContainer: React.FC<{}> = ({children}) => (
   <HashRouter>
     <QueryContainer.Provider>
       <AddressContainer.Provider>
         <ContactContainer.Provider>
-          {props.children}
+          {children}
         </ContactContainer.Provider>
       </AddressContainer.Provider>
     </QueryContainer.Provider>
