@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
 
+import { Analytics } from './comp/Analytics'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
 import { QueryContainer, AddressContainer, ContactContainer } from './lib/state'
@@ -84,6 +85,7 @@ const Layout = () => {
 
 const App = () => (
   <StateContainer>
+    <Analytics/>
     <Layout/>
   </StateContainer>
 )

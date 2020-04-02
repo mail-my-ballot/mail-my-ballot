@@ -8,6 +8,7 @@
     "muicss": "^0.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-facebook-pixel": "^0.1.3",
     "react-router-dom": "^5.1.2",
     "react-signature-canvas": "^1.0.3",
     "source-map-explorer": "^2.4.1",

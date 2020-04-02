@@ -25,6 +25,12 @@ const hostInfo = (request: Request): HostInfo => {
 
 export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
   public add = async (x: number, y: number) => data(x + y)
+  public fetchAnalytics = async (org: string) => {
+    const orgObj = await firestoreService.fetchOrg(org)
+    return data({
+      facebookId: orgObj?.facebookId
+    })
+  }
   public fetchState = async (zip: string) => {
     const res = search(zip)
     return res ? data(res) : error(`Unable to find zip ${zip}`)

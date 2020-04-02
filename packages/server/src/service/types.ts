@@ -14,7 +14,7 @@ export interface User extends _Id {
 
 // subcollection
 export interface Org extends _Id {
-  fbPixelId?: string
+  facebookId?: string
   user: {
     owner: string     // Only single owner (creator)
     admins: string[]   // Owner always admin
