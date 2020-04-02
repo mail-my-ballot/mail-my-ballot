@@ -1,7 +1,6 @@
 import * as firebase from '@firebase/testing'
 
 import { FirestoreService } from './firestore'
-import { Role } from './types'
 
 const projectId = 'new-test'
 
@@ -43,20 +42,16 @@ describe('Firestore methods', () => {
     await fs.claimNewOrg(uids[0], org)
   })
 
-  test.only('claimNewOrg method can claim a new org', async () => {
-    expect(await fs.claimNewOrg(uids[0], 'new_org')).toBe(true)
-    const roles: Role[] = await fs.query<Role>(
-      fs.db
-        .collectionGroup('Role')
-        .where('org', '==', 'new_org')
-    )
-    expect(roles).toHaveLength(1)
-    expect(roles[0].admin).toBe(true)
+  test('claimNewOrg method can claim a new org', async () => {
+    await fs.claimNewOrg(uids[0], 'new_org')
+    const org = await fs.fetchOrg('new_org')
+    expect(org).toBeTruthy()
+    expect(org?.user.admins).toStrictEqual([uids[0]])
   })
 
   test('claimNewOrg method cannot claim an already-claimed org', async () => {
-    await expect(fs.claimNewOrg(uids[1], org)).resolves.toBe(false)
-    await expect((fs.query(fs.db.collectionGroup('Role')))).resolves.toHaveLength(1)
+    await expect(fs.claimNewOrg(uids[1], org)).rejects.toThrow()
+    await expect((fs.query(fs.db.collectionGroup('Org')))).resolves.toHaveLength(1)
   })
 
   test('user can view their own org\'s registrations', async () => {
@@ -79,11 +74,11 @@ describe('Firestore methods', () => {
     await expect(fs.fetchRegistrations(uids[0], 'new_org')).resolves.toBeNull()
   })
 
-  test('cannot accpet non-existent role', async() => {
-    await expect(fs.acceptRole(uids[1], 'nonexistent_org')).rejects.toThrow()
+  test('cannot accpet non-existent org', async() => {
+    await expect(fs.acceptRole(uids[1], 'nonexistent_org')).resolves.toBe(false)
   })
 
-  test('can accept a pending role', async() => {
+  test('can accept a pending org', async() => {
     await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
     await expect(fs.acceptRole(uids[1], org)).resolves.toBe(true)
   })
