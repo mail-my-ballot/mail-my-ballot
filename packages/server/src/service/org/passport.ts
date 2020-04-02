@@ -127,7 +127,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       const stateInfos = await firestoreService.fetchRegistrations(uid, org) || []
       const csvString = toCSVSting(stateInfos)
       res.contentType('text/csv')
-      res.setHeader('Content-Disposition', 'attachment; filename=data.csv')
+      res.setHeader('Content-Disposition', `attachment; filename=${org}.data.csv`)
       res.send(csvString)
     }
   )
