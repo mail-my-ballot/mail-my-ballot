@@ -9,18 +9,11 @@ let fs: FirestoreService
 let uids: string[]
 
 const org = 'org'
-const profiles = [
-  {
-    provider: 'google',
-    id: '0',
-    displayName: 'Bob'
-  },
-  {
-    provider: 'google',
-    id: '1',
-    displayName: 'Jane'
-  },
-]
+const profiles = [0,1,2].map(i => ({
+  provider: 'google',
+  id: i.toString(),
+  displayName: `Bob${i}`
+}))
 
 
 beforeAll(async () => {
@@ -91,7 +84,13 @@ describe('roles and permissions', () => {
     await expect(fs.grantExistingOrg(uids[0], uids[1], 'new_org')).resolves.toBe(false)
   })
 
-  test('cannot grant for an org where you are not an admin', async() => {
-    await expect(fs.grantExistingOrg(uids[1], uids[0], org)).resolves.toBe(false)
+  test('cannot grant for an org where user is not a member', async() => {
+    await expect(fs.grantExistingOrg(uids[1], uids[2], org)).resolves.toBe(false)
+  })
+
+  test('cannot grant for an org where user is a member but not an admin', async() => {
+    await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
+    await expect(fs.acceptOrg(uids[1], org)).resolves.toBe(true)
+    await expect(fs.grantExistingOrg(uids[1], uids[2], org)).resolves.toBe(false)
   })
 })
