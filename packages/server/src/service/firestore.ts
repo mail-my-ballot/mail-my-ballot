@@ -1,11 +1,12 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, StateInfo } from '../common'
+import { processEnvOrThrow, StateInfo, _Id, WithId } from '../common'
 import { Profile } from 'passport'
-import { User, Role, RichStateInfo } from './types'
+import { User, RichStateInfo, Org } from './types'
 
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
+type DocumentSnapshot = admin.firestore.DocumentSnapshot
 type Transaction = admin.firestore.Transaction
 
 export class FirestoreService {
@@ -52,21 +53,23 @@ export class FirestoreService {
   }
 
   // user helpers
-
-  private async get<T>(ref: DocumentReference, trans?: Transaction): Promise<T | null> {
-    const snap = await (trans ? trans.get(ref) : ref.get())
+  private withId<T extends {}>(snap: DocumentSnapshot): WithId<T> | null {
     const doc = snap.data() as T | undefined
-    return doc || null
+    return doc ? {...doc, id: snap.id} : null
   }
 
-  async getAll<T>(refs: DocumentReference[], trans?: Transaction): Promise<Array<T | null>> {
+  private async get<T extends {}>(ref: DocumentReference, trans?: Transaction): Promise<WithId<T> | null> {
+    const snap = await (trans ? trans.get(ref) : ref.get())
+    return this.withId(snap)
+  }
+
+  async getAll<T extends {}>(refs: DocumentReference[], trans?: Transaction): Promise<Array<WithId<T> | null>> {
     if (refs.length === 0) return []
-    const snaps = await (trans ? trans.getAll(...refs) : this.db.getAll(...refs))
-    const docs = snaps.map(snap => snap.data() as T | undefined)
-    return docs.map(doc => doc || null)
+    const snaps = await (trans ? trans.getAll<T>(...refs) : this.db.getAll(...refs))
+    return snaps.map(snap => this.withId<T>(snap))
   }
 
-  async query<T extends {}>(ref: Query, trans?: Transaction): Promise<T []> {
+  async query<T extends {}>(ref: Query, trans?: Transaction): Promise<WithId<T>[]> {
     const snap = await (trans ? trans.get(ref) : ref.get())
     return snap.docs.map(doc => {
       return {
@@ -100,21 +103,35 @@ export class FirestoreService {
     }
   }
 
-  roleRef(uid: string, org: string): DocumentReference {
-    return this.db.collection('User').doc(uid).collection('Role').doc(org)
+  orgRef(org: string): DocumentReference {
+    return this.db.collection('Org').doc(org)
   }
 
-  // user role
-  async userRole(uid: string, org: string): Promise<boolean> {
-    const role = await this.get<Role>(this.roleRef(uid, org))
-    return (!!role && !role.pending)
+  async fetchUser(uid: string, trans?: Transaction): Promise<User | null> {
+    return this.get<User>(this.userRef(uid), trans)
   }
 
-  async getUserRoles(uid: string): Promise<[User | null, Role[] | null]> {
-    return Promise.all([
-      this.get<User>(this.userRef(uid)),
-      this.query<Role>(this.userRef(uid).collection('Role')),
+  async fetchOrg(org: string, trans?: Transaction): Promise<Org | null> {
+    return this.get<Org>(this.orgRef(org), trans)
+  }
+
+  async fetchUserOrgs(uid: string, trans?: Transaction): Promise<Org[]> {
+    const [orgs1, orgs2] = await Promise.all([
+      this.query<Org>(this.db.collection('Org').where('user.members', 'array-contains', uid), trans),
+      this.query<Org>(this.db.collection('Org').where('user.pendings', 'array-contains', uid), trans),
     ])
+    return [...orgs1, ...orgs2]
+  }
+
+  async fetchOrgUsers(org: string, trans?: Transaction): Promise<WithId<User>[]> {
+    const orgObj = await this.fetchOrg(org)
+    if (!orgObj) return []
+    const userRefs = [
+      ...orgObj.user.members.map(uid => this.userRef(uid)),
+      ...orgObj.user.pendings.map(uid => this.userRef(uid))
+    ]
+    const users = await this.getAll<User>(userRefs, trans)
+    return users.filter((u): u is WithId<User> => !!u)
   }
 
   // new user
@@ -140,54 +157,46 @@ export class FirestoreService {
   }
   
   // claim (globally unique) org as role
-  async claimNewOrg(uid: string, org: string): Promise<boolean> {
-    const roleQuery = this.db.collectionGroup('Role').where('org', '==', org)
-    const newRoleRef = this.roleRef(uid, org)
-    const newRole: Role = {
-      org,
-      admin: true,
+  async claimNewOrg(uid: string, org: string): Promise<void> {
+    const newOrg: Org = {
+      user: {
+        owner: uid,
+        admins: [uid],
+        members: [uid],
+        pendings: []
+      }
     }
-    return this.db.runTransaction(async t => {
-      const roles = await this.query<Role>(roleQuery, t)
-
-      // if existing role for this org, cannot claim as a new org
-      if (roles.length > 0) return false
-
-      t.create(newRoleRef, newRole)
-      return true
-    })
+    await this.orgRef(org).create(newOrg)
   }
   
   // user grants another user role in an org where they are an admin
   async grantExistingOrg(adminUid: string, newUid: string, org: string): Promise<boolean> {
-    const adminRoleRef = this.roleRef(adminUid, org)
-    const newRoleRef = this.roleRef(newUid, org)
-    const newRole: Role = {
-      org,
-      admin: true,
-      pending: false,
-    }
-
-    return this.db.runTransaction(async t => {
-      const adminRole = await this.get<Role>(adminRoleRef, t)
-
-      // admin user must be an admin for this org
-      if (!adminRole || !adminRole.admin) return false
-
-      t.create(newRoleRef, newRole)
+    return this.db.runTransaction(async trans => {
+      const orgObj = await this.fetchOrg(org, trans)
+      if (!orgObj) return false
+      if (!orgObj.user.admins.includes(adminUid)) return false
+      orgObj.user.pendings = [...orgObj.user.pendings, newUid]
+      trans.update(this.orgRef(org), orgObj)
       return true
     })
   }
 
   async acceptRole(uid: string, org:string): Promise<boolean> {
-    await this.roleRef(uid, org).update({pending: false})
-    return true
+    return this.db.runTransaction(async trans => {
+      const orgObj = await this.fetchOrg(org, trans)
+      if (!orgObj) return false
+      if (!orgObj.user.pendings.includes(uid)) return false
+      orgObj.user.members = [...orgObj.user.members, uid]
+      orgObj.user.pendings = orgObj.user.pendings.filter(user => user != uid)
+      return true
+    })
   }
 
   // user pulls all registration from org
   async fetchRegistrations(uid: string, org: string, limit = 5000): Promise<RichStateInfo[] | null> {
-    const role = await this.get<Role>(this.roleRef(uid, org))
-    if (!role) return null
+    const orgObj = await this.fetchOrg(org)
+    if (!orgObj) return null
+    if (!orgObj.user.members.includes(uid)) return null
     return this.query<RichStateInfo>(
       this.db.collection('StateInfo')
         .where('org', '==', org)

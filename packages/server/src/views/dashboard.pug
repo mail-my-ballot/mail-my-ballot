@@ -37,18 +37,18 @@ block content
 
       .col-md.mt-3
         h4 Organizations
-        if roles
+        if richOrgs
           ul.mt-2.list-group
-            each role in roles
+            each org in richOrgs
               li.list-group-item
                 .mt-1.d-flex.justify-content-between
                   .d-flex.justify-content-start
-                    a.mr-1(href=frontEnd + 'org/' + role.org)= frontEnd + 'org/' + role.org
-                    if role.admin
+                    a.mr-1(href=frontEnd + 'org/' + org.id)= frontEnd + 'org/' + org.id
+                    if org.isAdmin
                       p.text-muted (admin)
-                    if role.pending
+                    if org.isPending
                       p.text-muted (pending)
-                  a(href='/download/' + role.org)
+                  a(href='/download/' + org.id)
                     include cloud-download.html
         else
           span No orgs claimed!

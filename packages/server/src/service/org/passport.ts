@@ -97,9 +97,17 @@ export const registerPassportEndpoints = (app: Express.Application) => {
   app.get('/dashboard', validSession,
     async (req, res) => {
       const uid = getUid(req)
-      const [user, roles] = await firestoreService.getUserRoles(uid)
+      const [user, orgs] = await Promise.all([
+        await firestoreService.fetchUser(uid),
+        await firestoreService.fetchUserOrgs(uid)
+      ])
       const frontEnd = 'https://vbmreg.org/'
-      res.render('dashboard', {user, roles, frontEnd})
+      const richOrgs = orgs.map(org => ({
+        ...org,
+        isAdmin: org.user.admins.includes(uid),
+        isPending: org.user.pendings.includes(uid)
+      }))
+      res.render('dashboard', {user, richOrgs, frontEnd})
     }
   )
 
