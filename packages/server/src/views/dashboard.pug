@@ -23,19 +23,20 @@ block content
     h2 Organizations
     .row
 
-      .col-md.mt-3
+      .col-lg.mt-3
         h4 Claim a new organization
         form(action='/claimNewOrg' method='post')
-          .mt-2
-            label(for='org')
-            .input-group
-              .input-group-prepend
-                span.input-group-text(id='prepend')= frontEnd
-              input.form-control(type='text' name='org' id='org' aria-describedby='prepend')
-          .mt-2.d-flex.justify-content-end
-            button.btn.btn-primary(type='submit') Claim
+          .d-flex.justify-content-between
+            .mt-2.flex-grow-1.mr-3
+              .input-group
+                label(for='org')
+                .input-group-prepend
+                  span.input-group-text(id='prepend')= frontEnd
+                input.form-control(type='text' name='org' id='org' aria-describedby='prepend')
+            .mt-2.flex-grow-0
+              button.btn.btn-primary(type='submit') Claim
 
-      .col-md.mt-3
+      .col-lg.mt-3
         h4 Organizations
         if richOrgs
           ul.mt-2.list-group
