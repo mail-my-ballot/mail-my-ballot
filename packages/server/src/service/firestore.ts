@@ -171,6 +171,7 @@ export class FirestoreService {
   
   // user grants another user role in an org where they are an admin
   async grantExistingOrg(adminUid: string, newUid: string, org: string): Promise<boolean> {
+    if (adminUid == newUid) return false
     return this.db.runTransaction(async trans => {
       const orgObj = await this.fetchOrg(org, trans)
       if (!orgObj) return false
