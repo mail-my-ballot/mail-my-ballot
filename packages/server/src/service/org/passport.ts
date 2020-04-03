@@ -2,6 +2,7 @@ import passport from 'passport'
 import Express, { Request } from 'express'
 import session from 'express-session'
 import bodyParser from 'body-parser'
+import flash from 'connect-flash'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 
 import { processEnvOrThrow } from '../../common'
@@ -56,9 +57,8 @@ const getUid = (req: Request): string => {
 }
 
 export const registerPassportEndpoints = (app: Express.Application) => {
-
-
   app.use(Express.static("public"))
+
   app.use(session({
     store: new FirestoreStore({
       dataset: firestoreService.db,
@@ -70,6 +70,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     // cookie: { secure: true },
   }))
 
+  app.use(flash())
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(bodyParser.urlencoded({ extended: true }))
@@ -107,6 +108,15 @@ export const registerPassportEndpoints = (app: Express.Application) => {
         isAdmin: org.user.admins.includes(uid),
         isPending: org.user.pendings.includes(uid)
       }))
+
+      res.render('dashboard', {
+        user,
+        richOrgs,
+        frontEnd,
+        flash: req.flash(),
+      })
+    }
+  )
       res.render('dashboard', {user, richOrgs, frontEnd})
     }
   )
@@ -116,6 +126,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       const { org } = req.body
       const uid = getUid(req)
       await firestoreService.claimNewOrg(uid, org)
+      req.flash('success', `Added new org "${org}"`)
       res.redirect('/dashboard')
     }
   )
