@@ -120,6 +120,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       res.render('dashboard', {
         user,
         richOrgs,
+        frontEnd,
         flash: req.flash(),
       })
     }
