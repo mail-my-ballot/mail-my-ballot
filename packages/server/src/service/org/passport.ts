@@ -144,8 +144,6 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     async (req, res) => {
       const { org } = req.params
       const { facebookId } = req.body
-      console.log('###')
-      console.log(facebookId)
       const uid = getUid(req)
       const orgObj = await firestoreService.fetchOrg(org)
       if (!orgObj) return res.sendStatus(404)
