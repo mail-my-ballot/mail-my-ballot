@@ -104,20 +104,20 @@ export class FirestoreService {
     }
   }
 
-  orgRef(org: string): DocumentReference {
-    return this.db.collection('Org').doc(org)
+  orgRef(oid: string): DocumentReference {
+    return this.db.collection('Org').doc(oid)
   }
 
   async fetchUser(uid: string, trans?: Transaction): Promise<User | null> {
     return this.get<User>(this.userRef(uid), trans)
   }
 
-  async fetchOrg(org: string, trans?: Transaction): Promise<Org | null> {
-    return this.get<Org>(this.orgRef(org), trans)
+  async fetchOrg(oid: string, trans?: Transaction): Promise<Org | null> {
+    return this.get<Org>(this.orgRef(oid), trans)
   }
 
-  async updateAnalytics(org: string, analytics: Analytics) {
-    return this.orgRef(org).update(analytics)
+  async updateAnalytics(oid: string, analytics: Analytics) {
+    return this.orgRef(oid).update(analytics)
   }
 
   async fetchUserOrgs(uid: string, trans?: Transaction): Promise<Org[]> {
@@ -128,12 +128,12 @@ export class FirestoreService {
     return [...orgs1, ...orgs2]
   }
 
-  async fetchOrgUsers(org: string, trans?: Transaction): Promise<WithId<User>[]> {
-    const orgObj = await this.fetchOrg(org)
-    if (!orgObj) return []
+  async fetchOrgUsers(oid: string, trans?: Transaction): Promise<WithId<User>[]> {
+    const org = await this.fetchOrg(oid)
+    if (!org) return []
     const userRefs = [
-      ...orgObj.user.members.map(uid => this.userRef(uid)),
-      ...orgObj.user.pendings.map(uid => this.userRef(uid))
+      ...org.user.members.map(uid => this.userRef(uid)),
+      ...org.user.pendings.map(uid => this.userRef(uid))
     ]
     const users = await this.getAll<User>(userRefs, trans)
     return users.filter((u): u is WithId<User> => !!u)
@@ -162,7 +162,7 @@ export class FirestoreService {
   }
   
   // claim (globally unique) org as role
-  async claimNewOrg(uid: string, org: string): Promise<void> {
+  async claimNewOrg(uid: string, oid: string): Promise<void> {
     const newOrg: Org = {
       user: {
         owner: uid,
@@ -171,41 +171,41 @@ export class FirestoreService {
         pendings: []
       }
     }
-    await this.orgRef(org).create(newOrg)
+    await this.orgRef(oid).create(newOrg)
   }
   
   // user grants another user role in an org where they are an admin
-  async grantExistingOrg(adminUid: string, newUid: string, org: string): Promise<boolean> {
+  async grantExistingOrg(adminUid: string, newUid: string, oid: string): Promise<boolean> {
     if (adminUid == newUid) return false
     return this.db.runTransaction(async trans => {
-      const orgObj = await this.fetchOrg(org, trans)
-      if (!orgObj) return false
-      if (!orgObj.user.admins.includes(adminUid)) return false
-      orgObj.user.pendings = [...orgObj.user.pendings, newUid]
-      trans.update(this.orgRef(org), orgObj)
+      const org = await this.fetchOrg(oid, trans)
+      if (!org) return false
+      if (!org.user.admins.includes(adminUid)) return false
+      org.user.pendings = [...org.user.pendings, newUid]
+      trans.update(this.orgRef(oid), org)
       return true
     })
   }
 
-  async acceptOrg(uid: string, org:string): Promise<boolean> {
+  async acceptOrg(uid: string, oid:string): Promise<boolean> {
     return this.db.runTransaction(async trans => {
-      const orgObj = await this.fetchOrg(org, trans)
-      if (!orgObj) return false
-      if (!orgObj.user.pendings.includes(uid)) return false
-      orgObj.user.members = [...orgObj.user.members, uid]
-      orgObj.user.pendings = orgObj.user.pendings.filter(user => user != uid)
+      const org = await this.fetchOrg(oid, trans)
+      if (!org) return false
+      if (!org.user.pendings.includes(uid)) return false
+      org.user.members = [...org.user.members, uid]
+      org.user.pendings = org.user.pendings.filter(user => user != uid)
       return true
     })
   }
 
   // user pulls all registration from org
-  async fetchRegistrations(uid: string, org: string, limit = 5000): Promise<RichStateInfo[] | null> {
-    const orgObj = await this.fetchOrg(org)
-    if (!orgObj) return null
-    if (!orgObj.user.members.includes(uid)) return null
+  async fetchRegistrations(uid: string, oid: string, limit = 5000): Promise<RichStateInfo[] | null> {
+    const org = await this.fetchOrg(oid)
+    if (!org) return null
+    if (!org.user.members.includes(uid)) return null
     return this.query<RichStateInfo>(
       this.db.collection('StateInfo')
-        .where('org', '==', org)
+        .where('org', '==', oid)
         .orderBy('created', 'asc')
         .limit(limit)
     )

@@ -126,11 +126,11 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     }
   )
 
-  app.get('/dashboard/:org', validSession,
+  app.get('/dashboard/:oid', validSession,
     async (req, res) => {
-      const { org } = req.params
+      const { oid } = req.params
       const uid = getUid(req)
-      const orgObj = await firestoreService.fetchOrg(org)
+      const orgObj = await firestoreService.fetchOrg(oid)
       if (!orgObj) return res.sendStatus(404)
       if (!orgObj.user.members.includes(uid)) return res.sendStatus(403)
       return res.render('org', {
@@ -140,37 +140,37 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     }
   )
 
-  app.post('/dashboard/:org/updateAnalytics', validSession,
+  app.post('/dashboard/:oid/updateAnalytics', validSession,
     async (req, res) => {
-      const { org } = req.params
+      const { oid } = req.params
       const { facebookId } = req.body
       const uid = getUid(req)
-      const orgObj = await firestoreService.fetchOrg(org)
+      const orgObj = await firestoreService.fetchOrg(oid)
       if (!orgObj) return res.sendStatus(404)
       if (!orgObj.user.admins.includes(uid)) return res.sendStatus(403)
-      await firestoreService.updateAnalytics(org, { facebookId })
+      await firestoreService.updateAnalytics(oid, { facebookId })
       return res.redirect(`/dashboard/`)
     }
   )
 
   app.post('/claimNewOrg', validSession,
     async (req, res) => {
-      const { org } = req.body
+      const { oid } = req.body
       const uid = getUid(req)
-      await firestoreService.claimNewOrg(uid, org)
-      req.flash('success', `Added new org "${org}"`)
+      await firestoreService.claimNewOrg(uid, oid)
+      req.flash('success', `Added new org "${oid}"`)
       res.redirect('/dashboard')
     }
   )
 
-  app.get('/download/:org', validSession,
+  app.get('/download/:oid', validSession,
     async (req, res) => {
-      const { org } = req.params
+      const { oid } = req.params
       const uid = getUid(req)
-      const stateInfos = await firestoreService.fetchRegistrations(uid, org) || []
+      const stateInfos = await firestoreService.fetchRegistrations(uid, oid) || []
       const csvString = toCSVSting(stateInfos)
       res.contentType('text/csv')
-      res.setHeader('Content-Disposition', `attachment; filename=${org}-data.csv`)
+      res.setHeader('Content-Disposition', `attachment; filename=${oid}-data.csv`)
       res.send(csvString)
     }
   )
