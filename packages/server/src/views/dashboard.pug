@@ -35,7 +35,7 @@ block content
                 label(for='oid')
                 .input-group-prepend
                   span.input-group-text(id='prepend')= frontEnd
-                input.form-control(type='text' name='oid' id='oid' aria-describedby='prepend')
+                input.form-control(type='text' name='oid' id='oid' aria-describedby='prepend' pattern='[A-Za-z0-9_-]{3,}')
             .mt-2.flex-grow-0
               button.btn.btn-primary(type='submit') Claim
 
