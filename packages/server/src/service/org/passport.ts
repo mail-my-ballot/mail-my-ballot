@@ -1,5 +1,5 @@
 import passport from 'passport'
-import Express, { Request } from 'express'
+import Express from 'express'
 import session from 'express-session'
 import bodyParser from 'body-parser'
 import flash from 'connect-flash'
@@ -51,10 +51,26 @@ const validSession: Express.RequestHandler = (req, res, next) => {
   }
 }
 
-const getUid = (req: Request): string => {
+const getUid = (req: Express.Request): string => {
   const uid = req.user as string | undefined
   if (!uid) throw Error('Need a valid user object')
   return uid
+}
+
+interface RequestWithOrg extends Express.Request {
+  org: Org
+}
+
+const orgPermissions = (level: 'members' | 'admins'): Express.RequestHandler => {
+  return async (req, res, next) => {
+    const { oid } = req.params
+    const uid = getUid(req)
+    const org = await firestoreService.fetchOrg(oid)
+    if (!org) return res.sendStatus(404)
+    if (!org.user[level].includes(uid)) return res.sendStatus(403);
+    (req as RequestWithOrg).org = org
+    return next()
+  }
 }
 
 const frontEnd = 'https://vbmreg.org/'
@@ -126,28 +142,20 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     }
   )
 
-  app.get('/dashboard/:oid', validSession,
+  app.get('/dashboard/:oid', validSession, orgPermissions('members'),
     async (req, res) => {
-      const { oid } = req.params
       const uid = getUid(req)
-      const orgObj = await firestoreService.fetchOrg(oid)
-      if (!orgObj) return res.sendStatus(404)
-      if (!orgObj.user.members.includes(uid)) return res.sendStatus(403)
       return res.render('org', {
-        richOrg: enrichOrg(orgObj, uid),
+        richOrg: enrichOrg((req as RequestWithOrg).org, uid),
         flash: req.flash()
       })
     }
   )
 
-  app.post('/dashboard/:oid/updateAnalytics', validSession,
+  app.post('/dashboard/:oid/updateAnalytics', validSession, orgPermissions('admins'),
     async (req, res) => {
       const { oid } = req.params
       const { facebookId } = req.body
-      const uid = getUid(req)
-      const orgObj = await firestoreService.fetchOrg(oid)
-      if (!orgObj) return res.sendStatus(404)
-      if (!orgObj.user.admins.includes(uid)) return res.sendStatus(403)
       await firestoreService.updateAnalytics(oid, { facebookId })
       return res.redirect(`/dashboard/`)
     }
@@ -163,7 +171,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     }
   )
 
-  app.get('/download/:oid', validSession,
+  app.get('/download/:oid', validSession, orgPermissions('members'),
     async (req, res) => {
       const { oid } = req.params
       const uid = getUid(req)
