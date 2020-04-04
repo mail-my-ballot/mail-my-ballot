@@ -36,14 +36,14 @@ beforeEach(async () => {
 
 describe('FirestoreService.claimNewOrg method', () => {
   test('can claim a new org', async () => {
-    await fs.claimNewOrg(uids[0], 'new_org')
+    await expect(fs.claimNewOrg(uids[0], 'new_org')).resolves.toBe(true)
     const org = await fs.fetchOrg('new_org')
     expect(org).toBeTruthy()
     expect(org?.user.admins).toStrictEqual([uids[0]])
   })
 
   test('cannot claim an already-claimed org', async () => {
-    await expect(fs.claimNewOrg(uids[1], org)).rejects.toThrow()
+    await expect(fs.claimNewOrg(uids[1], org)).resolves.toBe(false)
     await expect((fs.query(fs.db.collectionGroup('Org')))).resolves.toHaveLength(1)
   })
 })

@@ -166,8 +166,12 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     async (req, res) => {
       const { oid } = req.body
       const uid = getUid(req)
-      await firestoreService.claimNewOrg(uid, oid)
-      req.flash('success', `Added new org "${oid}"`)
+      const success = await firestoreService.claimNewOrg(uid, oid)
+      if (success) {
+        req.flash('success', `Added new org "${oid}"`)
+      } else {
+        req.flash('danger', `Cannot add already claimed org "${oid}"`)
+      }
       res.redirect('/dashboard')
     }
   )

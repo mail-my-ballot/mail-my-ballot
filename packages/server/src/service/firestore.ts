@@ -162,7 +162,7 @@ export class FirestoreService {
   }
   
   // claim (globally unique) org as role
-  async claimNewOrg(uid: string, oid: string): Promise<void> {
+  async claimNewOrg(uid: string, oid: string): Promise<boolean> {
     const newOrg: Org = {
       user: {
         owner: uid,
@@ -171,7 +171,15 @@ export class FirestoreService {
         pendings: []
       }
     }
-    await this.orgRef(oid).create(newOrg)
+    try {
+      await this.orgRef(oid).create(newOrg)
+    } catch(err) {
+      if (err.message.includes('6 ALREADY_EXISTS:')) {
+        return false
+      }
+      throw err
+    }
+    return true
   }
   
   // user grants another user role in an org where they are an admin
