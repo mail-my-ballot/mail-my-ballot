@@ -4,12 +4,7 @@ block pageName
   title Dashboard
 
 block content
-  - var levels = ['success', 'warning', 'danger', 'primary']
-  .container.mt-4
-    each level in levels
-      if flash[level]
-        each msg in flash[level]
-          .alert(class='alert-'+level).mt-3.mb-2= msg
+  include flash.pug
 
   .container.mt-4
     .d-flex.justify-content-between.align-items-center
@@ -52,13 +47,18 @@ block content
               li.list-group-item
                 .mt-1.d-flex.justify-content-between
                   .d-flex.justify-content-start
-                    a.mr-1(href=frontEnd + 'org/' + org.id)= frontEnd + 'org/' + org.id
+                    p.mr-2= org.id
+                    a.mr-2(href=org.displayUrl)
+                      i.fa.fa-external-link
                     if org.isAdmin
                       p.text-muted (admin)
                     if org.isPending
                       p.text-muted (pending)
-                  a(href='/download/' + org.id)
-                    i.fa.fa-cloud-download
+                  .d-flex.justify-content-start
+                    a.mr-2(href=org.editUrl)
+                      i.fa.fa-edit
+                    a(href=org.downloadUrl)
+                      i.fa.fa-cloud-download
         else
           span No orgs claimed!
 

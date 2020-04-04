@@ -1,0 +1,21 @@
+extends layout.pug
+
+block pageName
+  title Edit details of #{richOrg.id}
+
+block content
+  include flash.pug
+
+  .container.mt-4
+    h1 Edit details of #{richOrg.id}
+
+  .container.card.mt-4.p-3
+    form(action=richOrg.updateAnalyticsUrl method='post')
+      .d-flex.justify-content-between.align-items-center
+        .form-group.flex-grow-1
+          label(for='facebookId') Facebook Pixel Id (16 digit number)
+          input(type='text' class='form-control' id='facebookId' name='facebookId' value=richOrg.facebookId pattern='\\d*')
+          small.form-text.text-muted(id='facebookHelp').
+            Visit Facebook's #[a(href='https://www.facebook.com/business/help/952192354843755') help page] for more information
+        
+        button.flex-grow-0.btn.btn-primary.ml-3(type='submit') Update

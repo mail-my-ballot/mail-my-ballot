@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { processEnvOrThrow, StateInfo, _Id, WithId } from '../common'
 import { Profile } from 'passport'
 import { User, RichStateInfo, Org } from './types'
+import { Analytics } from '../common/analytics'
 
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
@@ -113,6 +114,10 @@ export class FirestoreService {
 
   async fetchOrg(org: string, trans?: Transaction): Promise<Org | null> {
     return this.get<Org>(this.orgRef(org), trans)
+  }
+
+  async updateAnalytics(org: string, analytics: Analytics) {
+    return this.orgRef(org).update(analytics)
   }
 
   async fetchUserOrgs(uid: string, trans?: Transaction): Promise<Org[]> {

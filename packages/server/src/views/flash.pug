@@ -1,0 +1,6 @@
+- var levels = ['success', 'warning', 'danger', 'primary']
+.container.mt-4
+  each level in levels
+    if flash[level]
+      each msg in flash[level]
+        .alert(class='alert-'+level).mt-3.mb-2= msg

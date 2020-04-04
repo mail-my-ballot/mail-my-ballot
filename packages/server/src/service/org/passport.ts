@@ -9,6 +9,7 @@ import { processEnvOrThrow } from '../../common'
 import { FirestoreService } from '../firestore'
 import { FirestoreStore } from '@google-cloud/connect-firestore'
 import { toCSVSting } from '../csv'
+import { Org } from '../types'
 
 const scope = [
   'https://www.googleapis.com/auth/userinfo.email',
@@ -56,6 +57,17 @@ const getUid = (req: Request): string => {
   return uid
 }
 
+const frontEnd = 'https://vbmreg.org/'
+const enrichOrg = (org: Org, uid: string) => ({
+  ...org,
+  isAdmin: org.user.admins.includes(uid),
+  isPending: org.user.pendings.includes(uid),
+  displayUrl: frontEnd + 'org/' + org.id,
+  editUrl: `/dashboard/${org.id}`,
+  downloadUrl: `/download/${org.id}`,
+  updateAnalyticsUrl: `/dashboard/${org.id}/updateAnalytics`,
+})
+
 export const registerPassportEndpoints = (app: Express.Application) => {
   app.use(Express.static("public"))
 
@@ -102,22 +114,43 @@ export const registerPassportEndpoints = (app: Express.Application) => {
         await firestoreService.fetchUser(uid),
         await firestoreService.fetchUserOrgs(uid)
       ])
-      const frontEnd = 'https://vbmreg.org/'
-      const richOrgs = orgs.map(org => ({
-        ...org,
-        isAdmin: org.user.admins.includes(uid),
-        isPending: org.user.pendings.includes(uid)
-      }))
+      
+      const richOrgs = orgs.map(org => enrichOrg(org, uid))
 
       res.render('dashboard', {
         user,
         richOrgs,
-        frontEnd,
         flash: req.flash(),
       })
     }
   )
-      res.render('dashboard', {user, richOrgs, frontEnd})
+
+  app.get('/dashboard/:org', validSession,
+    async (req, res) => {
+      const { org } = req.params
+      const uid = getUid(req)
+      const orgObj = await firestoreService.fetchOrg(org)
+      if (!orgObj) return res.sendStatus(404)
+      if (!orgObj.user.members.includes(uid)) return res.sendStatus(403)
+      return res.render('org', {
+        richOrg: enrichOrg(orgObj, uid),
+        flash: req.flash()
+      })
+    }
+  )
+
+  app.post('/dashboard/:org/updateAnalytics', validSession,
+    async (req, res) => {
+      const { org } = req.params
+      const { facebookId } = req.body
+      console.log('###')
+      console.log(facebookId)
+      const uid = getUid(req)
+      const orgObj = await firestoreService.fetchOrg(org)
+      if (!orgObj) return res.sendStatus(404)
+      if (!orgObj.user.admins.includes(uid)) return res.sendStatus(403)
+      await firestoreService.updateAnalytics(org, { facebookId })
+      return res.redirect(`/dashboard/`)
     }
   )
 
