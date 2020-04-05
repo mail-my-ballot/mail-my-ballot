@@ -23,6 +23,10 @@ export interface Org extends _Id {
   }
 }
 
-export interface Counter extends _Id, Record<State, number> {}
+type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T
+}
+
+export interface Counter extends _Id, PartialRecord<State, number> {}
 
 export type RichStateInfo = StateInfo & { created: admin.firestore.Timestamp }

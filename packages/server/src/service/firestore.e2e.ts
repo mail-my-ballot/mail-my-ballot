@@ -1,6 +1,7 @@
 import * as firebase from '@firebase/testing'
 
 import { FirestoreService } from './firestore'
+import { Counter } from './types'
 
 const projectId = 'new-test'
 
@@ -8,7 +9,7 @@ const projectId = 'new-test'
 let fs: FirestoreService
 let uids: string[]
 
-const org = 'org'
+const oid = 'org'
 const profiles = [0,1,2].map(i => ({
   provider: 'google',
   id: i.toString(),
@@ -31,15 +32,17 @@ beforeEach(async () => {
       'refreshToken',
     )
   ))
-  await fs.claimNewOrg(uids[0], org)
+  await fs.claimNewOrg(uids[0], oid)
 })
 
 describe('Counter', () => {
   test('can create and update a counter', async () => {
-    await fs.increment(org, "Florida")
-    await fs.increment(org, "Florida")
-    await fs.increment(org, "Michigan")
-    await expect(fs.getCounter(org)).resolves.toEqual({'Florida': 2, 'Michigan': 1, id: org})
+    await fs.increment(oid, "Florida")
+    await fs.increment(oid, "Florida")
+    await fs.increment(oid, "Michigan")
+    await expect(fs.getCounter(oid)).resolves.toEqual<Counter>({
+      'Florida': 2, 'Michigan': 1, id: oid
+    })
   })
 })
 
@@ -52,7 +55,7 @@ describe('FirestoreService.claimNewOrg method', () => {
   })
 
   test('cannot claim an already-claimed org', async () => {
-    await expect(fs.claimNewOrg(uids[1], org)).resolves.toBe(false)
+    await expect(fs.claimNewOrg(uids[1], oid)).resolves.toBe(false)
     await expect((fs.query(fs.db.collectionGroup('Org')))).resolves.toHaveLength(1)
   })
 })
@@ -60,11 +63,11 @@ describe('FirestoreService.claimNewOrg method', () => {
 describe('Viewing Data', () => {
   test('user can view their own org\'s registrations', async () => {
     expect(await fs.addRegistration({
-      org,
+      org: oid,
       name: 'Bob',
     } as any)).toBeTruthy()
 
-    await expect(fs.fetchRegistrations(uids[0], org)).resolves.toHaveLength(1)
+    await expect(fs.fetchRegistrations(uids[0], oid)).resolves.toHaveLength(1)
   })
 
   test('user cannot view another org\'s registrations', async () => {
@@ -85,8 +88,8 @@ describe('roles and permissions', () => {
   })
 
   test('can grant permissions and accept a pending org', async() => {
-    await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
-    await expect(fs.acceptOrg(uids[1], org)).resolves.toBe(true)
+    await expect(fs.grantExistingOrg(uids[0], uids[1], oid)).resolves.toBe(true)
+    await expect(fs.acceptOrg(uids[1], oid)).resolves.toBe(true)
   })
 
   test('cannot grant for a non-existent org', async() => {
@@ -94,12 +97,12 @@ describe('roles and permissions', () => {
   })
 
   test('cannot grant for an org where user is not a member', async() => {
-    await expect(fs.grantExistingOrg(uids[1], uids[2], org)).resolves.toBe(false)
+    await expect(fs.grantExistingOrg(uids[1], uids[2], oid)).resolves.toBe(false)
   })
 
   test('cannot grant for an org where user is a member but not an admin', async() => {
-    await expect(fs.grantExistingOrg(uids[0], uids[1], org)).resolves.toBe(true)
-    await expect(fs.acceptOrg(uids[1], org)).resolves.toBe(true)
-    await expect(fs.grantExistingOrg(uids[1], uids[2], org)).resolves.toBe(false)
+    await expect(fs.grantExistingOrg(uids[0], uids[1], oid)).resolves.toBe(true)
+    await expect(fs.acceptOrg(uids[1], oid)).resolves.toBe(true)
+    await expect(fs.grantExistingOrg(uids[1], uids[2], oid)).resolves.toBe(false)
   })
 })
