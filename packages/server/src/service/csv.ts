@@ -21,7 +21,7 @@ const keys: StateKeys[] = [
   'id',
   'ip',
   'userAgent',
-  'org',
+  'oid',
   'name',
   'state',
   'city',

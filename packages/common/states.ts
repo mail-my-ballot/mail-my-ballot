@@ -61,7 +61,7 @@ export type StateField = {state: State}
 
 interface BaseInfo {
   state: State
-  org: string
+  oid: string
   ip?: string
   userAgent?: string
 }

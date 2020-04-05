@@ -9,10 +9,10 @@ const options = {
 }
 
 export const Analytics: React.FC = () => {
-  const { org } = useAppHistory()
+  const { oid } = useAppHistory()
   React.useEffect(() => {
     (async () => {
-      const result = await client.fetchAnalytics(org)
+      const result = await client.fetchAnalytics(oid)
       switch(result.type) {
         case 'data': {
           const { facebookId } = result.data

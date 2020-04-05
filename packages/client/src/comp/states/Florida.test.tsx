@@ -8,7 +8,7 @@ import { StateContainer } from '../../App'
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
-import { toPath } from '../../lib/path'
+import { toPath, SuccessPath } from '../../lib/path'
 jest.mock('../../lib/trpc')
 
 test('Florida Form works', async () => {
@@ -63,8 +63,8 @@ test('Florida Form works', async () => {
     })
   })
 
-  await wait(() => expect(toPath(history.location.pathname)).toEqual(
-    {"id": "confirmationId", "org": "default", "type": "success"}
+  await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
+    {id: "confirmationId", oid: "default", type: "success"}
   ))
   await wait(() => expect(register).toHaveBeenCalled())
 })

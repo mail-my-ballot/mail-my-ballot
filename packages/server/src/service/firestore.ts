@@ -102,7 +102,7 @@ export class FirestoreService {
       created: admin.firestore.Timestamp.fromDate(new Date())
     }
     const { id } = await this.db.collection('StateInfo').add(richInfo)
-    await this.increment(info.org, info.state)
+    await this.increment(info.oid, info.state)
     return id
   }
 
@@ -245,7 +245,7 @@ export class FirestoreService {
     if (!org.user.members.includes(uid)) return null
     return this.query<RichStateInfo>(
       this.db.collection('StateInfo')
-        .where('org', '==', oid)
+        .where('oid', '==', oid)
         .orderBy('created', 'asc')
         .limit(limit)
     )

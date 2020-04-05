@@ -10,7 +10,7 @@ export type PathEnum = (typeof allPathEnums)[number]
 
 interface PathBase {
   type: PathEnum
-  org: string
+  oid: string
 }
 
 export interface StartPath extends PathBase {
@@ -49,23 +49,23 @@ type PathData = { [E in PathEnum]: PathDatum<PathByEnum<E>> }
 
 export const pathData: PathData = {
   'start': {
-    path: '/org/:org',
-    toUrl: ({org}) => `/org/${org}`,
+    path: '/org/:oid',
+    toUrl: ({oid}) => `/org/${oid}`,
     scrollId: 'start',
   },
   'address': {
-    path: '/org/:org/address/:state/:zip?',
-    toUrl: ({org, state, zip}) => `/org/${org}/address/${state}/${zip || ''}`,
+    path: '/org/:oid/address/:state/:zip?',
+    toUrl: ({oid, state, zip}) => `/org/${oid}/address/${state}/${zip || ''}`,
     scrollId: 'address'
   },
   'state': {
-    path: '/org/:org/state/:state',
-    toUrl: ({org, state}) => `/org/${org}/state/${state}`,
+    path: '/org/:oid/state/:state',
+    toUrl: ({oid, state}) => `/org/${oid}/state/${state}`,
     scrollId: 'address',
   },
   'success': {
-    path: '/org/:org/success/:id?',
-    toUrl: ({org, id}) => `/org/${org}/success/${id || ''}`,
+    path: '/org/:oid/success/:id?',
+    toUrl: ({oid, id}) => `/org/${oid}/success/${id || ''}`,
     scrollId: 'address',
   }
 }
@@ -75,8 +75,8 @@ export const toUrl = <P extends Path>(path: P): string => {
   return (pathData[path.type] as PathDatum<P>).toUrl(path)
 }
 
-const defaultOrg = 'default'
-export const defaultUrl = toUrl({type:'start', org:defaultOrg})
+const defaultOid = 'default'
+export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 
 const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, exact = false): P | null => {
   const { path } = pathData[pathEnum]
@@ -102,7 +102,7 @@ export const useAppHistory = () => {
   const { pathname, search } = useLocation()
   const _query = new URLSearchParams(search)
   const path = toPath(pathname)
-  const org = path?.org || defaultOrg
+  const oid = path?.oid || defaultOid
   
   const pushScroll = (path: Path) => {
     history.push(toUrl(path))
@@ -111,16 +111,16 @@ export const useAppHistory = () => {
 
   return {
     path,
-    org,
-    pushStart: () => pushScroll({org, type: 'start'}),
+    oid,
+    pushStart: () => pushScroll({oid, type: 'start'}),
     pushAddress: (state: string, zip?: string) => {
-      pushScroll({org, type: 'address', state, zip})
+      pushScroll({oid, type: 'address', state, zip})
     },
     pushState: (state: string) => {
-      pushScroll({org, type: 'state', state})
+      pushScroll({oid, type: 'state', state})
     },
     pushSuccess: (id: string) => {
-      pushScroll({org, type: 'success', id})
+      pushScroll({oid, type: 'success', id})
     },
     query: (id: string) => {
       return _query.get(id)

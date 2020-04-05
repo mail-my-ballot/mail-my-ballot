@@ -13,6 +13,7 @@ describe('App', () => {
       type: 'data',
       data: 'Florida',
     })
+    mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mocked(useAppHistory).mockReturnValue({pushAddress: jest.fn()} as any)
   })
