@@ -34,6 +34,15 @@ beforeEach(async () => {
   await fs.claimNewOrg(uids[0], org)
 })
 
+describe('Counter', () => {
+  test('can create and update a counter', async () => {
+    await fs.increment(org, "Florida")
+    await fs.increment(org, "Florida")
+    await fs.increment(org, "Michigan")
+    await expect(fs.getCounter(org)).resolves.toEqual({'Florida': 2, 'Michigan': 1, id: org})
+  })
+})
+
 describe('FirestoreService.claimNewOrg method', () => {
   test('can claim a new org', async () => {
     await expect(fs.claimNewOrg(uids[0], 'new_org')).resolves.toBe(true)

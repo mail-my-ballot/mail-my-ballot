@@ -1,14 +1,16 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, StateInfo, _Id, WithId } from '../common'
+import { processEnvOrThrow, StateInfo, _Id, WithId, State } from '../common'
 import { Profile } from 'passport'
-import { User, RichStateInfo, Org } from './types'
+import { User, RichStateInfo, Org, Counter } from './types'
 import { Analytics } from '../common/analytics'
 
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
 type DocumentSnapshot = admin.firestore.DocumentSnapshot
 type Transaction = admin.firestore.Transaction
+
+const increment = admin.firestore.FieldValue.increment(1)
 
 export class FirestoreService {
   db: admin.firestore.Firestore
@@ -44,27 +46,20 @@ export class FirestoreService {
     }
   }
 
-  async addRegistration(info: StateInfo): Promise<string> {
-    const richInfo: RichStateInfo = {
-      ...info,
-      created: admin.firestore.Timestamp.fromDate(new Date())
-    }
-    const { id } = await this.db.collection('StateInfo').add(richInfo)
-    return id
-  }
+  //////////////////////////////////////////
+  // Generic Helpers
 
-  // user helpers
   private withId<T extends {}>(snap: DocumentSnapshot): WithId<T> | null {
     const doc = snap.data() as T | undefined
     return doc ? {...doc, id: snap.id} : null
   }
 
-  private async get<T extends {}>(ref: DocumentReference, trans?: Transaction): Promise<WithId<T> | null> {
+  async get<T extends {}>(ref: DocumentReference, trans?: Transaction): Promise<WithId<T> | null> {
     const snap = await (trans ? trans.get(ref) : ref.get())
     return this.withId(snap)
   }
 
-  async getAll<T extends {}>(refs: DocumentReference[], trans?: Transaction): Promise<Array<WithId<T> | null>> {
+  private async getAll<T extends {}>(refs: DocumentReference[], trans?: Transaction): Promise<Array<WithId<T> | null>> {
     if (refs.length === 0) return []
     const snaps = await (trans ? trans.getAll<T>(...refs) : this.db.getAll(...refs))
     return snaps.map(snap => this.withId<T>(snap))
@@ -80,11 +75,44 @@ export class FirestoreService {
     })
   }
 
+  ////////////////////////////////////////////
+  // Counters
+
+  counterRef(oid: string) {
+    return this.db.collection('Counter').doc(oid)
+  }
+
+  async increment(oid: string, state: State): Promise<void> {
+    await this.counterRef(oid).set(
+      { [state]: increment },
+      { merge: true },
+    )
+  }
+
+  async getCounter(oid: string): Promise<Counter | null> {
+    return this.get<Counter>(this.counterRef(oid))
+  }
+
+  ////////////////////////////////////////////
+  // Registration
+
+  async addRegistration(info: StateInfo): Promise<string> {
+    const richInfo: RichStateInfo = {
+      ...info,
+      created: admin.firestore.Timestamp.fromDate(new Date())
+    }
+    const { id } = await this.db.collection('StateInfo').add(richInfo)
+    await this.increment(info.org, info.state)
+    return id
+  }
+
   async getRegistration(id: string): Promise<RichStateInfo | null> {
     return this.get(this.db.collection('StateInfo').doc('' + id))
   }
 
-  // user queries
+  ////////////////////////////////////////////
+  // User / Org Helpers
+
   uid(provider: string, id: string) {
     return `${provider}:${id}`
   }
@@ -139,6 +167,9 @@ export class FirestoreService {
     return users.filter((u): u is WithId<User> => !!u)
   }
 
+  ////////////////////////////////////////////
+  // User / Org Functions
+
   // new user
   async newUser(
     {
@@ -182,7 +213,7 @@ export class FirestoreService {
     return true
   }
   
-  // user grants another user role in an org where they are an admin
+  // user grants another user membership in an org where they are an admin
   async grantExistingOrg(adminUid: string, newUid: string, oid: string): Promise<boolean> {
     if (adminUid == newUid) return false
     return this.db.runTransaction(async trans => {
@@ -195,6 +226,7 @@ export class FirestoreService {
     })
   }
 
+  // accept grant of membership for an organization
   async acceptOrg(uid: string, oid:string): Promise<boolean> {
     return this.db.runTransaction(async trans => {
       const org = await this.fetchOrg(oid, trans)

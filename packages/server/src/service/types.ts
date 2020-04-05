@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { StateInfo, _Id } from '../common'
+import { State, StateInfo, _Id } from '../common'
 
 // main colleciton
 export interface User extends _Id {
@@ -22,5 +22,7 @@ export interface Org extends _Id {
     pendings: string[] // pending is mutually exclusive with other groups
   }
 }
+
+export interface Counter extends _Id, Record<State, number> {}
 
 export type RichStateInfo = StateInfo & { created: admin.firestore.Timestamp }
