@@ -5,6 +5,8 @@ const {
   GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
 } = require('./secrets/secrets.json')
+
+// These are kept separately to keep development configs out of git
 const { developmentRaw } = require('./.env.dev.js')
 
 const base = {
