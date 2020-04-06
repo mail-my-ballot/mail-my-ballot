@@ -10,11 +10,10 @@ block content
     h1 Edit details of #{richOrg.id}
 
   .container.mt-3
-    p
-      span.mr-2 Total registrations: #{totalCount}
-      span (
+    p Total registrations: #{totalCount}
+      | &nbsp;(
       a(href=richOrg.downloadUrl) Download
-      span )
+      | )
 
   .container.card.mt-4.p-3
     form(action=richOrg.updateAnalyticsUrl method='post')
