@@ -73,6 +73,7 @@ const orgPermissions = (level: 'members' | 'admins'): Express.RequestHandler => 
   }
 }
 
+const maxOrgs = 10
 const frontEnd = 'https://vbmreg.org/'
 const enrichOrg = (org: Org, uid: string) => ({
   ...org,
@@ -134,6 +135,8 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       const richOrgs = orgs.map(org => enrichOrg(org, uid))
 
       res.render('dashboard', {
+        maxOrgs,
+        orgsFull: richOrgs.length >= maxOrgs,
         user,
         richOrgs,
         frontEnd,

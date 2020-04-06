@@ -27,7 +27,12 @@ block content
     .row
 
       .col-lg.mt-3
-        h4 Claim a new organization
+        .d-flex.justify-content-between
+          .flex-grow-1.mr-3
+            h4 Claim a new organization 
+          .flex-grow-0
+            p.text-muted (maximum #{maxOrgs})
+        
         form(action='/claimNewOrg' method='post')
           .d-flex.justify-content-between
             .mt-2.flex-grow-1.mr-3
@@ -35,12 +40,23 @@ block content
                 label(for='oid')
                 .input-group-prepend
                   span.input-group-text(id='prepend')= frontEnd
-                input.form-control(type='text' name='oid' id='oid' aria-describedby='prepend' pattern='[A-Za-z0-9_-]{3,}')
+                input.form-control(
+                  type='text'
+                  name='oid'
+                  id='oid'
+                  aria-describedby='prepend'
+                  pattern='[A-Za-z0-9_-]{3,}'
+                  disabled=orgsFull
+                )
             .mt-2.flex-grow-0
-              button.btn.btn-primary(type='submit') Claim
+              button.btn(type='submit' disabled=orgsFull class=(orgsFull ? 'btn-secondary' : 'btn-primary')) Claim
 
       .col-lg.mt-3
-        h4 Organizations
+        .d-flex.justify-content-between
+          .flex-grow-1.mr-3
+            h4 Organizations
+          .flex-grow-0
+            p.text-muted (#{richOrgs.length} / #{maxOrgs})
         if richOrgs
           ul.mt-2.list-group
             each org in richOrgs
