@@ -1,6 +1,6 @@
 import { _Id } from './util'
 
-const allStatesArray = [
+export const allStates = [
   "Alabama",
   "Alaska",
   "Arizona",
@@ -54,8 +54,8 @@ const allStatesArray = [
   "Wyoming",
 ] as const
 
-export type State = (typeof allStatesArray)[number]
-const allStatesSet = new Set(allStatesArray)
+export type State = (typeof allStates)[number]
+const allStatesSet = new Set(allStates)
 export const isState = (x: string): x is State => allStatesSet.has(x as State)
 export type StateField = {state: State}
 
