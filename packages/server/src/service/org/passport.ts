@@ -73,8 +73,8 @@ const orgPermissions = (level: 'members' | 'admins'): Express.RequestHandler => 
   }
 }
 
-const maxOrgs = 10
-const frontEnd = 'https://vbmreg.org/'
+const maxOrgs = parseInt(processEnvOrThrow('USER_MAX_ORGS'))
+const frontEnd = processEnvOrThrow('FRONT_END')
 const enrichOrg = (org: Org, uid: string) => ({
   ...org,
   isAdmin: org.user.admins.includes(uid),

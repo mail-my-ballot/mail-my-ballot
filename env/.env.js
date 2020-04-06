@@ -9,6 +9,8 @@ const { developmentRaw } = require('./.env.dev.js')
 
 const base = {
   SERVER_PORT: 8080,
+  USER_MAX_ORGS: 8,
+  FRONT_END: 'https://vbmreg.org/',
   FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
   GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
   GOOGLE_CLIENT_ID,
@@ -22,6 +24,7 @@ const base = {
 const development = {
   ...base,
   NODE_ENV: 'development',
+  FRONT_END: 'http://localhost:3000/',
   REACT_APP_SERVER: 'http://localhost:8080',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_SHOW_DEV_INFO: 1,
@@ -36,6 +39,7 @@ const development = {
 const staging = {
   ...base,
   NODE_ENV: 'staging',
+  FRONT_END: 'https://staging.vbmreg.org/',
   REACT_APP_SERVER: 'https://vbm-test-dev.appspot.com/',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_TIMEOUT: 10000,
