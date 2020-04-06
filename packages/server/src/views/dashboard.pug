@@ -49,7 +49,11 @@ block content
                   disabled=orgsFull
                 )
             .mt-2.flex-grow-0
-              button.btn(type='submit' disabled=orgsFull class=(orgsFull ? 'btn-secondary' : 'btn-primary')) Claim
+              button.btn(
+                type='submit'
+                disabled=orgsFull
+                class=(orgsFull ? 'btn-secondary' : 'btn-primary')
+              ) Claim
 
       .col-lg.mt-3
         .d-flex.justify-content-between
