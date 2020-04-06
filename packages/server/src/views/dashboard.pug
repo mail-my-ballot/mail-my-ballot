@@ -67,15 +67,15 @@ block content
               li.list-group-item
                 .mt-1.d-flex.justify-content-between
                   .d-flex.justify-content-start
-                    p.mr-2= org.id
-                    a.mr-2(href=org.displayUrl)
+                    h5.mr-2= org.id
+                    a.mr-2(href=org.displayUrl target='_blank')
                       i.fa.fa-external-link
                     if org.isAdmin
                       p.text-muted (admin)
                     if org.isPending
                       p.text-muted (pending)
                   .d-flex.justify-content-start
-                    a.mr-2(href=org.editUrl)
+                    a.mr-3(href=org.editUrl)
                       i.fa.fa-edit
                     a(href=org.downloadUrl)
                       i.fa.fa-cloud-download
