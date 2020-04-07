@@ -15,13 +15,7 @@ const app = Express();
 // logging middleware
 app.use(Morgan('combined'));
 
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://staging.vbmreg.org',
-    'https://vbmreg.org'
-  ]
-}))
+app.use(cors())
 
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
