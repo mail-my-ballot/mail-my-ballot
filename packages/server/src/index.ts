@@ -15,7 +15,7 @@ const app = Express();
 // logging middleware
 app.use(Morgan('combined'));
 
-app.use(cors())
+app.use(cors({ origin: true }))
 
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
