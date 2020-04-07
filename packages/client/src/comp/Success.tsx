@@ -11,10 +11,10 @@ export const Success: React.FC = () => {
   return <>
     <h1>Congratulations!</h1>
     <p>You have now successfully submitted a Vote by Mail application to your local elections official.</p>
-    <p>Check your inbox for the application email and hit <b>&ldquo;Reply All&rdquo;</b> to confirm with your local elections official.</p>
+    <p>Check your inbox for the application email and <b>Reply All</b> with &ldquo;<i>I confirm this request</i>&rdquo; to confirm with your local elections official.</p>
     {id && <p>Your Confirmation ID is <b>{id}</b>.  You may save off a copy for your records if you wish.</p>}
     <RoundedButton color='primary' variant='raised' onClick={pushStart}>
-      Register Someone Else
+      Start Over
     </RoundedButton>
   </>
 }
