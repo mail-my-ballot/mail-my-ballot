@@ -28,13 +28,13 @@ const development = {
   NODE_ENV: 'development',
   FRONT_END: 'http://localhost:3000/',
   REACT_APP_SERVER: 'http://localhost:8080',
+  GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@exampe.com',
-  GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   ...developmentRaw,
 }
 
@@ -43,6 +43,7 @@ const staging = {
   NODE_ENV: 'staging',
   FRONT_END: 'https://staging.vbmreg.org/',
   REACT_APP_SERVER: 'https://vbm-test-dev.appspot.com/',
+  GOOGLE_CLIENT_CALLBACK: 'https://vbm-test-dev.appspot.com/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_TIMEOUT: 10000,
   REACT_APP_DEBUG: 1,
