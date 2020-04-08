@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "gulp": "gulp test",
+    "gulp": "gulp",
     "proto": "env-cmd -r ./env/.env.js -e development ts-node-dev --transpileOnly src/service/csv.proto.ts",
     "start": "env-cmd -r ./env/.env.js -e development ts-node-dev --respawn --transpileOnly src/index.ts",
     "build:staging": "env-cmd -r ./env/.env.js -e staging tsc",
@@ -40,7 +40,8 @@
     "@types/supertest": "^2.0.8",
     "env-cmd": "^10.1.0",
     "gulp": "^4.0.2",
-    "gulp-run-command": "^0.0.10",
+    "@tianhuil/gulp-run-command": "^0.0.11",
+    "gulp-shell": "^0.8.0",
     "jest": "^24.0.0",
     "minimist": "^1.2.5",
     "nodemon": "^1.19.1",
