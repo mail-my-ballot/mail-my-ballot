@@ -2,6 +2,7 @@ import * as firebase from '@firebase/testing'
 
 import { FirestoreService } from './firestore'
 import { Counter } from './types'
+import { StateInfo } from '../common'
 
 const projectId = 'new-test'
 
@@ -63,9 +64,10 @@ describe('FirestoreService.claimNewOrg method', () => {
 describe('Viewing Data', () => {
   test('user can view their own org\'s registrations', async () => {
     expect(await fs.addRegistration({
-      org: oid,
+      oid,
       name: 'Bob',
-    } as any)).toBeTruthy()
+      state: 'Florida',
+    } as StateInfo)).toBeTruthy()
 
     await expect(fs.fetchRegistrations(uids[0], oid)).resolves.toHaveLength(1)
   })
@@ -73,9 +75,10 @@ describe('Viewing Data', () => {
   test('user cannot view another org\'s registrations', async () => {
     await expect(
       fs.addRegistration({
-        org: 'new_org',
+        oid: 'new_org',
         name: 'Bob',
-      } as any)
+        state: 'Florida',
+      } as StateInfo)
     ).resolves.toBeTruthy()
 
     await expect(fs.fetchRegistrations(uids[0], 'new_org')).resolves.toBeNull()
