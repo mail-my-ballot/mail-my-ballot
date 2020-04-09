@@ -10,7 +10,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "start-client": "yarn workspace @vbm/client start",
-    "start-server": "yarn workspace @vbm/server start",
+    "start-server": "yarn workspace @vbm/server gulp start",
     "serve-client": "serve -s packages/client/build",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",

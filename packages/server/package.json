@@ -4,27 +4,13 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "gulp": "gulp",
-    "proto": "env-cmd -r ./env/.env.js -e development ts-node-dev --transpileOnly src/service/csv.proto.ts",
-    "start": "env-cmd -r ./env/.env.js -e development ts-node-dev --respawn --transpileOnly src/index.ts",
-    "build:staging": "env-cmd -r ./env/.env.js -e staging tsc",
-    "postbuild:staging": "ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv && mkdir -p ./dist/views/ && cp ./src/views/*.pug ./dist/views/.",
-    "build:production": "env-cmd -r ./env/.env.js -e production tsc",
-    "postbuild:production": "ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv && mkdir -p ./dist/views/ && cp ./src/views/*.pug ./dist/views/.",
-    "test": "env-cmd -r ./env/.env.js -e test jest \\.test\\.ts",
-    "test:watch": "env-cmd -r ./env/.env.js -e test jest \\.test\\.ts --watchAll",
-    "predeploy:staging": "yarn run build:staging && yarn appsubst:staging",
-    "appsubst:staging": "env-cmd -r ./env/.env.js -e staging envsubst < app.tmpl.yaml > app.yaml",
-    "deploy:staging": "gcloud app deploy --project vbm-test-dev && ./tag.sh server staging",
-    "index:staging": "firebase --project vbm-test-dev deploy --only firestore:indexes",
-    "deploy:prodroduction": "x && ./tag.sh server production",
-    "e2e": "firebase emulators:exec --only firestore ./e2e.sh",
-    "emulator": "firebase emulators:exec --only firestore"
+    "gulp": "gulp"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tianhuil/gulp-run-command": "^0.0.11",
     "@types/body-parser": "^1.19.0",
     "@types/connect-flash": "^0.0.35",
     "@types/cors": "^2.8.6",
@@ -40,7 +26,6 @@
     "@types/supertest": "^2.0.8",
     "env-cmd": "^10.1.0",
     "gulp": "^4.0.2",
-    "@tianhuil/gulp-run-command": "^0.0.11",
     "gulp-shell": "^0.8.0",
     "jest": "^24.0.0",
     "minimist": "^1.2.5",
@@ -78,7 +63,7 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|e2e))\\.(jsx?|tsx?)$",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.(ts?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

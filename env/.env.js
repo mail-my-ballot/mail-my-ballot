@@ -64,9 +64,19 @@ const ci = {
   CI: 'true',
 }
 
+const envs = [
+  'development',
+  'staging',
+  'test',
+  'ci',
+]
+
+const isEnv = (str) => (envs).includes(str)
+
 module.exports = {
   development,
   staging,
   test,
   ci,
+  isEnv,
 }
