@@ -9,15 +9,14 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start-client": "yarn workspace @vbm/client start",
+    "start-client": "yarn workspace @vbm/client gulp start",
     "start-server": "yarn workspace @vbm/server gulp start",
-    "serve-client": "serve -s packages/client/build",
+    "serve-client": "yarn workspace @vbm/client gulp serve",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",
     "test-client": "yarn workspace @vbm/client test",
     "test-common": "yarn workspace @vbm/common test",
-    "build:staging": "lerna run build:staging",
-    "test": "lerna run test",
-    "lint": "lerna run lint"
+    "test-server": "yarn workspace @vbm/server test",
+    "gulp": "lerna run gulp --"
   }
 }

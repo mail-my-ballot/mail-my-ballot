@@ -2,7 +2,6 @@ const gulp = require('gulp')
 const minimist = require('minimist')
 const run = require('@tianhuil/gulp-run-command').default
 const envs = require('./env/.env.js')
-// const shell = require('gulp-shell')
 
 const options = minimist(process.argv.slice(2), {})
 
@@ -12,11 +11,26 @@ const runEnv = (cmd, env=undefined) => run(
 )
 
 const envRequired = async (cb) => {
-  if (!isEnv(options.env)) {
-    throw Error('env is not set.  Must set env')
+  if (!envs.isEnv(options.env)) {
+    throw Error('env is not set.  Must set valid env')
   }
   cb()
 }
+
+// start
+gulp.task('start',
+  runEnv(
+    'ts-node-dev --respawn --transpileOnly src/index.ts',
+    envs.development
+  )
+)
+
+// proto
+gulp.task('proto',
+  runEnv(`ts-node-dev --transpileOnly ${options._[0]}`,
+    envs.development
+  )
+)
 
 // emulator
 gulp.task('emulator',
@@ -55,19 +69,4 @@ gulp.task('deploy', gulp.series(
 
 gulp.task('index', 
   runEnv('firebase --project vbm-test-dev deploy --only firestore:indexes')
-)
-
-// start
-gulp.task('start',
-  runEnv(
-    'ts-node-dev --respawn --transpileOnly src/index.ts',
-    envs.development
-  )
-)
-
-// proto
-gulp.task('proto',
-  runEnv(`ts-node-dev --transpileOnly ${options._[0]}`,
-    envs.development
-  )
 )
