@@ -1,7 +1,7 @@
-import { MichiganInfo } from "../../common";
-import { EmailData } from "../mg";
+import { MichiganInfo } from "../../common"
+import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
-import { search } from "../contact/michigan";
+import { search } from "../contact/michigan"
 
 export const toEmailData = (
   {

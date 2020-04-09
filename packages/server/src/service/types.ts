@@ -23,7 +23,7 @@ export interface Org extends _Id {
   }
 }
 
-type PartialRecord<K extends keyof any, T> = {
+type PartialRecord<K extends string, T> = {
   [P in K]?: T
 }
 

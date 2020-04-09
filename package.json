@@ -17,6 +17,10 @@
     "test-client": "yarn workspace @vbm/client test",
     "test-common": "yarn workspace @vbm/common test",
     "test-server": "yarn workspace @vbm/server test",
-    "gulp": "lerna run gulp --"
+    "gulp": "lerna run gulp --",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

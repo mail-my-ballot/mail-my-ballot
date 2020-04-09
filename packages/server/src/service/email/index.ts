@@ -1,5 +1,5 @@
-import { StateInfo, isProd } from "../../common";
-import { EmailData } from "../mg";
+import { StateInfo, isProd } from "../../common"
+import { EmailData } from "../mg"
 import * as Florida from './florida'
 import * as Michigan from './michigan'
 

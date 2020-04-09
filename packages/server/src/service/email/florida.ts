@@ -1,7 +1,7 @@
-import { FloridaInfo } from "../../common";
-import { EmailData } from "../mg";
+import { FloridaInfo } from "../../common"
+import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
-import { floridaContacts } from "../contact/florida";
+import { floridaContacts } from "../contact/florida"
 
 export const toEmailData = (
   {

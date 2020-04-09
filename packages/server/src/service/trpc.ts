@@ -11,7 +11,7 @@ import { search } from './zip'
 const firestoreService = new FirestoreService()
 
 interface HostInfo {
-  ip?: string,
+  ip?: string
   userAgent?: string
 }
 

@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, StateInfo, _Id, WithId, State } from '../common'
+import { processEnvOrThrow, StateInfo, WithId, State } from '../common'
 import { Profile } from 'passport'
 import { User, RichStateInfo, Org, Counter } from './types'
 import { Analytics } from '../common/analytics'
@@ -227,7 +227,7 @@ export class FirestoreService {
   }
 
   // accept grant of membership for an organization
-  async acceptOrg(uid: string, oid:string): Promise<boolean> {
+  async acceptOrg(uid: string, oid: string): Promise<boolean> {
     return this.db.runTransaction(async trans => {
       const org = await this.fetchOrg(oid, trans)
       if (!org) return false

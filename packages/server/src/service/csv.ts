@@ -1,6 +1,7 @@
 import { createArrayCsvStringifier } from 'csv-writer'
 import { RichStateInfo } from './types'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const toCSVStingGeneral = <K extends string>(records: Record<K, any>[], keys: K[]): string => {
   const writer = createArrayCsvStringifier({
     header: keys
@@ -12,6 +13,7 @@ export const toCSVStingGeneral = <K extends string>(records: Record<K, any>[], k
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type KeysOfUnion<T> = T extends any ? keyof T: never
 type StateKeys = KeysOfUnion<RichStateInfo>
 
@@ -42,6 +44,7 @@ export const toCSVSting = (infos: RichStateInfo[]) => {
   const records = infos.map(info => ({
     ...info,
     created: info.created.toMillis()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as Record<StateKeys, any>))
   return toCSVStingGeneral(records, keys)
 }

@@ -9,7 +9,7 @@ interface Line {
 
 const lines: Line[] = []
 interface StateValue {
-  stateId: string,
+  stateId: string
   stateName: string
 }
 let obj: Record<string, StateValue> | null = null
@@ -20,11 +20,11 @@ fs.createReadStream(__dirname + '/uszips.csv')
   .on('end', () => {
     obj = Object.fromEntries(
       lines.map(
-        ({zip, state_id, state_name}) => [
-          zip.padStart(5, '0'),
+        (obj) => [
+          obj.zip.padStart(5, '0'),
           {
-            stateId: state_id,
-            stateName: state_name
+            stateId: obj.state_id,
+            stateName: obj.state_name
           }
         ]
       )

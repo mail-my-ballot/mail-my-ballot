@@ -10,6 +10,11 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended'
   ],
+  ignorePatterns: [
+    "packages/server/dist/",
+    "packages/client/build/",
+    "node_modules",
+  ],
   rules: {
     '@typescript-eslint/member-delimiter-style': ['error', {
       multiline: {

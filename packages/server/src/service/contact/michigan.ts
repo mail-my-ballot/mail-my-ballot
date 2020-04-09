@@ -9,7 +9,7 @@ const toKey = ({county, city}: CountyCity): string => `${county}:${city}`.toLoca
 type RawContact = Omit<MichiganContact, 'state'>
 
 type ContactCC = {
-  contact: RawContact,
+  contact: RawContact
   cc: CountyCity
 }
 
