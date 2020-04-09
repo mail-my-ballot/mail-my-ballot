@@ -48,9 +48,6 @@ gulp.task('analyze', gulp.series(
   'source-map',
 ))
 
-// build
-gulp.task()
-
 // deploy
 gulp.task('now', runEnv(`now --prod ./build --local-config=./now.${options.env}.json --confirm`))
 gulp.task('tag', runEnv(`./tag.sh client ${options.env}`))
