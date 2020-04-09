@@ -61,7 +61,7 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.(ts?)$",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|e2e))\\.(ts?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
