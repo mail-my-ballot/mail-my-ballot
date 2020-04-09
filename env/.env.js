@@ -1,4 +1,4 @@
-// https://www.npmjs.com/package/env-cmd
+// Based on https://www.npmjs.com/package/env-cmd
 const {
   MG_API_KEY,
   GOOGLE_CLIENT_ID,
