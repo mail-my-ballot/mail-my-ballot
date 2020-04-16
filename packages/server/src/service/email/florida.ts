@@ -1,4 +1,4 @@
-import { FloridaInfo } from "../../common"
+import { FloridaInfo, processEnvOrThrow } from "../../common"
 import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
 import { floridaContacts } from "../contact/florida"
@@ -21,11 +21,13 @@ export const toEmailData = (
     email,
     electionsEmail,
   ]
+  const brandName = processEnvOrThrow('BRAND_NAME')
+  const frontEnd = processEnvOrThrow('FRONT_END')
 
   const md = stripIndent(`
   Dear County Supervisor of Elections,
 
-  I am writing to request an Absentee or Vote-by-Mail ballot through [vbmreg.org](https://vbmreg.org).
+  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${frontEnd}).
   As per [state guidelines](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/),
   I am applying for all elections through the end of the calendar year for the second ensuing regularly scheduled general election.
   Below are my voter registration details:

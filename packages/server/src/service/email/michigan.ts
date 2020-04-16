@@ -1,4 +1,4 @@
-import { MichiganInfo } from "../../common"
+import { MichiganInfo, processEnvOrThrow } from "../../common"
 import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
 import { search } from "../contact/michigan"
@@ -21,11 +21,13 @@ export const toEmailData = (
   if (!electionsEmail) throw Error(`No email for ${city}, ${county}, ${state}`)
 
   const to = [email, electionsEmail]
+  const brandName = processEnvOrThrow('BRAND_NAME')
+  const frontEnd = processEnvOrThrow('FRONT_END')
 
   const md = stripIndent(`
   Dear Elections Official,
 
-  I am writing to request an Absentee or Vote-by-Mail ballot through [vbmreg.org](https://vbmreg.org).
+  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${frontEnd}).
   I am requesting to be added to the "permanent absentee voter list" for all upcoming elections.
   Below are my voter registration details:
 

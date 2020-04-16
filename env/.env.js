@@ -12,14 +12,15 @@ const { developmentRaw } = require('./.env.dev.js')
 const base = {
   SERVER_PORT: 8080,
   USER_MAX_ORGS: 8,
-  FRONT_END: 'https://vbmreg.org/',
+  BRAND_NAME: 'mailmyballot.org/',
+  FRONT_END: 'https://mailmyballot.org/',
   FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
   MG_API_KEY,
-  MG_DOMAIN: 'email.vbmreg.org',
-  MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.vbmreg.org>',
+  MG_DOMAIN: 'email.mailmyballot.org',
+  MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.mailmyballot.org>',
 }
 
 const development = {
@@ -41,7 +42,8 @@ const development = {
 const staging = {
   ...base,
   NODE_ENV: 'staging',
-  FRONT_END: 'https://staging.vbmreg.org/',
+  BRAND_NAME: 'staging.mailmyballot.org/',
+  FRONT_END: 'https://staging.mailmyballot.org/',
   REACT_APP_SERVER: 'https://vbm-test-dev.appspot.com/',
   GOOGLE_CLIENT_CALLBACK: 'https://vbm-test-dev.appspot.com/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
