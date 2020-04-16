@@ -1,7 +1,6 @@
 import * as firebase from '@firebase/testing'
 
 import { FirestoreService } from './firestore'
-import { Counter } from './types'
 import { StateInfo } from '../common'
 
 const projectId = 'new-test'
@@ -34,17 +33,6 @@ beforeEach(async () => {
     )
   ))
   await fs.claimNewOrg(uids[0], oid)
-})
-
-describe('Counter', () => {
-  test('can create and update a counter', async () => {
-    await fs.increment(oid, "Florida")
-    await fs.increment(oid, "Florida")
-    await fs.increment(oid, "Michigan")
-    await expect(fs.getCounter(oid)).resolves.toEqual<Counter>({
-      'Florida': 2, 'Michigan': 1, id: oid
-    })
-  })
 })
 
 describe('FirestoreService.claimNewOrg method', () => {
