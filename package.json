@@ -18,7 +18,7 @@
     "test-common": "yarn workspace @vbm/common test",
     "test-server": "yarn workspace @vbm/server test",
     "gulp": "lerna run gulp --",
-    "test": "lerna run gulp -- test",
+    "test": "lerna run gulp -- test && yarn workspace @vbm/server gulp test:e2e",
     "build:staging": "lerna run gulp -- build --env staging",
     "lint": "eslint . --ext .ts,.tsx"
   },
