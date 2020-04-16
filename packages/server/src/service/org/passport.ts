@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import flash from 'connect-flash'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 
-import { processEnvOrThrow, allStates } from '../../common'
+import { processEnvOrThrow } from '../../common'
 import { FirestoreService } from '../firestore'
 import { FirestoreStore } from '@google-cloud/connect-firestore'
 import { toCSVSting } from '../csv'
@@ -148,12 +148,9 @@ export const registerPassportEndpoints = (app: Express.Application) => {
   app.get('/dashboard/:oid', validSession, orgPermissions('members'),
     async (req, res) => {
       const uid = getUid(req)
-      const { oid } = req.params
-      const counter = await firestoreService.getCounter(oid)
-      const totalCount = counter ? allStates.map(state => counter[state] || 0).reduce((x, y) => x + y, 0) : 0
+      const totalCount = 0
       return res.render('org', {
         richOrg: enrichOrg((req as RequestWithOrg).org, uid),
-        counter,
         totalCount,
         flash: req.flash()
       })

@@ -1,16 +1,14 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, StateInfo, WithId, State } from '../common'
+import { processEnvOrThrow, StateInfo, WithId } from '../common'
 import { Profile } from 'passport'
-import { User, RichStateInfo, Org, Counter } from './types'
+import { User, RichStateInfo, Org } from './types'
 import { Analytics } from '../common/analytics'
 
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
 type DocumentSnapshot = admin.firestore.DocumentSnapshot
 type Transaction = admin.firestore.Transaction
-
-const increment = admin.firestore.FieldValue.increment(1)
 
 export class FirestoreService {
   db: admin.firestore.Firestore
@@ -76,24 +74,6 @@ export class FirestoreService {
   }
 
   ////////////////////////////////////////////
-  // Counters
-
-  counterRef(oid: string) {
-    return this.db.collection('Counter').doc(oid)
-  }
-
-  async increment(oid: string, state: State): Promise<void> {
-    await this.counterRef(oid).set(
-      { [state]: increment },
-      { merge: true },
-    )
-  }
-
-  async getCounter(oid: string): Promise<Counter | null> {
-    return this.get<Counter>(this.counterRef(oid))
-  }
-
-  ////////////////////////////////////////////
   // Registration
 
   async addRegistration(info: StateInfo): Promise<string> {
@@ -102,7 +82,6 @@ export class FirestoreService {
       created: admin.firestore.Timestamp.fromDate(new Date())
     }
     const { id } = await this.db.collection('StateInfo').add(richInfo)
-    await this.increment(info.oid, info.state)
     return id
   }
 
