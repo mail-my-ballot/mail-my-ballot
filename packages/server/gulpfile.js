@@ -1,7 +1,11 @@
+const fs = require('fs')
+const yaml = require('js-yaml')
 const gulp = require('gulp')
 const minimist = require('minimist')
 const run = require('@tianhuil/gulp-run-command').default
 const envs = require('./env/.env.js')
+
+// Helper functions
 
 const options = minimist(process.argv.slice(2), {})
 
@@ -14,6 +18,16 @@ const envRequired = async (cb) => {
   if (!envs.isEnv(options.env)) {
     throw Error('env is not set.  Must set valid env')
   }
+  cb()
+}
+
+function setAppYaml(cb, env) {
+  // gcloud requires env vars to be written into app.yaml file directly
+  const inputStr = fs.readFileSync('app.tmpl.yaml')
+  const data = yaml.safeLoad(inputStr)
+  data.env_variables = env
+  const outputStr = yaml.safeDump(data)
+  fs.writeFileSync('app.yaml', outputStr, 'utf8')
   cb()
 }
 
@@ -59,7 +73,10 @@ gulp.task('build', gulp.series(
 ))
 
 // deploy
-gulp.task('appsubst', runEnv('./appsubst.sh'))
+gulp.task('appsubst', gulp.series(
+  envRequired,
+  (cb) => setAppYaml(cb, envs[options.env])
+))
 gulp.task('gcloud', runEnv('gcloud app deploy --project mmb-staging'))
 gulp.task('tag', runEnv(`./tag.sh server ${options.env}`))
 
