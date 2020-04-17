@@ -16,9 +16,10 @@ entrypoint: node ./dist/index.js
 
 env_variables:
   NODE_ENV: "${NODE_ENV}"
+  BRAND_NAME: "${BRAND_NAME}"
+  FRONT_END: "${FRONT_END}"
   SERVER_PORT: "${SERVER_PORT}"
   USER_MAX_ORGS: "${USER_MAX_ORGS}"
-  FRONT_END: "${FRONT_END}"
   FIRESTORE_URL: "${FIRESTORE_URL}"
   MG_API_KEY: "${MG_API_KEY}"
   MG_DOMAIN: "${MG_DOMAIN}"
