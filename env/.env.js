@@ -35,7 +35,7 @@ const development = {
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
-  DEV_EMAIL: 'email@exampe.com',
+  DEV_EMAIL: 'email@example.com',
   ...developmentRaw,
 }
 
