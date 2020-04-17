@@ -24,11 +24,18 @@ Following this [SO answer](https://stackoverflow.com/a/54055525/8930600), put al
 ## Markdown Library
 We're using [Marked](https://www.npmjs.com/package/marked), which has more dependents, downloads, and is smaller than [Showdown](https://www.npmjs.com/package/showdown).  The documentation on how to run it in node is available [here](https://marked.js.org/#/USING_ADVANCED.md#options)
 
-## Production
+## Development
+**Useful Links:**
+- [Log Viewer](https://console.cloud.google.com/logs/viewer)
+- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-dev-cee81)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-dev-cee81)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/database/firestore/rules)
+
+## Staging
 **Useful Links:**
 - [Log Viewer](https://console.cloud.google.com/logs/viewer)
 - [Console](https://console.cloud.google.com/home/dashboard?project=mmb-staging)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbmmmb-staging)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-staging)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-staging/database/firestore/rules)
 
 ## Asthetics
