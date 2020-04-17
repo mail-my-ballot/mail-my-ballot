@@ -41,7 +41,7 @@ gulp.task('start',
 
 // proto
 gulp.task('proto',
-  runEnv(`ts-node-dev --transpileOnly ${options._[0]}`,
+  runEnv(`ts-node-dev --transpileOnly ${options.file}`,
     envs.development
   )
 )
