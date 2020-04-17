@@ -14,7 +14,6 @@ const base = {
   USER_MAX_ORGS: 8,
   BRAND_NAME: 'mailmyballot.org/',
   FRONT_END: 'https://mailmyballot.org/',
-  FIRESTORE_URL: 'https://invitee-reminder-testdev.firebaseio.com',
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
@@ -25,9 +24,10 @@ const base = {
 
 const development = {
   ...base,
-  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/vbm-test-dev-firebase-adminsdk-vckij-c18602702a.json',
+  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/mmb-dev-cee81-firebase-adminsdk-qlb2m-0f68a6fdc7.json',
   NODE_ENV: 'development',
   FRONT_END: 'http://localhost:3000/',
+  FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
   REACT_APP_SERVER: 'http://localhost:8080',
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,

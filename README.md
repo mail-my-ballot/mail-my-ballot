@@ -12,8 +12,8 @@ To deploy the server using Google Cloud, follow the steps in `https://cloud.goog
 Put all secrets in `env/.env.development`, which is not checked into source control
 
 #### Dev Firestore Access
-Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/vbm-test-dev/settings/serviceaccounts/adminsdk) and generate a new key and place it in `./env/secrets/[...].json`.
-Then make sure `.env.development` has `GOOGLE_APPLICATION_CREDENTIALS` set to `../../env/secrets/[...].json`.
+Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `./env/secrets/[...].json`.
+Then make sure `.env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `../../env/secrets/[...].json`.
 
 ### Secrets in Production
 Following this [SO answer](https://stackoverflow.com/a/54055525/8930600), put all secrets in a special file that is not stored in source control.
