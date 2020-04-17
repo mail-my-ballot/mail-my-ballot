@@ -41,11 +41,13 @@ const development = {
 
 const staging = {
   ...base,
+  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
   NODE_ENV: 'staging',
   BRAND_NAME: 'staging.mailmyballot.org/',
   FRONT_END: 'https://staging.mailmyballot.org/',
-  REACT_APP_SERVER: 'https://vbm-test-dev.appspot.com/',
-  GOOGLE_CLIENT_CALLBACK: 'https://vbm-test-dev.appspot.com/auth/google/callback',
+  FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
+  REACT_APP_SERVER: 'https://mmb-staging.appspot.com/',
+  GOOGLE_CLIENT_CALLBACK: 'https://mmb-staging.appspot.com/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_TIMEOUT: 10000,
   REACT_APP_DEBUG: 1,

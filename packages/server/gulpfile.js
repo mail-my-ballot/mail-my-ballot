@@ -48,17 +48,19 @@ gulp.task('test:e2e-watch', runEnv('firebase emulators:exec --only firestore "je
 
 // build
 gulp.task('tsc', runEnv('tsc'))
-gulp.task('link', runEnv('ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv && mkdir -p ./dist/views/ && cp ./src/views/*.pug ./dist/views/.'))
+gulp.task('link', runEnv('ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv'))
+gulp.task('pug', () => gulp.src('./src/views/*.pug').pipe(gulp.dest('./dist/views')))
 
 gulp.task('build', gulp.series(
   envRequired,
   'link',
+  'pug',
   'tsc',
 ))
 
 // deploy
-gulp.task('appsubst', runEnv('envsubst < app.tmpl.yaml > app.yaml'))
-gulp.task('gcloud', runEnv('gcloud app deploy --project vbm-test-dev'))
+gulp.task('appsubst', runEnv('./appsubst.sh'))
+gulp.task('gcloud', runEnv('gcloud app deploy --project mmb-staging'))
 gulp.task('tag', runEnv(`./tag.sh server ${options.env}`))
 
 gulp.task('deploy', gulp.series(
@@ -70,5 +72,5 @@ gulp.task('deploy', gulp.series(
 ))
 
 gulp.task('index', 
-  runEnv('firebase --project vbm-test-dev deploy --only firestore:indexes')
+  runEnv('firebase --project mmb-staging deploy --only firestore:indexes')
 )

@@ -15,6 +15,9 @@ Put all secrets in `env/.env.development`, which is not checked into source cont
 Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `./env/secrets/[...].json`.
 Then make sure `.env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `../../env/secrets/[...].json`.
 
+### App Engine
+To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts
+
 ### Secrets in Production
 Following this [SO answer](https://stackoverflow.com/a/54055525/8930600), put all secrets in a special file that is not stored in source control.
 
@@ -24,9 +27,9 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 ## Production
 **Useful Links:**
 - [Log Viewer](https://console.cloud.google.com/logs/viewer)
-- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-test-dev)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-test-dev)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-test-dev/database/firestore/rules)
+- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-staging)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbmmmb-staging)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-staging/database/firestore/rules)
 
 ## Asthetics
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
