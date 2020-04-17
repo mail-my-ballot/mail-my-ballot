@@ -43,7 +43,7 @@ const staging = {
   ...base,
   GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
   NODE_ENV: 'staging',
-  BRAND_NAME: 'staging.mailmyballot.org/',
+  BRAND_NAME: 'staging.mailmyballot.org',
   FRONT_END: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
   REACT_APP_SERVER: 'https://mmb-staging.appspot.com/',
