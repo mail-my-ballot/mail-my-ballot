@@ -12,6 +12,8 @@
     "start-client": "yarn workspace @vbm/client gulp start",
     "start-server": "yarn workspace @vbm/server gulp start",
     "serve-client": "yarn workspace @vbm/client gulp serve",
+    "deploy-server": "yarn workspace @vbm/server run gulp deploy --env staging",
+    "deploy-client": "yarn workspace @vbm/client run gulp deploy --env staging",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",
     "test-client": "yarn workspace @vbm/client test",
