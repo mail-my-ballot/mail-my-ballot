@@ -47,7 +47,9 @@ const Layout = () => {
         <ScrollHook pathEnum='start'>
           <Blurb/>
         </ScrollHook>
-        <WarningMsg/>
+        <StyleContainer>
+          <WarningMsg/>
+        </StyleContainer>
       </Route>
       <Route path={pathData['success'].path}>
         <ScrollHook pathEnum='success'>
