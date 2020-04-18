@@ -26,7 +26,7 @@ const base = {
 
 const development = {
   ...base,
-  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/mmb-dev-cee81-firebase-adminsdk-qlb2m-0f68a6fdc7.json',
+  GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-dev-cee81-firebase-adminsdk-qlb2m-0f68a6fdc7.json',
   NODE_ENV: 'development',
   FRONT_END: 'http://localhost:3000/',
   FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
@@ -45,7 +45,7 @@ const development = {
 
 const staging = {
   ...base,
-  GOOGLE_APPLICATION_CREDENTIALS: '../../env/secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
+  GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
   NODE_ENV: 'staging',
   BRAND_NAME: 'staging.mailmyballot.org',
   FRONT_END: 'https://staging.mailmyballot.org/',

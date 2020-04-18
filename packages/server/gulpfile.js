@@ -3,7 +3,7 @@ const yaml = require('js-yaml')
 const gulp = require('gulp')
 const minimist = require('minimist')
 const run = require('@tianhuil/gulp-run-command').default
-const envs = require('./env/.env.js')
+const envs = require('../../env/.env.js')
 
 // Helper functions
 
