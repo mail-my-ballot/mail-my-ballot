@@ -14,8 +14,9 @@ const { developmentRaw } = require('./.env.dev.js')
 const base = {
   SERVER_PORT: 8080,
   USER_MAX_ORGS: 8,
-  BRAND_NAME: 'mailmyballot.org/',
+  BRAND_NAME: 'mailmyballot.org',
   FRONT_END: 'https://mailmyballot.org/',
+  FIRESTORE_URL: '',
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
@@ -69,6 +70,7 @@ const production = {
 
 const test = {
   ...base,
+  FIRESTORE_URL: 'http://localhost:8081',
   NODE_ENV: 'test',
   REACT_APP_SERVER: 'https://example.com',
   REACT_APP_TIMEOUT: 2000,
