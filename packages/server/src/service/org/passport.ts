@@ -79,7 +79,7 @@ const enrichOrg = (org: Org, uid: string) => ({
   ...org,
   isAdmin: org.user.admins.includes(uid),
   isPending: org.user.pendings.includes(uid),
-  displayUrl: frontEnd + 'org/' + org.id,
+  displayUrl: frontEnd + '#/org/' + org.id,
   editUrl: `/dashboard/${org.id}`,
   downloadUrl: `/download/${org.id}`,
   updateAnalyticsUrl: `/dashboard/${org.id}/updateAnalytics`,
