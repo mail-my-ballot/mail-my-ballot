@@ -34,7 +34,6 @@ const development = {
   GOOGLE_CLIENT_ID: DEV.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
-  REACT_APP_SHOW_WARNING: 1,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
@@ -54,7 +53,6 @@ const staging = {
   GOOGLE_CLIENT_ID: STAGING.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: STAGING.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'https://app-staging.mailmyballot.org/auth/google/callback',
-  REACT_APP_SHOW_WARNING: 1,
   REACT_APP_TIMEOUT: 10000,
   REACT_APP_DEBUG: 1,
   DEBUG_LETTER: 1,
@@ -79,21 +77,10 @@ const ci = {
   CI: 'true',
 }
 
-const envs = [
-  'development',
-  'staging',
-  'production',
-  'test',
-  'ci',
-]
-
-const isEnv = (str) => (envs).includes(str)
-
 module.exports = {
   development,
   staging,
   production,
   test,
   ci,
-  isEnv,
 }

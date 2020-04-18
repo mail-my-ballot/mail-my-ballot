@@ -11,7 +11,7 @@ const runEnv = (cmd, env=undefined) => run(
 )
 
 const envRequired = async (cb) => {
-  if (!envs.isEnv(options.env)) {
+  if (!envs.hasOwnProperty(options.env)) {
     throw Error('env is not set.  Must set valid env')
   }
   cb()
