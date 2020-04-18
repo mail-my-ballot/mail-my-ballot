@@ -3,6 +3,8 @@ const {
   MG_API_KEY,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  STAGING,
+  DEV,
   SESSION_SECRET,
 } = require('./secrets/secrets.json')
 
@@ -29,6 +31,8 @@ const development = {
   FRONT_END: 'http://localhost:3000/',
   FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
   REACT_APP_SERVER: 'http://localhost:8080',
+  GOOGLE_CLIENT_ID: DEV.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_SHOW_DEV_INFO: 1,
@@ -47,6 +51,8 @@ const staging = {
   FRONT_END: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
   REACT_APP_SERVER: 'https://mmb-staging.appspot.com/',
+  GOOGLE_CLIENT_ID: STAGING.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: STAGING.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'https://mmb-staging.appspot.com/auth/google/callback',
   REACT_APP_SHOW_WARNING: 1,
   REACT_APP_TIMEOUT: 10000,
