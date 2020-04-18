@@ -38,7 +38,9 @@ const Layout = () => {
   return (<>
     <Switch>
       <Route path='/environment'>
-        <Environment/>
+        <StyleContainer>
+          <Environment/>
+        </StyleContainer>
       </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path={pathData['start'].path}>

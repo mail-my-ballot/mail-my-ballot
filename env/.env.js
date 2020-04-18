@@ -28,6 +28,7 @@ const development = {
   ...base,
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-dev-cee81-firebase-adminsdk-qlb2m-0f68a6fdc7.json',
   NODE_ENV: 'development',
+  REACT_APP_ENVIRONMENT: 'development',
   FRONT_END: 'http://localhost:3000/',
   FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
   REACT_APP_SERVER: 'http://localhost:8080',
@@ -45,7 +46,8 @@ const development = {
 const staging = {
   ...base,
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
-  NODE_ENV: 'staging',
+  NODE_ENV: 'production',
+  REACT_APP_ENVIRONMENT: 'staging',
   BRAND_NAME: 'staging.mailmyballot.org',
   FRONT_END: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
@@ -60,6 +62,8 @@ const staging = {
 
 const production = {
   ...staging,
+  NODE_ENV: 'production',
+  REACT_APP_ENVIRONMENT: 'production',
   REACT_APP_EMAIL_OFFICIALS: 1,
 }
 
