@@ -9,7 +9,8 @@ block content
   .container.mt-4
     .d-flex.justify-content-between.align-items-center
       h1 Dashboard
-      button.btn.btn-primary Signout
+      a(href='/auth/google/logout')
+        button.btn.btn-primary Signout
     
   .container.card.mt-4
     .mt-3
@@ -19,7 +20,6 @@ block content
       ul
         each email in user.emails
           li= email.value
-            a(href='/auth/google/logout')
 
   .container.mt-4
     h2 Organizations
