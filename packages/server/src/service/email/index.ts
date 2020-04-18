@@ -1,4 +1,4 @@
-import { StateInfo, isProd } from "../../common"
+import { StateInfo, emailOfficials } from "../../common"
 import { EmailData } from "../mg"
 import * as Florida from './florida'
 import * as Michigan from './michigan'
@@ -25,7 +25,7 @@ export const toEmailData = (
 ): EmailData | null => {
   const emailData = _toEmailData(info)
   if (!emailData) return null
-  if (isProd() || mockProduction) {
+  if (emailOfficials() || mockProduction) {
     return emailData
   } else {
     return {

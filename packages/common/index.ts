@@ -1,10 +1,10 @@
-export function processEnvOrThrow(key: string): string {
+export const processEnvOrThrow = (key: string): string => {
   const val = process.env[key]
   if (!val) throw new Error(`Need to set environment variable ${key}`)
   return val
 }
 
-export const isProd = (): boolean => (process.env.NODE_ENV === 'production')
+export const emailOfficials = (): boolean => (!!process.env.REACT_APP_EMAIL_OFFICIALS)
 
 export * from './util'
 export * from './address'

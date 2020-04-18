@@ -60,6 +60,11 @@ const staging = {
   DEBUG_LETTER: 1,
 }
 
+const production = {
+  ...staging,
+  REACT_APP_EMAIL_OFFICIALS: 1,
+}
+
 const test = {
   ...base,
   NODE_ENV: 'test',
@@ -77,6 +82,7 @@ const ci = {
 const envs = [
   'development',
   'staging',
+  'production',
   'test',
   'ci',
 ]
@@ -86,6 +92,7 @@ const isEnv = (str) => (envs).includes(str)
 module.exports = {
   development,
   staging,
+  production,
   test,
   ci,
   isEnv,

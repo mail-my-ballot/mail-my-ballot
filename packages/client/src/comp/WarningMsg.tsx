@@ -20,5 +20,5 @@ const RawWarningMsg = () => {
 }
 
 export const WarningMsg = () => (
-  process.env.REACT_APP_SHOW_WARNING ? <RawWarningMsg/> : null
+  (!process.env.REACT_APP_EMAIL_OFFICIALS) ? <RawWarningMsg/> : null
 )
