@@ -17,7 +17,7 @@ Following the instructions [here](http://www.passportjs.org/docs/google/):
 2. Once you have done the above, you should be able to turn on the [OAuth Conset screen](https://console.developers.google.com/apis/credentials/consent?project=mmb-staging)
 3. Once you have done the above, you should be able to create [OAuth Credentials](https://console.developers.google.com/apis/credentials?project=mmb-staging)
 
-Download and save these for dev, prod, and staging.
+Download and save these credentials for dev, prod, and staging.
 
 ## Secrets
 ### Secrets in Dev
