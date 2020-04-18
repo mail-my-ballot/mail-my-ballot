@@ -77,7 +77,9 @@ gulp.task('appsubst', gulp.series(
   envRequired,
   (cb) => setAppYaml(cb, envs[options.env])
 ))
-gulp.task('gcloud', runEnv('gcloud app deploy --project mmb-staging'))
+gulp.task('gcloud', // --quiet disables interaction in gcloud
+  runEnv('gcloud app deploy --quiet --project mmb-staging')
+)
 gulp.task('tag', runEnv(`./tag.sh server ${options.env}`))
 
 gulp.task('deploy', gulp.series(
