@@ -9,6 +9,7 @@ import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
 import { QueryContainer, AddressContainer, ContactContainer } from './lib/state'
 import { Success } from './comp/Success'
+import { Environment } from './comp/Environment'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
@@ -36,8 +37,8 @@ export const StateContainer: React.FC<{}> = ({children}) => (
 const Layout = () => {
   return (<>
     <Switch>
-      <Route path='/node-env'>
-        <p>{process.env.NODE_ENV}</p>
+      <Route path='/environment'>
+        <Environment/>
       </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path={pathData['start'].path}>

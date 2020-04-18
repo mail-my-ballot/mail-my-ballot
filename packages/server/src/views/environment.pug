@@ -1,0 +1,14 @@
+extends layout.pug
+
+block pageName
+  title Environment Variables
+
+block content
+  .container.mt-4
+    h1 Environment Variables
+
+  .container.mt-4
+    ul
+      li NODE_ENV: #{env.NODE_ENV}
+      li REACT_APP_ENVIRONMENT: #{env.REACT_APP_ENVIRONMENT}
+      li REACT_APP_EMAIL_OFFICIALS: #{env.REACT_APP_EMAIL_OFFICIALS}
