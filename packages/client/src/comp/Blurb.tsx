@@ -45,6 +45,7 @@ const FlexContainer = styled.div`
 const ZipInput = styled.input`
   margin: 2em 0;
   padding: 0.5em 1em;
+  width: 6em;
   height: 22px;
   border: none;
   border-color: transparent;
@@ -55,6 +56,7 @@ const ZipInput = styled.input`
 
 const SubmitButton = styled(RoundedButton)`
   margin: 2em 0;
+  width: 8em;  // ZipInput's width + margin
   border-radius: 0 2em 2em 0;
   z-index: 0;
   background: #4DB6AC;
@@ -97,7 +99,7 @@ export const Blurb: React.FC<{}> = () => {
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
                 <ZipInput data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
-                <SubmitButton data-testid='start-submit' variant='raised'>Do I Qualify?</SubmitButton>
+                <SubmitButton data-testid='start-submit' variant='raised'>Start</SubmitButton>
               </FlexContainer>
             </Form>
           </FlexBox>
