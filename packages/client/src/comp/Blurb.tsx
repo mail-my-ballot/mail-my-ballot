@@ -11,7 +11,6 @@ const Background = styled.div`
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 100vh;
   background: rgb(144,202,249);
   background: linear-gradient(45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
   color: #f1f1ff;
@@ -28,7 +27,6 @@ const Text = styled.p`
 `
 
 const FlexBox = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,6 +69,15 @@ export const Blurb: React.FC<{}> = () => {
   const { pushAddress } = useAppHistory()
   const zipRef = React.useRef<HTMLInputElement>(null)
 
+  // mobile browsers don't support 100vh, so use this trick instead
+  // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html
+  // Also, need to use a state variable instead of a simpler ts variable
+  // https://stackoverflow.com/a/56156394/8930600
+  const [height, setHeight] = React.useState('100vh')
+  React.useEffect(() => {
+    setHeight(`${window.innerHeight}px`)
+  }, [])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.persist()  // allow async function call
     event.preventDefault()
@@ -83,11 +90,11 @@ export const Blurb: React.FC<{}> = () => {
     // TODO: handle error
   }
 
-  return <Background>
+  return <Background style={{height}}>
     <Container>
       <Row>
         <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={6}>
-          <FlexBox>
+          <FlexBox style={{height}}>
             <Title>Vote by Mail</Title>
             <Text>
               Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and mailed back at your convenience.
