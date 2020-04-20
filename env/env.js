@@ -57,7 +57,6 @@ const staging = {
   GOOGLE_CLIENT_SECRET: STAGING.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'https://app-staging.mailmyballot.org/auth/google/callback',
   REACT_APP_TIMEOUT: 10000,
-  REACT_APP_DEBUG: 1,
   DEBUG_LETTER: 1,
 }
 
