@@ -62,7 +62,7 @@ const Layout = () => {
       <Route path={pathData['address'].path}>
         <Blurb/>
         <StyleContainer>
-          <ScrollHook pathEnum='address'>
+          <ScrollHook pathEnum='address' pageStart>
             <AddressForm/>
           </ScrollHook>
           <Notification/>
