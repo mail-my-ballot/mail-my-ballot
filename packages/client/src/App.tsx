@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
 
+import { About } from './comp/About'
+import { Footer } from './comp/Footer'
 import { Analytics } from './comp/Analytics'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
@@ -17,9 +19,11 @@ import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
 
-export const StyleContainer = styled(Container)`
+const TallStyleContainer = styled(Container)`
   min-height: 100vh;
 `
+
+const StyleContainer = Container
 
 // export for testing purposes
 export const StateContainer: React.FC<{}> = ({children}) => (
@@ -42,6 +46,11 @@ const Layout = () => {
           <Environment/>
         </StyleContainer>
       </Route>
+      <Route path='/about'>
+        <TallStyleContainer>
+          <About/>
+        </TallStyleContainer>
+      </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path={pathData['start'].path}>
         <ScrollHook pathEnum='start'>
@@ -53,38 +62,39 @@ const Layout = () => {
       </Route>
       <Route path={pathData['success'].path}>
         <ScrollHook pathEnum='success'>
-          <StyleContainer>
+          <TallStyleContainer>
             <Success/>
             <WarningMsg/>
-          </StyleContainer>
+          </TallStyleContainer>
         </ScrollHook>
       </Route>
       <Route path={pathData['address'].path}>
         <Blurb/>
-        <StyleContainer>
+        <TallStyleContainer>
           <ScrollHook pathEnum='address' pageStart>
             <AddressForm/>
           </ScrollHook>
           <Notification/>
           <WarningMsg/>
-        </StyleContainer>
+        </TallStyleContainer>
       </Route>
       <Route path={pathData['state'].path}>
         <Blurb/>
-        <StyleContainer>
+        <TallStyleContainer>
           <AddressForm/>
           <ScrollHook pathEnum='state'>
             <StateForm/>
           </ScrollHook>
           <Notification/>
           <WarningMsg/>
-        </StyleContainer>
+        </TallStyleContainer>
       </Route>
       <Redirect to={defaultUrl}/>
     </Switch>
     <StyleContainer>
       <DevInfo/>
     </StyleContainer>
+    <Footer/>
   </>)
 }
 
