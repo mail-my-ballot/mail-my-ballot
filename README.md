@@ -21,11 +21,11 @@ Download and save these credentials for dev, prod, and staging.
 
 ## Secrets
 ### Secrets in Dev
-Put all secrets in `env/secrets/secrets.json`, which is not checked into source control.
+Put all secrets in `env/secrets.json`, which is not checked into source control.
 
 #### Dev Firestore Access
-Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `./env/secrets/[...].json`.
-Then make sure `.env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `../../env/secrets/[...].json`.
+Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
+Then make sure `env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `./secrets/[...].json`.
 
 ### Secrets in Production
 Configuration and secrets are currently added into `app.yaml` (not in git) from `app.tmpl.yaml` via gulp process (stored in git).

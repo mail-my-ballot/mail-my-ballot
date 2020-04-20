@@ -60,8 +60,6 @@ typings/
 # dotenv environment variables file
 .env
 .env.*
-!.env.js
-env/secrets/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -84,10 +82,11 @@ env/secrets/
 # DynamoDB Local files
 .dynamodb/
 
+# nogit
+*.nogit.*
+
 # Custom
 dist/
-
 tsconfig.tsbuildinfo
-
 venv
 .vscode

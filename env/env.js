@@ -6,10 +6,10 @@ const {
   STAGING,
   DEV,
   SESSION_SECRET,
-} = require('./secrets/secrets.json')
+} = require('./secrets.nogit.json')
 
 // These are kept separately to keep development configs out of git
-const { developmentRaw } = require('./.env.dev.js')
+const { developmentRaw } = require('./env.dev.nogit.js')
 
 const base = {
   SERVER_PORT: 8080,
