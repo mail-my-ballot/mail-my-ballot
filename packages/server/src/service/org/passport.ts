@@ -74,7 +74,7 @@ const orgPermissions = (level: 'members' | 'admins'): Express.RequestHandler => 
 }
 
 const maxOrgs = parseInt(processEnvOrThrow('USER_MAX_ORGS'))
-const frontEnd = processEnvOrThrow('FRONT_END')
+const frontEnd = processEnvOrThrow('REACT_APP_URL')
 const enrichOrg = (org: Org, uid: string) => ({
   ...org,
   isAdmin: org.user.admins.includes(uid),

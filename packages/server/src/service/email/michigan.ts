@@ -22,12 +22,12 @@ export const toEmailData = (
 
   const to = [email, electionsEmail]
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
-  const frontEnd = processEnvOrThrow('FRONT_END')
+  const url = processEnvOrThrow('REACT_APP_URL')
 
   const md = stripIndent(`
   Dear Elections Official,
 
-  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${frontEnd}).
+  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${url}).
   I am requesting to be added to the "permanent absentee voter list" for all upcoming elections.
   Below are my voter registration details:
 

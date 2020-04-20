@@ -22,12 +22,12 @@ export const toEmailData = (
     electionsEmail,
   ]
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
-  const frontEnd = processEnvOrThrow('FRONT_END')
+  const url = processEnvOrThrow('REACT_APP_URL')
 
   const md = stripIndent(`
   Dear County Supervisor of Elections,
 
-  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${frontEnd}).
+  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${url}).
   As per [state guidelines](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/),
   I am applying for all elections through the end of the calendar year for the second ensuing regularly scheduled general election.
   Below are my voter registration details:
