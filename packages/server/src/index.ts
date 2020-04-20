@@ -37,7 +37,7 @@ registerPassportEndpoints(app)
 
 // https://github.com/GoogleCloudPlatform/nodejs-getting-started/tree/master/1-hello-world
 if (module === require.main) {
-  const port = parseInt(processEnvOrThrow('SERVER_PORT'))
+  const port = parseInt(process.env.PORT ?? processEnvOrThrow('SERVER_PORT'))
   const server = app.listen(port, () => {
     const port = (server.address() as AddressInfo).port
     console.log(`app listening on port ${port}`)
