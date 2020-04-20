@@ -36,18 +36,22 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 We're using [Marked](https://www.npmjs.com/package/marked), which has more dependents, downloads, and is smaller than [Showdown](https://www.npmjs.com/package/showdown).  The documentation on how to run it in node is available [here](https://marked.js.org/#/USING_ADVANCED.md#options)
 
 ## Development
-**Useful Links:**
-- [Log Viewer](https://console.cloud.google.com/logs/viewer)
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-dev-cee81)
 - [Console](https://console.cloud.google.com/home/dashboard?project=mmb-dev-cee81)
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-dev-cee81)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/database/firestore/rules)
 
 ## Staging
-**Useful Links:**
-- [Log Viewer](https://console.cloud.google.com/logs/viewer)
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-staging)
 - [Console](https://console.cloud.google.com/home/dashboard?project=mmb-staging)
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-staging)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-staging/database/firestore/rules)
+
+## Production
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-prod)
+- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-prod)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-prod)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-prod/database/firestore/rules)
 
 ## Asthetics
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
