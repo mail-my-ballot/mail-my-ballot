@@ -54,8 +54,8 @@ const Layout = () => {
       <Route path={pathData['success'].path}>
         <ScrollHook pathEnum='success'>
           <StyleContainer>
-            <WarningMsg/>
             <Success/>
+            <WarningMsg/>
           </StyleContainer>
         </ScrollHook>
       </Route>
