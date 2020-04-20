@@ -1,8 +1,6 @@
 // Based on https://www.npmjs.com/package/env-cmd
 const {
   MG_API_KEY,
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
   STAGING,
   DEV,
   PROD,
@@ -20,13 +18,9 @@ const removeNullValues = (obj) => {
 }
 
 const base = removeNullValues({
-  SERVER_PORT: 8080,
   USER_MAX_ORGS: 8,
   BRAND_NAME: 'mailmyballot.org',
   FRONT_END: 'https://mailmyballot.org/',
-  FIRESTORE_URL: '',
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
   SESSION_SECRET,
   MG_API_KEY,
   MG_DOMAIN: 'email.mailmyballot.org',
@@ -44,6 +38,7 @@ const development = removeNullValues({
   GOOGLE_CLIENT_ID: DEV.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
+  PORT: 8080,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
@@ -88,7 +83,7 @@ const production = removeNullValues({
 
 const test = removeNullValues({
   ...base,
-  FIRESTORE_URL: 'http://localhost:8081',
+  FIRESTORE_URL: 'http://localhost:8081',  // for e2e tests with firestore emulator
   NODE_ENV: 'test',
   REACT_APP_SERVER: 'https://example.com',
   REACT_APP_TIMEOUT: 2000,
