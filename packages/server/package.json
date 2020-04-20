@@ -26,15 +26,18 @@
     "@types/supertest": "^2.0.8",
     "gulp": "^4.0.2",
     "jest": "^24.0.0",
+    "jest-ts-auto-mock": "^1.0.11",
     "js-yaml": "^3.13.1",
     "minimist": "^1.2.5",
     "nodemon": "^1.19.1",
     "react-test-renderer": "^16.13.0",
     "serve": "^11.3.0",
     "supertest": "^4.0.0",
+    "ts-auto-mock": "^1.6.0",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
+    "ttypescript": "^1.5.10",
     "typescript": "~3.7.2"
   },
   "dependencies": {
@@ -58,6 +61,14 @@
     "strip-indent": "^3.0.0"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "compiler": "ttypescript"
+      }
+    },
+    "setupFiles": [
+      "<rootDir>config.ts"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
