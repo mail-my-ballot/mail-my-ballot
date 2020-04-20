@@ -5,6 +5,7 @@ import { FloridaInfo, MichiganInfo, StateInfo } from "../../common"
 const email = 'email@example.com'
 
 const check = (info: StateInfo): void => {
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const emailDataProd = toEmailData(info, { mockProduction: true })
   expect(emailDataProd).toBeTruthy()
   expect(emailDataProd!.to.length).toBeGreaterThanOrEqual(2)
@@ -13,6 +14,7 @@ const check = (info: StateInfo): void => {
   const emailData = toEmailData(info)
   expect(emailData).toBeTruthy()
   expect(emailData!.to).toEqual([email])
+  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 }
 
 test('florida', () => {
