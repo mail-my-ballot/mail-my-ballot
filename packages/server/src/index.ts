@@ -14,7 +14,7 @@ const app = Express()
 
 // logging middleware
 app.use(Morgan('combined'))
-
+app.use('/static', Express.static(__dirname + '/static'))
 app.use(cors({ origin: true }))
 
 app.set('view engine', 'pug')
