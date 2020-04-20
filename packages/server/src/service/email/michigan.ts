@@ -21,7 +21,7 @@ export const toEmailData = (
   if (!electionsEmail) throw Error(`No email for ${city}, ${county}, ${state}`)
 
   const to = [email, electionsEmail]
-  const brandName = processEnvOrThrow('BRAND_NAME')
+  const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
   const frontEnd = processEnvOrThrow('FRONT_END')
 
   const md = stripIndent(`

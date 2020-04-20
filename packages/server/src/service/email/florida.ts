@@ -21,7 +21,7 @@ export const toEmailData = (
     email,
     electionsEmail,
   ]
-  const brandName = processEnvOrThrow('BRAND_NAME')
+  const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
   const frontEnd = processEnvOrThrow('FRONT_END')
 
   const md = stripIndent(`

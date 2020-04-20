@@ -19,7 +19,7 @@ const removeNullValues = (obj) => {
 
 const base = removeNullValues({
   USER_MAX_ORGS: 8,
-  BRAND_NAME: 'mailmyballot.org',
+  REACT_APP_BRAND_NAME: 'mailmyballot.org',
   FRONT_END: 'https://mailmyballot.org/',
   MG_API_KEY,
   MG_DOMAIN: 'email.mailmyballot.org',
@@ -53,7 +53,7 @@ const staging = removeNullValues({
   REACT_APP_ENVIRONMENT: 'staging',
   GCLOUD_PROJECT: 'mmb-staging',
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-staging-firebase-adminsdk-jsepr-073f157679.json',
-  BRAND_NAME: 'staging.mailmyballot.org',
+  REACT_APP_BRAND_NAME: 'staging.mailmyballot.org',
   FRONT_END: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
   REACT_APP_SERVER: 'https://app-staging.mailmyballot.org/',
@@ -71,7 +71,7 @@ const production = removeNullValues({
   REACT_APP_ENVIRONMENT: 'production',
   GCLOUD_PROJECT: 'mmb-prod',
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-prod-firebase-adminsdk-ygilq-417666ddc7.json',
-  BRAND_NAME: 'mailmyballot.org',
+  REACT_APP_BRAND_NAME: 'mailmyballot.org',
   FRONT_END: 'https://mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-prod.firebaseio.com',
   REACT_APP_SERVER: 'https://app.mailmyballot.org/',
