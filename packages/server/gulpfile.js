@@ -78,7 +78,11 @@ gulp.task('appsubst', gulp.series(
   (cb) => setAppYaml(cb, envs[options.env])
 ))
 gulp.task('gcloud', // --quiet disables interaction in gcloud
-  runEnv('gcloud app deploy --quiet --project mmb-staging')
+  async () => {
+    const project = envs[options.env].GCLOUD_PROJECT
+    if(!project) throw Error(`GCLOUD_PROJECT is not defined for env "${options.env}"`)
+    return run(`gcloud app deploy --quiet --verbosity=info --project ${project}`)()
+  }
 )
 gulp.task('tag', runEnv(`./tag.sh server ${options.env}`))
 
