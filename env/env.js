@@ -65,7 +65,7 @@ const production = {
   ...staging,
   NODE_ENV: 'production',
   REACT_APP_ENVIRONMENT: 'production',
-  REACT_APP_EMAIL_OFFICIALS: 1,
+  // REACT_APP_EMAIL_OFFICIALS: 1,
 }
 
 const test = {
