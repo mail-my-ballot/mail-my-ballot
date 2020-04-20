@@ -16,10 +16,10 @@
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
-    "@tianhuil/gulp-run-command": "^0.0.11",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@tianhuil/gulp-run-command": "^0.0.11",
     "@types/jest": "^24.0.0",
     "@types/muicss": "^0.9.1",
     "@types/node": "^12.6.9",
