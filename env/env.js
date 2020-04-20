@@ -4,7 +4,6 @@ const {
   STAGING,
   DEV,
   PROD,
-  SESSION_SECRET,
 } = require('./secrets.nogit.json')
 
 // These are kept separately to keep development configs out of git
@@ -38,7 +37,7 @@ const development = removeNullValues({
   GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   SESSION_SECRET: DEV.SESSION_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
-  PORT: 8080,
+  DEV_SERVER_PORT: 8080,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
