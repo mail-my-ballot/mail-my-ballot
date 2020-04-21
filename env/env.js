@@ -25,9 +25,14 @@ const base = removeNullValues({
   REACT_APP_SUPPORT_ADDR: 'support@mailmyballot.org',
   MG_API_KEY,
   MG_DOMAIN: 'email.mailmyballot.org',
+<<<<<<< HEAD
   MG_FROM_ADDR: 'Vote by Mail Application <application@email.mailmyballot.org>',
   MG_REPLY_TO_ADDR: 'Vote by Mail Application <application@mailmyballot.org>',
   ELECTIONS_OFFICIALS_VERSION: 'v1.0.0',
+=======
+  MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.mailmyballot.org>',
+  ELECTIONS_OFFICIALS_VERSION: 'v1.1.0',
+>>>>>>> upgrade election officials version
 })
 
 const development = removeNullValues({
