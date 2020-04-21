@@ -79,7 +79,7 @@ const production = removeNullValues({
   SESSION_SECRET: PROD.SESSION_SECRET,
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   DEBUG_LETTER: undefined,
-  // REACT_APP_EMAIL_OFFICIALS: 1,
+  REACT_APP_EMAIL_OFFICIALS: 1,
 })
 
 const test = removeNullValues({
