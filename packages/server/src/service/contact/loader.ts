@@ -1,7 +1,7 @@
-import { State } from "../../common"
+import { State, processEnvOrThrow } from "../../common"
 import fetch from 'node-fetch'
 
-const version = 'v1.0.0'
+const version = processEnvOrThrow('ELECTIONS_OFFICIALS_VERSION')
 
 const url = (state: State) => {
   return `https://raw.githubusercontent.com/mail-my-ballot/elections-officials/${version}/public/${state.toLowerCase()}.json`
