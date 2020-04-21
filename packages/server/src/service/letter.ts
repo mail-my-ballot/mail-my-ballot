@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
     return
   }
 
-  const emailData = toEmailData(info, { mockProduction: true})
+  const emailData = toEmailData(info, { forceEmailOfficials: true})
 
   if (!emailData) {
     res.send('No email data supplied for this entry')

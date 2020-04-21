@@ -12,20 +12,20 @@ const _toEmailData = (info: StateInfo): EmailData | null => {
 }
 
 interface Options {
-  mockProduction: boolean
+  forceEmailOfficials: boolean
 }
 
 const defaultOptions = {
-  mockProduction: false
+  forceEmailOfficials: false
 }
 
 export const toEmailData = (
   info: StateInfo,
-  { mockProduction }: Options = defaultOptions
+  { forceEmailOfficials }: Options = defaultOptions
 ): EmailData | null => {
   const emailData = _toEmailData(info)
   if (!emailData) return null
-  if (emailOfficials() || mockProduction) {
+  if (emailOfficials() || forceEmailOfficials) {
     return emailData
   } else {
     return {

@@ -6,7 +6,7 @@ const email = 'email@example.com'
 
 const check = (info: StateInfo): void => {
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
-  const emailDataProd = toEmailData(info, { mockProduction: true })
+  const emailDataProd = toEmailData(info, { forceEmailOfficials: true })
   expect(emailDataProd).toBeTruthy()
   expect(emailDataProd!.to.length).toBeGreaterThanOrEqual(2)
   expect(emailDataProd!.to).toContain(email)
