@@ -8,6 +8,6 @@ test('Success page renders', () => {
     <Success/>, {
     wrapper: MemoryRouter
   })
-  const h1 = getByText(/^Congratulations!$/i)
+  const h1 = getByText(/^Success!$/i)
   expect(h1).toBeInTheDocument()
 })
