@@ -4,14 +4,14 @@ import { FloridaInfo, MichiganInfo, StateInfo } from "../../common"
 
 const email = 'email@example.com'
 
-const check = (info: StateInfo): void => {
+const check = (info: StateInfo, confirmationId: string): void => {
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
-  const emailDataProd = toEmailData(info, { forceEmailOfficials: true })
+  const emailDataProd = toEmailData(info, confirmationId, { forceEmailOfficials: true })
   expect(emailDataProd).toBeTruthy()
   expect(emailDataProd!.to.length).toBeGreaterThanOrEqual(2)
   expect(emailDataProd!.to).toContain(email)
   
-  const emailData = toEmailData(info)
+  const emailData = toEmailData(info, confirmationId)
   expect(emailData).toBeTruthy()
   expect(emailData!.to).toEqual([email])
   /* eslint-enable @typescript-eslint/no-non-null-assertion */
@@ -23,7 +23,7 @@ test('florida', () => {
     email,
   })
 
-  check(info)
+  check(info, 'abc')
 })
 
 test('michigan', () => {
@@ -33,5 +33,5 @@ test('michigan', () => {
     email,
   })
 
-  check(info)
+  check(info, 'abc')
 })
