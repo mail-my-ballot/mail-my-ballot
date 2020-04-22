@@ -10,11 +10,14 @@ const brandLink = `[${brandName}](${url})`
 
 export const postscript = (confirmationId: string): string => stripIndent(`
 
-  ${brandLink} is a [Vote at Home](https://voteathome.org/) project. Vote at Home is a non-partisan 501(c)3 that supports vote by mail.
+  <font style='font-size:75%;'>
 
-  Questions? Feedback?
-  - Voter Email: [${feedbackEmail}](${feedbackEmail}).
-  - Election Official Email: [${electionsEmail}](${electionsEmail}).
+  ${brandLink} is a Vote at Home project.
+  [Vote at Home](https://voteathome.org/) is a non-partisan 501(c)3 that supports vote by mail.
 
-  The confirmation id is ${confirmationId}
+  Questions? Feedback?  Voter Email: [${feedbackEmail}](${feedbackEmail}) |  Election Official Email: [${electionsEmail}](${electionsEmail})
+
+  Confirmation id: ${confirmationId}
+
+  </font>
 `)
