@@ -15,7 +15,9 @@ export const postscript = (confirmationId: string): string => stripIndent(`
   ${brandLink} is a Vote at Home project.
   [Vote at Home](https://voteathome.org/) is a non-partisan 501(c)3 that supports vote by mail.
 
-  Questions? Feedback?  Voter Email: [${feedbackEmail}](${feedbackEmail}) |  Election Official Email: [${electionsEmail}](${electionsEmail})
+  Questions? Feedback? email us at [${feedbackEmail}](${feedbackEmail}).
+
+  **Elections Officials**: do you want a direct, secure access to your applications?  Email us at [${electionsEmail}](${electionsEmail}) to become an the Election Offical Beta User.
 
   Confirmation id: ${confirmationId}
 
