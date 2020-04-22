@@ -12,7 +12,7 @@ export const toEmailData = (
     uspsAddress,
     mailingAddress,
     county,
-  }: FloridaInfo
+  }: FloridaInfo,
 ): EmailData => {
   const electionsEmail = floridaContacts[county].email
   if (!electionsEmail) throw Error(`No email for ${county}, ${state}`)

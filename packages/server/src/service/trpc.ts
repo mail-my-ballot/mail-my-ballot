@@ -46,7 +46,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       ...info,
       ...hostInfo(request)
     })
-    const emailData = toEmailData(info)
+    const emailData = toEmailData(info, id)
     if (emailData) {
       await sendEmail(emailData)
       return data(id)
