@@ -12,6 +12,11 @@ const AppPanel = styled(Panel)`
   margin: 2em 0;
 `
 
+const BlueH2 = styled.h2`
+  color: #2196F3;
+  marginTop: 0;
+`
+
 export const Success: React.FC = () => {
   const { pushStart } = useAppHistory()
   const { id } = useParams()
@@ -21,7 +26,7 @@ export const Success: React.FC = () => {
     <p>You have now successfully applied for Vote by Mail to your local election official.  You received a copy of this email.</p>
     {id && <p>Your Confirmation ID is <b>{id}</b>.  You may save off a copy for your records if you wish.</p>}
     <AppPanel>
-      <h2 style={{color: '#2196F3', marginTop: '0'}}>One Last Step ...</h2>
+      <BlueH2>One Last Step ...</BlueH2>
       <p>Check your inbox for the application email and <b>Reply All</b> with &ldquo;<i>I confirm this request</i>&rdquo; to confirm with your local elections official.</p>
     </AppPanel>
     <RoundedButton color='primary' variant='raised' onClick={pushStart}>
