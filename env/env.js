@@ -22,7 +22,8 @@ const base = removeNullValues({
   REACT_APP_URL: 'https://mailmyballot.org/',
   MG_API_KEY,
   MG_DOMAIN: 'email.mailmyballot.org',
-  MG_FROM_ADDR: 'Vote by Mail Registration <registration@email.mailmyballot.org>',
+  MG_FROM_ADDR: 'Vote by Mail Application <application@email.mailmyballot.org>',
+  MG_REPLY_TO_ADDR: 'Vote by Mail Application <application@mailmyballot.org>',
 })
 
 const development = removeNullValues({
