@@ -1,7 +1,6 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
-import { Address } from '../common'
-import { Contact } from '../common'
+import { Address, Contact, Analytics } from '../common'
 
 const useAddressContainer = (initialState: (Address | null) = null) => {
   const [address, setAddress] = React.useState<Address | null>(initialState)
@@ -45,3 +44,10 @@ const useQueryContainer = ({errMsg, infoMsg}: QueryState = initialQueryState) =>
 }
 
 export const QueryContainer = createContainer(useQueryContainer)
+
+const useAnalyticsContainer = (initialAnalytics: Analytics = {}) => {
+  const [analytics, setAnalytics] = React.useState(initialAnalytics)
+  return { analytics, setAnalytics }
+}
+
+export const AnalyticsContainer = createContainer(useAnalyticsContainer)

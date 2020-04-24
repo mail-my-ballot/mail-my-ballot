@@ -9,7 +9,7 @@ import { Footer } from './comp/Footer'
 import { Analytics } from './comp/Analytics'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
-import { QueryContainer, AddressContainer, ContactContainer } from './lib/state'
+import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { Environment } from './comp/Environment'
 import { WarningMsg } from './comp/WarningMsg'
@@ -31,7 +31,9 @@ export const StateContainer: React.FC<{}> = ({children}) => (
     <QueryContainer.Provider>
       <AddressContainer.Provider>
         <ContactContainer.Provider>
-          {children}
+          <AnalyticsContainer.Provider>
+            {children}
+          </AnalyticsContainer.Provider>
         </ContactContainer.Provider>
       </AddressContainer.Provider>
     </QueryContainer.Provider>
