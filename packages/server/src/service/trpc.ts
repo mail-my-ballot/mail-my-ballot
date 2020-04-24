@@ -28,7 +28,8 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
   public fetchAnalytics = async (org: string) => {
     const orgObj = await firestoreService.fetchOrg(org)
     return data({
-      facebookId: orgObj?.facebookId
+      facebookId: orgObj?.facebookId,
+      googleId: orgObj?.googleId,
     })
   }
   public fetchState = async (zip: string) => {

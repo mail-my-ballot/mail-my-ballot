@@ -45,7 +45,7 @@ const useQueryContainer = ({errMsg, infoMsg}: QueryState = initialQueryState) =>
 
 export const QueryContainer = createContainer(useQueryContainer)
 
-const useAnalyticsContainer = (initialAnalytics: Analytics = {}) => {
+const useAnalyticsContainer = (initialAnalytics: Analytics | null = null) => {
   const [analytics, setAnalytics] = React.useState(initialAnalytics)
   return { analytics, setAnalytics }
 }

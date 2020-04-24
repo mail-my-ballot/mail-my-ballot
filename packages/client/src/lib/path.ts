@@ -1,5 +1,5 @@
 import { useHistory, useLocation, matchPath } from "react-router-dom"
-import ReactPixel from 'react-facebook-pixel'
+import { pageView } from "./analytics"
 
 const allPathEnums = [
   'start',
@@ -108,7 +108,7 @@ export const useAppHistory = () => {
   const pushScroll = (path: Path) => {
     history.push(toUrl(path))
     scrollToId(pathData[path.type].scrollId)
-    ReactPixel.pageView()
+    pageView()
   }
 
   return {

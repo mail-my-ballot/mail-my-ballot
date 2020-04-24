@@ -1,13 +1,8 @@
 import React from 'react'
-import ReactPixel from 'react-facebook-pixel'
 import { client } from '../lib/trpc'
 import { useAppHistory } from '../lib/path'
 import { AnalyticsContainer } from '../lib/state'
-
-const options = {
-  autoConfig: true, 	// set pixel's autoConfig
-  debug: false, 		// enable logs
-}
+import { initializeAnalytics } from '../lib/analytics'
 
 export const Analytics: React.FC = () => {
   const { oid } = useAppHistory()
@@ -15,18 +10,12 @@ export const Analytics: React.FC = () => {
   React.useEffect(() => {
     (async () => {
       // Load analytics once and only once
-      if (Object.keys(analytics).length === 0) {
+      if (!analytics) {
         const result = await client.fetchAnalytics(oid)
         if(result.type === 'data') {
           setAnalytics(result.data)
+          initializeAnalytics(result.data)
         }
-      }
-
-      // trigger facebook pixel
-      const { facebookId } = analytics
-      if (facebookId) {
-        ReactPixel.init(facebookId, undefined, options)
-        ReactPixel.pageView()
       }
     })()
   })
