@@ -8,7 +8,12 @@ Almost all dependnecies are listed in devDependencies.  However, still depends o
 - To deploy the server using Google Cloud, follow the steps in `https://cloud.google.com/appengine/docs/standard/nodejs/quickstart`.
 
 ### App Engine
-To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts
+To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
+
+Don't forget to enable the indexes (see the gulp file server's `gulpfile.js`).  The recommended procedure is to
+1. Claim an org on dev and clik the download button.  This will fail but the server log on dev will give you a link where you can create the index.  Alternatively, the current index is saved in `firestore.index.json`.
+2. Run `yarn server-gulp dev-index` to update `firestore.index.json` (optional -- only if there are additional index needs).
+3. Run the command resulting from `yarn server-gulp deploy-index --env staging` to upload the index to staging (and also production).
 
 ### Google OAuth
 Following the instructions [here](http://www.passportjs.org/docs/google/):
