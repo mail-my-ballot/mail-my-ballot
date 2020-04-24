@@ -160,9 +160,10 @@ export const registerPassportEndpoints = (app: Express.Application) => {
   app.post('/dashboard/:oid/updateAnalytics', validSession, orgPermissions('admins'),
     async (req, res) => {
       const { oid } = req.params
-      const { facebookId } = req.body
-      await firestoreService.updateAnalytics(oid, { facebookId })
+      const { facebookId, googleId } = req.body
+      await firestoreService.updateAnalytics(oid, { facebookId, googleId })
       req.flash('success', `Added Facebook Pixel Id for org "${oid}" to "${facebookId}"`)
+      req.flash('success', `Added Google Pixel Id for org "${oid}" to "${googleId}"`)
       return res.redirect(`/dashboard/`)
     }
   )
