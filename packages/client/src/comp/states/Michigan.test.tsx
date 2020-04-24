@@ -7,7 +7,7 @@ import SignatureCanvas from 'react-signature-canvas'
 jest.mock('react-signature-canvas')
 
 import { Michigan } from './Michigan'
-import { StateContainer } from "../../StateContainer"
+import { StateContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
