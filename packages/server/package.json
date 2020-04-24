@@ -24,6 +24,7 @@
     "@types/passport": "^1.0.3",
     "@types/passport-google-oauth": "^1.0.41",
     "@types/supertest": "^2.0.8",
+    "firebase-tools": "^8.1.1",
     "gulp": "^4.0.2",
     "jest": "^24.0.0",
     "jest-ts-auto-mock": "^1.0.11",
