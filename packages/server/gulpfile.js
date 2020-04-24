@@ -97,3 +97,7 @@ gulp.task('deploy', gulp.series(
 gulp.task('index', 
   runEnv('firebase --project mmb-staging deploy --only firestore:indexes')
 )
+
+gulp.task('dev-index', 
+  runEnv('./dev_index.sh')
+)

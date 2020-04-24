@@ -1,0 +1,1 @@
+firebase --project mmb-dev-cee81 firestore:indexes > firestore.indexes.json
