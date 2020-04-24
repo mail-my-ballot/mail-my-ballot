@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
 import { RawAddressForm } from './AddressForm'
-import { StateContainer } from '../App'
+import { StateContainer } from "../StateContainer"
 import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
 import { mocked } from 'ts-jest/utils'

@@ -2,14 +2,13 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
-import { HashRouter, Switch, Route, Redirect } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 
 import { About } from './comp/About'
 import { Footer } from './comp/Footer'
 import { Analytics } from './comp/Analytics'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
-import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer } from './lib/state'
 import { Success } from './comp/Success'
 import { Environment } from './comp/Environment'
 import { WarningMsg } from './comp/WarningMsg'
@@ -18,27 +17,13 @@ import { StateForm } from './comp/states/StateForm'
 import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
+import { StateContainer } from './StateContainer'
 
 const TallStyleContainer = styled(Container)`
   min-height: 100vh;
 `
 
 const StyleContainer = Container
-
-// export for testing purposes
-export const StateContainer: React.FC<{}> = ({children}) => (
-  <HashRouter>
-    <QueryContainer.Provider>
-      <AddressContainer.Provider>
-        <ContactContainer.Provider>
-          <AnalyticsContainer.Provider>
-            {children}
-          </AnalyticsContainer.Provider>
-        </ContactContainer.Provider>
-      </AddressContainer.Provider>
-    </QueryContainer.Provider>
-  </HashRouter>
-)
 
 const Layout = () => {
   return (<>

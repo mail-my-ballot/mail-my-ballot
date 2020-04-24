@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history'
 import { Router } from 'react-router'
 
 import { Florida } from './Florida'
-import { StateContainer } from '../../App'
+import { StateContainer } from "../../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
