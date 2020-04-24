@@ -14,6 +14,11 @@ jest.mock('../../lib/trpc')
 test('Florida Form works', async () => {
   const history = createMemoryHistory()
 
+  const register = mocked(client, true).register = jest.fn().mockResolvedValue({
+    type: 'data',
+    data: 'confirmationId',
+  })
+
   const { getByLabelText, getByTestId } = render(
     <Router history={history}>
       <Florida
@@ -34,12 +39,6 @@ test('Florida Form works', async () => {
     </Router>,
     { wrapper: StateContainer }
   )
-
-  const register = mocked(client, true).register = jest.fn().mockResolvedValue({
-    type: 'data',
-    data: 'confirmationId',
-  })
-  window.scrollTo = jest.fn()
 
   act(() => {
     fireEvent.change(getByLabelText(/^Full Name/i), {
@@ -66,5 +65,5 @@ test('Florida Form works', async () => {
   await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
     {id: "confirmationId", oid: "default", type: "success"}
   ))
-  await wait(() => expect(register).toHaveBeenCalled())
+  await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })

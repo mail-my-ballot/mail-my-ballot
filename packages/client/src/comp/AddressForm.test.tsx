@@ -4,16 +4,16 @@ import { RawAddressForm } from './AddressForm'
 import { StateContainer } from "./StateContainer"
 import { geocode } from '../lib/osm'
 import { client } from '../lib/trpc'
+import { pageView } from '../lib/analytics'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../common/sampleAddresses'
+
 jest.mock('../lib/osm')
+jest.mock('../lib/analytics')
 jest.mock('../lib/trpc')
 
 test('AddressForm works', async () => {
-  const { getByLabelText, getByTestId } = render(
-    <RawAddressForm state='Florida'/>,
-    { wrapper: StateContainer }
-  )
+  const mockedPageView = mocked(pageView)
 
   const mockedOsmGeocode = mocked(geocode)
   mockedOsmGeocode.mockResolvedValue(sampleAddress)
@@ -22,6 +22,11 @@ test('AddressForm works', async () => {
     type: 'data',
     data: null,
   })
+
+  const { getByLabelText, getByTestId } = render(
+    <RawAddressForm state='Florida'/>,
+    { wrapper: StateContainer }
+  )
 
   act(() => {
     fireEvent.change(getByLabelText(/^Address/i), {
@@ -37,8 +42,9 @@ test('AddressForm works', async () => {
 
   await waitForElement(() => getByTestId('status-title'))
 
-  expect(mockedOsmGeocode).toHaveBeenCalled()
-  expect(fetchContact).toHaveBeenCalled()
+  expect(mockedOsmGeocode).toHaveBeenCalledTimes(1)
+  expect(fetchContact).toHaveBeenCalledTimes(1)
+  expect(mockedPageView).toHaveBeenCalledTimes(1)
   expect(getByTestId('status-title')).toHaveTextContent('Great News!')
   expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.state)
 })

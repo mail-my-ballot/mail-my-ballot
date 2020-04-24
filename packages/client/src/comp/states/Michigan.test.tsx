@@ -12,13 +12,21 @@ import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
 import { toPath, SuccessPath } from '../../lib/path'
+import { Analytics } from '../Analytics'
 jest.mock('../../lib/trpc')
 
 test('Michigan Form works', async () => {
   const history = createMemoryHistory()
 
+  const register = mocked(client, true).register = jest.fn().mockResolvedValue({
+    type: 'data',
+    data: 'confirmationId',
+  })
+  mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
+
   const { getByLabelText, getByTestId } = render(
     <Router history={history}>
+      <Analytics/>
       <Michigan
         locale={{
           state: 'Michigan',
@@ -39,12 +47,6 @@ test('Michigan Form works', async () => {
     </Router>,
     { wrapper: StateContainer }
   )
-
-  const register = mocked(client, true).register = jest.fn().mockResolvedValue({
-    type: 'data',
-    data: 'confirmationId',
-  })
-  window.scrollTo = jest.fn()
 
   act(() => {
     fireEvent.change(getByLabelText(/^Full Name/i), {
@@ -81,5 +83,5 @@ test('Michigan Form works', async () => {
   await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
     {id: "confirmationId", oid: "default", type: "success"}
   ))
-  await wait(() => expect(register).toHaveBeenCalled())
+  await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })
