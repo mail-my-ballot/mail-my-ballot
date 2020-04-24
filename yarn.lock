@@ -14397,6 +14397,11 @@ react-facebook-pixel@^0.1.3:
   resolved "https://registry.yarnpkg.com/react-facebook-pixel/-/react-facebook-pixel-0.1.3.tgz#4dcd065d0d6423fb07471c7758c2f9c1986e4ce4"
   integrity sha512-9Zlnmjn2zGPGucuaxjHkNHW3DvDMCLkM9DFx0o0j7u3fzzsD+2bOtG1JA3PP8A11U5WBwoL0BD/RGQmaDvaIDw==
 
+react-ga@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
+  integrity sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.0.tgz#0f37c3613c34fe6b37cd7f763a0d6293ab15c527"
