@@ -94,8 +94,13 @@ gulp.task('deploy', gulp.series(
   'tag',
 ))
 
-gulp.task('index', 
-  runEnv('firebase --project mmb-staging deploy --only firestore:indexes')
+gulp.task('deploy-index', async (cb) => {
+    console.log('The following must be run from the command line.  It inexplicably fails from gulp:')
+    console.log('')
+    console.log(`  firebase --project ${envs[options.env].GCLOUD_PROJECT} deploy --only firestore:indexes`)
+    console.log('')
+    cb()
+  }
 )
 
 gulp.task('dev-index', 
