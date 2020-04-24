@@ -8,5 +8,4 @@ if (process.env.DEV_EMAIL) {
   }).then(
     (value) => console.log(value)
   )
-  
 }
