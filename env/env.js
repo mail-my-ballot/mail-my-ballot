@@ -76,6 +76,7 @@ const production = removeNullValues({
   REACT_APP_ENVIRONMENT: 'production',
   GCLOUD_PROJECT: 'mmb-prod',
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-prod-firebase-adminsdk-ygilq-417666ddc7.json',
+  REACT_APP_GOOGLE_UA: 'UA-164550246-3',
   REACT_APP_BRAND_NAME: 'MailMyBallot.org',
   REACT_APP_URL: 'https://mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-prod.firebaseio.com',
