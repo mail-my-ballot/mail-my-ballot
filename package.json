@@ -9,9 +9,9 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "client-gulp": "yarn workspace @vbm/client gulp",
-    "common-gulp": "yarn workspace @vbm/common gulp",
-    "server-gulp": "yarn workspace @vbm/server gulp",
+    "client": "yarn workspace @vbm/client",
+    "common": "yarn workspace @vbm/common",
+    "server": "yarn workspace @vbm/server",
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",
     "gulp": "lerna run gulp --",
