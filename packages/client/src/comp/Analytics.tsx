@@ -16,7 +16,10 @@ export const Analytics: React.FC = () => {
       switch(result.type) {
         case 'data': {
           const { facebookId } = result.data
-          if (facebookId) ReactPixel.init(facebookId, undefined, options)
+          if (facebookId) {
+            ReactPixel.init(facebookId, undefined, options)
+            ReactPixel.pageView()
+          }
         }
       }
     })()
