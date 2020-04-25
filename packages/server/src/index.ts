@@ -1,6 +1,7 @@
 import Express from 'express'
 import Morgan from 'morgan'
 import { Response } from 'express'
+import helmet from 'helmet'
 import { AddressInfo } from 'net'
 import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
@@ -14,6 +15,7 @@ const app = Express()
 
 // logging middleware
 app.use(Morgan('combined'))
+app.use(helmet())
 app.use('/static', Express.static(__dirname + '/static'))
 app.use(cors({ origin: true }))
 
