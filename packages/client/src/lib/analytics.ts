@@ -27,6 +27,7 @@ export const initializeAnalytics = ({ facebookId, googleId }: Analytics) => {
   ]
 
   ReactGA.initialize(trackers)
+  ReactGA.pageview(window.location.hash, ['ClientTracker', 'MMBTracker'])
 }
 
 /* run this after history push to have up to date url */

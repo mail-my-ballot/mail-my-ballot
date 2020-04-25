@@ -25,7 +25,12 @@ app.get('/', (_, res: Response) => {
 })
 
 app.get('/environment', (_, res: Response) => {
-  res.render('environment', { env: process.env })
+  const env = {
+    NODE_ENV: process.env.NODE_ENV,
+    REACT_APP_ENVIRONMENT: process.env.REACT_APP_ENVIRONMENT,
+    REACT_APP_EMAIL_OFFICIALS: process.env.REACT_APP_EMAIL_OFFICIALS,
+  }
+  res.render('environment', { env })
 })
 
 if (process.env.DEBUG_LETTER) {
