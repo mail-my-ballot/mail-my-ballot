@@ -1,5 +1,4 @@
 import { MichiganContact } from '../../common'
-import rawMichiganData from './MichiganData.json'
 
 // Make toKey take a more general type so it is more broadly usable
 type CountyCity = {county: string, city: string}

@@ -2,23 +2,24 @@ import { State } from './states'
 
 interface BaseContact {
   state: State
+  official: string
+  emails?: string[]
+  faxes?: string[]
 }
 
 export interface MichiganContact extends BaseContact {
   state: "Michigan"
   city: string
   county: string
-  clerk: string
-  email: string | null
-  fax: string
-  phone: string
+  emails: string[]
+  faxes: string[]
+  phones: string[]
 }
 
 export interface FloridaContact extends BaseContact{
   state: "Florida"
   county: string
-  clerk: string
-  email: string
+  emails: string[]
   url: string
 }
 

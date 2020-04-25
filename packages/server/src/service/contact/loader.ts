@@ -19,7 +19,7 @@ export const availableStates = [
   'Wisconsin'
 ] as const
 
-interface Contact {
+interface ContactData {
   // each contact should have a locale and either an email or fax
   locale: string            // locale name, unique within state
   official?: string         // name of election's official
@@ -29,12 +29,12 @@ interface Contact {
 
 type AvailableState = (typeof availableStates)[number]
 
-const loadState = async (state: AvailableState): Promise<[AvailableState, Contact[]]> => {
+const loadState = async (state: AvailableState): Promise<[AvailableState, ContactData[]]> => {
   const resp = await fetch(url(state))
-  return [state, await resp.json() as Contact[]]
+  return [state, await resp.json() as ContactData[]]
 }
 
-export const load = async (): Promise<Record<AvailableState, Contact[]>> => {
+export const load = async (): Promise<Record<AvailableState, ContactData[]>> => {
   const data = await Promise.all(availableStates.map(state => loadState(state)))
-  return Object.fromEntries(data) as Record<AvailableState, Contact[]>
+  return Object.fromEntries(data) as Record<AvailableState, ContactData[]>
 }
