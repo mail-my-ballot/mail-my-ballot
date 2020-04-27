@@ -25,5 +25,5 @@ export const sampleAddresses: [string, string][] = [
   ['191 Peachtree St NE, Atlanta, GA 30303', 'Fulton County, Georgia'],
   ['1 10th St, Augusta, GA 30901', 'Richmond County, Georgia'],
   ['1200 6th Ave, Columbus, GA 31902', 'Muscogee County, Georgia'],
-  ['305 Coliseum Dr, Macon, GA 31217', 'Macon–Bibb County, Georgia'],
+  ['305 Coliseum Dr, Macon, GA 31217', 'Bibb County, Georgia'],
 ]
