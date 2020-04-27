@@ -11,6 +11,7 @@ export * from './address'
 export * from './trpc'
 export * from './states'
 export * from './vbmStatus'
-export * from './contact'
+// if we don't do this, loader.test.ts imports availableStates as undefineda
+export {availableStates, isAvailableState, ContactData, AvailableState, ContactMethod, toContactMethod} from './contact'
 export * from './locale'
 export * from './analytics'
