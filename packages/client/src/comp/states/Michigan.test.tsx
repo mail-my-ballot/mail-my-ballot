@@ -38,10 +38,8 @@ test('Michigan Form works', async () => {
           state: 'Michigan', 
           city: 'Canton',
           county: 'Wayne County',
-          clerk: 'Christina  White',
-          email: 'soedade@miamidade.gov',
-          fax: '',
-          phone: '',
+          official: 'Christina  White',
+          emails: ['soedade@miamidade.gov'],
         }}
       />
     </Router>,

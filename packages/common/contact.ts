@@ -1,91 +1,49 @@
-import { State } from './states'
+export const availableStates = [
+  'Florida',
+  'Georgia',
+  'Maine',
+  'Maryland',
+  'Michigan',
+  'Minnesota',
+  'Nebraska',
+  'Virginia',
+  'Wisconsin'
+] as const
 
-export interface BaseContact {
-  state: State
-  county?: string
-  city?: string
-  official: string
-  emails?: string[]
-  faxes?: string[]
+const availableStatesSet = new Set(availableStates)
+
+export const isAvailableState = (str: string): str is AvailableState => {
+  return availableStatesSet.has(str as AvailableState)
 }
 
-export interface FloridaContact extends BaseContact {
-  state: "Florida"
-  county: string
-  email: string
-  url: string
-}
-
-export interface GeorgiaContact extends BaseContact {
-  state: "Georgia"
-  county: string
-  email?: string
-  fax?: string
-  url: string
-}
-
-export interface MaineContact extends BaseContact {
-  state: "Maine"
-  city: string
-  fax?: string
-}
-
-export interface MarylandContact extends BaseContact {
-  state: "Maryland"
-  county: string
-  emails: string[]
-  url: string
-}
-
-export interface MichiganContact extends BaseContact {
-  state: "Michigan"
-  city: string
-  county: string
-  email: string
-  fax: string
-}
-
-export interface MinnesotaContact extends BaseContact {
-  state: "Minnesota"
-  county: string
-  email: string
-  fax: string
-  url: string
-}
-
-export interface NebraskaContact extends BaseContact {
-  state: "Nebraska"
-  county: string
-  email: string
-  fax: string
-  url: string
-}
-
-export interface VirginiaContact extends BaseContact {
-  state: "Virginia"
+export interface ContactData {
+  // each contact should have a locale and either an email or fax
+  state: AvailableState
   city?: string
   county?: string
-  email: string
-  fax: string
+  official?: string // name of election's official
+  emails?: string[] // array of emails
+  faxes?: string[] // list of fax numbers
+  phones?: string[]
   url?: string
 }
 
-export interface WisconsinContact extends BaseContact {
-  state: "Wisconsin"
-  city: string
-  county?: string
-  email?: string
-  fax?: string
+export type AvailableState = (typeof availableStates)[number]
+
+interface EmailMethod {
+  method: 'email'
+  emails: string[]
 }
 
-export type Contact = (
-  | FloridaContact
-  | GeorgiaContact
-  | MaineContact
-  | MarylandContact
-  | MichiganContact
-  | MinnesotaContact
-  | NebraskaContact
-  | VirginiaContact
-  | WisconsinContact
-)
+interface FaxMethod {
+  method: 'fax'
+  faxes: string[]
+}
+
+export type ContactMethod  = EmailMethod| FaxMethod
+
+export const toContactMethod = (contact: ContactData): ContactMethod | null => {
+  if (contact.emails) return { emails: contact.emails, method: 'email' }
+  if (contact.faxes) return { faxes: contact.faxes, method: 'fax' }
+  return null
+}

@@ -3,14 +3,16 @@ import React from 'react'
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { toLocale, Locale, Address, Contact } from '../../common'
+import { toLocale, Locale, Address, ContactData, ContactMethod, toContactMethod } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
+import { InvalidContact } from './ContactInfo'
 
 type Props = React.PropsWithChildren<{
   address: Address
   locale: Locale
-  contact: Contact
+  contact: ContactData
+  method: ContactMethod
 }>
 
 export const RawStateForm: React.FC<Props> = ({
@@ -21,6 +23,7 @@ export const RawStateForm: React.FC<Props> = ({
   switch(contact.state) {
     case 'Florida': return <Florida address={address} locale={locale as Locale<'Florida'>} contact={contact}/>
     case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} contact={contact}/>
+    default: return null
   }
 }
 
@@ -33,7 +36,7 @@ export const StateForm = () => {
   const { contact } = ContactContainer.useContainer()
   const { path, pushAddress, pushStart } = useAppHistory()
 
-  if (!address || !contact) {
+  if (!address) {
     if(!path) {
       pushStart()
       return null
@@ -52,11 +55,20 @@ export const StateForm = () => {
 
   const locale = toLocale(address)
   if (!locale) throw Error(`Could not derive locale from Address`)
+
+  if (!contact) {
+    return <InvalidContact locale={locale} contact={contact}/>
+  }
   if (address.state !== contact.state) throw Error(`Address state ${address.state} does not match ${contact.state}`)
   if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
 
+  const method = toContactMethod(contact)
+  if (!method) {
+    return <InvalidContact locale={locale} contact={contact}/>
+  }
+
   return <PaddingTop>
     <h2>{address.state} Vote by Mail Form</h2>
-    <RawStateForm address={address} locale={locale as Locale<'Florida'>} contact={contact}/>
+    <RawStateForm address={address} locale={locale} contact={contact} method={method}/>
   </PaddingTop>
 }

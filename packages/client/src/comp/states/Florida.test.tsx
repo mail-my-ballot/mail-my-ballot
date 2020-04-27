@@ -31,8 +31,8 @@ test('Florida Form works', async () => {
         contact={{
           state: 'Florida', 
           county: 'Miami-Dade County',
-          clerk: 'Christina  White',
-          email: 'soedade@miamidade.gov',
+          official: 'Christina  White',
+          emails: ['soedade@miamidade.gov'],
           url: 'http://www.miamidade.gov/elections/',
         }}
       />

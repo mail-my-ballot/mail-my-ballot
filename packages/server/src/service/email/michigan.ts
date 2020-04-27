@@ -1,11 +1,9 @@
 import { MichiganInfo, processEnvOrThrow } from "../../common"
 import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
-import { search } from "../contact/michigan"
 
 export const toEmailData = (
   {
-    state,
     name,
     uspsAddress,
     email,
@@ -17,10 +15,6 @@ export const toEmailData = (
     signature,
   }: MichiganInfo
 ): EmailData => {
-  const electionsEmail = search(county, city)?.email
-  if (!electionsEmail) throw Error(`No email for ${city}, ${county}, ${state}`)
-
-  const to = [email, electionsEmail]
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
   const url = processEnvOrThrow('REACT_APP_URL')
 
@@ -50,7 +44,7 @@ export const toEmailData = (
   `)
 
   return {
-    to,
+    to: [email],
     subject: 'Vote By Mail Request',
     md,
   }

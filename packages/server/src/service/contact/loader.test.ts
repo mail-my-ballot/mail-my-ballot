@@ -1,6 +1,6 @@
 import { load } from './loader'
-import { availableStates } from './type'
-import { adapter } from './adapter'
+import { normalize } from './normalize'
+import { availableStates } from '../../common'
 
 test.only('Contact loader', async () => {
   const rawRecords = await load()
@@ -8,7 +8,7 @@ test.only('Contact loader', async () => {
     expect(rawRecords[state].length).toBeGreaterThan(10)
   })
   
-  const records = adapter(rawRecords)
+  const records = normalize(rawRecords)
   availableStates.forEach(state => {
     expect(Object.keys(records[state]).length).toBeGreaterThan(10)
   })

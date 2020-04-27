@@ -2,18 +2,19 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
-import { FloridaInfo, uspsAddressOneLine, Locale, FloridaContact, Address } from '../../common'
+import { FloridaInfo, uspsAddressOneLine, Locale, Address, ContactData } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
+import { ContactInfo } from './ContactInfo'
 
 type Props = React.PropsWithChildren<{
   address: Address
   locale: Locale<'Florida'>
-  contact: FloridaContact
+  contact: ContactData
 }>
 
 export const Florida = ({address, locale, contact}: Props) => {
@@ -26,8 +27,7 @@ export const Florida = ({address, locale, contact}: Props) => {
   const mailingRef = useControlRef<Input>()
 
   const uspsAddress = address ? uspsAddressOneLine(address) : null
-  const { county } = locale
-  const { clerk, email, url } = contact
+  const { city, county } = locale
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -43,6 +43,7 @@ export const Florida = ({address, locale, contact}: Props) => {
       mailingAddress: mailingRef.value() || '',
       phone: phoneRef.value() || '',
       uspsAddress,
+      city,
       county,
     }
     const result = await client.register(info)
@@ -51,10 +52,7 @@ export const Florida = ({address, locale, contact}: Props) => {
   }
 
   return <Form onSubmit={handleSubmit}>
-    <p>
-      The election official for {county} is {clerk} and can be reached at <a href={`mailto:${email}`}>{email}</a>.&nbsp;
-      For more information, visit the (<a href={url}>County Elections Website</a>).
-    </p>
+    <ContactInfo locale={locale} contact={contact} />
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
     <NameInput
       id='name'

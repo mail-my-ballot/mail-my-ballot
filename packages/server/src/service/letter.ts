@@ -4,6 +4,8 @@ import marked from 'marked'
 
 import { FirestoreService } from './firestore'
 import { toEmailData } from './email'
+import { toContact } from './contact'
+import { toContactMethod } from '../common'
 
 
 const router = Router()
@@ -14,15 +16,22 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
   const info = await firestoreService.getRegistration(id)
   if (!info) {
-    res.send('No valid registration entry')
-    return
+    return res.send('No valid registration entry')
   }
 
-  const emailData = toEmailData(info, id, { forceEmailOfficials: true})
+  const contact = toContact(info)
+  if (!contact) {
+    return res.send('No Contact Found')
+  }
+  const method = toContactMethod(contact)
+  if (!method || method.method != 'email') {
+    return res.send('No Contact Method Found')
+  }
+
+  const emailData = toEmailData(info, id, method.emails, { forceEmailOfficials: true})
 
   if (!emailData) {
-    res.send('No email data supplied for this entry')
-    return
+    return res.send('No email data supplied for this entry')
   }
 
   const { to, subject, md } = emailData
@@ -32,7 +41,7 @@ router.get('/:id', async (req, res) => {
   - Subject: ${subject}
   ----
   `)
-  res.send(marked(header + md))
+  return res.send(marked(header + md))
 })
 
 export default router

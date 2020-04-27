@@ -1,4 +1,5 @@
 import { _Id } from './util'
+import { Locale } from './locale'
 
 export const allStates = [
   "Alabama",
@@ -59,8 +60,7 @@ const allStatesSet = new Set(allStates)
 export const isState = (x: string): x is State => allStatesSet.has(x as State)
 export type StateField = {state: State}
 
-interface BaseInfo {
-  state: State
+interface BaseInfo extends Locale {
   oid: string
   ip?: string
   userAgent?: string
@@ -74,7 +74,6 @@ export interface FloridaInfo extends _Id, BaseInfo {
   uspsAddress: string
   mailingAddress?: string
   phone?: string
-  county: string
 }
 
 export interface MichiganInfo extends _Id, BaseInfo {
@@ -83,8 +82,6 @@ export interface MichiganInfo extends _Id, BaseInfo {
   uspsAddress: string
   email: string
   phone: string
-  county: string
-  city: string
   birthyear: string
   mailingAddress?: string
   signature: string

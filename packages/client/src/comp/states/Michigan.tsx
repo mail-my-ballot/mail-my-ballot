@@ -3,7 +3,7 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
-import { MichiganInfo, uspsAddressOneLine, Locale, MichiganContact, Address } from '../../common'
+import { MichiganInfo, uspsAddressOneLine, Locale, ContactData, Address } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
+import { ContactInfo } from './ContactInfo'
 
 const SigWrap = styled.div`
   margin: 2em 0;
@@ -20,7 +21,7 @@ const SigWrap = styled.div`
 type Props = React.PropsWithChildren<{
   address: Address
   locale: Locale<'Michigan'>
-  contact: MichiganContact
+  contact: ContactData
 }>
 
 export const Michigan = ({address, locale, contact}: Props) => {
@@ -65,22 +66,8 @@ export const Michigan = ({address, locale, contact}: Props) => {
     // TODO: Add warning if error
   }
 
-  if (!contact || !contact.email) {
-    return <p>
-      The local elections official for {city} is {contact.clerk};
-      Unfortunately, they are one of the few that do not list an email on the
-        <a href='https://mvic.sos.state.mi.us/'>Michigan Secretary of State&apos;s Website</a>.&nbsp;
-      {contact.phone && <>Their phone number is {contact.phone}.&nbsp;</>}
-      {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
-    </p>
-  }
-
   return <Form onSubmit={handleSubmit}>
-    <p>
-      The local elections official for {contact.city} is {contact.clerk} and can be reached at <a href={`mailto:{contact.email}`}>{contact.email}</a>.&nbsp;
-      {contact.phone && <>Their phone number is {contact.phone}.&nbsp;</>}
-      {contact.fax && <>Their phone number is {contact.fax}.&nbsp;</>}
-    </p>
+    <ContactInfo locale={locale} contact={contact} />
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
     <NameInput
       id='name'

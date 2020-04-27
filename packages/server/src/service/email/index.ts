@@ -23,17 +23,14 @@ const defaultOptions = {
 export const toEmailData = (
   info: StateInfo,
   confirmationId: string,
+  officialEmails: string[],
   { forceEmailOfficials }: Options = defaultOptions
 ): EmailData | null => {
   const emailData = _toEmailData(info)
   if (!emailData) return null
   emailData.md += postscript(confirmationId)
   if (emailOfficials() || forceEmailOfficials) {
-    return emailData
-  } else {
-    return {
-      ...emailData,
-      to: [info.email],
-    }
+    emailData.to = [...emailData.to, ...officialEmails]
   }
+  return emailData
 }

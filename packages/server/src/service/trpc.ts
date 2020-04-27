@@ -1,7 +1,7 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { ImplRpc } from '@tianhuil/simple-trpc/dist/type'
 import { Request } from 'express'
-import { IVbmRpc, Address, StateInfo, toLocale } from '../common'
+import { IVbmRpc, Address, StateInfo, toLocale, toContactMethod } from '../common'
 import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './email'
@@ -47,12 +47,26 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       ...info,
       ...hostInfo(request)
     })
-    const emailData = toEmailData(info, id)
-    if (emailData) {
-      await sendEmail(emailData)
-      return data(id)
-    } else {
-      return error('Unable to find an appropriate email to send')
+
+    const contact = toContact(info)
+    if (!contact) return error('Unable to find local official')
+
+    const method = toContactMethod(contact)
+    if (!method) return error('Unable to find contct details for local official')
+
+    switch(method.method) {
+      case 'email': {
+        const emailData = toEmailData(info, id, method.emails)
+        if (emailData) {
+          await sendEmail(emailData)
+          return data(id)
+        } 
+        break
+      }
+      case 'fax': {
+        return error('Fax not yet implemented')
+      }
     }
+    return error('Unable to find an appropriate email to send')
   }
 }

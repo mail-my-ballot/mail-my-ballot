@@ -1,26 +1,16 @@
 import { FloridaInfo, processEnvOrThrow } from "../../common"
 import { EmailData } from "../mg"
 import stripIndent from 'strip-indent'
-import { floridaContacts } from "../contact/florida"
 
 export const toEmailData = (
   {
-    state,
     name,
     birthdate,
     email,
     uspsAddress,
     mailingAddress,
-    county,
-  }: FloridaInfo,
+  }: FloridaInfo
 ): EmailData => {
-  const electionsEmail = floridaContacts[county].email
-  if (!electionsEmail) throw Error(`No email for ${county}, ${state}`)
-
-  const to = [
-    email,
-    electionsEmail,
-  ]
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
   const url = processEnvOrThrow('REACT_APP_URL')
 
@@ -45,7 +35,7 @@ export const toEmailData = (
   `)
 
   return {
-    to,
+    to: [email],
     subject: 'Vote By Mail Request',
     md,
   }

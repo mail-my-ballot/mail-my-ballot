@@ -1,11 +1,18 @@
-import { floridaContacts } from './florida'
-import * as michigan from './michigan'
-import { Contact, State, Locale } from '../../common'
+import { ContactRecord } from './type'
+import { load } from './loader'
+import { normalize, normaizeKey } from './normalize'
+import { Locale, isAvailableState, ContactData } from '../../common'
 
-export const toContact = <S extends State>({state, county, city}: Locale<S>): Contact | null => {
-  switch(state) {
-    case 'Florida': return {state: 'Florida', ...floridaContacts[county]}
-    case 'Michigan': return michigan.search(county, city)
-    default: return null
-  }
+let contactRecords: null | ContactRecord = null;
+
+(async () => {
+  const data = await load()
+  contactRecords = normalize(data)
+})()
+
+export const toContact = (locale: Locale): ContactData | null => {
+  if (!contactRecords) return null
+  if (!isAvailableState(locale.state)) return null
+  const stateRecords = contactRecords[locale.state]
+  return stateRecords[normaizeKey(locale.state, locale)]
 }
