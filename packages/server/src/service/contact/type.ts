@@ -1,9 +1,7 @@
-import { Locale, ContactData, AvailableState } from "../../common"
+import { ContactData, AvailableState } from "../../common"
 
-type Localize<T> = T extends Partial<Locale> ? Pick<T, keyof Locale> : never
-export type ContactLocale = Localize<ContactData>
+export type RawContact = Omit<ContactData, 'state'>
 
+export type RawContactRecord = Record<AvailableState, RawContact[]>
 
-export type RawContactRecord = Record<AvailableState, ContactData[]>
-
-export type ContactRecord = Record<AvailableState, Record<string, ContactData>>
+export type ContactRecord = Record<AvailableState, Record<string, RawContact>>

@@ -1,5 +1,5 @@
-import { RawContactRecord, ContactRecord } from "./type"
-import { AvailableState, ContactData } from "../../common"
+import { RawContactRecord, ContactRecord, RawContact } from "./type"
+import { AvailableState } from "../../common"
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 export const normaizeKey = (state: AvailableState, contact: { county?: string, city?: string }): string => {
@@ -35,7 +35,7 @@ export const normaizeKey = (state: AvailableState, contact: { county?: string, c
   }
 }
 
-export const normalizeState = (state: AvailableState, contacts: ContactData[]): Record<string, ContactData> => {
+export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
   const array = contacts.map(
     contact => {
       return [
@@ -49,7 +49,7 @@ export const normalizeState = (state: AvailableState, contacts: ContactData[]): 
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
 export const normalize = (records: RawContactRecord): ContactRecord => {
-  const rawArray  = Object.entries(records) as Array<[AvailableState, ContactData[]]>
+  const rawArray  = Object.entries(records) as Array<[AvailableState, RawContact[]]>
   const array = rawArray.map(
     ([state, contactDatas]) => [
       state,

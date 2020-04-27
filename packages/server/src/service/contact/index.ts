@@ -14,5 +14,9 @@ export const toContact = (locale: Locale): ContactData | null => {
   if (!contactRecords) return null
   if (!isAvailableState(locale.state)) return null
   const stateRecords = contactRecords[locale.state]
-  return stateRecords[normaizeKey(locale.state, locale)]
+  const stateless = stateRecords[normaizeKey(locale.state, locale)]
+  return {
+    ...stateless,
+    state: locale.state
+  }
 }
