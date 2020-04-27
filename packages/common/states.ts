@@ -61,6 +61,13 @@ export const isState = (x: string): x is State => allStatesSet.has(x as State)
 export type StateField = {state: State}
 
 interface BaseInfo extends Locale {
+  state: State
+  name: string
+  email: string
+  phone: string
+  birthdate: string
+  uspsAddress: string
+  mailingAddress?: string
   oid: string
   ip?: string
   userAgent?: string
@@ -68,22 +75,12 @@ interface BaseInfo extends Locale {
 
 export interface FloridaInfo extends _Id, BaseInfo {
   state: 'Florida'
-  name: string
-  birthdate: string
-  email: string
-  uspsAddress: string
-  mailingAddress?: string
-  phone?: string
 }
 
 export interface MichiganInfo extends _Id, BaseInfo {
   state: 'Michigan'
-  name: string
-  uspsAddress: string
-  email: string
-  phone: string
-  birthyear: string
-  mailingAddress?: string
+  signature: string
+}
   signature: string
 }
 

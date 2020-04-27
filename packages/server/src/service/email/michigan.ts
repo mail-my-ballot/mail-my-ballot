@@ -10,7 +10,7 @@ export const toEmailData = (
     phone,
     county,
     city,
-    birthyear,
+    birthdate,
     mailingAddress,
     signature,
   }: MichiganInfo
@@ -27,7 +27,7 @@ export const toEmailData = (
 
   - Name: **${name}**
   - Voter Registration Address: **${uspsAddress}**
-  - Birth Year: **${birthyear}**
+  - Birth Year: **${birthdate}**
   - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as registration address' }
   - Email: ${email}
   - Phone: **${phone}**

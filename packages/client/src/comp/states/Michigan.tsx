@@ -9,7 +9,7 @@ import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { Signature } from '../util/Signature'
 import styled from 'styled-components'
-import { PhoneInput, BaseInput, EmailInput, NameInput, BirthYearInput } from '../util/Input'
+import { PhoneInput, BaseInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { ContactInfo } from './ContactInfo'
@@ -30,7 +30,7 @@ export const Michigan = ({address, locale, contact}: Props) => {
   const nameRef = useControlRef<Input>()
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
-  const birthyearRef = useControlRef<Input>()
+  const birthdateRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
   const signatureRef = React.useRef<SignatureCanvas>(null)
 
@@ -57,7 +57,7 @@ export const Michigan = ({address, locale, contact}: Props) => {
       phone: phoneRef.value() || '',
       county,
       city,
-      birthyear: birthyearRef.value() || '',
+      birthdate: birthdateRef.value() || '',
       mailingAddress: mailingRef.value() || undefined,
       signature: signatureRef.current.toDataURL()
     }
@@ -74,9 +74,9 @@ export const Michigan = ({address, locale, contact}: Props) => {
       ref={nameRef}
       required
     />
-    <BirthYearInput
-      id='birthyear'
-      ref={birthyearRef}
+    <BirthDateInput
+      id='birthdate'
+      ref={birthdateRef}
       required
     />
     <EmailInput
