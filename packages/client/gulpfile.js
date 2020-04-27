@@ -38,7 +38,7 @@ gulp.task('test:watch', runEnv('react-app-rewired test', envs.test))
 
 // lint
 gulp.task('lint', runEnv('eslint . --ext .ts,.tsx'))
-gulp.task('lint::fix', runEnv('eslint . --ext .ts,.tsx --fix'))
+gulp.task('lint:fix', runEnv('eslint . --ext .ts,.tsx --fix'))
 
 // analyze
 gulp.task('source-map', runEnv("source-map-explorer 'build/static/js/*.js'"))

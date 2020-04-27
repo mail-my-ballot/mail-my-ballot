@@ -56,9 +56,9 @@ gulp.task('test', runEnv('jest \\.test\\.ts', envs.test ))
 
 gulp.task('test:watch', runEnv('jest \\.test\\.ts --watchAll', envs.test))
 
-gulp.task('test:e2e', runEnv('firebase emulators:exec --only firestore "jest \\.e2e\\.ts"', envs.test))
+gulp.task('test-e2e', runEnv('firebase emulators:exec --only firestore "jest \\.e2e\\.ts"', envs.test))
 
-gulp.task('test:e2e-watch', runEnv('firebase emulators:exec --only firestore "jest \\.e2e\\.ts --watchAll"', envs.test))
+gulp.task('test-e2e:watch', runEnv('firebase emulators:exec --only firestore "jest \\.e2e\\.ts --watchAll"', envs.test))
 
 // build
 gulp.task('tsc', runEnv('tsc'))

@@ -15,7 +15,7 @@
     "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
     "clobber": "yarn clean && rm -f yarn.lock",
     "gulp": "lerna run gulp --",
-    "test": "lerna run gulp -- test && yarn workspace @vbm/server gulp test:e2e",
+    "test": "lerna run gulp -- test && yarn workspace @vbm/server gulp test-e2e",
     "build": "lerna run gulp -- build --env production",
     "lint": "eslint . --ext .ts,.tsx"
   },
