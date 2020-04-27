@@ -22,4 +22,8 @@ export const sampleAddresses: [string, string][] = [
   ['22100 Michigan Ave. Dearborn, MI 48124', 'Dearborn, Wayne County, Michigan'],
   ['700 Broad Street St Joseph, MI 49085', ' Berrien County, Michigan'],
   ['2724 Peck St, Muskegon Heights, MI 49444', 'Muskegon County, Michigan'],
+  ['191 Peachtree St NE, Atlanta, GA 30303', 'Fulton County, Georgia'],
+  ['1 10th St, Augusta, GA 30901', 'Richmond County, Georgia'],
+  ['1200 6th Ave, Columbus, GA 31902', 'Muscogee County, Georgia'],
+  ['305 Coliseum Dr, Macon, GA 31217', 'Macon–Bibb County, Georgia'],
 ]

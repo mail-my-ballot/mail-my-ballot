@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
+import { Georgia } from './Georgia'
 import { AddressContainer, ContactContainer } from '../../lib/state'
 import { toLocale, Locale, Address, ContactData, ContactMethod, toContactMethod } from '../../common'
 import styled from 'styled-components'
@@ -23,6 +24,7 @@ export const RawStateForm: React.FC<Props> = ({
   switch(contact.state) {
     case 'Florida': return <Florida address={address} locale={locale as Locale<'Florida'>} contact={contact}/>
     case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} contact={contact}/>
+    case 'Georgia': return <Georgia address={address} locale={locale as Locale<'Georgia'>} contact={contact}/>
     default: return null
   }
 }

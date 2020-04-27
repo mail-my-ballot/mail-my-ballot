@@ -35,7 +35,7 @@ export const vbmStatus = (state: State): Status => {
     case "Delaware": return { status: "Excuse" }
     case "District of Columbia": return { status: "NoExcuse" }
     case "Florida": return { status: "VbmApp" }
-    case "Georgia": return { status: "NoExcuse" }
+    case "Georgia": return { status: "VbmApp" }
     case "Hawaii": return { status: "NoExcuse" }
     case "Idaho": return { status: "NoExcuse" }
     case "Illinois": return { status: "NoExcuse" }

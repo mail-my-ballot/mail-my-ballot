@@ -81,10 +81,19 @@ export interface MichiganInfo extends _Id, BaseInfo {
   state: 'Michigan'
   signature: string
 }
+
+export interface GeorgiaInfo extends _Id, BaseInfo {
+  // mailingAddress must be in a different county
+  // https://sos.ga.gov/admin/uploads/Absentee_Voting_A_Guide_for_Registered_Voters_2017.pdf
+  state: 'Georgia'
+  electionType: string  // Type of election (presidential preference primary, general primary, primary runoff, municipal, municipal runoff, special, general, general runoff)
+  electionDate: string
+  party?: 'Democratic' | 'Republican' | 'Non-Partisan' // Name of party ballot being requested (for primaries)
   signature: string
 }
 
 export type StateInfo = (
   | FloridaInfo
   | MichiganInfo
+  | GeorgiaInfo
 )
