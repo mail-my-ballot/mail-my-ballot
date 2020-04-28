@@ -31,7 +31,6 @@ const keys: StateKeys[] = [
   'uspsAddress',
   'mailingAddress',
   'birthdate',
-  'birthyear',
   'email',
   'phone',
 ]
