@@ -20,7 +20,7 @@ export const sampleAddresses: [string, string][] = [
   ['45525 Hanford Rd, Canton, MI 48187', 'Canton, Wayne County, Michigan'],
   ['24624 W Warren St, Dearborn Heights, MI', 'Dearborn Heights, Wayne County, Michigan'],
   ['22100 Michigan Ave. Dearborn, MI 48124', 'Dearborn, Wayne County, Michigan'],
-  ['700 Broad Street St Joseph, MI 49085', ' Berrien County, Michigan'],
+  ['700 Broad Street St Joseph, MI 49085', 'Berrien County, Michigan'],
   ['2724 Peck St, Muskegon Heights, MI 49444', 'Muskegon County, Michigan'],
   ['191 Peachtree St NE, Atlanta, GA 30303', 'Fulton County, Georgia'],
   ['1 10th St, Augusta, GA 30901', 'Richmond County, Georgia'],

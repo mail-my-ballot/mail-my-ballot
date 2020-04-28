@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OSM is returning stable results:  Berrien County, Michigan 1`] = `
+exports[`OSM is returning stable results: Berrien County, Michigan 1`] = `
 Object {
   "city": "Saint Joseph",
   "country": "United States of America",
