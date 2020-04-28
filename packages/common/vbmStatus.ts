@@ -98,11 +98,7 @@ export const vbmStatus = (state: State): Status => {
     case "Virginia": return { status: "Excuse" }
     case "Washington": return { status: "Automatic" }
     case "West Virginia": return { status: "Excuse" }
-    case "Wisconsin": return {
-      status: "Website",
-      regUrl: "https://myvote.wi.gov/en-us/VoteAbsentee",
-      infoUrl: "https://elections.wi.gov/voters/absentee",
-    }
+    case "Wisconsin": return { status: "VbmApp" }
     case "Wyoming": return { status: "NoExcuse" }
   }
 }

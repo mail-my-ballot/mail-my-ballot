@@ -26,4 +26,7 @@ export const sampleAddresses: [string, string][] = [
   ['1 10th St, Augusta, GA 30901', 'Richmond County, Georgia'],
   ['1200 6th Ave, Columbus, GA 31902', 'Muscogee County, Georgia'],
   ['305 Coliseum Dr, Macon, GA 31217', 'Bibb County, Georgia'],
+  ['756 N Milwaukee St, Milwaukee, WI 53202', 'Milwaukee County, Wisconsin'],
+  ['1 S Pinckney St, Madison, WI 53703', 'Dane County, Wisconsin'],
+  ['300 N Broadway, Green Bay, WI 54303', 'Brown County, Wisconsin'],
 ]

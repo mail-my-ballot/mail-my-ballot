@@ -6,16 +6,14 @@ test('Snapshot names are unique', () => {
   expect(snapNames).toHaveLength((new Set(snapNames)).size)
 })
 
-test('OSM is returning stable results', async () => {
-  try {
-    await Promise.all(
-      sampleAddresses.map(async (pair) => {
-        const [addr, snapName] = pair
-        const result = await geocode(addr, '1A')
-        expect(result).toMatchSnapshot(snapName)
-      })
-    )
-  } catch(e) {
-    fail()
-  }
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+test.skip('OSM is returning stable results', async () => {
+  await Promise.all(
+    sampleAddresses.map(async ([addr, snapName], key) => {
+      await wait(key * 1100)
+      const result = await geocode(addr, '1A')
+      expect(result).toMatchSnapshot(snapName)
+    })
+  )
 })

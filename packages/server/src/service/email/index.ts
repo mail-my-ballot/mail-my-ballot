@@ -3,6 +3,7 @@ import { EmailData } from "../mg"
 import * as Florida from './florida'
 import * as Michigan from './michigan'
 import * as Georgia from './georgia'
+import * as Wisconsin from './wisconsin'
 import { postscript } from "./util"
 
 const _toEmailData = (info: StateInfo): EmailData | null => {
@@ -10,6 +11,7 @@ const _toEmailData = (info: StateInfo): EmailData | null => {
     case 'Florida': return Florida.toEmailData(info)
     case 'Michigan': return Michigan.toEmailData(info)
     case 'Georgia': return Georgia.toEmailData(info)
+    case 'Wisconsin': return Wisconsin.toEmailData(info)
     default: return null
   }
 }

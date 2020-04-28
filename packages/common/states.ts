@@ -93,8 +93,16 @@ export interface GeorgiaInfo extends _Id, BaseInfo {
   signature: string
 }
 
+export interface WisconsinInfo extends _Id, BaseInfo {
+  // https://elections.wi.gov/sites/elections.wi.gov/files/2020-03/EL-121%20Application%20for%20Absentee%20Ballot%20%282018-10%29.pdf
+  state: 'Wisconsin'
+  city: string
+  ballotMethod: string  // will stick to mail but can be fax, email, or in-person
+}
+
 export type StateInfo = (
   | FloridaInfo
   | MichiganInfo
   | GeorgiaInfo
+  | WisconsinInfo
 )
