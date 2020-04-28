@@ -79,6 +79,7 @@ export interface FloridaInfo extends _Id, BaseInfo {
 
 export interface MichiganInfo extends _Id, BaseInfo {
   state: 'Michigan'
+  city: string
   signature: string
 }
 
