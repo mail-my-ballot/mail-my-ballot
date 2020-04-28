@@ -48,7 +48,7 @@ test('Florida Form works', async () => {
     })
     fireEvent.change(getByLabelText(/^Birthdate/i), {
       target: {
-        value: '01/01/1900'
+        value: '03/22/1900'
       },
     })
     fireEvent.change(getByLabelText(/^Email/i), {

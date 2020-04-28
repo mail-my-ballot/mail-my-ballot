@@ -52,9 +52,9 @@ test('Michigan Form works', async () => {
         value: 'Bob Smith'
       },
     })
-    fireEvent.change(getByLabelText(/^Birth Year/i), {
+    fireEvent.change(getByLabelText(/^Birthdate/i), {
       target: {
-        value: '1950'
+        value: '03/22/1900'
       },
     })
     fireEvent.change(getByLabelText(/^Email/i), {
