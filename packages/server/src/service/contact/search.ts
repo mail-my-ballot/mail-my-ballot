@@ -49,8 +49,8 @@ export const keys = (
       return michiganCities(locale.city).map(city => normalizeKey({...locale, city}))
     }
     case 'Wisconsin': {
-      return wisconsinCities(locale.city).flatMap(city =>
-        wisconsinCounties(locale.county).map(county =>
+      return wisconsinCounties(locale.county).flatMap(county =>
+        wisconsinCities(locale.city).map(city =>
           normalizeKey({...locale, city, county})
         )
       )
