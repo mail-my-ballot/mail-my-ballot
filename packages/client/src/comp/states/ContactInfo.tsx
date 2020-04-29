@@ -41,14 +41,13 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   return <p>{texts.join(' ')}</p>
 }
 
-
 export const ContactInfo: React.FC<ContactInfoProps> = ({
   locale, contact
 }) => {
   const texts = [
     `The local elections official for ${locale.city}, ${locale.state} in ${locale.county} is ${contact.official}.`,
-    englishList('email address', 'email addresses', contact.phones),
-    englishList('fax number', 'fax numbers', contact.phones),
+    englishList('email address', 'email addresses', contact.emails),
+    englishList('fax number', 'fax numbers', contact.faxes),
     englishList('phone number', 'phone numbers', contact.phones),
   ]
 
