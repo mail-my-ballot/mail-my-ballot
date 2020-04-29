@@ -1,7 +1,8 @@
 import { ContactRecord } from './type'
 import { load } from './loader'
-import { normalize, normaizeKey } from './normalize'
+import { normalize } from './normalize'
 import { Locale, isAvailableState, ContactData } from '../../common'
+import { keys } from './search'
 
 let contactRecords: null | ContactRecord = null;
 
@@ -12,11 +13,17 @@ let contactRecords: null | ContactRecord = null;
 
 export const toContact = (locale: Locale): ContactData | null => {
   if (!contactRecords) return null
-  if (!isAvailableState(locale.state)) return null
-  const stateRecords = contactRecords[locale.state]
-  const stateless = stateRecords[normaizeKey(locale.state, locale)]
-  return {
-    ...stateless,
-    state: locale.state
+  const { state } = locale
+  if (!isAvailableState(state)) return null
+  const stateRecords = contactRecords[state]
+  for(const key of keys({...locale, state})) {
+    const stateless = stateRecords[key]
+    if (stateless) {
+      return {
+        ...stateless,
+        state,
+      }
+    }
   }
+  return null
 }

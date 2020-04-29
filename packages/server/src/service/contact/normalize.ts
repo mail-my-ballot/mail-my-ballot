@@ -1,52 +1,56 @@
 import { RawContactRecord, ContactRecord, RawContact } from "./type"
 import { AvailableState } from "../../common"
+import { mandatoryTransform } from "./transformers"
+
+interface OptionalLocale {
+  state: AvailableState
+  county?: string
+  city?: string
+}
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-export const normaizeKey = (state: AvailableState, contact: { county?: string, city?: string }): string => {
+export const normalizeKey = ({ state, county, city }: OptionalLocale): string => {
   switch(state) {
-    case 'Florida': {
-      return contact.county!
-    }
-    case 'Georgia': {
-      return contact.county!
+    case 'Florida':
+    case 'Georgia':
+    case 'Maryland':
+    case 'Minnesota':
+    case 'Nebraska': {
+      return county!
     }
     case 'Maine': {
-      return contact.city!
-    }
-    case 'Maryland': {
-      return contact.county!
+      return city!
     }
     case 'Michigan': {
-      return contact.city + ':' + contact.county
-    }
-    case 'Minnesota': {
-      return contact.county!
-    }
-    case 'Nebraska': {
-      return contact.county!
+      return city + ':' + county
     }
     case 'Virginia': {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return contact.city ?? contact.county!
+      return city ?? county!
     }
     case 'Wisconsin': {
-      return contact.city + ':' + (contact.county ?? '')
+      return city + ':' + (county ?? '')
     }
   }
 }
+/* eslint-enable @typescript-eslint/no-non-null-assertion */
 
 export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
   const array = contacts.map(
     contact => {
+      const locale = {
+        state,
+        city: contact.city ? mandatoryTransform(contact.city) : undefined,
+        county: contact.county ? mandatoryTransform(contact.county) : undefined,
+      }
       return [
-        normaizeKey(state, contact),
+        normalizeKey(locale),
         contact,
       ]
     }
   )
   return Object.fromEntries(array)
 }
-/* eslint-enable @typescript-eslint/no-non-null-assertion */
 
 export const normalize = (records: RawContactRecord): ContactRecord => {
   const rawArray  = Object.entries(records) as Array<[AvailableState, RawContact[]]>
