@@ -47,6 +47,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
 
     load('Fetching information about your address')
     try {
+      setContact(null)
       const address = await geocode(addrInput, unit)
       setAddress(address)
 
