@@ -62,6 +62,7 @@ interface RequestWithOrg extends Express.Request {
 }
 
 const orgPermissions = (level: 'members' | 'admins'): Express.RequestHandler => {
+  /* requires either member or admin permissions */
   return async (req, res, next) => {
     const { oid } = req.params
     const uid = getUid(req)
