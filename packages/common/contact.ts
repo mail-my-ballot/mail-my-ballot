@@ -42,7 +42,8 @@ interface FaxMethod {
 
 export type ContactMethod  = EmailMethod| FaxMethod
 
-export const toContactMethod = (contact: ContactData): ContactMethod | null => {
+export const toContactMethod = (contact: ContactData | null): ContactMethod | null => {
+  if (!contact) return null
   if (contact.emails) return { emails: contact.emails, method: 'email' }
   if (contact.faxes) return { faxes: contact.faxes, method: 'fax' }
   return null

@@ -2,22 +2,20 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
-import { WisconsinInfo, uspsAddressOneLine, Locale, ContactData, Address } from '../../common'
+import { WisconsinInfo, uspsAddressOneLine, Locale, Address } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
 import { PhoneInput, BaseInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
-import { ContactInfo } from './ContactInfo'
 
 type Props = React.PropsWithChildren<{
   address: Address
   locale: Locale<'Wisconsin'>
-  contact: ContactData
 }>
 
-export const Wisconsin = ({address, locale, contact}: Props) => {
+export const Wisconsin = ({address, locale}: Props) => {
   const { pushSuccess, oid } = useAppHistory()
 
   const nameRef = useControlRef<Input>()
@@ -53,8 +51,6 @@ export const Wisconsin = ({address, locale, contact}: Props) => {
   }
 
   return <Form onSubmit={handleSubmit}>
-    <ContactInfo locale={locale} contact={contact} />
-    <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
     <NameInput
       id='name'
       ref={nameRef}
