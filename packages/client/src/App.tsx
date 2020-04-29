@@ -10,7 +10,7 @@ import { Analytics } from './comp/Analytics'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
 import { Success } from './comp/Success'
-import { Environment } from './comp/Environment'
+import { Status } from './comp/Status'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
@@ -28,9 +28,9 @@ const StyleContainer = Container
 const Layout = () => {
   return (<>
     <Switch>
-      <Route path='/environment'>
+      <Route path='/status'>
         <StyleContainer>
-          <Environment/>
+          <Status/>
         </StyleContainer>
       </Route>
       <Route path='/about'>
