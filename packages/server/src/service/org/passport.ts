@@ -193,4 +193,16 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       res.send(csvString)
     }
   )
+
+  app.get('/status', validSession,
+    (_, res) => {
+      const env = {
+        NODE_ENV: process.env.NODE_ENV,
+        REACT_APP_ENVIRONMENT: process.env.REACT_APP_ENVIRONMENT,
+        REACT_APP_EMAIL_OFFICIALS: process.env.REACT_APP_EMAIL_OFFICIALS,
+        FIRESTORE_URL: process.env.FIRESTORE_URL,
+      }
+      res.render('status', { env })
+    }
+  )
 }
