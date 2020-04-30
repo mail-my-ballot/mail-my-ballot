@@ -4,7 +4,7 @@ import * as Florida from './florida'
 import * as Michigan from './michigan'
 import * as Georgia from './georgia'
 import * as Wisconsin from './wisconsin'
-import { postscript } from "./util"
+import { postscript } from "./postscript"
 
 const _toEmailData = (info: StateInfo): EmailData | null => {
   switch(info.state) {
