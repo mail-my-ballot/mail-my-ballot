@@ -42,7 +42,7 @@ export const toEmailData = (
 
   Sincerely,
 
-  ${name} (Signature Below)
+  ${name} (Signature Attached)
 
   <img src="${signature}">
   `)
@@ -51,5 +51,6 @@ export const toEmailData = (
     to: [email],
     subject: 'Vote By Mail Request',
     md,
+    signature,
   }
 }

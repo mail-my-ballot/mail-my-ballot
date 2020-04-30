@@ -13,10 +13,28 @@ export interface EmailData {
   to: string[]
   subject: string
   md: string
+  signature?: string  // base64-encoded signature
+}
+
+const makePngAttachment = (
+  signature: string | undefined,
+  to: string[],
+  mg: mailgun.Mailgun
+): mailgun.Attachment | undefined => {
+  if (!signature) return undefined
+  const data = signature.split(',')[1]
+  if (!data) {
+    console.error(`Bad formatting of signature image to ${to}.  Omitting attachment.`)
+    return undefined
+  }
+  return new mg.Attachment({
+    data: Buffer.from(data, 'base64'),
+    filename: 'signature.png'
+  })
 }
 
 export const sendEmail = (
-  {to, subject, md}: EmailData
+  {to, subject, md, signature}: EmailData
 ): Promise<mailgun.messages.SendResponse | null> => {
   const {domain, apiKey, from, replyTo} = mgData()
   if (process.env.MG_DISABLE) {
@@ -25,6 +43,7 @@ export const sendEmail = (
   }
   const mg = mailgun({domain, apiKey})
   const html = marked(md)
+  const attachment = makePngAttachment(signature, to, mg)
 
   return mg.messages().send({
     from,
@@ -32,6 +51,7 @@ export const sendEmail = (
     subject,
     html,
     text: md,
-    'h:Reply-To': replyTo
+    attachment,
+    'h:Reply-To': replyTo,
   })
 }
