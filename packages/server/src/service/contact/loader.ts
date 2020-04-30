@@ -14,6 +14,11 @@ export const loadState = async (state: AvailableState): Promise<[AvailableState,
 }
 
 export const load = async (): Promise<RawContactRecord> => {
+  const startTime = new Date()
   const records = await Promise.all(availableStates.map(state => loadState(state)))
-  return Object.fromEntries(records) as RawContactRecord
+  const ret = Object.fromEntries(records) as RawContactRecord
+  const endTime = new Date()
+  const seconds = (endTime.getTime() - startTime.getTime()) / 1000.
+  console.info(`Successfully loaded contact data for ${availableStates.length} states in ${seconds} seconds`)
+  return ret
 }
