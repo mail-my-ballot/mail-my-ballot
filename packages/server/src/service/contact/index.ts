@@ -1,18 +1,31 @@
 import { ContactRecord } from './type'
-import { load } from './loader'
+import { loadStates } from './loader'
 import { normalize } from './normalize'
 import { Locale, isAvailableState, ContactData } from '../../common'
 import { keys } from './search'
 
 let contactRecords: null | ContactRecord = null;
 
-(async () => {
-  const data = await load()
+(async (): Promise<void> => {
+  const data = await loadStates()
   contactRecords = normalize(data)
 })()
 
-export const toContact = (locale: Locale): ContactData | null => {
-  if (!contactRecords) return null
+const delay = (t: number): Promise<void> => new Promise(resolve => setTimeout(resolve, t))
+
+/** poll condition every interval millis for a total of timeout millis until condition is true, false otherwise */
+const poll = async (condition: () => boolean, interval: number, timeout: number): Promise<boolean> => {
+  if (condition()) return true
+  if (timeout <= 0) return false
+  await delay(interval)
+  return await poll(condition, interval, timeout - interval)
+}
+
+export const toContact = async (locale: Locale): Promise<ContactData | null> => {
+  await poll(() => !!contactRecords, 100, 5000)
+  if (!contactRecords) {
+    throw Error('Unable to load data')
+  }
   const { state } = locale
   if (!isAvailableState(state)) return null
   const stateRecords = contactRecords[state]

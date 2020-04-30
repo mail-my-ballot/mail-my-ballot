@@ -13,7 +13,7 @@ export const loadState = async (state: AvailableState): Promise<[AvailableState,
   return [state, await resp.json() as RawContact[]]
 }
 
-export const load = async (): Promise<RawContactRecord> => {
+export const loadStates = async (): Promise<RawContactRecord> => {
   const startTime = new Date()
   const records = await Promise.all(availableStates.map(state => loadState(state)))
   const ret = Object.fromEntries(records) as RawContactRecord

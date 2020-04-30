@@ -39,7 +39,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
   public fetchContact = async(address: Address) => {
     const locale = toLocale(address)
     if (!locale) return data(null)
-    const contact = toContact(locale)
+    const contact = await toContact(locale)
     return data(contact)
   }
   public register = async (info: StateInfo, request: Request) => {
@@ -48,7 +48,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       ...hostInfo(request)
     })
 
-    const contact = toContact(info)
+    const contact = await toContact(info)
     if (!contact) return error('Unable to find local official')
 
     const method = toContactMethod(contact)

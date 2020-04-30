@@ -19,7 +19,7 @@ router.get('/:id', async (req, res) => {
     return res.send('No valid registration entry')
   }
 
-  const contact = toContact(info)
+  const contact = await toContact(info)
   if (!contact) {
     return res.send('No Contact Found')
   }
