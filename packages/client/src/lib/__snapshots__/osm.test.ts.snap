@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OSM is returning stable results: Berrien County, Michigan 1`] = `
+Object {
+  "city": "Saint Joseph",
+  "country": "United States of America",
+  "county": "Berrien County",
+  "fullAddr": "700, Broad Street, Saint Joseph, Berrien County, Michigan, 49085, United States of America",
+  "houseNumber": "700",
+  "postcode": "49085",
+  "queryAddr": "700 Broad Street St Joseph, MI 49085",
+  "road": "Broad Street",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Bibb County, Georgia 1`] = `
+Object {
+  "city": "Macon",
+  "country": "United States of America",
+  "county": "Bibb County",
+  "fullAddr": "305, Coliseum Drive, Shirley Hills, North Highlands, Macon, Bibb County, Georgia, 31217, United States of America",
+  "houseNumber": "305",
+  "postcode": "31217",
+  "queryAddr": "305 Coliseum Dr, Macon, GA 31217",
+  "road": "Coliseum Drive",
+  "state": "Georgia",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Broward County, Florida 1`] = `
+Object {
+  "city": "Fort Lauderdale",
+  "country": "United States of America",
+  "county": "Broward County",
+  "fullAddr": "2000, West Commercial Boulevard, Fort Lauderdale, Broward County, Florida, 33309, United States of America",
+  "houseNumber": "2000",
+  "postcode": "33309",
+  "queryAddr": "2000 W Commercial Blvd, Fort Lauderdale, FL 33309",
+  "road": "West Commercial Boulevard",
+  "state": "Florida",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Brown County, Wisconsin 1`] = `
+Object {
+  "city": "Green Bay",
+  "country": "United States of America",
+  "county": "Brown County",
+  "fullAddr": "300, North Broadway, Fort Howard, Green Bay, Brown County, Wisconsin, 54303, United States of America",
+  "houseNumber": "300",
+  "postcode": "54303",
+  "queryAddr": "300 N Broadway, Green Bay, WI 54303",
+  "road": "North Broadway",
+  "state": "Wisconsin",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Canton, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Canton",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "45525, Hanford Road, Cherry Hill, Canton, Wayne County, Michigan, 48187, United States of America",
+  "houseNumber": "45525",
+  "postcode": "48187",
+  "queryAddr": "45525 Hanford Rd, Canton, MI 48187",
+  "road": "Hanford Road",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Dane County, Wisconsin 1`] = `
+Object {
+  "city": "Madison",
+  "country": "United States of America",
+  "county": "Dane County",
+  "fullAddr": "L'Etoile, South Pinckney Street, Judge Doyle Square, Madison, Dane County, Wisconsin, 53703, United States of America",
+  "houseNumber": "L'Etoile",
+  "postcode": "53703",
+  "queryAddr": "1 S Pinckney St, Madison, WI 53703",
+  "road": "South Pinckney Street",
+  "state": "Wisconsin",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Dearborn Heights, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Dearborn Heights",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "24624, West Warren Street, Dearborn Heights, Wayne County, Michigan, 48127, United States of America",
+  "houseNumber": "24624",
+  "postcode": "48127",
+  "queryAddr": "24624 W Warren St, Dearborn Heights 48127, MI",
+  "road": "West Warren Street",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Dearborn, Wayne County, Michigan 1`] = `
+Object {
+  "city": "Dearborn",
+  "country": "United States of America",
+  "county": "Wayne County",
+  "fullAddr": "22100, Michigan Avenue, Dearborn, Wayne County, Michigan, 48124, United States of America",
+  "houseNumber": "22100",
+  "postcode": "48124",
+  "queryAddr": "22100 Michigan Ave. Dearborn, MI 48124",
+  "road": "Michigan Avenue",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Fulton County, Georgia 1`] = `
+Object {
+  "city": "Atlanta",
+  "country": "United States of America",
+  "county": "Fulton County",
+  "fullAddr": "191 Peachtree Tower, Peachtree Street Northeast, Five Points, Vine City, Atlanta, Fulton County, Georgia, 30303, United States of America",
+  "houseNumber": "191 Peachtree Tower",
+  "postcode": "30303",
+  "queryAddr": "191 Peachtree St NE, Atlanta, GA 30303",
+  "road": "Peachtree Street Northeast",
+  "state": "Georgia",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Miami-Dade County, Florida 1`] = `
+Object {
+  "city": "Miami",
+  "country": "United States of America",
+  "county": "Miami-Dade County",
+  "fullAddr": "100, Biscayne Boulevard, The Roads, Miami, Miami-Dade County, Florida, 33131, United States of America",
+  "houseNumber": "100",
+  "postcode": "33131",
+  "queryAddr": "100 S Biscayne Blvd, Miami, FL 33131",
+  "road": "Biscayne Boulevard",
+  "state": "Florida",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Milwaukee County, Wisconsin 1`] = `
+Object {
+  "city": "Milwaukee",
+  "country": "United States of America",
+  "county": "Milwaukee County",
+  "fullAddr": "756, North Milwaukee Street, East Town, Milwaukee, Milwaukee County, Wisconsin, 53202, United States of America",
+  "houseNumber": "756",
+  "postcode": "53202",
+  "queryAddr": "756 N Milwaukee St, Milwaukee, WI 53202",
+  "road": "North Milwaukee Street",
+  "state": "Wisconsin",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Muscogee County, Georgia 1`] = `
+Object {
+  "city": "Columbus",
+  "country": "United States of America",
+  "county": "Muscogee County",
+  "fullAddr": "1200, 6th Avenue, Rose Hill, Avondale, Columbus, Muscogee County, Georgia, 31901, United States of America",
+  "houseNumber": "1200",
+  "postcode": "31901",
+  "queryAddr": "1200 6th Ave, Columbus, GA 31902",
+  "road": "6th Avenue",
+  "state": "Georgia",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Muskegon County, Michigan 1`] = `
+Object {
+  "city": "Muskegon Heights",
+  "country": "United States of America",
+  "county": "Muskegon County",
+  "fullAddr": "2724, Peck Street, Muskegon Heights, Muskegon County, Michigan, 49444, United States of America",
+  "houseNumber": "2724",
+  "postcode": "49444",
+  "queryAddr": "2724 Peck St, Muskegon Heights, MI 49444",
+  "road": "Peck Street",
+  "state": "Michigan",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Pasco County, Florida 1`] = `
+Object {
+  "city": "New Port Richey",
+  "country": "United States of America",
+  "county": "Pasco County",
+  "fullAddr": "5443, Main Street, New Port Richey, Pasco County, Florida, 34652, United States of America",
+  "houseNumber": "5443",
+  "postcode": "34652",
+  "queryAddr": "5443 Main St, Port Richey, FL 34652",
+  "road": "Main Street",
+  "state": "Florida",
+  "unit": "1A",
+}
+`;
+
+exports[`OSM is returning stable results: Richmond County, Georgia 1`] = `
+Object {
+  "city": "Augusta",
+  "country": "United States of America",
+  "county": "Richmond County",
+  "fullAddr": "Morris Museum of Art, 10th Street, Broad Street Historic District, Augusta, Richmond County, Georgia, 30901, United States of America",
+  "houseNumber": "Morris Museum of Art",
+  "postcode": "30901",
+  "queryAddr": "1 10th St, Augusta, GA 30901",
+  "road": "10th Street",
+  "state": "Georgia",
+  "unit": "1A",
+}
+`;
