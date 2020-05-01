@@ -12,7 +12,7 @@ test('OSM is returning stable results', async (cb) => {
   jest.setTimeout(30000)
   await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
-      await wait(index * 800)
+      await wait(index * 250)
       const result = await geocode(addr, '1A')
       expect(result).toMatchSnapshot(snapName)
     })
