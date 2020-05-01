@@ -8,10 +8,11 @@ export const emailOfficials = (): boolean => (!!process.env.REACT_APP_EMAIL_OFFI
 
 export * from './util'
 export * from './address'
+export * from './osm'
 export * from './trpc'
 export * from './states'
 export * from './vbmStatus'
-// if we don't do this, loader.test.ts imports availableStates as undefineda
 export * from './contact'
 export * from './locale'
 export * from './analytics'
+export * from './sampleAddresses'

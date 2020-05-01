@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
 import { RawAddressForm } from './AddressForm'
 import { StateContainer } from "./StateContainer"
-import { geocode } from '../lib/osm'
+import { geocode } from '../common/osm'
 import { client } from '../lib/trpc'
 import { pageView } from '../lib/analytics'
 import { mocked } from 'ts-jest/utils'

@@ -1,4 +1,11 @@
-import { Address } from "../common"
+import { Address } from "."
+
+/*
+  In theory, this module could exist on the client, but we need it in common for
+  testing on the server.  See `contact/index.test.ts`.
+*/
+
+const fetch = (typeof window !== 'undefined' && window.fetch) ? window.fetch : require('node-fetch')
 
 const getJson = async <T>(url: string): Promise<T> => {
   const result = await fetch(url)

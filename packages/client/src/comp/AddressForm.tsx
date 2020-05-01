@@ -4,7 +4,7 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import Input from 'muicss/lib/react/input'
 
-import { geocode } from '../lib/osm'
+import { geocode } from '../common/osm'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
