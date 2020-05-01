@@ -1,32 +1,32 @@
 import Mustache from 'mustache'
-import { StateInfo, processEnvOrThrow } from '../../common'
+import { processEnvOrThrow } from '../../common'
 import { postscript } from './postscript'
+import stripIndent from 'strip-indent'
 
 const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
 const url = processEnvOrThrow('REACT_APP_URL')
 
 const opening = stripIndent(`
-  Dear County Supervisor of Elections,
+  Dear Local Supervisor of Elections,
 
   I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${url}).
 `)
 
 const closing = postscript
 
-const layout = stripIndent(`
-{{opening}}
-{{body}}
-{{closing}}
-`)
-
-const baseLetter = (body: string, vars: StateInfo): string => {
+// StateInfo
+export const baseLetter = (layout: string, vars: any): string => {
   const view = {
     ...vars,
+    opening,
+    closing,
     body: () => {
       return (text: string, render: (x: string) => string) => {
-        render(text)
+        return render('{{opening}}\n' + text + '\n{{closing}}')
       }
     }
   }
-  Mustache.render(layout, view)
+  return Mustache.render(layout, view)
 }
+
+console.log(baseLetter('{{#body}}{{bar}}{{/body}}', { bar: 2 }))
