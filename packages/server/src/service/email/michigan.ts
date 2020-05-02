@@ -1,8 +1,7 @@
-import { MichiganInfo, processEnvOrThrow } from "../../common"
-import { EmailData } from "../mg"
+import { MichiganInfo } from "../../common"
 import stripIndent from 'strip-indent'
 
-export const toEmailData = (
+export const toLetterBody = (
   {
     name,
     uspsAddress,
@@ -12,41 +11,19 @@ export const toEmailData = (
     city,
     birthdate,
     mailingAddress,
-    signature,
   }: MichiganInfo
-): EmailData => {
-  const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
-  const url = processEnvOrThrow('REACT_APP_URL')
-
-  const md = stripIndent(`
-  Dear Elections Official,
-
-  I am writing to request an Absentee or Vote-by-Mail ballot through [${brandName}](${url}).
+): string => {
+  return stripIndent(`
+  Per the instructions on the [secretary of state's website](https://www.michigan.gov/sos/0,4670,7-127-1633_8716_8728-21037--,00.html), I am requesting an absentee ballot for the upcoming Nov 03, 2020 eleciton.
   I am requesting to be added to the "permanent absentee voter list" for all upcoming elections.
-  Below are my voter registration details:
 
-  - Name: **${name}**
-  - Voter Registration Address: **${uspsAddress}**
-  - Birth Year: **${birthdate}**
-  - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as registration address' }
-  - Email: ${email}
-  - Phone: **${phone}**
-  - City / Township: **${city}**
-  - County: **${county}**
-
-  Thank you in advance for your assistance.  If you have any questions, my email is ${email}.
-
-  Sincerely,
-
-  ${name} (Signature Attached)
-
-  <img src="${signature}">
+    - Name: **${name}**
+    - Voter Registration Address: **${uspsAddress}**
+    - Birth Year: **${birthdate}**
+    - Mailing Address: ${ mailingAddress ? `**${mailingAddress}**` : 'Same as registration address' }
+    - Email: ${email}
+    - Phone: **${phone}**
+    - City / Township: **${city}**
+    - County: **${county}**
   `)
-
-  return {
-    to: [email],
-    subject: 'Vote By Mail Request',
-    md,
-    signature,
-  }
 }

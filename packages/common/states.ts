@@ -68,6 +68,7 @@ interface BaseInfo extends Locale {
   birthdate: string
   uspsAddress: string
   mailingAddress?: string
+  signature?: string
   oid: string
   ip?: string
   userAgent?: string

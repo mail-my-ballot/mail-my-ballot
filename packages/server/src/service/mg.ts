@@ -1,6 +1,5 @@
 import mailgun from 'mailgun-js'
 import { processEnvOrThrow } from '../common'
-import marked = require('marked')
 
 const mgData = () => ({
   domain: processEnvOrThrow('MG_DOMAIN'),
@@ -13,6 +12,7 @@ export interface EmailData {
   to: string[]
   subject: string
   md: string
+  html: string
   signature?: string  // base64-encoded signature
 }
 
@@ -34,7 +34,7 @@ const makePngAttachment = (
 }
 
 export const sendEmail = (
-  {to, subject, md, signature}: EmailData
+  {to, subject, md, html, signature}: EmailData
 ): Promise<mailgun.messages.SendResponse | null> => {
   const {domain, apiKey, from, replyTo} = mgData()
   if (process.env.MG_DISABLE) {
@@ -42,7 +42,6 @@ export const sendEmail = (
     return new Promise(() => null)
   }
   const mg = mailgun({domain, apiKey})
-  const html = marked(md)
   const attachment = makePngAttachment(signature, to, mg)
 
   return mg.messages().send({

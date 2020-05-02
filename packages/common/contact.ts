@@ -30,12 +30,12 @@ export interface ContactData {
 
 export type AvailableState = (typeof availableStates)[number]
 
-interface EmailMethod {
+export interface EmailMethod {
   method: 'email'
   emails: string[]
 }
 
-interface FaxMethod {
+export interface FaxMethod {
   method: 'fax'
   faxes: string[]
 }
