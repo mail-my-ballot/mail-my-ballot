@@ -49,6 +49,7 @@ const development = removeNullValues({
   REACT_APP_TIMEOUT: 2000,
   DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@example.com',
+  NUNJUNKS_DISABLE_CACHE: 1,
   ...developmentRaw,
 })
 

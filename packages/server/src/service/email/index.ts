@@ -1,23 +1,13 @@
-import marked = require('marked')
+import marked from 'marked'
+import nunjucks from 'nunjucks'
 
-import { StateInfo, emailOfficials } from "../../common"
+import { StateInfo, emailOfficials, processEnvOrThrow } from "../../common"
 import { EmailData } from "../mg"
-import * as Florida from './florida'
-import * as Michigan from './michigan'
-import * as Georgia from './georgia'
-import * as Wisconsin from './wisconsin'
-import { footer } from "./footer"
-import { header } from "./header"
 
-const toLetterBody = (info: StateInfo): string | null => {
-  switch(info.state) {
-    case 'Florida': return Florida.toLetterBody(info)
-    case 'Michigan': return Michigan.toLetterBody(info)
-    case 'Georgia': return Georgia.toLetterBody(info)
-    case 'Wisconsin': return Wisconsin.toLetterBody(info)
-    default: return null
-  }
-}
+nunjucks.configure(__dirname + '/views', {
+  autoescape: true,
+  noCache: !!processEnvOrThrow('NUNJUNKS_DISABLE_CACHE')
+})
 
 export class Letter {
   md: string
@@ -29,16 +19,28 @@ export class Letter {
   }
 }
 
-const toLetter = (info: StateInfo, confirmationId: string): Letter | null => {
-  const letterBody = toLetterBody(info)
+const envVars = {
+  brandName: processEnvOrThrow('REACT_APP_BRAND_NAME'),
+  brandUrl: processEnvOrThrow('REACT_APP_URL'),
+  feedbackEmail: processEnvOrThrow('REACT_APP_FEEDBACK_ADDR'),
+  electionsEmail: processEnvOrThrow('REACT_APP_ELECTION_OFFICIAL_ADDR'),
+}
 
-  if (!letterBody) return null
+const toTemplate = (info: StateInfo): string | null => {
+  switch(info.state) {
+    case 'Florida': return 'Florida.md'
+    case 'Michigan': return 'Michigan.md'
+    case 'Georgia': return 'Georgia.md'
+    case 'Wisconsin': return 'Wisconsin.md'
+    default: return null
+  }
+}
+
+const toLetter = (info: StateInfo, confirmationId: string): Letter | null => {
+  const template = toTemplate(info)
+  if (!template) return null
   return new Letter(
-    [
-      header(),
-      letterBody,
-      footer(info, confirmationId),
-    ].join('\n')
+    nunjucks.render(template, { ...info, ...envVars, confirmationId })
   )
 }
 
