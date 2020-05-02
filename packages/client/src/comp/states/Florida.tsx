@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
+import SignatureCanvas from 'react-signature-canvas'
 
 import { FloridaInfo, uspsAddressOneLine, Locale, Address } from '../../common'
 import { client } from '../../lib/trpc'
@@ -9,6 +10,12 @@ import { useControlRef } from '../util/ControlRef'
 import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
+import { Signature } from '../util/Signature'
+import styled from 'styled-components'
+
+const SigWrap = styled.div`
+  margin: 2em 0;
+`
 
 type Props = React.PropsWithChildren<{
   address: Address
@@ -23,6 +30,7 @@ export const Florida = ({address, locale }: Props) => {
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
+  const signatureRef = React.useRef<SignatureCanvas>(null)
 
   const uspsAddress = address ? uspsAddressOneLine(address) : null
   const { city, county } = locale
@@ -30,7 +38,7 @@ export const Florida = ({address, locale }: Props) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    if (!address || !uspsAddress) return  // TODO: Add warning
+    if (!address || !uspsAddress || !signatureRef.current) return  // TODO: Add warning
 
     const info: FloridaInfo = {
       state: 'Florida',
@@ -43,6 +51,7 @@ export const Florida = ({address, locale }: Props) => {
       uspsAddress,
       city,
       county,
+      signature: signatureRef.current.toDataURL()
     }
     const result = await client.register(info)
     result.type === 'data' && pushSuccess(result.data)
@@ -80,6 +89,10 @@ export const Florida = ({address, locale }: Props) => {
         required={checked}
       />
     }</Togglable>
+    <SigWrap>
+      <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
+    </SigWrap>
+
     <RoundedButton color='primary' variant='raised' data-testid='florida-submit'>
       Send my application email
     </RoundedButton>

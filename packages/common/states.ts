@@ -76,6 +76,7 @@ interface BaseInfo extends Locale {
 
 export interface FloridaInfo extends _Id, BaseInfo {
   state: 'Florida'
+  signature: string
 }
 
 export interface MichiganInfo extends _Id, BaseInfo {
