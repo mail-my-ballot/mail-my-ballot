@@ -43,14 +43,14 @@ const renderLetter = (info: StateInfo, method: EmailMethod, id: string, res: Res
     return res.send('No email data supplied for this entry')
   }
 
-  const { to, subject, md } = emailData
-  const header = stripIndent(`
+  const { to, subject, html } = emailData
+  const header = marked(stripIndent(`
   ## Header Information
   - To: ${(to).join(', ')}
   - Subject: ${subject}
   ----
-  `)
-  return res.send(marked(header + md))
+  `))
+  return res.render('letter.pug', { letter: header + html })
 }
 
 router.get('/sample/:state', async (req, res) => {
