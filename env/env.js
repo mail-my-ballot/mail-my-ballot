@@ -27,7 +27,7 @@ const base = removeNullValues({
   MG_DOMAIN: 'email.mailmyballot.org',
   MG_FROM_ADDR: 'Vote by Mail Application <application@email.mailmyballot.org>',
   MG_REPLY_TO_ADDR: 'Vote by Mail Application <application@mailmyballot.org>',
-  ELECTIONS_OFFICIALS_VERSION: 'v1.2.0',
+  ELECTIONS_OFFICIALS_VERSION: 'v1.3.0',
 })
 
 const development = removeNullValues({
