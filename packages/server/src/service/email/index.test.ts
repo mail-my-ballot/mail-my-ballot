@@ -1,21 +1,24 @@
 import { toEmailData } from '.'
 import { createMock } from 'ts-auto-mock'
-import { FloridaInfo, MichiganInfo, StateInfo } from "../../common"
+import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo } from "../../common"
 
 const email = 'email@example.com'
 
-const check = (info: StateInfo, confirmationId: string): void => {
+const check = (info: StateInfo): void => {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const officialsEmails = ['email@example.com']
+  const confirmationId = 'abc123'
 
   const emailDataProd = toEmailData(info, confirmationId, officialsEmails, { forceEmailOfficials: true })
   expect(emailDataProd).toBeTruthy()
   expect(emailDataProd!.to.length).toBeGreaterThanOrEqual(2)
   expect(emailDataProd!.to).toContain(email)
+  expect(emailDataProd!.md).toContain(confirmationId)
   
   const emailData = toEmailData(info, confirmationId, officialsEmails)
   expect(emailData).toBeTruthy()
   expect(emailData!.to).toEqual([email])
+  expect(emailData!.md).toContain(confirmationId)
   /* eslint-enable @typescript-eslint/no-non-null-assertion */
 }
 
@@ -25,7 +28,7 @@ test('florida', () => {
     email,
   })
 
-  check(info, 'abc')
+  check(info)
 })
 
 test('michigan', () => {
@@ -35,5 +38,24 @@ test('michigan', () => {
     email,
   })
 
-  check(info, 'abc')
+  check(info)
+})
+
+test('georgia', () => {
+  const info = createMock<GeorgiaInfo>({
+    county: 'Fulton County',
+    email,
+  })
+
+  check(info)
+})
+
+test('wisconsin', () => {
+  const info = createMock<WisconsinInfo>({
+    city: 'Green Bay',
+    county: 'Brown County',
+    email,
+  })
+
+  check(info)
 })
