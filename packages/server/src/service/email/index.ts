@@ -6,7 +6,7 @@ import { EmailData } from "../mg"
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
-  noCache: !!processEnvOrThrow('NUNJUNKS_DISABLE_CACHE')
+  noCache: !!process.env.NUNJUNKS_DISABLE_CACHE
 })
 
 export class Letter {

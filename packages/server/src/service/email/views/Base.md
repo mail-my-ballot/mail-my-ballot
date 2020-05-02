@@ -7,6 +7,13 @@ I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}
 
 Thank you in advance for your help.  If you have any questions, please feel free to reach out at [{{email}}](mailto:{{email}}).
 
+Sincerely,
+
+{{name}}{% if signature %} (Signature Attached)
+
+<img src='{{signature}}'/>
+{% endif %}
+
 <font style='font-size:75%;'>
 
 [{{brandName}}]({{brandUrl}}) is a Vote at Home project.
