@@ -4,7 +4,7 @@ import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo } from
 
 const email = 'email@example.com'
 
-const check = (info: StateInfo): void => {
+const check = (info: StateInfo, checkSignature = false): void => {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const officialsEmails = ['email@example.com']
   const confirmationId = 'abc123'
@@ -19,6 +19,10 @@ const check = (info: StateInfo): void => {
   expect(emailData).toBeTruthy()
   expect(emailData!.to).toEqual([email])
   expect(emailData!.md).toContain(confirmationId)
+
+  if (checkSignature) {
+    expect(emailData!.signature).toBeTruthy()
+  }
   /* eslint-enable @typescript-eslint/no-non-null-assertion */
 }
 
@@ -35,10 +39,11 @@ test('michigan', () => {
   const info = createMock<MichiganInfo>({
     city: 'Grand Rapids City',
     county: 'Kent County',
+    signature: 'signature',
     email,
   })
 
-  check(info)
+  check(info, true)
 })
 
 test('georgia', () => {
