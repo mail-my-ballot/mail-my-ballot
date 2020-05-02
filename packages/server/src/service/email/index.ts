@@ -66,6 +66,7 @@ export const toEmailData = (
     subject: 'Vote By Mail Request',
     md: letter.md,
     html: letter.html,
+    signature: info.signature,
   }
 
   if (emailOfficials() || forceEmailOfficials) {
