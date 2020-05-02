@@ -8,7 +8,7 @@ import { pageView } from '../lib/analytics'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../common/sampleAddresses'
 
-jest.mock('../lib/osm')
+jest.mock('../common/osm')
 jest.mock('../lib/analytics')
 jest.mock('../lib/trpc')
 
