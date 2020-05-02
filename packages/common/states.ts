@@ -80,7 +80,6 @@ export interface FloridaInfo extends _Id, BaseInfo {
 
 export interface MichiganInfo extends _Id, BaseInfo {
   state: 'Michigan'
-  city: string
   signature: string
 }
 
@@ -97,7 +96,6 @@ export interface GeorgiaInfo extends _Id, BaseInfo {
 export interface WisconsinInfo extends _Id, BaseInfo {
   // https://elections.wi.gov/sites/elections.wi.gov/files/2020-03/EL-121%20Application%20for%20Absentee%20Ballot%20%282018-10%29.pdf
   state: 'Wisconsin'
-  city: string
   ballotMethod: string  // will stick to mail but can be fax, email, or in-person
 }
 
