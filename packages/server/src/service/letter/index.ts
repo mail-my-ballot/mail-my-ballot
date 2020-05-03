@@ -20,7 +20,7 @@ const sampleStateInfo: StateInfo = {
   name: 'George Washington',
   email: 'george.washington@gmail.com',
   phone: '+1 (234)-567-8901',
-  birthdate: '04-01-1756',
+  birthdate: '02-22-1732',
   uspsAddress: 'Mount Vernon',
   county: 'Fairfax',
   city: 'Fairfax',
