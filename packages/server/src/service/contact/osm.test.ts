@@ -1,6 +1,6 @@
 import { wait, sampleAddresses, fetchState } from '../../common'
 
-test('Fetch States returning stable results', async () => {
+test('Fetch States returning stable results', async (cb) => {
   /*
     Testing geocode is more appropriately with `osm.ts`.  However, it has to be
     here because we want to check that the resulting contact and method objects are not
@@ -16,8 +16,9 @@ test('Fetch States returning stable results', async () => {
       const nameParts = snapName.split(', ')
       const state = nameParts[nameParts.length - 1]
       await wait(index * 400) // test takes 10 seconds to complete, regardless of delay
-      expect(fetchState(zip)).resolves.toEqual(state)
+      expect(await fetchState(zip)).toEqual(state)
     })
   )
   jest.setTimeout(5000)
+  cb()
 })

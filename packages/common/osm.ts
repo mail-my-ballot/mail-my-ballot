@@ -24,14 +24,71 @@ interface BasicAddress {
   county: string
 }
 
-export const fetchState = async (zip: string): Promise<State | null> => {
-  const query = `${zip} United States`
-  const summary = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${query}?format=json&countrycodes=us`))[0]
+type GenericRecord = Record<string, unknown>
+
+const osmQuery = async <T>(
+  query: string,
+  parseSummary: (summary: GenericRecord) => T | null,
+  parseDetail?: (detail: GenericRecord) => T | null,
+): Promise<T | null> => {
+  const summary = (await getJson<Array<GenericRecord>>(`https://nominatim.openstreetmap.org/search/${query}?format=json&countrycodes=us`))[0]
   if (!summary) return null
 
-  const parts = summary.display_name.split(',')
-  const state = parts[parts.length - 3].trim()
-  return isState(state) ? state : null
+  const summaryResult = parseSummary(summary)
+  if (summaryResult) return summaryResult
+  
+  if (!parseDetail) return null
+  const osmId = (summary.osm_type as string)[0].toUpperCase() + summary.osm_id
+  const detail = (await getJson<Array<GenericRecord>>(`https://nominatim.openstreetmap.org/lookup?osm_ids=${osmId}&format=json`))[0]
+  if (!detail) return null
+  const detailResult = parseDetail(detail)
+  return detailResult
+}
+
+class PartsParser {
+  parts: string[]
+  displayName: string
+
+  constructor(displayName: string) {
+    this.displayName = displayName
+    this.parts = displayName.split(',').map(x => x.trim()).reverse()
+  }
+
+  parsePart(re?: RegExp | ((part: string) => boolean)): string | undefined {
+    const match = (
+      (typeof re === 'undefined') ? (_: string) => true : 
+      (typeof re === 'function') ? re :
+      (part: string) => !!part.match(re)
+    )
+    if (this.parts[0] && match(this.parts[0])) {
+      return (this.parts.shift() as string)
+    }
+    return undefined
+  }
+
+  parse() {
+    const country = this.parsePart(/^United States of America$/)
+    const postcode = this.parsePart(/^\d{5}/)
+    const state = this.parsePart(isState) as State | null
+    const county = this.parsePart(/County$/)
+    const city = this.parsePart()
+
+    return {
+      country,
+      postcode,
+      state,
+      county,
+      city,
+    }
+  }
+}
+
+export const fetchState = async (zip: string): Promise<State | null> => {
+  const query = `${zip} United States`
+  return osmQuery(query, (summary) => {
+    const parser = new PartsParser(summary.display_name as string)
+    return parser.parse().state || null
+  })
 }
 
 const parseDisplayName = (displayName: string, unit: string): BasicAddress | null => {
