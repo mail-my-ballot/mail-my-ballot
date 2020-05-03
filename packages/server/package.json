@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "jest": "jest"
   },
   "keywords": [],
   "author": "",
