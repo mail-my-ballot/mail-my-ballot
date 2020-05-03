@@ -4,7 +4,7 @@ import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
 
-import { BaseInfo, uspsAddressOneLine, Locale, Address, StateInfo } from '../../common'
+import { BaseInfo, uspsAddressOneLine, Locale, Address, StateInfo, State } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -104,7 +104,7 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
   </Form>
 }
 
-export type NoSignature<Info extends StateInfo> = Info extends StateInfo ? Omit<Info, 'signature'> : unknown
+export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>
 
 export const SignatureBase = <Info extends StateInfo>(
   {address, locale, enrichValues, children}: Props<NoSignature<Info>>
@@ -136,3 +136,8 @@ export const SignatureBase = <Info extends StateInfo>(
     <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
   </Base>
 }
+
+export type StateProps<S extends State> = React.PropsWithChildren<{
+  address: Address
+  locale: Locale<S>
+}>
