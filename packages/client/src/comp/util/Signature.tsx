@@ -25,6 +25,10 @@ const WhiteButton = styled(RoundedButton)`
   }
 `
 
+const SigWrap = styled.div`
+  margin: 2em 0;
+`
+
 type Props = React.PropsWithChildren<{
   inputRef: React.RefObject<SignatureCanvas>
   label: string
@@ -36,7 +40,7 @@ export const Signature = ({ inputRef, label }: Props) => {
     inputRef.current && inputRef.current.clear()
   }
 
-  return <div>
+  return <SigWrap>
     <Label>{label}</Label>
     <BottomLine>
       <SignatureCanvas
@@ -47,5 +51,5 @@ export const Signature = ({ inputRef, label }: Props) => {
     <WhiteButton onClick={handleClick} variant='raised'>
       Clear Signature
     </WhiteButton>
-  </div>
+  </SigWrap>
 }

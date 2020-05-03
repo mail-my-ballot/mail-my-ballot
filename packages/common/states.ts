@@ -60,7 +60,7 @@ const allStatesSet = new Set(allStates)
 export const isState = (x: string): x is State => allStatesSet.has(x as State)
 export type StateField = {state: State}
 
-interface BaseInfo extends Locale {
+export interface BaseInfo extends Locale {
   state: State
   name: string
   email: string
@@ -68,36 +68,52 @@ interface BaseInfo extends Locale {
   birthdate: string
   uspsAddress: string
   mailingAddress?: string
-  signature?: string
   oid: string
   ip?: string
   userAgent?: string
 }
 
-export interface FloridaInfo extends _Id, BaseInfo {
+interface Signature {
+  signature: string
+}
+
+export interface FloridaInfo extends _Id, BaseInfo, Signature {
   state: 'Florida'
-  signature: string
 }
 
-export interface MichiganInfo extends _Id, BaseInfo {
+export interface MichiganInfo extends _Id, BaseInfo, Signature {
   state: 'Michigan'
-  signature: string
 }
 
-export interface GeorgiaInfo extends _Id, BaseInfo {
+export interface GeorgiaInfo extends _Id, BaseInfo, Signature {
   // mailingAddress must be in a different county
   // https://sos.ga.gov/admin/uploads/Absentee_Voting_A_Guide_for_Registered_Voters_2017.pdf
+  // Must specify type of election (presidential preference primary, general primary, primary runoff, municipal, municipal runoff, special, general, general runoff)
   state: 'Georgia'
-  electionType: string  // Type of election (presidential preference primary, general primary, primary runoff, municipal, municipal runoff, special, general, general runoff)
-  electionDate: string
   party?: 'Democratic' | 'Republican' | 'Non-Partisan' // Name of party ballot being requested (for primaries)
-  signature: string
 }
 
 export interface WisconsinInfo extends _Id, BaseInfo {
-  // https://elections.wi.gov/sites/elections.wi.gov/files/2020-03/EL-121%20Application%20for%20Absentee%20Ballot%20%282018-10%29.pdf
+  // https://elections.wi.gov/sites/elections.wi.gov/files/2019-02/Faxing%20or%20Emailing%20Absentee%20Ballots.pdf
+  // no signature required
+  // Wisconsin allows ballots by fax, email, or in-person, but we will stick to mail
   state: 'Wisconsin'
-  ballotMethod: string  // will stick to mail but can be fax, email, or in-person
+}
+
+export interface NebraskaInfo extends _Id, BaseInfo, Signature {
+  state: 'Nebraska'
+}
+
+export interface MaineInfo extends _Id, BaseInfo, Signature {
+  state: 'Maine'
+}
+
+export interface MarylandInfo extends _Id, BaseInfo, Signature {
+  state: 'Maryland'
+}
+
+export interface NevadaInfo extends _Id, BaseInfo, Signature {
+  state: 'Nevada'
 }
 
 export type StateInfo = (
@@ -105,4 +121,8 @@ export type StateInfo = (
   | MichiganInfo
   | GeorgiaInfo
   | WisconsinInfo
+  | NebraskaInfo
+  | MaineInfo
+  | MarylandInfo
+  | NevadaInfo
 )
