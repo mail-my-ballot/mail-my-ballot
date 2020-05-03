@@ -57,9 +57,19 @@ gulp.task('test', runEnv('jest \\.test\\.ts', envs.test ))
 gulp.task('test', async () => {
   const watch = options.watch ? '--watchAll' : ''
   const kind  = options.e2e ? 'e2e' : options.ext ? 'ext' : 'test'
-  // query osm so must be singled threaded and takes longer
-  const extraFlags = (kind === 'ext') ? '--maxWorkers=1 --testTimeout=30000' : ''
-  return runEnv(`jest \\.${kind}\\.ts ${watch} ${extraFlags}`, envs.test)()
+  const baseCommand =`jest \\.${kind}\\.ts ${watch}`
+  switch (kind) {
+    case 'e2e': {
+      return runEnv(`firebase emulators:exec --only firestore "${baseCommand}"`, envs.test)()
+    }
+    case 'ext': {
+      const extraFlags = (kind === 'ext') ? '--maxWorkers=1 --testTimeout=30000' : ''
+      return runEnv(`${baseCommand} ${extraFlags}`, envs.test)()
+    }
+    case 'test': {
+      return runEnv(baseCommand, envs.test)()
+    }
+  }  
 })
 
 // build
