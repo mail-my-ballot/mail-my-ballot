@@ -32,9 +32,10 @@ gulp.task('build', gulp.series(
 ))
   
 // test
-gulp.task('test', runEnv('react-app-rewired test --watchAll=false', envs.test))
-
-gulp.task('test:watch', runEnv('react-app-rewired test', envs.test))
+gulp.task('test', async () => {
+  const watch = options.watch ? '' : '--watchAll=false'
+  return runEnv(`react-app-rewired test ${watch}`, envs.test)()
+})
 
 // lint
 gulp.task('lint', runEnv('eslint . --ext .ts,.tsx'))
