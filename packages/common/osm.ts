@@ -1,4 +1,5 @@
 import { Address } from "."
+import { isState, State } from "./states"
 
 /*
   In theory, this module could exist on the client, but we need it in common for
@@ -23,6 +24,16 @@ interface BasicAddress {
   county: string
 }
 
+export const fetchState = async (zip: string): Promise<State | null> => {
+  const query = `${zip} United States`
+  const summary = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${query}?format=json&countrycodes=us`))[0]
+  if (!summary) return null
+
+  const parts = summary.display_name.split(',')
+  const state = parts[parts.length - 3].trim()
+  return isState(state) ? state : null
+}
+
 const parseDisplayName = (displayName: string, unit: string): BasicAddress | null => {
   /*
   Parse a display_name field from osm sumary result, e.g.
@@ -44,7 +55,7 @@ const parseDisplayName = (displayName: string, unit: string): BasicAddress | nul
   }
 }
 
-export const geocode = async (queryAddr: string, unit: string): Promise<Address | null> => {
+export const geocode = async (queryAddr: string, unit = ''): Promise<Address | null> => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const summary = (await getJson<Array<any>>(`https://nominatim.openstreetmap.org/search/${queryAddr}?format=json&countrycodes=us`))[0]
   if (!summary) {

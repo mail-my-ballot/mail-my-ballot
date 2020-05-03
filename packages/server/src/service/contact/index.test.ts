@@ -1,12 +1,10 @@
-import { geocode, Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale } from '../../common'
+import { geocode, Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, wait } from '../../common'
 import { toContact } from '.'
 
 test('Snapshot names are unique', () => {
   const snapNames = sampleAddresses.map((_, snapName) => snapName)
   expect(snapNames).toHaveLength((new Set(snapNames)).size)
 })
-
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 test('OSM is returning stable results', async (cb) => {
   /*
@@ -18,7 +16,7 @@ test('OSM is returning stable results', async (cb) => {
   jest.setTimeout(30000)
   const results = await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
-      await wait(index * 200) // test takes 10 seconds to complete, regardless of delay
+      await wait(index * 400) // test takes 10 seconds to complete, regardless of delay
       const result = await geocode(addr, '1A')
       expect(result).toMatchSnapshot(snapName)
       expect(result).toBeTruthy()

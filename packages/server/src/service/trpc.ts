@@ -32,10 +32,6 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       googleId: orgObj?.googleId,
     })
   }
-  public fetchState = async (zip: string) => {
-    const res = search(zip)
-    return res ? data(res) : error(`Unable to find zip ${zip}`)
-  }
   public fetchContact = async(address: Address) => {
     const locale = toLocale(address)
     if (!locale) return data(null)
