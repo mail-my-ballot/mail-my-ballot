@@ -3,19 +3,19 @@ import 'jest-canvas-mock'
 import { render, fireEvent, act, wait } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router'
-import SignatureCanvas from 'react-signature-canvas'
 jest.mock('react-signature-canvas')
 
-import { Michigan } from './Michigan'
+import { Wisconsin } from './Wisconsin'
 import { StateContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { sampleAddress } from '../../common/sampleAddresses'
 import { toPath, SuccessPath } from '../../lib/path'
 import { Analytics } from '../Analytics'
+
 jest.mock('../../lib/trpc')
 
-test('Michigan Form works', async () => {
+test('Wisconsin Form works', async () => {
   const history = createMemoryHistory()
 
   const register = mocked(client, true).register = jest.fn().mockResolvedValue({
@@ -24,15 +24,14 @@ test('Michigan Form works', async () => {
   })
   mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
 
-  // load page
   const { getByLabelText, getByTestId } = render(
     <Router history={history}>
       <Analytics/>
-      <Michigan
+      <Wisconsin
         locale={{
-          state: 'Michigan',
-          county: 'Wayne County',
-          city: 'Canton'
+          state: 'Wisconsin',
+          county: 'Dane County',
+          city: 'Madison'
         }}
         address={sampleAddress}
       />
@@ -40,7 +39,6 @@ test('Michigan Form works', async () => {
     { wrapper: StateContainer }
   )
 
-  // fill out form without signing
   act(() => {
     fireEvent.change(getByLabelText(/^Full Name/i), {
       target: {
@@ -63,36 +61,14 @@ test('Michigan Form works', async () => {
       },
     })
 
-    SignatureCanvas.prototype.isEmpty = jest.fn(() => true)
-    mocked(window, true).alert = jest.fn()
-
     fireEvent.click(getByTestId('submit'), {
       bubbles: true,
       cancelable: true,
     })
   })
 
-  // this fails
-  await wait(() => expect(register).toHaveBeenCalledTimes(0))
-  await wait(() => expect(window.alert).toHaveBeenCalledTimes(1))
-
-  // now sign form
-  act(() => {
-    // Mock signing
-    SignatureCanvas.prototype.isEmpty = jest.fn(() => false)
-    SignatureCanvas.prototype.toDataURL = jest.fn(() => 'abcd')
-    mocked(window, true).alert = jest.fn()
-
-    fireEvent.click(getByTestId('submit'), {
-      bubbles: true,
-      cancelable: true,
-    })
-  })
-
-  // this succeeds
   await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
     {id: "confirmationId", oid: "default", type: "success"}
   ))
-  await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
   await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })
