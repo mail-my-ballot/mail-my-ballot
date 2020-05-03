@@ -7,7 +7,6 @@ test('Fetch States returning stable results', async (cb) => {
     null, and this code is (and can only be) available on the server.
   */
 
-  jest.setTimeout(30000)
   await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
       const addrParts = addr.split(' ')
@@ -15,10 +14,9 @@ test('Fetch States returning stable results', async (cb) => {
       
       const nameParts = snapName.split(', ')
       const state = nameParts[nameParts.length - 1]
-      await wait(index * 400) // test takes 10 seconds to complete, regardless of delay
+      await wait(index * 200) // test takes 10 seconds to complete, regardless of delay
       expect(await fetchState(zip)).toEqual(state)
     })
   )
-  jest.setTimeout(5000)
   cb()
 })

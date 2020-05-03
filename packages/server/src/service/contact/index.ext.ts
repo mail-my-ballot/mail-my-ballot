@@ -13,18 +13,15 @@ test('OSM is returning stable results', async (cb) => {
     null, and this code is (and can only be) available on the server.
   */
 
-  jest.setTimeout(30000)
   const results = await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
-      await wait(index * 400) // test takes 10 seconds to complete, regardless of delay
+      await wait(index * 200) // test takes 10 seconds to complete, regardless of delay
       const result = await geocode(addr, '1A')
       expect(result).toMatchSnapshot(snapName)
       expect(result).toBeTruthy()
       return result as Address
     })
   )
-
-  jest.setTimeout(5000)
 
   results.forEach(async (result) => {
     const locale = toLocale(result)
