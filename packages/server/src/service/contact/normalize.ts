@@ -24,6 +24,9 @@ export const normalizeKey = ({ state, county, city }: OptionalLocale): string =>
     case 'Michigan': {
       return city + ':' + county
     }
+    case 'Nevada': {
+      return (city ?? '') + ':' + (county ?? '')
+    }
     case 'Virginia': {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return city ?? county!

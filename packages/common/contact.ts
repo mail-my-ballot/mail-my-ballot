@@ -6,6 +6,7 @@ export const availableStates = [
   'Michigan',
   'Minnesota',
   'Nebraska',
+  'Nevada',
   'Virginia',
   'Wisconsin'
 ] as const

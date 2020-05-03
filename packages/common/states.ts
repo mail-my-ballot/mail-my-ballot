@@ -71,21 +71,22 @@ export interface BaseInfo extends Locale {
   oid: string
   ip?: string
   userAgent?: string
+  signature?: string
 }
 
-interface Signature {
+interface SignatureBaseInfo extends BaseInfo {
   signature: string
 }
 
-export interface FloridaInfo extends _Id, BaseInfo, Signature {
+export interface FloridaInfo extends _Id, SignatureBaseInfo {
   state: 'Florida'
 }
 
-export interface MichiganInfo extends _Id, BaseInfo, Signature {
+export interface MichiganInfo extends _Id, SignatureBaseInfo {
   state: 'Michigan'
 }
 
-export interface GeorgiaInfo extends _Id, BaseInfo, Signature {
+export interface GeorgiaInfo extends _Id, SignatureBaseInfo {
   // mailingAddress must be in a different county
   // https://sos.ga.gov/admin/uploads/Absentee_Voting_A_Guide_for_Registered_Voters_2017.pdf
   // Must specify type of election (presidential preference primary, general primary, primary runoff, municipal, municipal runoff, special, general, general runoff)
@@ -100,19 +101,19 @@ export interface WisconsinInfo extends _Id, BaseInfo {
   state: 'Wisconsin'
 }
 
-export interface NebraskaInfo extends _Id, BaseInfo, Signature {
+export interface NebraskaInfo extends _Id, SignatureBaseInfo {
   state: 'Nebraska'
 }
 
-export interface MaineInfo extends _Id, BaseInfo, Signature {
+export interface MaineInfo extends _Id, SignatureBaseInfo {
   state: 'Maine'
 }
 
-export interface MarylandInfo extends _Id, BaseInfo, Signature {
+export interface MarylandInfo extends _Id, SignatureBaseInfo {
   state: 'Maryland'
 }
 
-export interface NevadaInfo extends _Id, BaseInfo, Signature {
+export interface NevadaInfo extends _Id, SignatureBaseInfo {
   state: 'Nevada'
 }
 

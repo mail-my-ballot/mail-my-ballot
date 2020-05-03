@@ -55,5 +55,12 @@ export const keys = (
         )
       )
     }
+    case 'Nevada': {
+      if (locale.city === 'Carson City') {
+        return [normalizeKey({...locale, county: undefined})]
+      } else {
+        return [normalizeKey({...locale, city: undefined})]
+      }
+    }
   }
 }
