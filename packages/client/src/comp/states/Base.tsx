@@ -3,7 +3,8 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
-import { BaseInfo, uspsAddressOneLine, Locale, Address, StateInfo, GeorgiaInfo } from '../../common'
+
+import { BaseInfo, uspsAddressOneLine, Locale, Address, StateInfo } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -14,10 +15,12 @@ import { Signature } from '../util/Signature'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
-type Props<Info extends StateInfo> = React.PropsWithChildren<{
+type EnrichValues<Info> = (base: StatelessInfo) => Info | null
+
+type Props<Info> = React.PropsWithChildren<{
   address: Address
   locale: Locale
-  enrichValues: (base: StatelessInfo) => Info | null
+  enrichValues: EnrichValues<Info>
 }>
 
 export const Base = <Info extends StateInfo>({address, locale, enrichValues, children }: Props<Info>) => {
@@ -28,6 +31,7 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
+  const signatureRef = React.useRef<SignatureCanvas>(null)
 
   const uspsAddress = address ? uspsAddressOneLine(address) : null
   const { city, county } = locale
@@ -36,6 +40,11 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
     event.persist()  // allow async function call
     event.preventDefault()
     if (!address || !uspsAddress) return  // TODO: Add warning
+
+    if (!signatureRef.current || signatureRef.current.isEmpty()) {
+      alert('Please sign form')
+      return
+    }
 
     const baseInfo: StatelessInfo = {
       city,
@@ -93,4 +102,37 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
       Send my application email
     </RoundedButton>
   </Form>
+}
+
+export type NoSignature<Info extends StateInfo> = Info extends StateInfo ? Omit<Info, 'signature'> : unknown
+
+export const SignatureBase = <Info extends StateInfo>(
+  {address, locale, enrichValues, children}: Props<NoSignature<Info>>
+) => {
+  const signatureRef = React.useRef<SignatureCanvas>(null)
+
+  const enrichValuesWithSignature = (baseInfo: StatelessInfo): Info | null => {
+    const values = enrichValues(baseInfo)
+    if (!values) return null
+
+    if (!signatureRef.current || signatureRef.current.isEmpty()) {
+      alert('Please sign form')
+      return null
+    }
+
+    return {
+      ...baseInfo,
+      ...values,
+      signature: signatureRef.current.toDataURL(),
+    } as Info  // hack b/c it cannot understand how to distribute over types
+  }
+
+  return <Base<Info>
+    address={address}
+    locale={locale}
+    enrichValues={enrichValuesWithSignature}
+  >
+    { children }
+    <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
+  </Base>
 }
