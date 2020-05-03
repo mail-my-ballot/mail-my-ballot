@@ -34,13 +34,6 @@ test('Michigan Form works', async () => {
           city: 'Canton'
         }}
         address={sampleAddress}
-        contact={{
-          state: 'Michigan', 
-          city: 'Canton',
-          county: 'Wayne County',
-          official: 'Christina  White',
-          emails: ['soedade@miamidade.gov'],
-        }}
       />
     </Router>,
     { wrapper: StateContainer }
@@ -72,7 +65,7 @@ test('Michigan Form works', async () => {
     SignatureCanvas.prototype.isEmpty = jest.fn(() => false)
     SignatureCanvas.prototype.toDataURL = jest.fn(() => 'abcd')
 
-    fireEvent.click(getByTestId('michigan-submit'), {
+    fireEvent.click(getByTestId('submit'), {
       bubbles: true,
       cancelable: true,
     })

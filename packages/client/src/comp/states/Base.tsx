@@ -31,7 +31,6 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
-  const signatureRef = React.useRef<SignatureCanvas>(null)
 
   const uspsAddress = address ? uspsAddressOneLine(address) : null
   const { city, county } = locale
@@ -40,11 +39,6 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
     event.persist()  // allow async function call
     event.preventDefault()
     if (!address || !uspsAddress) return  // TODO: Add warning
-
-    if (!signatureRef.current || signatureRef.current.isEmpty()) {
-      alert('Please sign form')
-      return
-    }
 
     const baseInfo: StatelessInfo = {
       city,
