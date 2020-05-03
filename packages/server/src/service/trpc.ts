@@ -6,7 +6,6 @@ import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './email'
 import { toContact } from './contact'
-import { search } from './zip'
 
 const firestoreService = new FirestoreService()
 
