@@ -10,11 +10,12 @@ test('Fetch States returning stable results', async () => {
   jest.setTimeout(30000)
   await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
-      const parts = addr.split(' ')
-      const zip = parts[parts.length - 1]
-      const state = snapName.split(', ')[1]
+      const addrParts = addr.split(' ')
+      const zip = addrParts[addrParts.length - 1]
+      
+      const nameParts = snapName.split(', ')
+      const state = nameParts[nameParts.length - 1]
       await wait(index * 400) // test takes 10 seconds to complete, regardless of delay
-      console.log(state)
       expect(fetchState(zip)).resolves.toEqual(state)
     })
   )
