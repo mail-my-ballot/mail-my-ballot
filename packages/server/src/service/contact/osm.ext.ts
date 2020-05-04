@@ -14,7 +14,7 @@ test('Fetch States returning stable results', async (cb) => {
       
       const nameParts = snapName.split(', ')
       const state = nameParts[nameParts.length - 1]
-      await wait(index * 200) // test takes 10 seconds to complete, regardless of delay
+      await wait(index * 300) // test takes 10 seconds to complete, regardless of delay
       expect(await fetchState(zip)).toEqual(state)
     })
   )

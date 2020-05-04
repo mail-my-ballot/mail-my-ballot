@@ -15,7 +15,7 @@ test('OSM is returning stable results', async (cb) => {
 
   const results = await Promise.all(
     sampleAddresses.map(async ([addr, snapName], index) => {
-      await wait(index * 200) // test takes 10 seconds to complete, regardless of delay
+      await wait(index * 300) // test takes 10 seconds to complete, regardless of delay
       const result = await geocode(addr, '1A')
       expect(result).toMatchSnapshot(snapName)
       expect(result).toBeTruthy()
