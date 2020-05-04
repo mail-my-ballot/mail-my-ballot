@@ -27,7 +27,7 @@ const baseStateInfo: BaseInfo = {
   oid: 'default',
 }
 
-const signatureStateInfo: BaseInfo & {signature: string} = {
+export const signatureStateInfo: BaseInfo & {signature: string} = {
   ...baseStateInfo,
   signature: 'data:image/png;base64,' + signaturePng.toString('base64'),
 }
