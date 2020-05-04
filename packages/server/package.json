@@ -48,6 +48,7 @@
   "dependencies": {
     "@firebase/testing": "^0.18.1",
     "@google-cloud/connect-firestore": "^1.0.6",
+    "@googlemaps/google-maps-services-js": "^2.6.0",
     "@tianhuil/simple-trpc": "^1.6.0",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",

@@ -85,11 +85,12 @@ const Layout = () => {
   </>)
 }
 
-const App = () => (
+const App = () => (<>
   <StateContainer>
     <Analytics/>
     <Layout/>
   </StateContainer>
-)
+  <script src="http://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
+</>)
 
 export default App

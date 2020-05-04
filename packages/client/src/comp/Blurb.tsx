@@ -5,7 +5,7 @@ import { RoundedButton } from './util/Button'
 import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
 import { useAppHistory } from '../lib/path'
-import { fetchState } from '../common'
+import { client } from '../lib/trpc'
 
 const Background = styled.div`
   top: 0;
@@ -87,9 +87,9 @@ export const Blurb: React.FC<{}> = () => {
     event.preventDefault()
     const zip = zipRef?.current?.value
     if (!zip) return
-    const state = await fetchState(zip)
-    if (!state) return
-    pushAddress(state, zip)
+    const resp = await client.fetchState(zip)
+    if (resp.type == 'error') return
+    pushAddress(resp.data, zip)
     // TODO: handle error
   }
 

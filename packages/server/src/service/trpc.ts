@@ -1,11 +1,12 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { ImplRpc } from '@tianhuil/simple-trpc/dist/type'
 import { Request } from 'express'
-import { IVbmRpc, Address, StateInfo, toLocale, toContactMethod } from '../common'
+import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState } from '../common'
 import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toEmailData } from './email'
 import { toContact } from './contact'
+import { geocode } from './gm'
 
 const firestoreService = new FirestoreService()
 
@@ -31,11 +32,19 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       googleId: orgObj?.googleId,
     })
   }
-  public fetchContact = async(address: Address) => {
+  public fetchState = async (zip: string) => {
+    const address = await geocode(`${zip} United States`)
+    if (!address || !isState(address.state)) return error('Geocoding Error')
+    return data(address.state)
+  }
+  public fetchContactAddress = async(addr: string) => {
+    const address = await geocode(addr)
+    if (!address) return error('Unable to geocode address')
     const locale = toLocale(address)
-    if (!locale) return data(null)
+    if (!locale) return error('Unable to obtain locale')
     const contact = await toContact(locale)
-    return data(contact)
+    if (!contact) return error('Unable to find contact')
+    return data({contact, address})
   }
   public register = async (info: StateInfo, request: Request) => {
     const id = await firestoreService.addRegistration({

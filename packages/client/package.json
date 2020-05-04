@@ -19,6 +19,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@tianhuil/gulp-run-command": "^0.0.11",
+    "@types/googlemaps": "^3.39.4",
     "@types/jest": "^24.0.0",
     "@types/muicss": "^0.9.1",
     "@types/node": "^12.6.9",

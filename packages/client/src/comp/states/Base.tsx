@@ -4,7 +4,7 @@ import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
 
-import { BaseInfo, uspsAddressOneLine, Locale, Address, StateInfo, State } from '../../common'
+import { BaseInfo, Locale, Address, StateInfo, State } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -32,7 +32,7 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
 
-  const uspsAddress = address ? uspsAddressOneLine(address) : null
+  const uspsAddress = address ? address.fullAddr : null
   const { city, county } = locale
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

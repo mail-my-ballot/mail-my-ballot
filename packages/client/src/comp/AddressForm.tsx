@@ -4,7 +4,6 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import Input from 'muicss/lib/react/input'
 
-import { geocode } from '../common/osm'
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/state'
@@ -31,7 +30,6 @@ if (process.env.REACT_APP_DEFAULT_ADDRESS) {
 export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
   const { pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
-  const unitRef = useControlRef<Input>()
   const { load, error, success } = QueryContainer.useContainer()
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
@@ -41,25 +39,18 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
     event.preventDefault()
 
     const addrInput = addrRef.value()
-    const unit = unitRef.value()
     if (addrInput === null) throw Error('address ref not set')
-    if (unit === null) throw Error('unit ref not set')
 
     load('Fetching information about your address')
     try {
       setContact(null)
-      const address = await geocode(addrInput, unit)
-      setAddress(address)
-
-      if (!address) {
-        error(<><b>Address Error:</b> No address found for {addrInput}</>)
-        return
-      }
-
-      const result = await client.fetchContact(address)
+      setAddress(null)
+      const result = await client.fetchContactAddress(addrInput)
       switch(result.type) {
         case 'data': {
-          setContact(result.data)
+          const {contact, address} = result.data
+          setContact(contact)
+          setAddress(address)
           break
         }
         case 'error': {
@@ -87,21 +78,17 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
         <p></p>
         <Row>
           <Col sm={10} xs={12}>
-            <BaseInput
+          <BaseInput
               id='addr'
-              label='Address (without Apt or Unit #)'
+              label='Address'
               ref={addrRef}
               defaultValue={defaultAddr(state)}
             />
           </Col>
           <Col sm={2} xs={12}>
-            <BaseInput id='unit'
-              label='Unit #'
-              ref={unitRef}
-            />
+          <RoundedButton color='primary' variant='raised' data-testid='submit'>Can I vote by Mail?</RoundedButton>
           </Col>
         </Row>
-        <RoundedButton color='primary' variant='raised' data-testid='submit'>Can I vote by Mail?</RoundedButton>
       </Form>
     </StatusReport>
   </div>

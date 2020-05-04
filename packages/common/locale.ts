@@ -9,6 +9,6 @@ export interface Locale<S extends State = State> {
 
 export const toLocale = (address: Address): Locale | null => {
   const { state, city, county } = address
-  if (!isState(state)) return null
+  if (!isState(state) || !city || !county) return null
   return { state, city, county }
 }

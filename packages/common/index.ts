@@ -8,7 +8,6 @@ export const emailOfficials = (): boolean => (!!process.env.REACT_APP_EMAIL_OFFI
 
 export * from './util'
 export * from './address'
-export * from './osm'
 export * from './trpc'
 export * from './states'
 export * from './vbmStatus'
