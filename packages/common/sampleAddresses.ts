@@ -13,7 +13,7 @@ export const sampleFloridaAddress: Address = {
 
 export const sampleAddress = sampleFloridaAddress
 
-interface AddressData extends Locale {
+export interface AddressData extends Locale {
   address: string
 }
 
