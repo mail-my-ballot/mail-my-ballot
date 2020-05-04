@@ -1,12 +1,6 @@
-import { RawContactRecord, ContactRecord, RawContact } from "./type"
+import { RawContactRecord, ContactRecord, RawContact, OptionalLocale } from "./type"
 import { AvailableState } from "../../common"
 import { mandatoryTransform } from "./transformers"
-
-interface OptionalLocale {
-  state: AvailableState
-  county?: string
-  city?: string
-}
 
 const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
   return (arg: T) => {
@@ -15,7 +9,7 @@ const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
 }
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-export const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
+const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
     case 'Florida':
     case 'Georgia':
@@ -44,19 +38,24 @@ export const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale):
 })
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
+export const normalizeLocale = ({state, city, county}: OptionalLocale): string => {
+  return normalizeKey({
+    state,
+    city: city ? mandatoryTransform(city) : undefined,
+    county: county ? mandatoryTransform(county) : undefined,
+  })
+}
+
 export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
   const array = contacts.map(
-    contact => {
-      const locale = {
+    contact => [
+      normalizeLocale({
         state,
-        city: contact.city ? mandatoryTransform(contact.city) : undefined,
-        county: contact.county ? mandatoryTransform(contact.county) : undefined,
-      }
-      return [
-        normalizeKey(locale),
-        contact,
-      ]
-    }
+        city: contact.city,
+        county: contact.county,
+      }),
+      contact,
+    ]
   )
   return Object.fromEntries(array)
 }
@@ -71,3 +70,4 @@ export const normalize = (records: RawContactRecord): ContactRecord => {
   )
   return Object.fromEntries(array)
 }
+

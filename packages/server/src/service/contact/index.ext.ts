@@ -21,31 +21,41 @@ const cache = <T>(f: Func<T>): Func<T> => {
   }
 }
 
-test('OSM is returning stable results', async (cb) => {
+describe('OSM is returning stable results', () => {
   /*
     Testing geocode is more appropriately with `osm.ts`.  However, it has to be
     here because we want to check that the resulting contact and method objects are not
     null, and this code is (and can only be) available on the server.
   */
 
-  const results = await Promise.all(
-    sampleAddresses.map(async (addrData, index) => {
-      await wait(index * 0) // space calls out if we're running for firs time
-      const result = await cache(geocode)(addrData.address)
-      expect(result).toBeTruthy()
-      return result as Address
-    })
-  )
-
-  results.forEach(async (result) => {
-    const locale = toLocale(result)
-    expect(locale).toBeTruthy()
-    expect(isAvailableState((locale as Locale).state)).toBeTruthy()
-    const contact = await toContact(locale as Locale<AvailableState>)
-    expect(contact).toBeTruthy()
-    const method = toContactMethod(contact)
-    expect(method).toBeTruthy()
+  it('Should geocode all data', async () => {
+    await Promise.all(
+      sampleAddresses.map(async (addrData, index) => {
+        await wait(index * 0) // space calls out if we're running for firs time
+        const result = await cache(geocode)(addrData.address)
+        expect(result).toBeTruthy()
+        return result as Address
+      })
+    )
   })
 
-  cb()
+  const table = sampleAddresses.map(
+    addr => [addr.address, addr.state, addr.county, addr.city]
+  )
+
+  test.each(table)(
+    'Checking %s',
+    async (address, state, county, city) => {
+      const result = await cache(geocode)(address)
+      expect(result).toBeTruthy()
+      const locale = toLocale(result as Address)
+      expect(locale).toBeTruthy()
+      expect(locale).toEqual({state, county, city})
+      expect(isAvailableState((locale as Locale).state)).toBeTruthy()
+      const contact = await toContact(locale as Locale<AvailableState>)
+      expect(contact).toBeTruthy()
+      const method = toContactMethod(contact)
+      expect(method).toBeTruthy()
+    }
+  )
 })

@@ -1,7 +1,3 @@
-// St -> Saint
-// St. -> Saint
-// Remove endings of City, Township, Charter Township
-
 type Transform = (text: string) => string
 
 /* applies functions in order they appear */

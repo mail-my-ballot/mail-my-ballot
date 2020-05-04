@@ -50,7 +50,7 @@ export const sampleAddresses: AddressData[] = [
     state: 'Michigan',
   }, {
     address: '700 Broad Street St Joseph, MI 49085',
-    city: 'Saint Joseph',
+    city: 'St. Joseph',
     county: 'Berrien County',
     state: 'Michigan',
   }, {
@@ -97,16 +97,16 @@ export const sampleAddresses: AddressData[] = [
     address: '808 Conagra Dr, Omaha, NE 68102',
     city: 'Omaha',
     county: 'Douglas County',
-    state: 'Wisconsin',
+    state: 'Nebraska',
   }, {
     address: '1320 Lincoln Mall, Lincoln, NE 68508',
     city: 'Lincoln',
     county: 'Lancaster County',
-    state: 'Wisconsin',
+    state: 'Nebraska',
   }, {
     address: '923 Galvin Rd S, Bellevue, NE 68005',
     city: 'Bellevue',
     county: 'Sarpy County',
-    state: 'Wisconsin',
+    state: 'Nebraska',
   }
 ]

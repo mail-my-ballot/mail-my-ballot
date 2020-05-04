@@ -1,5 +1,5 @@
 import { Locale, AvailableState } from "../../common"
-import { normalizeKey } from "./normalize"
+import { normalizeLocale } from "./normalize"
 
 /* remove Township or City at end string */
 const possibleEndings = [
@@ -43,23 +43,23 @@ export const keys = (
     case 'Nebraska':
     case 'Virginia':
     case 'Maine': {
-      return [normalizeKey(locale)]
+      return [normalizeLocale(locale)]
     }
     case 'Michigan': {
-      return michiganCities(locale.city).map(city => normalizeKey({...locale, city}))
+      return michiganCities(locale.city).map(city => normalizeLocale({...locale, city}))
     }
     case 'Wisconsin': {
       return wisconsinCounties(locale.county).flatMap(county =>
         wisconsinCities(locale.city).map(city =>
-          normalizeKey({...locale, city, county})
+          normalizeLocale({...locale, city, county})
         )
       )
     }
     case 'Nevada': {
       if (locale.city === 'Carson City') {
-        return [normalizeKey({...locale, county: undefined})]
+        return [normalizeLocale({...locale, county: undefined})]
       } else {
-        return [normalizeKey({...locale, city: undefined})]
+        return [normalizeLocale({...locale, city: undefined})]
       }
     }
   }
