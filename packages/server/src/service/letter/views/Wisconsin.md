@@ -6,6 +6,6 @@
 - Phone: **{{phone}}**
 - City / Town / Village: **{{city}}**
 - County: **{{county}}**
-- Elections: **{{election}}** in particular and more generally, all elections through the end of the calendar year
+- Elections: generally, all elections through the end of the calendar year; in particular, **{{election}}**.
 
 {% endblock %}

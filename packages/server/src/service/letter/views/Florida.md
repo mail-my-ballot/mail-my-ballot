@@ -4,6 +4,6 @@
 
 {% block body %}
 - County: **{{county}}**
-- Elections: **{{election}}** in particular and more generally, all elections through the end of the calendar year for the second ensuing regularly scheduled general election
+- Elections: generally, all elections through the end of the calendar year for the second ensuing regularly scheduled general election; in particular, **{{election}}**.
 
 {% endblock %}

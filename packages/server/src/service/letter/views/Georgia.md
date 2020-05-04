@@ -5,6 +5,7 @@
 {% block body %}
 - Phone: **{{phone}}**
 - County: **{{county}}**
+- Party: **{{party}}**
 - Election: **{{election}}**
 
 {% endblock %}
