@@ -5,7 +5,7 @@ import marked from 'marked'
 import { FirestoreService } from '../firestore'
 import { toEmailData } from '../email'
 import { toContact } from '../contact'
-import { toContactMethod, StateInfo, AvailableState, EmailMethod, availableStates } from '../../common'
+import { toContactMethod, StateInfo, AvailableState, EmailMethod, availableStates, BaseInfo, GeorgiaInfo } from '../../common'
 import fs from 'fs'
 
 
@@ -15,7 +15,7 @@ const firestoreService = new FirestoreService()
 
 const signaturePng = fs.readFileSync(__dirname + '/signature.png')
 
-export const sampleStateInfo: StateInfo = {
+const baseStateInfo: BaseInfo = {
   state: 'Florida',
   name: 'George Washington',
   email: 'george.washington@gmail.com',
@@ -24,10 +24,20 @@ export const sampleStateInfo: StateInfo = {
   uspsAddress: 'Mount Vernon',
   county: 'Fairfax',
   city: 'Fairfax',
-  signature: 'data:image/png;base64,' + signaturePng.toString('base64'),
   oid: 'default',
+}
+
+const signatureStateInfo: BaseInfo & {signature: string} = {
+  ...baseStateInfo,
+  signature: 'data:image/png;base64,' + signaturePng.toString('base64'),
+}
+
+const sampleStateInfo: GeorgiaInfo = {
+  ...signatureStateInfo,
   ip: '128.0.0.1',
   userAgent: 'Firefox',
+  party: 'Non-Partisan',
+  state: 'Georgia',
 }
 
 const sampleMethod: EmailMethod = {
