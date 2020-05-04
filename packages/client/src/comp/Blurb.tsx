@@ -88,7 +88,7 @@ export const Blurb: React.FC<{}> = () => {
     const zip = zipRef?.current?.value
     if (!zip) return
     const resp = await client.fetchState(zip)
-    if (resp.type == 'error') return
+    if (resp.type === 'error') return
     pushAddress(resp.data, zip)
     // TODO: handle error
   }
