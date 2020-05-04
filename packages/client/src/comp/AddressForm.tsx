@@ -1,7 +1,5 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
-import Row from 'muicss/lib/react/row'
-import Col from 'muicss/lib/react/col'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
@@ -13,6 +11,7 @@ import { BaseInput } from './util/Input'
 import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
+import styled from 'styled-components'
 
 let defaultAddr = (_: string): (string | undefined) => undefined
 
@@ -25,6 +24,24 @@ if (process.env.REACT_APP_DEFAULT_ADDRESS) {
     return addrMap[state]
   }
 }
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+`
+
+const FlexGrow = styled.div`
+  flex-grow: 1;
+  min-width: 400px;
+`
+
+const FlexFixed = styled.div`
+  flex-grow: 0;
+  margin-left: 2em;
+`
 
 // pulled out for testing
 export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
@@ -76,19 +93,25 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
       <Form onSubmit={handleSubmit}>
         <legend>Enter your address to find your local election official</legend>
         <p></p>
-        <Row>
-          <Col sm={10} xs={12}>
-          <BaseInput
+        <FlexBox>
+          <FlexGrow>
+            <BaseInput
               id='addr'
               label='Address'
               ref={addrRef}
               defaultValue={defaultAddr(state)}
             />
-          </Col>
-          <Col sm={2} xs={12}>
-          <RoundedButton color='primary' variant='raised' data-testid='submit'>Can I vote by Mail?</RoundedButton>
-          </Col>
-        </Row>
+          </FlexGrow>
+          <FlexFixed>
+            <RoundedButton
+              color='primary'
+              variant='raised'
+              data-testid='submit'
+              style={{flexGrow: 0}}
+            >Can I vote by Mail?
+            </RoundedButton>
+          </FlexFixed>
+        </FlexBox>
       </Form>
     </StatusReport>
   </div>
