@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<div class='container'>
+
+.container
+  if state
+    ul.nav.nav-tabs
+      each availableState in availableStates
+        li.nav-item
+          if state === availableState
+            a.nav-link(href=availableState).active= availableState
+          else
+            a.nav-link(href=availableState)= availableState
+            
   div !{letter}
-</div>

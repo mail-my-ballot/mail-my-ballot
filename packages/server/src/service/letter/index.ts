@@ -1,89 +1,45 @@
-import { Router, Response} from 'express'
-import stripIndent from 'strip-indent'
 import marked from 'marked'
+import nunjucks from 'nunjucks'
 
-import { FirestoreService } from '../firestore'
-import { toEmailData } from '../email'
-import { toContact } from '../contact'
-import { toContactMethod, StateInfo, AvailableState, EmailMethod } from '../../common'
-import fs from 'fs'
+import { processEnvOrThrow, StateInfo } from '../../common'
 
-
-const router = Router()
-
-const firestoreService = new FirestoreService()
-
-const signaturePng = fs.readFileSync(__dirname + '/signature.png')
-
-const sampleStateInfo: StateInfo = {
-  state: 'Florida',
-  name: 'George Washington',
-  email: 'george.washington@gmail.com',
-  phone: '+1 (234)-567-8901',
-  birthdate: '02-22-1732',
-  uspsAddress: 'Mount Vernon',
-  county: 'Fairfax',
-  city: 'Fairfax',
-  signature: 'data:image/png;base64,' + signaturePng.toString('base64'),
-  oid: 'default',
-  ip: '128.0.0.1',
-  userAgent: 'Firefox',
-}
-
-const sampleMethod: EmailMethod = {
-  method: 'email',
-  emails: ['official@elections.gov'],
-}
-
-const renderLetter = (info: StateInfo, method: EmailMethod, id: string, res: Response) => {
-
-  const emailData = toEmailData(info, id, method.emails, { forceEmailOfficials: true})
-
-  if (!emailData) {
-    return res.send('No email data supplied for this entry')
-  }
-
-  const { to, subject, html } = emailData
-  const header = marked(stripIndent(`
-  ## Header Information
-  - To: ${(to).join(', ')}
-  - Subject: ${subject}
-  ----
-  `))
-  return res.render('letter.pug', { letter: header + html })
-}
-
-router.get('/sample/:state', async (req, res) => {
-  const { state } = req.params
-
-  const info = {
-    ...sampleStateInfo,
-    state: state as AvailableState,
-  } as StateInfo // casting to state info is a bit of a hack
-  const id = '#sampleId1234'
-
-  return renderLetter(info, sampleMethod, id, res)
+nunjucks.configure(__dirname + '/views', {
+  autoescape: true,
+  noCache: !!process.env.NUNJUNKS_DISABLE_CACHE
 })
 
-router.get('/:id', async (req, res) => {
-  const id = req.params.id
-  const info = await firestoreService.getRegistration(id)
-  if (!info) {
-    return res.send('No valid registration entry')
+export class Letter {
+  md: string
+  html: string
+
+  constructor(md: string) {
+    this.md = md
+    this.html = marked(md)
   }
+}
 
-  const contact = await toContact(info)
-  if (!contact) {
-    return res.send('No Contact Found')
+const envVars = {
+  brandName: processEnvOrThrow('REACT_APP_BRAND_NAME'),
+  brandUrl: processEnvOrThrow('REACT_APP_URL'),
+  feedbackEmail: processEnvOrThrow('REACT_APP_FEEDBACK_ADDR'),
+  electionsEmail: processEnvOrThrow('REACT_APP_ELECTION_OFFICIAL_ADDR'),
+  election: processEnvOrThrow('REACT_APP_ELECTION_AND_DATE'),
+}
+
+const toTemplate = (info: StateInfo): string | null => {
+  switch(info.state) {
+    case 'Florida': return 'Florida.md'
+    case 'Michigan': return 'Michigan.md'
+    case 'Georgia': return 'Georgia.md'
+    case 'Wisconsin': return 'Wisconsin.md'
+    default: return null
   }
+}
 
-  const method = toContactMethod(info)
-  if (!method || method.method != 'email') {
-    return res.send('No Contact Method Found')
-  }
-
-  return renderLetter(info,  method, id, res)
-})
-
-
-export default router
+export const toLetter = (info: StateInfo, confirmationId: string): Letter | null => {
+  const template = toTemplate(info)
+  if (!template) return null
+  return new Letter(
+    nunjucks.render(template, { ...info, ...envVars, confirmationId })
+  )
+}

@@ -1,20 +1,19 @@
 Dear Local Supervisor of Elections,
 
-I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}}]({{brandUrl}}).
-{%- block request %}
-{% endblock %}
+I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}}]({{brandUrl}}).  This letter conforms to the requirements set forth by {{guidance}} for such a request.
 
-Below are my voter registration details:
+Below are the details of my application:
+
 - Name: **{{name}}**
-- Date of Birth: **{{birthdate}}**
+- Birth Year: **{{birthdate}}**
 - Voter Registration Address: **{{uspsAddress}}**
 {% if mailingAddress %}
 - Mailing Address: {{mailingAddress}}
 {% else %}
 - Mailing Address: Same as registration address
-- Email: {{email}}
 {% endif %}
-{%- block extraFields %}
+- Email: {{email}}
+{% block body %}
 {% endblock %}
 
 Thank you in advance for your help.  If you have any questions, please feel free to reach out at [{{email}}](mailto:{{email}}).
