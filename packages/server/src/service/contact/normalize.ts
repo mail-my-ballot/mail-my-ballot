@@ -8,8 +8,14 @@ interface OptionalLocale {
   city?: string
 }
 
+const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
+  return (arg: T) => {
+    return f(arg).toLowerCase()
+  }
+}
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-export const normalizeKey = ({ state, county, city }: OptionalLocale): string => {
+export const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
     case 'Florida':
     case 'Georgia':
@@ -35,7 +41,7 @@ export const normalizeKey = ({ state, county, city }: OptionalLocale): string =>
       return city + ':' + (county ?? '')
     }
   }
-}
+})
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
 export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
