@@ -74,12 +74,10 @@ gulp.task('test', async () => {
 
 // build
 gulp.task('tsc', runEnv('tsc --build'))
-gulp.task('link', runEnv('ln -sf ../../../src/service/zip/uszips.csv ./dist/service/zip/uszips.csv'))
 gulp.task('pug', () => gulp.src('./src/views/*.pug').pipe(gulp.dest('./dist/views')))
 
 gulp.task('build', gulp.series(
   envRequired,
-  'link',
   'pug',
   'tsc',
 ))
