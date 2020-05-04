@@ -63,7 +63,7 @@ export const vbmStatus = (state: State): Status => {
     case "Mississippi": return { status: "Excuse" }
     case "Missouri": return { status: "Excuse" }
     case "Montana": return { status: "NoExcuse" }
-    case "Nebraska": return { status: "NoExcuse" }
+    case "Nebraska": return { status: "VbmApp" }
     case "Nevada": return {
       status: "Mail",
       infoUrl: "https://www.nvsos.gov/sos/elections/voters/absentee-voting",

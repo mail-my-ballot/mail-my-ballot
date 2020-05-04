@@ -32,6 +32,7 @@ const toTemplate = (info: StateInfo): string | null => {
     case 'Michigan': return 'Michigan.md'
     case 'Georgia': return 'Georgia.md'
     case 'Wisconsin': return 'Wisconsin.md'
+    case 'Nebraska': return 'Nebraska.md'
     default: return null
   }
 }

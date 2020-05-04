@@ -9,6 +9,7 @@ import { toLocale, Locale, Address, toContactMethod } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
+import { Nebraska } from './Nebraska'
 
 type Props = React.PropsWithChildren<{
   address: Address
@@ -24,6 +25,7 @@ export const RawStateForm: React.FC<Props> = ({
     case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} />
     case 'Georgia': return <Georgia address={address} locale={locale as Locale<'Georgia'>} />
     case 'Wisconsin': return <Wisconsin address={address} locale={locale as Locale<'Wisconsin'>} />
+    case 'Nebraska': return <Nebraska address={address} locale={locale as Locale<'Nebraska'>} />
     default: return null
   }
 }

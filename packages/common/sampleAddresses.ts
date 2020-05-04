@@ -29,4 +29,7 @@ export const sampleAddresses: [string, string][] = [
   ['756 N Milwaukee St, Milwaukee, WI 53202', 'Milwaukee County, Wisconsin'],
   ['1 S Pinckney St, Madison, WI 53703', 'Dane County, Wisconsin'],
   ['300 N Broadway, Green Bay, WI 54303', 'Brown County, Wisconsin'],
+  ['808 Conagra Dr, Omaha, NE 68102', 'Douglas County, Wisconsin'],
+  ['1320 Lincoln Mall, Lincoln, NE 68508', 'Lancaster County, Wisconsin'],
+  ['923 Galvin Rd S, Bellevue, NE 68005', 'Sarpy County, Wisconsin'],
 ]
