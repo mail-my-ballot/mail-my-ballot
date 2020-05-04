@@ -4,6 +4,8 @@ import { geocode } from '../gm'
 import fs from 'fs'
 
 const encoding = 'utf8'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Func<T extends Record<string, any>> = (_: string) => Promise<T>
 const cache = <T>(f: Func<T>): Func<T> => {
   return async (arg: string) => {
