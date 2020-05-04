@@ -13,7 +13,7 @@ const RawWarningMsg = () => {
     <h4>Filling out the form:</h4>
     <p><b>Address:</b> You can fill this out with any address but to see it in action, use one of the following addresses:</p>
     <ul>
-      {sampleAddresses.map(([addr, county], key) => <li key={key}>{addr} ({county})</li>)}
+      {sampleAddresses.map((addrData, key) => <li key={key}>{addrData.address} ({addrData.city}, {addrData.county}, {addrData.state})</li>)}
     </ul>
     <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
   </RedOutline>)

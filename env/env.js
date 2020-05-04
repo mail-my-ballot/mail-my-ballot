@@ -100,6 +100,7 @@ const test = removeNullValues({
   REACT_APP_SERVER: 'https://example.com',
   REACT_APP_TIMEOUT: 2000,
   FIRESTORE_EMULATOR_HOST: 'localhost:8081',
+  GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
 })
 
