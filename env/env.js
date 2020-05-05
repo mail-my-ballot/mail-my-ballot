@@ -44,8 +44,8 @@ const development = removeNullValues({
   GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   SESSION_SECRET: DEV.SESSION_SECRET,
   GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
-  GOOGLE_STORAGE_BUCKET: 'mmb-dev-cee81.appspot.com',
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
+  GOOGLE_STORAGE_BUCKET: 'mmb-dev-cee81.appspot.com',
   DEV_SERVER_PORT: 8080,
   REACT_APP_SHOW_DEV_INFO: 1,
   REACT_APP_DEFAULT_ADDRESS: 1,
@@ -72,6 +72,7 @@ const staging = removeNullValues({
   SESSION_SECRET: STAGING.SESSION_SECRET,
   GOOGLE_MAPS_API_KEY: STAGING.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app-staging.mailmyballot.org/auth/google/callback',
+  GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
   DEBUG_LETTER: 1,
 })
@@ -92,6 +93,7 @@ const production = removeNullValues({
   SESSION_SECRET: PROD.SESSION_SECRET,
   GOOGLE_MAPS_API_KEY: PROD.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
+  GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
   DEBUG_LETTER: undefined,
   REACT_APP_EMAIL_OFFICIALS: 1,
 })
