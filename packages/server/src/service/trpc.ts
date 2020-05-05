@@ -7,6 +7,8 @@ import { sendEmail } from './mg'
 import { toEmailData } from './email'
 import { toContact } from './contact'
 import { geocode } from './gm'
+import { toPdfBuffer } from './pdf'
+import { upload } from './storage'
 
 const firestoreService = new FirestoreService()
 
@@ -62,9 +64,12 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       case 'email': {
         const emailData = toEmailData(info, id, method.emails)
         if (emailData) {
+          const pdfBuffer = await toPdfBuffer(emailData.html)
+          await upload(`letter/${id}.pdf`, pdfBuffer)
+
           await sendEmail(emailData)
           return data(id)
-        } 
+        }
         break
       }
       case 'fax': {
