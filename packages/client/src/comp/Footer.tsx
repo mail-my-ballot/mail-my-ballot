@@ -14,6 +14,8 @@ const Spacing  = styled.div`
 `
 
 export const Footer = () => <Spacing>
+  <a href='https://mailmyballot.org/'>MailMyBallot.org</a>
+  <VBar/>
   A <a href='https://www.voteathome.org'>Vote at Home</a> Project
   <VBar/>
   <Link to='/about'>About Us</Link>
