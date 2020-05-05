@@ -34,11 +34,9 @@ export const upload = async (filename: string, data: string | Buffer) => {
   })  
 }
 
-const in24Hours = () => new Date(new Date().getTime() + (24 * 60 * 60 * 1000))
-
-export const getSignedUrl = async (filename: string) => {
+export const getSignedUrl = async (filename: string, durationMs: number) => {
   return makeFile(filename).getSignedUrl({
     action: 'read',
-    expires: in24Hours()
+    expires: new Date(new Date().getTime() + durationMs)
   })
 }
