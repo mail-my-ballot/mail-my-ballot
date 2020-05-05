@@ -10,9 +10,10 @@ const makeFile = (filename: string) => {
   return storage.bucket(bucket).file(filename)
 }
 
-export const upload = async (filename: string, data: string) => {
+export const upload = async (filename: string, data: string | Buffer) => {
   const bufferStream = new stream.PassThrough()
-  bufferStream.end(Buffer.from(data, 'base64'))
+  const buffer = (data instanceof Buffer) ? data : Buffer.from(data)
+  bufferStream.end(buffer)
 
   const file = makeFile(filename)
 
