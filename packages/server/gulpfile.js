@@ -81,6 +81,8 @@ gulp.task('png', () => gulp.src('./src/service/letter/*.png').pipe(gulp.dest('./
 gulp.task('build', gulp.series(
   envRequired,
   'pug',
+  'md',
+  'png',
   'tsc',
 ))
 
