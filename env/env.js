@@ -115,6 +115,7 @@ const test = removeNullValues({
   FIRESTORE_EMULATOR_HOST: 'localhost:8081',
   GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
+  TWILLIO_DISABLE: 1,
 })
 
 const ci = removeNullValues({
