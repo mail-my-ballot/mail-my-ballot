@@ -1,6 +1,10 @@
 // Based on https://www.npmjs.com/package/env-cmd
 const {
   MG_API_KEY,
+  TWILLIO_SID,
+  TWILLIO_TOKEN,
+  TWILLIO_FAX_NUMBER,
+  RECEIVE_FAX_NUMBER,
   STAGING,
   DEV,
   PROD,
@@ -17,6 +21,11 @@ const removeNullValues = (obj) => {
 }
 
 const base = removeNullValues({
+  MG_API_KEY,
+  TWILLIO_SID,
+  TWILLIO_TOKEN,
+  TWILLIO_FAX_NUMBER,
+  RECEIVE_FAX_NUMBER,
   USER_MAX_ORGS: 8,
   REACT_APP_BRAND_NAME: 'MailMyBallot.org',
   REACT_APP_URL: 'https://mailmyballot.org/',
@@ -24,7 +33,6 @@ const base = removeNullValues({
   REACT_APP_FEEDBACK_ADDR: 'feedback@mailmyballot.org',
   REACT_APP_ELECTION_OFFICIAL_ADDR: 'elections@mailmyballot.org',
   REACT_APP_SUPPORT_ADDR: 'support@mailmyballot.org',
-  MG_API_KEY,
   MG_DOMAIN: 'email.mailmyballot.org',
   MG_FROM_ADDR: 'Vote by Mail Application <application@email.mailmyballot.org>',
   MG_REPLY_TO_ADDR: 'Vote by Mail Application <application@mailmyballot.org>',
