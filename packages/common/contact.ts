@@ -12,9 +12,27 @@ export const availableStates = [
 ] as const
 
 const availableStatesSet = new Set(availableStates)
+export type AvailableState = (typeof availableStates)[number]
 
 export const isAvailableState = (str: string): str is AvailableState => {
   return availableStatesSet.has(str as AvailableState)
+}
+
+const allowableMethods: Record<AvailableState, ('Fax' | 'Email')[]> = {
+  'Florida': ['Fax', 'Email'],
+  'Georgia': ['Fax', 'Email'],
+  'Michigan': ['Fax', 'Email'],
+  'Wisconsin': ['Fax', 'Email'],
+  'Nebraska': ['Fax', 'Email'],
+  'Maine': ['Fax'],
+  'Maryland': ['Fax'],
+  'Nevada': ['Fax'],
+  'Virginia': ['Fax', 'Email'],
+  'Minnesota': ['Fax', 'Email'],
+}
+
+const getAllowableMethods = (state: AvailableState): ('Fax' | 'Email')[] => {
+  return allowableMethods[state]
 }
 
 export interface ContactData {
@@ -29,23 +47,38 @@ export interface ContactData {
   url?: string
 }
 
-export type AvailableState = (typeof availableStates)[number]
-
-export interface EmailMethod {
-  method: 'Email'
+export type ContactMethod = {
   emails: string[]
-}
-
-export interface FaxEmailMethod {
-  method: 'FaxEmail'
   faxes: string[]
 }
 
-export type ContactMethod  = EmailMethod| FaxEmailMethod
+const toAllowableMethod = (contact: ContactData): Partial<ContactMethod> | null => {
+  const emailAllowed = getAllowableMethods(contact.state).includes('Email')
+  const faxAllowed = getAllowableMethods(contact.state).includes('Fax')
 
+  const {emails, faxes } = contact
+  switch ([emailAllowed, faxAllowed]) {
+    case ([true, true]): return { emails,  faxes }
+    case ([true, false]): return { emails }
+    case ([false, true]): return { emails, faxes }
+    default: return null
+  }
+}
+
+/** Returns a ContactMethod or null.  Always returns null if no email or fax numbers allowed */
 export const toContactMethod = (contact: ContactData | null): ContactMethod | null => {
   if (!contact) return null
-  if (contact.emails) return { emails: contact.emails, method: 'Email' }
-  if (contact.faxes) return { faxes: contact.faxes, method: 'FaxEmail' }
-  return null
+  const method = toAllowableMethod(contact)
+  if (!method) return null
+  const { emails, faxes } = method
+  const normalizedMethod = { 
+    emails: emails || [],
+    faxes: faxes || []
+  }
+
+  if ((normalizedMethod.emails.length === 0) && (normalizedMethod.faxes.length === 0)) {
+    return null
+  } else {
+    return normalizedMethod
+  }
 }

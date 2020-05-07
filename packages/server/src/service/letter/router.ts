@@ -5,7 +5,7 @@ import marked from 'marked'
 import { FirestoreService } from '../firestore'
 import { toEmailData } from '../email'
 import { toContact } from '../contact'
-import { toContactMethod, StateInfo, AvailableState, EmailMethod, availableStates, BaseInfo, GeorgiaInfo } from '../../common'
+import { toContactMethod, StateInfo, AvailableState, availableStates, BaseInfo, GeorgiaInfo, ContactMethod } from '../../common'
 import fs from 'fs'
 import { toLetter } from '.'
 
@@ -41,12 +41,12 @@ const sampleStateInfo: GeorgiaInfo = {
   state: 'Georgia',
 }
 
-const sampleMethod: EmailMethod = {
-  method: 'Email',
+const sampleMethod: ContactMethod = {
   emails: ['official@elections.gov'],
+  faxes: [],
 }
 
-const renderLetter = (info: StateInfo, method: EmailMethod, confirmationId: string, res: Response, state?: string) => {
+const renderLetter = (info: StateInfo, methods: ContactMethod | null, confirmationId: string, res: Response, state?: string) => {
   const letter = toLetter(info, confirmationId)
   if (!letter) {
     return res.render('letter.pug', {
@@ -58,7 +58,7 @@ const renderLetter = (info: StateInfo, method: EmailMethod, confirmationId: stri
   const emailData = toEmailData(
     letter,
     info.email,
-    method.emails,
+    methods?.emails || [],
     { forceEmailOfficials: true }
   )
 
@@ -101,9 +101,5 @@ router.get('/:id', async (req, res) => {
   }
 
   const method = toContactMethod(info)
-  if (!method || method.method != 'Email') {
-    return res.send('No Contact Method Found')
-  }
-
-  return renderLetter(info,  method, id, res)
+  return renderLetter(info, method, id, res)
 })

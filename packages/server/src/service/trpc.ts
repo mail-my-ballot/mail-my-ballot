@@ -65,27 +65,23 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     const letter = toLetter(info, id)
     if (!letter) return error('Unable to generate letter')
 
-    const pdfBuffer = await toPdfBuffer(letter.html)
-
     return data(id, async (): Promise<void> => {
+      const pdfBuffer = await toPdfBuffer(letter.html)
       const file = new StorageFile(`letter/${id}.pdf`)
       await file.upload(pdfBuffer)
 
-      switch(method.method) {
-        case 'Email': {
-          const emailData = toEmailData(
-            letter,
-            info.email,
-            method.emails,
-          )
-          await sendEmail(emailData)
-          return
-        }
-        case 'FaxEmail': {
-          const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
-          await Promise.all(method.faxes.map(fax => sendFax(uri, fax)))
-          return
-        }
+      // Send email (perhaps only to voter)
+      const emailData = toEmailData(
+        letter,
+        info.email,
+        method.emails,
+      )
+      await sendEmail(emailData)
+
+      // Send faxes
+      if (method.faxes) {
+        const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
+        await Promise.all(method.faxes.map(fax => sendFax(uri, fax)))
       }
     })
   }
