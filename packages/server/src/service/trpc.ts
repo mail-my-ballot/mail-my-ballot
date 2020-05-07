@@ -72,7 +72,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       await file.upload(pdfBuffer)
 
       switch(method.method) {
-        case 'email': {
+        case 'Email': {
           const emailData = toEmailData(
             letter,
             info.email,
@@ -81,7 +81,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
           await sendEmail(emailData)
           return
         }
-        case 'fax': {
+        case 'FaxEmail': {
           const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
           await Promise.all(method.faxes.map(fax => sendFax(uri, fax)))
           return

@@ -42,7 +42,7 @@ const sampleStateInfo: GeorgiaInfo = {
 }
 
 const sampleMethod: EmailMethod = {
-  method: 'email',
+  method: 'Email',
   emails: ['official@elections.gov'],
 }
 
@@ -101,7 +101,7 @@ router.get('/:id', async (req, res) => {
   }
 
   const method = toContactMethod(info)
-  if (!method || method.method != 'email') {
+  if (!method || method.method != 'Email') {
     return res.send('No Contact Method Found')
   }
 

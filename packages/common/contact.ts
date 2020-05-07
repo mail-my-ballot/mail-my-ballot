@@ -32,20 +32,20 @@ export interface ContactData {
 export type AvailableState = (typeof availableStates)[number]
 
 export interface EmailMethod {
-  method: 'email'
+  method: 'Email'
   emails: string[]
 }
 
-export interface FaxMethod {
-  method: 'fax'
+export interface FaxEmailMethod {
+  method: 'FaxEmail'
   faxes: string[]
 }
 
-export type ContactMethod  = EmailMethod| FaxMethod
+export type ContactMethod  = EmailMethod| FaxEmailMethod
 
 export const toContactMethod = (contact: ContactData | null): ContactMethod | null => {
   if (!contact) return null
-  if (contact.emails) return { emails: contact.emails, method: 'email' }
-  if (contact.faxes) return { faxes: contact.faxes, method: 'fax' }
+  if (contact.emails) return { emails: contact.emails, method: 'Email' }
+  if (contact.faxes) return { faxes: contact.faxes, method: 'FaxEmail' }
   return null
 }
