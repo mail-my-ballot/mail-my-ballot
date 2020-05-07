@@ -27,7 +27,7 @@ export const Status = () => {
     <ul>
       <li>NODE_ENV: {process.env.NODE_ENV}</li>
       <li>REACT_APP_ENVIRONMENT: {process.env.REACT_APP_ENVIRONMENT}</li>
-      <li>REACT_APP_EMAIL_OFFICIALS: {process.env.REACT_APP_EMAIL_OFFICIALS}</li>
+      <li>REACT_APP_EMAIL_FAX_OFFICIALS: {process.env.REACT_APP_EMAIL_FAX_OFFICIALS}</li>
       <li>2 + 3 = {sum}</li>
     </ul>
   </div>

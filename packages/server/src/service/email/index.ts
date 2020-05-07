@@ -1,4 +1,3 @@
-import { emailOfficials } from "../../common"
 import { EmailData } from "../mg"
 import { Letter } from "../letter"
 
@@ -24,7 +23,9 @@ export const toEmailData = (
     signature: letter.signature,
   }
 
-  if (emailOfficials() || forceEmailOfficials) {
+  const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
+
+  if (emailOfficials || forceEmailOfficials) {
     emailData.to = [...emailData.to, ...officialEmails]
   }
   return emailData

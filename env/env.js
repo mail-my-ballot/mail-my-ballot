@@ -103,7 +103,7 @@ const production = removeNullValues({
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
   DEBUG_LETTER: undefined,
-  REACT_APP_EMAIL_OFFICIALS: 1,
+  REACT_APP_EMAIL_FAX_OFFICIALS: 1,
 })
 
 const test = removeNullValues({

@@ -200,7 +200,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       const env = {
         NODE_ENV: process.env.NODE_ENV,
         REACT_APP_ENVIRONMENT: process.env.REACT_APP_ENVIRONMENT,
-        REACT_APP_EMAIL_OFFICIALS: process.env.REACT_APP_EMAIL_OFFICIALS,
+        REACT_APP_EMAIL_FAX_OFFICIALS: process.env.REACT_APP_EMAIL_FAX_OFFICIALS,
         FIRESTORE_URL: process.env.FIRESTORE_URL,
       }
       res.render('status', { env })

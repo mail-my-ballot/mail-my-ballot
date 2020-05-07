@@ -4,8 +4,6 @@ export const processEnvOrThrow = (key: string): string => {
   return val
 }
 
-export const emailOfficials = (): boolean => (!!process.env.REACT_APP_EMAIL_OFFICIALS)
-
 export * from './util'
 export * from './address'
 export * from './trpc'
