@@ -33,13 +33,13 @@ const makePngAttachment = (
   })
 }
 
-export const sendEmail = (
+export const sendEmail = async (
   {to, subject, md, html, signature}: EmailData
 ): Promise<mailgun.messages.SendResponse | null> => {
   const {domain, apiKey, from, replyTo} = mgData()
   if (process.env.MG_DISABLE) { // to disable MG for testing
     console.log('No email sent (disabled)')
-    return new Promise(() => null)
+    return null
   }
   const mg = mailgun({domain, apiKey})
   const attachment = makePngAttachment(signature, to, mg)
