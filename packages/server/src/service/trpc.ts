@@ -81,7 +81,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       // Send faxes
       if (method.faxes) {
         const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
-        await Promise.all(method.faxes.map(fax => sendFax(uri, fax)))
+        await sendFax(uri, method.faxes)
       }
     })
   }
