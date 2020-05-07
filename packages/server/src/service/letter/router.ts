@@ -7,6 +7,7 @@ import { toEmailData } from '../email'
 import { toContact } from '../contact'
 import { toContactMethod, StateInfo, AvailableState, EmailMethod, availableStates, BaseInfo, GeorgiaInfo } from '../../common'
 import fs from 'fs'
+import { toLetter } from '.'
 
 
 export const router = Router()
@@ -45,17 +46,21 @@ const sampleMethod: EmailMethod = {
   emails: ['official@elections.gov'],
 }
 
-const renderLetter = (info: StateInfo, method: EmailMethod, id: string, res: Response, state?: string) => {
-
-  const emailData = toEmailData(info, id, method.emails, { forceEmailOfficials: true})
-
-  if (!emailData) {
+const renderLetter = (info: StateInfo, method: EmailMethod, confirmationId: string, res: Response, state?: string) => {
+  const letter = toLetter(info, confirmationId)
+  if (!letter) {
     return res.render('letter.pug', {
-      letter: 'No email data supplied for this entry',
+      letter: 'Unable to render letter',
       availableStates,
       state,
     })
   }
+  const emailData = toEmailData(
+    letter,
+    info.email,
+    method.emails,
+    { forceEmailOfficials: true }
+  )
 
   const { to, subject, html } = emailData
   const header = marked(stripIndent(`

@@ -1,30 +1,27 @@
-import { StateInfo, emailOfficials } from "../../common"
+import { emailOfficials } from "../../common"
 import { EmailData } from "../mg"
-import { toLetter } from "../letter"
+import { Letter } from "../letter"
 
 interface Options {
   forceEmailOfficials: boolean
 }
 
 const defaultOptions = {
-  forceEmailOfficials: false
+  forceEmailOfficials: false,
 }
 
 export const toEmailData = (
-  info: StateInfo,
-  confirmationId: string,
+  letter: Letter,
+  email: string,
   officialEmails: string[],
   { forceEmailOfficials }: Options = defaultOptions
-): EmailData | null => {
-  const letter = toLetter(info, confirmationId)
-  if (!letter) return null
-
+): EmailData => {
   const emailData = {
-    to: [info.email],
+    to: [email],
     subject: 'Vote By Mail Request',
     md: letter.md,
     html: letter.html,
-    signature: info.signature,
+    signature: letter.signature,
   }
 
   if (emailOfficials() || forceEmailOfficials) {

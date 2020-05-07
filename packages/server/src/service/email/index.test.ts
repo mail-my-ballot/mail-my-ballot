@@ -1,29 +1,32 @@
-import { toEmailData } from '.'
 import { createMock } from 'ts-auto-mock'
+
 import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo } from "../../common"
+import { toLetter } from '../letter'
+import { toEmailData } from '.'
 
 const email = 'email@example.com'
 
 const check = (info: StateInfo, checkSignature = false): void => {
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const officialsEmails = ['email@example.com']
   const confirmationId = 'abc123'
 
-  const emailDataProd = toEmailData(info, confirmationId, officialsEmails, { forceEmailOfficials: true })
-  expect(emailDataProd).toBeTruthy()
-  expect(emailDataProd!.to.length).toBeGreaterThanOrEqual(2)
-  expect(emailDataProd!.to).toContain(email)
-  expect(emailDataProd!.md).toContain(confirmationId)
+  const letter = toLetter(info, confirmationId)
+  expect(letter).toBeTruthy()
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const emailDataProd = toEmailData(letter!, info.email, officialsEmails, { forceEmailOfficials: true })
+  expect(emailDataProd.to.length).toBeGreaterThanOrEqual(2)
+  expect(emailDataProd.to).toContain(email)
+  expect(emailDataProd.md).toContain(confirmationId)
   
-  const emailData = toEmailData(info, confirmationId, officialsEmails)
-  expect(emailData).toBeTruthy()
-  expect(emailData!.to).toEqual([email])
-  expect(emailData!.md).toContain(confirmationId)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const emailData = toEmailData(letter!, info.email, officialsEmails)
+  expect(emailData.to).toEqual([email])
+  expect(emailData.md).toContain(confirmationId)
 
   if (checkSignature) {
-    expect(emailData!.signature).toBeTruthy()
+    expect(emailData.signature).toBeTruthy()
   }
-  /* eslint-enable @typescript-eslint/no-non-null-assertion */
 }
 
 test('florida', () => {

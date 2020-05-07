@@ -11,10 +11,12 @@ nunjucks.configure(__dirname + '/views', {
 export class Letter {
   md: string
   html: string
+  signature?: string
 
-  constructor(md: string) {
+  constructor(md: string, signature?: string) {
     this.md = md
     this.html = marked(md)
+    this.signature = signature
   }
 }
 
@@ -41,6 +43,7 @@ export const toLetter = (info: StateInfo, confirmationId: string): Letter | null
   const template = toTemplate(info)
   if (!template) return null
   return new Letter(
-    nunjucks.render(template, { ...info, ...envVars, confirmationId })
+    nunjucks.render(template, { ...info, ...envVars, confirmationId }),
+    info.signature
   )
 }
