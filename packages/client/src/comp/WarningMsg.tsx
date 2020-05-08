@@ -30,7 +30,20 @@ const RawWarningMsg = () => {
             <ul style={{marginTop: '1em'}}>
               {sampleAddresses
                 .filter(addrData => addrData.state === state )
-                .map((addrData, key) => <li key={key}>{addrData.address} ({addrData.city}, {addrData.county}, {addrData.state})</li>)}
+                .map((addrData, key) => <li key={key}>
+                  {addrData.address} ({addrData.city}, {addrData.county}, {addrData.state})
+                  <button
+                    style={{marginLeft: '1em'}}
+                    onClick={() => {
+                      const input = document.getElementById('addr-input') as HTMLInputElement
+                      input.value = addrData.address
+                      document.getElementById('addr-submit')?.click()
+                    }}
+                  >
+                    Fill
+                  </button>
+                  </li>
+                )}
             </ul>
           </Tab>
         })
