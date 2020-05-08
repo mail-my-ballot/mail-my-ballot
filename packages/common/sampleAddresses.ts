@@ -123,5 +123,39 @@ export const sampleAddresses: AddressData[] = [
     city: 'Rockville',
     county: 'Montgomery County',
     state: 'Maryland',
+  }, {
+    address: '443 Congress St, Portland, ME 04101',
+    city: 'Portland',
+    county: 'Cumberland County',
+    state: 'Maine',
+  }, {
+    address: '415 Lisbon St, Lewiston, ME 04240',
+    city: 'Lewiston',
+    county: 'Androscoggin County',
+    state: 'Maine',
+  }, {
+    address: '2 Hammond St, Bangor, ME 04401',
+    city: 'Bangor',
+    county: 'Penobscot County',
+    state: 'Maine',
+  }, {
+    address: '575 W Symphony Park Ave, Las Vegas, NV 89106',
+    city: 'Las Vegas',
+    county: 'Clark County',
+    state: 'Nevada',
+  }, {
+    address: '400 N Green Valley Pkwy, Henderson, NV 89074',
+    city: 'Henderson',
+    county: 'Clark County',
+    state: 'Nevada',
+  }, {
+    address: '449 S Virginia St, Reno, NV 89501',
+    city: 'Reno',
+    county: 'Washoe County',
+    state: 'Nevada',
+  }, {
+    address: '1900 S Carson St, Carson City, NV 89701',
+    city: 'Carson City',
+    state: 'Nevada',
   }
 ]
