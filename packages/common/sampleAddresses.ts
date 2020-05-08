@@ -1,5 +1,6 @@
 import { Address } from "./address"
 import { Locale } from "./locale"
+import { AvailableState } from "./contact"
 
 export const sampleFloridaAddress: Address = {
   'fullAddr': '100, Biscayne Boulevard, The Roads, Miami, Miami-Dade County, Florida, 33131, United States of America',
@@ -13,7 +14,7 @@ export const sampleFloridaAddress: Address = {
 
 export const sampleAddress = sampleFloridaAddress
 
-export interface AddressData extends Locale {
+export interface AddressData extends Locale<AvailableState> {
   address: string
 }
 
@@ -111,7 +112,6 @@ export const sampleAddresses: AddressData[] = [
   }, {
     address: '240 W Dickman St, Baltimore, MD 21230',
     city: 'Baltimore',
-    county: 'Howard County',
     state: 'Maryland',
   }, {
     address: '118 N Market St, Frederick, MD 2170',

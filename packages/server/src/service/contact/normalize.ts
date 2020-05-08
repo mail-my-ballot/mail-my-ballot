@@ -11,25 +11,27 @@ const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
+    // only county
     case 'Florida':
     case 'Georgia':
-    case 'Maryland':
     case 'Minnesota':
     case 'Nebraska': {
       return county!
     }
-    case 'Maine': {
-      return city!
-    }
-    case 'Michigan': {
-      return city + ':' + county
-    }
-    case 'Nevada': {
+
+    // only city
+    case 'Maine': return city!
+
+    // hybrid count or city
+    case 'Maryland': // Baltimore city is independent of county
+    case 'Virginia': // Alexandria, Fairfax are independent of county.  All end in "City"
+    case 'Nevada': {  // Carson City is independent of county
       return (city ?? '') + ':' + (county ?? '')
     }
-    case 'Virginia': {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return city ?? county!
+
+    // both city and county
+    case 'Michigan': {
+      return city + ':' + county
     }
     case 'Wisconsin': {
       return city + ':' + (county ?? '')
@@ -60,7 +62,7 @@ export const normalizeState = (state: AvailableState, contacts: RawContact[]): R
   return Object.fromEntries(array)
 }
 
-export const normalize = (records: RawContactRecord): ContactRecord => {
+export const normalizeRecords = (records: RawContactRecord): ContactRecord => {
   const rawArray  = Object.entries(records) as Array<[AvailableState, RawContact[]]>
   const array = rawArray.map(
     ([state, contactDatas]) => [

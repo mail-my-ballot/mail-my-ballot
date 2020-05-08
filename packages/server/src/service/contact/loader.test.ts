@@ -1,5 +1,5 @@
 import { loadStates } from './loader'
-import { normalize } from './normalize'
+import { normalizeRecords } from './normalize'
 import { availableStates } from '../../common'
 import { RawContactRecord, ContactRecord } from './type'
 
@@ -8,7 +8,7 @@ describe('Contact loader', () => {
   let records: ContactRecord
   beforeAll(async () => {
     rawRecords = await loadStates()
-    records = normalize(rawRecords)
+    records = normalizeRecords(rawRecords)
   })
 
   test.each(availableStates)(

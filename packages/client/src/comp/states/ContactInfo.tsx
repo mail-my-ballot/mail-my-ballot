@@ -22,17 +22,21 @@ const englishList = (singular: string, plural: string, items: string[] | undefin
   }
 }
 
+const localeString = ({city, county, state}: Locale) => {
+  return `${city}, ${state}` + (county ? ` (${county})` : '')
+}
+
 export const InvalidContact: React.FC<InvalidContactProps> = ({
   locale, contact
 }) => {
   if (!contact) {
-    return <p> We could not find the local eletions official for {locale.city}, {locale.state} in {locale.county}.</p>
+    return <p> We could not find the local eletions official for {localeString(locale)}.</p>
   }
 
   const texts = [
     (contact.official)
-      ? `The local elections official for ${locale.city}, ${locale.state} in ${locale.county} is ${contact.official}.`
-      : `We were able to find the local eletions official for ${locale.city}, ${locale.state} in ${locale.county}.`,
+      ? `The local elections official for ${localeString(locale)} is ${contact.official}.`
+      : `We were able to find the local eletions official for ${localeString(locale)}.`,
     'Unfortunately, they are one of the few that do not list an email or fax.',
     englishList('phone number', 'phone numbers', contact.phones),
     contact.url ? `Their email is ${contact.url}.` : ''
@@ -45,7 +49,7 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({
   locale, contact
 }) => {
   const texts = [
-    `The local elections official for ${locale.city}, ${locale.state} in ${locale.county} is ${contact.official}.`,
+    `The local elections official for ${localeString(locale)} is ${contact.official}.`,
     englishList('email address', 'email addresses', contact.emails),
     englishList('fax number', 'fax numbers', contact.faxes),
     englishList('phone number', 'phone numbers', contact.phones),

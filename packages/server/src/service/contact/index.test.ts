@@ -21,13 +21,7 @@ const cache = <T>(f: Func<T>): Func<T> => {
   }
 }
 
-describe('OSM is returning stable results', () => {
-  /*
-    Testing geocode is more appropriately with `osm.ts`.  However, it has to be
-    here because we want to check that the resulting contact and method objects are not
-    null, and this code is (and can only be) available on the server.
-  */
-
+describe('Google Maps is returning stable results', () => {
   it('Should geocode all data', async () => {
     await Promise.all(
       sampleAddresses.map(async (addrData, index) => {
@@ -39,12 +33,12 @@ describe('OSM is returning stable results', () => {
     )
   })
 
-  const table = sampleAddresses.map(
+  const table: [string, AvailableState, string | undefined, string][] = sampleAddresses.map(
     addr => [addr.address, addr.state, addr.county, addr.city]
   )
 
   test.each(table)(
-    'Checking %s',
+    'Checking Geocoding for %s',
     async (address, state, county, city) => {
       const result = await cache(geocode)(address)
       expect(result).toBeTruthy()

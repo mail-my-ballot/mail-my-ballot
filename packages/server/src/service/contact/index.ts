@@ -1,14 +1,14 @@
 import { ContactRecord } from './type'
 import { loadStates } from './loader'
-import { normalize } from './normalize'
-import { Locale, isAvailableState, ContactData } from '../../common'
+import { normalizeRecords } from './normalize'
+import { Locale, isAvailableState, ContactData, AvailableState } from '../../common'
 import { keys } from './search'
 
 let contactRecords: null | ContactRecord = null;
 
 (async (): Promise<void> => {
   const data = await loadStates()
-  contactRecords = normalize(data)
+  contactRecords = normalizeRecords(data)
 })()
 
 const delay = (t: number): Promise<void> => new Promise(resolve => setTimeout(resolve, t))
@@ -29,7 +29,7 @@ export const toContact = async (locale: Locale): Promise<ContactData | null> => 
   const { state } = locale
   if (!isAvailableState(state)) return null
   const stateRecords = contactRecords[state]
-  for(const key of keys({...locale, state})) {
+  for(const key of keys(locale as Locale<AvailableState>)) {
     const stateless = stateRecords[key]
     if (stateless) {
       return {
