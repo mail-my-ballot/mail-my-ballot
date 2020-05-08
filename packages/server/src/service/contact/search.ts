@@ -25,6 +25,9 @@ const wisconsinCounties = (county: string): string[] => {
   return [county, '']
 }
 
+/** States that have cities independent of counties. These are usually for large cities
+ *  So just try matching on cities first and then county if city doesn't match
+*/
 const keysCityState = (locale: Locale<AvailableState>): string[] => {
   const cityLocales = citySuffixes([' City'], locale.city)
     .map(city => normalizeLocale({...locale, city}))
