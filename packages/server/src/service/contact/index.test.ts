@@ -1,4 +1,4 @@
-import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, wait } from '../../common'
+import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale } from '../../common'
 import { toContact } from '.'
 import { geocode } from '../gm'
 import fs from 'fs'
@@ -22,17 +22,6 @@ const cache = <T>(f: Func<T>): Func<T> => {
 }
 
 describe('Google Maps is returning stable results', () => {
-  it('Should geocode all data', async () => {
-    await Promise.all(
-      sampleAddresses.map(async (addrData, index) => {
-        await wait(index * 0) // space calls out if we're running for firs time
-        const result = await cache(geocode)(addrData.address)
-        expect(result).toBeTruthy()
-        return result as Address
-      })
-    )
-  })
-
   const table: [string, AvailableState, string | undefined, string][] = sampleAddresses.map(
     addr => [addr.address, addr.state, addr.county, addr.city]
   )
