@@ -89,4 +89,3 @@ typings/
 dist/
 tsconfig.tsbuildinfo
 venv
-.vscode
