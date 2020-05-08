@@ -108,5 +108,20 @@ export const sampleAddresses: AddressData[] = [
     city: 'Bellevue',
     county: 'Sarpy County',
     state: 'Nebraska',
+  }, {
+    address: '240 W Dickman St, Baltimore, MD 21230',
+    city: 'Baltimore',
+    county: 'Howard County',
+    state: 'Maryland',
+  }, {
+    address: '118 N Market St, Frederick, MD 2170',
+    city: 'Frederick',
+    county: 'Frederick County',
+    state: 'Maryland',
+  }, {
+    address: '1 Research Ct, Rockville, MD 20850',
+    city: 'Rockville',
+    county: 'Montgomery County',
+    state: 'Maryland',
   }
 ]
