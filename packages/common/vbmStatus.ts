@@ -47,12 +47,8 @@ export const vbmStatus = (state: State): Status => {
     case "Kansas": return { status: "NoExcuse" }
     case "Kentucky": return { status: "Excuse" }
     case "Louisiana": return { status: "Excuse" }
-    case "Maine": return {
-      status: "Website",
-      regUrl: "https://www.maine.gov/cgi-bin/online/AbsenteeBallot/index.pl",
-      infoUrl: "https://www.maine.gov/sos/cec/elec/voter-info/absenteeguide.html",
-    }
-    case "Maryland": return { status: "NoExcuse" }
+    case "Maine": return { status: "VbmApp" }
+    case "Maryland": return { status: "VbmApp" }
     case "Massachusetts": return { status: "Excuse" }
     case "Michigan": return { status: "VbmApp" }
     case "Minnesota": return {
@@ -64,10 +60,7 @@ export const vbmStatus = (state: State): Status => {
     case "Missouri": return { status: "Excuse" }
     case "Montana": return { status: "NoExcuse" }
     case "Nebraska": return { status: "VbmApp" }
-    case "Nevada": return {
-      status: "Mail",
-      infoUrl: "https://www.nvsos.gov/sos/elections/voters/absentee-voting",
-    }
+    case "Nevada": return { status: "VbmApp" }
     case "New Hampshire": return { status: "Excuse" }
     case "New Jersey": return { status: "NoExcuse" }
     case "New Mexico": return { status: "NoExcuse" }

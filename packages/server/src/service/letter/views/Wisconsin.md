@@ -7,5 +7,6 @@
 - City / Town / Village: **{{city}}**
 - County: **{{county}}**
 - Elections: generally, all elections through the end of the calendar year; in particular, **{{election}}**.
+- Method of Delivery: I request that my ballot be mailed to me.
 
 {% endblock %}
