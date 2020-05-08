@@ -12,14 +12,14 @@ import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
+import { sampleAddresses } from '../common'
 
 let defaultAddr = (_: string): (string | undefined) => undefined
 
 if (process.env.REACT_APP_DEFAULT_ADDRESS) {
-  const addrMap: Record<string,string> = {
-    'Michigan': '2125 Butterfield Rd, Troy, MI 48084',
-    'Florida': '100 S Biscayne Blvd, Miami, FL 33131',
-  }
+  const addrMap: Record<string,string> = Object.fromEntries(
+    sampleAddresses.map(address => [address.state, address.address])
+  )
   defaultAddr = (state: string) => {
     return addrMap[state]
   }
@@ -96,7 +96,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
         <FlexBox>
           <FlexGrow>
             <BaseInput
-              id='addr'
+              id='addr-input'  // This id is used for Warning Box to fill form quickly
               label='Address'
               ref={addrRef}
               defaultValue={defaultAddr(state)}
@@ -104,6 +104,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
           </FlexGrow>
           <FlexFixed>
             <RoundedButton
+              id='addr-submit'  // This id is used for Warning Box to submit form quickly
               color='primary'
               variant='raised'
               data-testid='submit'
