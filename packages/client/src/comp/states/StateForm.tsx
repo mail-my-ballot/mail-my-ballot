@@ -9,7 +9,7 @@ import { Maryland } from './Maryland'
 import { Maine } from './Maine'
 import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { toLocale, Locale, Address, toContactMethod } from '../../common'
+import { Address, Locale } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
@@ -42,11 +42,11 @@ export const PaddingTop = styled.div`
 `
 
 export const StateForm = () => {
-  const { address } = AddressContainer.useContainer()
-  const { contact } = ContactContainer.useContainer()
+  const { address, locale } = AddressContainer.useContainer()
+  const { contact, method } = ContactContainer.useContainer()
   const { path, pushAddress, pushStart } = useAppHistory()
 
-  if (!address) {
+  if (!locale) {
     if(!path) {
       pushStart()
       return null
@@ -63,19 +63,16 @@ export const StateForm = () => {
     }
   }
 
-  const locale = toLocale(address)
-  const method = toContactMethod(contact)
-
   if (!locale) throw Error(`Could not derive locale from Address`)
+  if (!address) throw Error(`Could not find Address`)
   if (!contact || !method) {
     return <InvalidContact locale={locale} contact={contact}/>
   }
 
-  if (address.state !== contact.state) throw Error(`Address state ${address.state} does not match ${contact.state}`)
   if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
 
   return <PaddingTop>
-    <h2>{address.state} Vote by Mail Form</h2>
+    <h2>{locale.state} Vote by Mail Form</h2>
     <ContactInfo locale={locale} contact={contact}/>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
     <RawStateForm address={address} locale={locale}/>
