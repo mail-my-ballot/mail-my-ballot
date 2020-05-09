@@ -5,7 +5,6 @@ import { StateContainer } from "./StateContainer"
 import { client } from '../lib/trpc'
 import { pageView } from '../lib/analytics'
 import { mocked } from 'ts-jest/utils'
-import { sampleAddress } from '../common/sampleAddresses'
 
 jest.mock('../lib/analytics')
 jest.mock('../lib/trpc')
@@ -43,5 +42,5 @@ test('AddressForm works', async () => {
   expect(fetchContactAddress).toHaveBeenCalledTimes(1)
   expect(mockedPageView).toHaveBeenCalledTimes(1)
   expect(getByTestId('status-title')).toHaveTextContent('Great News!')
-  expect(getByTestId('status-detail')).toHaveTextContent(sampleAddress.state)
+  expect(getByTestId('status-detail')).toHaveTextContent('Florida')
 })

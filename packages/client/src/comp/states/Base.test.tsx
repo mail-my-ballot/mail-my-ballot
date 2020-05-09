@@ -11,9 +11,9 @@ import { Wisconsin } from './Wisconsin'
 import { StateContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { sampleAddress } from '../../common/sampleAddresses'
 import { toPath, SuccessPath } from '../../lib/path'
 import { Analytics } from '../Analytics'
+import { AddressContainer } from '../../lib/state'
 jest.mock('../../lib/trpc')
 
 /** Fill out form without signing */
@@ -65,7 +65,17 @@ const signForm = ({getByTestId}: RenderResult) => {
   })
 }
 
-test('Michigan Form works', async () => {
+const michiganAddress = {
+  fullAddr: '24624 W Warren St, Dearborn Heights, MI 48127, USA',
+  city: 'Dearborn Heights',
+  country: 'United States',
+  state: 'Michigan',
+  postcode: '48127',
+  county: 'Wayne County',
+  queryAddr: '24624 W Warren St, Dearborn Heights 48127, MI'
+}
+
+test('State Form with Signature (Michigan) works', async () => {
   const history = createMemoryHistory()
 
   const register = mocked(client, true).register = jest.fn().mockResolvedValue({
@@ -77,15 +87,10 @@ test('Michigan Form works', async () => {
   // load page
   const renderResult = render(
     <Router history={history}>
-      <Analytics/>
-      <Michigan
-        locale={{
-          state: 'Michigan',
-          county: 'Wayne County',
-          city: 'Canton'
-        }}
-        address={sampleAddress}
-      />
+      <AddressContainer.Provider initialState={michiganAddress}>
+        <Analytics/>
+        <Michigan/>
+      </AddressContainer.Provider>
     </Router>,
     { wrapper: StateContainer }
   )
@@ -106,7 +111,17 @@ test('Michigan Form works', async () => {
   await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })
 
-test('Wisconsin Form works', async () => {
+const wisconsinAddress = {
+  fullAddr: '1 S Pinckney St, Madison, WI 53703, USA',
+  city: 'Madison',
+  country: 'United States',
+  state: 'Wisconsin',
+  postcode: '53703',
+  county: 'Dane County',
+  queryAddr: '1 S Pinckney St, Madison, WI 53703'
+}
+
+test('State Form Without Signature (Wisconsin) works', async () => {
   const history = createMemoryHistory()
 
   const register = mocked(client, true).register = jest.fn().mockResolvedValue({
@@ -117,15 +132,10 @@ test('Wisconsin Form works', async () => {
 
   const renderResult = render(
     <Router history={history}>
-      <Analytics/>
-      <Wisconsin
-        locale={{
-          state: 'Wisconsin',
-          county: 'Dane County',
-          city: 'Madison'
-        }}
-        address={sampleAddress}
-      />
+      <AddressContainer.Provider initialState={wisconsinAddress}>
+        <Analytics/>
+        <Wisconsin/>
+      </AddressContainer.Provider>
     </Router>,
     { wrapper: StateContainer }
   )

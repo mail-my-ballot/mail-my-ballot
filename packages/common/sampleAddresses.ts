@@ -1,18 +1,5 @@
-import { Address } from "./address"
 import { Locale } from "./locale"
 import { AvailableState } from "./contact"
-
-export const sampleFloridaAddress: Address = {
-  'fullAddr': '100, Biscayne Boulevard, The Roads, Miami, Miami-Dade County, Florida, 33131, United States of America',
-  'queryAddr': '100 S Biscayne Blvd, Miami, FL 33131',
-  'city': 'Miami',
-  'county': 'Miami-Dade County',
-  'postcode': '33131',
-  'state': 'Florida',
-  'country': 'United States of America',
-}
-
-export const sampleAddress = sampleFloridaAddress
 
 export interface AddressData extends Locale<AvailableState> {
   address: string

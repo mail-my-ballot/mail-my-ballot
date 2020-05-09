@@ -9,30 +9,28 @@ import { Maryland } from './Maryland'
 import { Maine } from './Maine'
 import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { Address, Locale } from '../../common'
+import { Locale } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
 import { Nebraska } from './Nebraska'
 
 type Props = React.PropsWithChildren<{
-  address: Address
   locale: Locale
 }>
 
 export const RawStateForm: React.FC<Props> = ({
-  address,
   locale,
 }) => {
   switch(locale.state) {
-    case 'Florida': return <Florida address={address} locale={locale as Locale<'Florida'>} />
-    case 'Michigan': return <Michigan address={address} locale={locale as Locale<'Michigan'>} />
-    case 'Georgia': return <Georgia address={address} locale={locale as Locale<'Georgia'>} />
-    case 'Wisconsin': return <Wisconsin address={address} locale={locale as Locale<'Wisconsin'>} />
-    case 'Nebraska': return <Nebraska address={address} locale={locale as Locale<'Nebraska'>} />
-    case 'Maryland': return <Maryland address={address} locale={locale as Locale<'Maryland'>} />
-    case 'Maine': return <Maine address={address} locale={locale as Locale<'Maine'>} />
-    case 'Nevada': return <Nevada address={address} locale={locale as Locale<'Nevada'>} />
+    case 'Florida': return <Florida />
+    case 'Michigan': return <Michigan />
+    case 'Georgia': return <Georgia />
+    case 'Wisconsin': return <Wisconsin />
+    case 'Nebraska': return <Nebraska />
+    case 'Maryland': return <Maryland />
+    case 'Maine': return <Maine />
+    case 'Nevada': return <Nevada />
     default: return null
   }
 }
@@ -75,6 +73,6 @@ export const StateForm = () => {
     <h2>{locale.state} Vote by Mail Form</h2>
     <ContactInfo locale={locale} contact={contact}/>
     <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
-    <RawStateForm address={address} locale={locale}/>
+    <RawStateForm locale={locale}/>
   </PaddingTop>
 }

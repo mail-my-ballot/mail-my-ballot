@@ -1,13 +1,11 @@
 import React from 'react'
 
 import { FloridaInfo } from '../../common'
-import { SignatureBase, StateProps } from './Base'
+import { SignatureBase } from './Base'
 
 
-export const Florida = ({address, locale}: StateProps<'Florida'>) => {
+export const Florida = () => {
   return <SignatureBase<FloridaInfo>
-    address={address}
-    locale={locale}
     enrichValues={(info) => ({...info, state: 'Florida'})}
   />
 }

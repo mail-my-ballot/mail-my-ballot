@@ -1,16 +1,11 @@
 import React from 'react'
 
-import { Address, Locale, GeorgiaInfo } from '../../common'
+import { GeorgiaInfo } from '../../common'
 import Input from 'muicss/lib/react/input'
 import { useControlRef } from '../util/ControlRef'
 import { SignatureBase, StatelessInfo, NoSignature } from './Base'
 
-type Props = React.PropsWithChildren<{
-  address: Address
-  locale: Locale<'Georgia'>
-}>
-
-export const Georgia = ({address, locale}: Props) => {
+export const Georgia = () => {
   const partyRef = useControlRef<Input>()
 
   const enrichValues = (baseInfo: StatelessInfo): NoSignature<GeorgiaInfo> | null => {
@@ -21,7 +16,7 @@ export const Georgia = ({address, locale}: Props) => {
     }
   }
 
-  return <SignatureBase<GeorgiaInfo> address={address} locale={locale} enrichValues={enrichValues}>
+  return <SignatureBase<GeorgiaInfo> enrichValues={enrichValues}>
     <Input
       id='name'
       ref={partyRef}

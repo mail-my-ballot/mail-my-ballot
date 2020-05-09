@@ -4,7 +4,7 @@ import Input from 'muicss/lib/react/input'
 import SignatureCanvas from 'react-signature-canvas'
 
 
-import { BaseInfo, Locale, Address, StateInfo, State } from '../../common'
+import { BaseInfo, StateInfo } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -12,25 +12,26 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
+import { AddressContainer } from '../../lib/state'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
 type EnrichValues<Info> = (base: StatelessInfo) => Info | null
 
 type Props<Info> = React.PropsWithChildren<{
-  address: Address
-  locale: Locale
   enrichValues: EnrichValues<Info>
 }>
 
-export const Base = <Info extends StateInfo>({address, locale, enrichValues, children }: Props<Info>) => {
+export const Base = <Info extends StateInfo>({enrichValues, children }: Props<Info>) => {
   const { pushSuccess, oid } = useAppHistory()
+  const { address, locale } = AddressContainer.useContainer()
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
+  if (!locale) return null
 
   const uspsAddress = address ? address.fullAddr : null
   const { city, county } = locale
@@ -101,7 +102,7 @@ export const Base = <Info extends StateInfo>({address, locale, enrichValues, chi
 export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>
 
 export const SignatureBase = <Info extends StateInfo>(
-  {address, locale, enrichValues, children}: Props<NoSignature<Info>>
+  {enrichValues, children}: Props<NoSignature<Info>>
 ) => {
   const signatureRef = React.useRef<SignatureCanvas>(null)
 
@@ -122,16 +123,9 @@ export const SignatureBase = <Info extends StateInfo>(
   }
 
   return <Base<Info>
-    address={address}
-    locale={locale}
     enrichValues={enrichValuesWithSignature}
   >
     { children }
     <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
   </Base>
 }
-
-export type StateProps<S extends State> = React.PropsWithChildren<{
-  address: Address
-  locale: Locale<S>
-}>
