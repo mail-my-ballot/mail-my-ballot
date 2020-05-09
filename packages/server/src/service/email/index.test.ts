@@ -1,16 +1,22 @@
 import { createMock } from 'ts-auto-mock'
 
-import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo } from "../../common"
+import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo, ContactMethod } from "../../common"
 import { toLetter } from '../letter'
 import { toEmailData } from '.'
 
 const email = 'email@example.com'
 
 const check = (info: StateInfo, checkSignature = false): void => {
-  const officialsEmails = ['email@example.com']
+  const sampleMethod: ContactMethod = {
+    stateMethod: 'fax-email',
+    emails: ['official@elections.gov'],
+    faxes: [],
+  }
+  
+  const officialsEmails = sampleMethod.emails
   const confirmationId = 'abc123'
-
-  const letter = toLetter(info, confirmationId)
+  
+  const letter = toLetter(info, sampleMethod, confirmationId)
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

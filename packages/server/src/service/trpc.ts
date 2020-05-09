@@ -62,7 +62,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     const method = toContactMethod(contact)
     if (!method) return error('Unable to find contct details for local official')
 
-    const letter = toLetter(info, id)
+    const letter = toLetter(info, method, id)
     if (!letter) return error('Unable to generate letter')
 
     return data(id, async (): Promise<void> => {

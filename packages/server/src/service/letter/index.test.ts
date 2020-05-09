@@ -1,13 +1,17 @@
 import { toLetter } from '.'
-import { signatureStateInfo } from './router'
+import { signatureStateInfo, sampleMethod } from './router'
 import { availableStates } from '../../common'
 
-test('Leteer for all states render correctly', () => {
+test('Leter for all states render correctly', () => {
   const confirmationId = 'sampleConfirmationId'
 
   const letters = availableStates.map(state => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return toLetter({...signatureStateInfo, state: state as any}, confirmationId)
+    return toLetter(
+      {...signatureStateInfo, state: state as any},
+      sampleMethod,
+      confirmationId
+    )
   }).filter(letter => !!letter)
   
   letters.forEach(letter => {

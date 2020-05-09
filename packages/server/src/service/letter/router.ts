@@ -41,13 +41,14 @@ const sampleStateInfo: GeorgiaInfo = {
   state: 'Georgia',
 }
 
-const sampleMethod: ContactMethod = {
+export const sampleMethod: ContactMethod = {
+  stateMethod: 'fax-email',
   emails: ['official@elections.gov'],
   faxes: [],
 }
 
-const renderLetter = (info: StateInfo, methods: ContactMethod | null, confirmationId: string, res: Response, state?: string) => {
-  const letter = toLetter(info, confirmationId)
+const renderLetter = (info: StateInfo, method: ContactMethod, confirmationId: string, res: Response, state?: string) => {
+  const letter = toLetter(info, method, confirmationId)
   if (!letter) {
     return res.render('letter.pug', {
       letter: 'Unable to render letter',
@@ -58,7 +59,7 @@ const renderLetter = (info: StateInfo, methods: ContactMethod | null, confirmati
   const emailData = toEmailData(
     letter,
     info.email,
-    methods?.emails || [],
+    method?.emails || [],
     { forceEmailOfficials: true }
   )
 
@@ -101,5 +102,8 @@ router.get('/:id', async (req, res) => {
   }
 
   const method = toContactMethod(info)
+  if (!method) {
+    return res.send('No Contact Method Found')
+  }
   return renderLetter(info, method, id, res)
 })

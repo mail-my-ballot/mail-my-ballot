@@ -55,7 +55,13 @@ export type ContactMethod = {
   faxes: string[]
 }
 
-const toAllowableMethod = (contact: ContactData): Partial<ContactMethod> | null => {
+export type PartialContactMethod = {
+  stateMethod: StateMethod
+  emails?: string[]
+  faxes?: string[]
+}
+
+const toAllowableMethod = (contact: ContactData): PartialContactMethod => {
   const stateMethod = toStateMethod(contact.state)
 
   const { emails, faxes } = contact
@@ -77,7 +83,6 @@ export const toContactMethod = (contact: ContactData | null): ContactMethod | nu
   if (!contact) return null
   const method = toAllowableMethod(contact)
 
-  if (!method) return null
   const { stateMethod, emails, faxes } = method
 
   const normalizedMethod = { 

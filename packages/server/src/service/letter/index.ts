@@ -1,7 +1,7 @@
 import marked from 'marked'
 import nunjucks from 'nunjucks'
 
-import { processEnvOrThrow, StateInfo } from '../../common'
+import { processEnvOrThrow, StateInfo, ContactMethod } from '../../common'
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
@@ -39,11 +39,11 @@ const toTemplate = (info: StateInfo): string | null => {
   }
 }
 
-export const toLetter = (info: StateInfo, confirmationId: string): Letter | null => {
+export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter | null => {
   const template = toTemplate(info)
   if (!template) return null
   return new Letter(
-    nunjucks.render(template, { ...info, ...envVars, confirmationId }),
+    nunjucks.render(template, { ...info, ...envVars, confirmationId, method }),
     info.signature
   )
 }
