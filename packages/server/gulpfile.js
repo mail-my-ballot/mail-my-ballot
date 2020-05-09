@@ -46,6 +46,14 @@ gulp.task('proto',
   )
 )
 
+// script
+gulp.task('script',
+  gulp.series(
+    envRequired,
+    runEnv(`ts-node-dev --transpileOnly ${options.file} ${options.env}`),
+  )
+)
+
 // emulator
 gulp.task('emulator',
   runEnv(`firebase emulators:exec --only firestore`)
