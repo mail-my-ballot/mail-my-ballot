@@ -10,7 +10,7 @@ import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
 import { StorageFile } from './storage'
 import { toLetter } from './letter'
-import { sendFax } from './twillio'
+import { sendFaxes } from './twillio'
 
 const firestoreService = new FirestoreService()
 
@@ -78,9 +78,9 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       await sendEmail(emailData)
 
       // Send faxes
-      if (method.faxes) {
+      if (method.faxes.length > 0) {
         const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
-        await sendFax(uri, method.faxes)
+        await sendFaxes(uri, method.faxes)
       }
     })
   }

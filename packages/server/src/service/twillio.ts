@@ -14,7 +14,7 @@ const tos = (faxes: string[], force: boolean): string[] => {
   return []
 }
 
-export const sendFax = async (url: string, faxes: string[], force = false) => {
+export const sendFaxes = async (url: string, faxes: string[], force = false) => {
   if (process.env.TWILLIO_DISABLE) { // to disable Twillio for testing
     console.log('No fax sent (disabled)')
     return []
