@@ -1,11 +1,11 @@
 import { Locale } from "./locale"
-import { AvailableState } from "./contact"
+import { ImplementedState } from "./stateInfo"
 
-export interface AddressData extends Locale<AvailableState> {
+export interface AddressData extends Locale<ImplementedState> {
   address: string
 }
 
-export const sampleAddresses: Record<AvailableState, AddressData[]> = {
+export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
   'Florida': [{
     address: '100 S Biscayne Blvd, Miami, FL 33131',
     city: 'Miami',
@@ -151,7 +151,5 @@ export const sampleAddresses: Record<AvailableState, AddressData[]> = {
     address: '1900 S Carson St, Carson City, NV 89701',
     city: 'Carson City',
     state: 'Nevada',
-  }],
-  'Minnesota': [],
-  'Virginia': [],
+  }]
 }

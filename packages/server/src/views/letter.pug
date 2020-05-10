@@ -3,7 +3,7 @@
 .container
   if state
     ul.nav.nav-tabs
-      each availableState in availableStates
+      each availableState in implementedStates
         li.nav-item
           if state === availableState
             a.nav-link(href=availableState + '-0').active= availableState

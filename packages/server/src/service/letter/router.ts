@@ -1,7 +1,7 @@
 import { Router} from 'express'
 
 import { getContactRecords } from '../contact'
-import { toContactMethod, StateInfo, AvailableState, availableStates, BaseInfo, GeorgiaInfo, ContactMethod, isAvailableState } from '../../common'
+import { toContactMethod, StateInfo, ImplementedState, implementedStates, BaseInfo, GeorgiaInfo, ContactMethod, isImplementedState } from '../../common'
 import fs from 'fs'
 import { toLetter } from '.'
 
@@ -45,7 +45,7 @@ router.get('/sample/:stateIndex', async (req, res) => {
   const { stateIndex } = req.params
   const [state, rawIndex] = stateIndex.split('-')
 
-  if (!isAvailableState(state)) return res.redirect('/sample/Florida-0')
+  if (!isImplementedState(state)) return res.redirect('/sample/Florida-0')
   const index = parseInt(rawIndex)
   if (isNaN(index)) return res.redirect(`/sample/${state}-0`)
 
@@ -59,7 +59,7 @@ router.get('/sample/:stateIndex', async (req, res) => {
   // generate sample info
   const info = {
     ...sampleStateInfo,
-    state: state as AvailableState,
+    state: state as ImplementedState,
   } as StateInfo // casting to state info is a bit of a hack
   const confirmationId = '#sampleId1234'
 
@@ -68,7 +68,7 @@ router.get('/sample/:stateIndex', async (req, res) => {
       letter,
 
       // state data
-      availableStates,
+      implementedStates,
       state,
 
       // locale data

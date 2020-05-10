@@ -5,20 +5,17 @@ import DropdownItem from 'muicss/lib/react/dropdown-item'
 import { RedOutline } from './util/RedOutline'
 import { sampleAddresses } from '../common/sampleAddresses'
 import { AddressContainer } from '../lib/state'
-import { AvailableState, isAvailableState } from '../common'
+import { ImplementedState, implementedStates, isImplementedState } from '../common'
 
 
 const RawWarningMsg = () => {
-  const states = Object.entries(sampleAddresses)
-    .filter(([_, val]) => val.length == 0)
-    .map(([key, _]) => key as AvailableState)
   const { locale } = AddressContainer.useContainer()
-  const defaultState: AvailableState = locale
-    ? isAvailableState(locale.state)
+  const defaultState: ImplementedState = locale
+    ? isImplementedState(locale.state)
       ? locale.state
       : 'Florida'
     : 'Florida'
-  const [state, setState] = React.useState<AvailableState>(defaultState)
+  const [state, setState] = React.useState<ImplementedState>(defaultState)
   const addresses = sampleAddresses[state]
   
   return (<RedOutline>
@@ -38,7 +35,7 @@ const RawWarningMsg = () => {
       style={{marginTop: '2em'}}
     >
       {
-        states.sort().map((state, key) => {
+        [...implementedStates].sort().map((state, key) => {
           return <DropdownItem
             key={key}
             onClick={() => setState(state)}

@@ -12,11 +12,11 @@ import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
-import { sampleAddresses, AvailableState } from '../common'
+import { sampleAddresses, ImplementedState } from '../common'
 
 const defaultAddr = (state: string) => {
   if (process.env.REACT_APP_DEFAULT_ADDRESS) {
-    const addresses = sampleAddresses[state as AvailableState] ?? []
+    const addresses = sampleAddresses[state as ImplementedState] ?? []
     return addresses[0]?.address ?? ''
   } else {
     return ''
