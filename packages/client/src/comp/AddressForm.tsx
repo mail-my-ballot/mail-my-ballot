@@ -12,16 +12,14 @@ import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
-import { sampleAddresses } from '../common'
+import { sampleAddresses, AvailableState } from '../common'
 
-let defaultAddr = (_: string): (string | undefined) => undefined
-
-if (process.env.REACT_APP_DEFAULT_ADDRESS) {
-  const addrMap: Record<string,string> = Object.fromEntries(
-    sampleAddresses.map(address => [address.state, address.address])
-  )
-  defaultAddr = (state: string) => {
-    return addrMap[state]
+const defaultAddr = (state: string) => {
+  if (process.env.REACT_APP_DEFAULT_ADDRESS) {
+    const addresses = sampleAddresses[state as AvailableState] ?? []
+    return addresses[0]?.address ?? ''
+  } else {
+    return ''
   }
 }
 

@@ -63,7 +63,6 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     if (!method) return error('Unable to find contct details for local official')
 
     const letter = toLetter(info, method, id)
-    if (!letter) return error('Unable to generate letter')
 
     return data(id, async (): Promise<void> => {
       const pdfBuffer = await toPdfBuffer(letter.html)

@@ -11,11 +11,13 @@ nunjucks.configure(__dirname + '/views', {
 export class Letter {
   md: string
   html: string
+  method: ContactMethod
   signature?: string
 
-  constructor(md: string, signature?: string) {
+  constructor(md: string, method: ContactMethod, signature?: string) {
     this.md = md
     this.html = marked(md)
+    this.method = method
     this.signature = signature
   }
 }
@@ -28,22 +30,24 @@ const envVars = {
   election: processEnvOrThrow('REACT_APP_ELECTION_AND_DATE'),
 }
 
-const toTemplate = (info: StateInfo): string | null => {
+const toTemplate = (info: StateInfo): string => {
   switch(info.state) {
     case 'Florida': return 'Florida.md'
     case 'Michigan': return 'Michigan.md'
     case 'Georgia': return 'Georgia.md'
     case 'Wisconsin': return 'Wisconsin.md'
     case 'Nebraska': return 'Nebraska.md'
-    default: return null
+    case 'Maine': return 'Maine.md'
+    case 'Maryland': return 'Maryland.md'
+    case 'Nevada': return 'Nevada.md'
   }
 }
 
-export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter | null => {
+export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter => {
   const template = toTemplate(info)
-  if (!template) return null
   return new Letter(
     nunjucks.render(template, { ...info, ...envVars, confirmationId, method }),
+    method,
     info.signature
   )
 }

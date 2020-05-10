@@ -6,8 +6,16 @@
       each availableState in availableStates
         li.nav-item
           if state === availableState
-            a.nav-link(href=availableState).active= availableState
+            a.nav-link(href=availableState + '-0').active= availableState
           else
-            a.nav-link(href=availableState)= availableState
+            a.nav-link(href=availableState + '-0')= availableState
+
+  .mt-4
+    select.form-control(onchange="location = '" + state + "' + '-' + this.value")
+      each val, idx in stateContacts
+        if idx === index
+          option(value=idx selected)= val
+        else
+          option(value=idx)= val
             
-  div !{letter}
+  .mt-4 !{letter}

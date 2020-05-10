@@ -1,18 +1,12 @@
-import { Router, Response} from 'express'
-import stripIndent from 'strip-indent'
-import marked from 'marked'
+import { Router} from 'express'
 
-import { FirestoreService } from '../firestore'
-import { toEmailData } from '../email'
-import { toContact } from '../contact'
-import { toContactMethod, StateInfo, AvailableState, availableStates, BaseInfo, GeorgiaInfo, ContactMethod } from '../../common'
+import { getContactRecords } from '../contact'
+import { toContactMethod, StateInfo, AvailableState, availableStates, BaseInfo, GeorgiaInfo, ContactMethod, isAvailableState } from '../../common'
 import fs from 'fs'
 import { toLetter } from '.'
 
 
 export const router = Router()
-
-const firestoreService = new FirestoreService()
 
 const signaturePng = fs.readFileSync(__dirname + '/signature.png')
 
@@ -47,63 +41,44 @@ export const sampleMethod: ContactMethod = {
   faxes: [],
 }
 
-const renderLetter = (info: StateInfo, method: ContactMethod, confirmationId: string, res: Response, state?: string) => {
-  const letter = toLetter(info, method, confirmationId)
-  if (!letter) {
-    return res.render('letter.pug', {
-      letter: 'Unable to render letter',
-      availableStates,
-      state,
-    })
-  }
-  const emailData = toEmailData(
-    letter,
-    info.email,
-    method?.emails || [],
-    { forceEmailOfficials: true }
-  )
+router.get('/sample/:stateIndex', async (req, res) => {
+  const { stateIndex } = req.params
+  const [state, rawIndex] = stateIndex.split('-')
 
-  const { to, subject, html } = emailData
-  const header = marked(stripIndent(`
-  ## Header Information
-  - To: ${(to).join(', ')}
-  - Subject: ${subject}
-  ----
-  `))
-  return res.render('letter.pug', {
-    letter: header + html,
-    availableStates,
-    state,
-  })
-}
+  if (!isAvailableState(state)) return res.redirect('/sample/Florida-0')
+  const index = parseInt(rawIndex)
+  if (isNaN(index)) return res.redirect(`/sample/${state}-0`)
 
-router.get('/sample/:state', async (req, res) => {
-  const { state } = req.params
+  // get contact method
+  const contactRecords = await getContactRecords()
+  const stateContacts = Object.keys(contactRecords[state])
+  const key = stateContacts[index]
+  const contact = contactRecords[state][key]  
+  const method = toContactMethod({...contact, state})
 
+  // generate sample info
   const info = {
     ...sampleStateInfo,
     state: state as AvailableState,
   } as StateInfo // casting to state info is a bit of a hack
-  const id = '#sampleId1234'
+  const confirmationId = '#sampleId1234'
 
-  return renderLetter(info, sampleMethod, id, res, state)
-})
+  const renderLetter = (letter: string) => {
+    return res.render('letter.pug', {
+      letter,
 
-router.get('/:id', async (req, res) => {
-  const id = req.params.id
-  const info = await firestoreService.getRegistration(id)
-  if (!info) {
-    return res.send('No valid registration entry')
+      // state data
+      availableStates,
+      state,
+
+      // locale data
+      stateContacts,
+      index,
+    })
   }
 
-  const contact = await toContact(info)
-  if (!contact) {
-    return res.send('No Contact Found')
-  }
+  if (!method) return renderLetter('Could not find contact method for elections official')
 
-  const method = toContactMethod(info)
-  if (!method) {
-    return res.send('No Contact Method Found')
-  }
-  return renderLetter(info, method, id, res)
+  const letter = toLetter(info, method, confirmationId)
+  return renderLetter(letter.html)
 })
