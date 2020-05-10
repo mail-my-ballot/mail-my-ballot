@@ -1,8 +1,9 @@
 import { IRpc, RpcRet } from '@tianhuil/simple-trpc/dist/type'
 import { Address } from './address'
-import { StateInfo, State } from './states'
+import { State } from './states'
 import { ContactData } from './contact'
 import { Analytics } from './analytics'
+import { StateInfo } from './stateInfo'
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
