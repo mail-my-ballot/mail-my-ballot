@@ -21,14 +21,18 @@ const poll = async (condition: () => boolean, interval: number, timeout: number)
   return await poll(condition, interval, timeout - interval)
 }
 
-export const toContact = async (locale: Locale): Promise<ContactData | null> => {
+export const getContactRecords = async (): Promise<ContactRecord> => {
   await poll(() => !!contactRecords, 100, 5000)
   if (!contactRecords) {
     throw Error('Unable to load data')
   }
+  return contactRecords
+}
+
+export const toContact = async (locale: Locale): Promise<ContactData | null> => {
   const { state } = locale
   if (!isAvailableState(state)) return null
-  const stateRecords = contactRecords[state]
+  const stateRecords = (await getContactRecords())[state]
   for(const key of keys(locale as Locale<AvailableState>)) {
     const stateless = stateRecords[key]
     if (stateless) {
