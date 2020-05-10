@@ -33,6 +33,12 @@ const stateMethods: Record<AvailableState, StateMethod> = {
   'Minnesota': 'fax-email',
 }
 
+export type ContactMethod = {
+  stateMethod: StateMethod
+  emails: string[]
+  faxes: string[]
+}
+
 const toStateMethod = (state: AvailableState): StateMethod => {
   return stateMethods[state]
 }
@@ -47,12 +53,6 @@ export interface ContactData {
   faxes?: string[] // list of fax numbers
   phones?: string[]
   url?: string
-}
-
-export type ContactMethod = {
-  stateMethod: StateMethod
-  emails: string[]
-  faxes: string[]
 }
 
 export type PartialContactMethod = {
