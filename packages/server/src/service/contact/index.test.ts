@@ -1,4 +1,4 @@
-import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale } from '../../common'
+import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData } from '../../common'
 import { toContact } from '.'
 import { geocode } from '../gm'
 import fs from 'fs'
@@ -22,13 +22,13 @@ const cache = <T>(f: Func<T>): Func<T> => {
 }
 
 describe('Google Maps is returning stable results', () => {
-  const table: [string, AvailableState, string | undefined, string][] = sampleAddresses.map(
-    addr => [addr.address, addr.state, addr.county, addr.city]
-  )
+  const table: AddressData[] = Object
+    .values(sampleAddresses)
+    .reduce((x, y) => x.concat(y))
 
   test.each(table)(
     'Checking Geocoding for %s',
-    async (address, state, county, city) => {
+    async ({address, state, county, city}) => {
       const result = await cache(geocode)(address)
       expect(result).toBeTruthy()
       const locale = toLocale(result as Address)

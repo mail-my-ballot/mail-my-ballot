@@ -5,8 +5,8 @@ export interface AddressData extends Locale<AvailableState> {
   address: string
 }
 
-export const sampleAddresses: AddressData[] = [
-  {
+export const sampleAddresses: Record<AvailableState, AddressData[]> = {
+  'Florida': [{
     address: '100 S Biscayne Blvd, Miami, FL 33131',
     city: 'Miami',
     county: 'Miami-Dade County',
@@ -21,7 +21,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Fort Lauderdale',
     county: 'Broward County',
     state: 'Florida',
-  }, {
+  }],
+  'Michigan': [{
     address: '45525 Hanford Rd, Canton, MI 48187',
     city: 'Canton',
     county: 'Wayne County',
@@ -46,7 +47,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Muskegon Heights',
     county: 'Muskegon County',
     state: 'Michigan',
-  }, {
+  }],
+  'Georgia': [{
     address: '191 Peachtree St NE, Atlanta, GA 30303',
     city: 'Atlanta',
     county: 'Fulton County',
@@ -66,7 +68,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Macon',
     county: 'Bibb County',
     state: 'Georgia',
-  }, {
+  }],
+  'Wisconsin': [{
     address: '756 N Milwaukee St, Milwaukee, WI 53202',
     city: 'Milwaukee',
     county: 'Milwaukee County',
@@ -81,7 +84,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Green Bay',
     county: 'Brown County',
     state: 'Wisconsin',
-  }, {
+  }],
+  'Nebraska': [{
     address: '808 Conagra Dr, Omaha, NE 68102',
     city: 'Omaha',
     county: 'Douglas County',
@@ -96,7 +100,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Bellevue',
     county: 'Sarpy County',
     state: 'Nebraska',
-  }, {
+  }],
+  'Maryland': [{
     address: '240 W Dickman St, Baltimore, MD 21230',
     city: 'Baltimore',
     state: 'Maryland',
@@ -110,7 +115,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Rockville',
     county: 'Montgomery County',
     state: 'Maryland',
-  }, {
+  }],
+  'Maine': [{
     address: '443 Congress St, Portland, ME 04101',
     city: 'Portland',
     county: 'Cumberland County',
@@ -125,7 +131,8 @@ export const sampleAddresses: AddressData[] = [
     city: 'Bangor',
     county: 'Penobscot County',
     state: 'Maine',
-  }, {
+  }],
+  'Nevada': [{
     address: '575 W Symphony Park Ave, Las Vegas, NV 89106',
     city: 'Las Vegas',
     county: 'Clark County',
@@ -144,5 +151,7 @@ export const sampleAddresses: AddressData[] = [
     address: '1900 S Carson St, Carson City, NV 89701',
     city: 'Carson City',
     state: 'Nevada',
-  }
-]
+  }],
+  'Minnesota': [],
+  'Virginia': [],
+}

@@ -5,13 +5,21 @@ import DropdownItem from 'muicss/lib/react/dropdown-item'
 import { RedOutline } from './util/RedOutline'
 import { sampleAddresses } from '../common/sampleAddresses'
 import { AddressContainer } from '../lib/state'
-import { State } from '../common'
+import { AvailableState, isAvailableState } from '../common'
 
 
 const RawWarningMsg = () => {
-  const states = Array.from(new Set(sampleAddresses.map(address => address.state)))
+  const states = Object.entries(sampleAddresses)
+    .filter(([_, val]) => val.length == 0)
+    .map(([key, _]) => key as AvailableState)
   const { locale } = AddressContainer.useContainer()
-  const [state, setState] = React.useState<State>(locale?.state ?? 'Florida')
+  const defaultState: AvailableState = locale
+    ? isAvailableState(locale.state)
+      ? locale.state
+      : 'Florida'
+    : 'Florida'
+  const [state, setState] = React.useState<AvailableState>(defaultState)
+  const addresses = sampleAddresses[state]
   
   return (<RedOutline>
     <h3>Warning: Not Production!</h3>
@@ -41,8 +49,7 @@ const RawWarningMsg = () => {
       }
     </Dropdown>
     <ul style={{marginTop: '1em'}}>
-      {sampleAddresses
-        .filter(addrData => addrData.state === state )
+      {addresses
         .map((addrData, key) => <li key={key}>
           {addrData.address} ({addrData.city}, {addrData.county}, {addrData.state})
           <button
