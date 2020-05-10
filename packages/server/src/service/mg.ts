@@ -9,11 +9,13 @@ const mgData = () => ({
 })
 
 export interface EmailData {
-  to: string[]
+  voterEmail: string
+  officialEmails: string[]
   subject: string
   md: string
   html: string
   signature?: string  // base64-encoded signature
+  force?: boolean
 }
 
 const makePngAttachment = (
@@ -34,13 +36,16 @@ const makePngAttachment = (
 }
 
 export const sendEmail = async (
-  {to, subject, md, html, signature}: EmailData
+  {voterEmail, officialEmails, subject, md, html, signature, force}: EmailData
 ): Promise<mailgun.messages.SendResponse | null> => {
-  const {domain, apiKey, from, replyTo} = mgData()
   if (process.env.MG_DISABLE) { // to disable MG for testing
     console.log('No email sent (disabled)')
     return null
   }
+  const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
+  const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
+  
+  const {domain, apiKey, from, replyTo} = mgData()
   const mg = mailgun({domain, apiKey})
   const attachment = makePngAttachment(signature, to, mg)
 

@@ -20,14 +20,9 @@ const check = (info: StateInfo, checkSignature = false): void => {
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const emailDataProd = toEmailData(letter!, info.email, officialsEmails, { forceEmailOfficials: true })
-  expect(emailDataProd.to.length).toBeGreaterThanOrEqual(2)
-  expect(emailDataProd.to).toContain(email)
-  expect(emailDataProd.md).toContain(confirmationId)
-  
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const emailData = toEmailData(letter!, info.email, officialsEmails)
-  expect(emailData.to).toEqual([email])
+  expect(emailData.officialEmails.length).toBeGreaterThanOrEqual(1)
+  expect(emailData.voterEmail).toEqual(email)
   expect(emailData.md).toContain(confirmationId)
 
   if (checkSignature) {
