@@ -68,7 +68,7 @@ router.get('/sample/:stateIndex', async (req, res) => {
       letter,
 
       // state data
-      implementedStates,
+      implementedStates: [...implementedStates].sort(),
       state,
 
       // locale data
