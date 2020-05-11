@@ -4,18 +4,26 @@ import DropdownItem from 'muicss/lib/react/dropdown-item'
 
 import { RedOutline } from './util/RedOutline'
 import { sampleAddresses } from '../common/sampleAddresses'
-import { AddressContainer } from '../lib/state'
 import { ImplementedState, implementedStates, isImplementedState } from '../common'
+import { useAppHistory, Path } from '../lib/path'
 
+const defaultState = (path: Path | null): ImplementedState => {
+  switch(path?.type) {
+    case undefined: 
+    case 'start':
+    case 'success': {
+      return 'Florida'
+    }
+    case 'address':
+    case 'state': {
+      return isImplementedState(path.state) ? path.state : 'Florida'
+    }
+  }
+}
 
 const RawWarningMsg = () => {
-  const { locale } = AddressContainer.useContainer()
-  const defaultState: ImplementedState = locale
-    ? isImplementedState(locale.state)
-      ? locale.state
-      : 'Florida'
-    : 'Florida'
-  const [state, setState] = React.useState<ImplementedState>(defaultState)
+  const { path } = useAppHistory()
+  const [state, setState] = React.useState<ImplementedState>(defaultState(path))
   const addresses = sampleAddresses[state]
   
   return (<RedOutline>
