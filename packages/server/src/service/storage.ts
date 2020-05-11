@@ -1,7 +1,7 @@
 import stream from 'stream'
 
 import { Storage, File } from '@google-cloud/storage'
-import { processEnvOrThrow } from '../../../client/src/common'
+import { processEnvOrThrow } from '../common'
 
 const storage = new Storage()
 const bucket = processEnvOrThrow('GOOGLE_STORAGE_BUCKET')

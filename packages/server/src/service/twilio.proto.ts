@@ -1,6 +1,6 @@
 import { StorageFile } from './storage'
 import { sendFaxes } from './twilio'
-import { processEnvOrThrow } from '../../../client/src/common'
+import { processEnvOrThrow } from '../common'
 
 const main = async () => {
   const file = new StorageFile('test/test.pdf')
