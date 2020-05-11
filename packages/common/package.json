@@ -2,9 +2,6 @@
   "name": "@vbm/common",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@tianhuil/simple-trpc": "^1.5.0"
-  },
   "devDependencies": {
     "@tianhuil/gulp-run-command": "^0.0.11",
     "@babel/preset-typescript": "^7.8.3",
