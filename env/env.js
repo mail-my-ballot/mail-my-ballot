@@ -61,6 +61,7 @@ const development = removeNullValues({
   DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@example.com',
   NUNJUNKS_DISABLE_CACHE: 1,
+  TWILLIO_DIVERT: 1,
   ...developmentRaw,
 })
 
@@ -83,6 +84,7 @@ const staging = removeNullValues({
   GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
   DEBUG_LETTER: 1,
+  TWILLIO_DIVERT: 1,
 })
 
 const production = removeNullValues({
