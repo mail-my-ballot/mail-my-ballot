@@ -33,7 +33,7 @@ export const toContact = async (locale: Locale): Promise<ContactData | null> => 
   const { state } = locale
   if (!isAvailableState(state)) return null
   const stateRecords = (await getContactRecords())[state]
-  for(const key of keys(locale as Locale<AvailableState>)) {
+  for (const key of keys(locale as Locale<AvailableState>)) {
     const stateless = stateRecords[key]
     if (stateless) {
       return {
