@@ -22,10 +22,6 @@ app.use(cors({ origin: true }))
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
 
-app.get('/_ah/warmup', (_, res) => {
-  res.send('Warmup successful')
-})
-
 app.get('/', (_, res: Response) => {
   res.render('index')
 })
