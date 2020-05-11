@@ -106,7 +106,7 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     city: 'Baltimore',
     state: 'Maryland',
   }, {
-    address: '118 N Market St, Frederick, MD 2170',
+    address: '118 N Market St, Frederick, MD 21701',
     city: 'Frederick',
     county: 'Frederick County',
     state: 'Maryland',
