@@ -2733,11 +2733,6 @@
     spawn-args "0.2.0"
     timeout-as-promise "^1.0.0"
 
-"@tianhuil/simple-trpc@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.5.0.tgz#06b029102e0f2930f38aaaf54782f4da343d2316"
-  integrity sha512-gi5QbkuM1qX94N5mqso7uxXnNHlLi3QPChns8c6eClyEXx5Sbk+hdFZY8dY5QYh8nqUcT+QFSsfzinvMjIsivg==
-
 "@tianhuil/simple-trpc@^1.7.3":
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.7.3.tgz#1805c02179c873d006ecb8df27408b505bcd370e"
