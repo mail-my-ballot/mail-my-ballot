@@ -4,7 +4,6 @@ import { Request } from 'express'
 import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState } from '../common'
 import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
-import { toEmailData } from './email'
 import { toContact } from './contact'
 import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
@@ -70,12 +69,11 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       await file.upload(pdfBuffer)
 
       // Send email (perhaps only to voter)
-      const emailData = toEmailData(
+      await sendEmail(
         letter,
         info.email,
         method.emails,
       )
-      await sendEmail(emailData)
 
       // Send faxes
       if (method.faxes.length > 0) {

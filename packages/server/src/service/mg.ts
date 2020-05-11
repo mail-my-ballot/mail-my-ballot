@@ -1,32 +1,22 @@
 import mailgun from 'mailgun-js'
+
+import { Letter } from './letter'
 import { processEnvOrThrow } from '../common'
 
-const mgData = () => ({
+
+const mg = mailgun({
   domain: processEnvOrThrow('MG_DOMAIN'),
   apiKey: processEnvOrThrow('MG_API_KEY'),
-  from: processEnvOrThrow('MG_FROM_ADDR'),
-  replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
 })
-
-export interface EmailData {
-  voterEmail: string
-  officialEmails: string[]
-  subject: string
-  md: string
-  html: string
-  signature?: string  // base64-encoded signature
-  force?: boolean
-}
 
 const makePngAttachment = (
   signature: string | undefined,
-  to: string[],
-  mg: mailgun.Mailgun
+  to: string
 ): mailgun.Attachment | undefined => {
   if (!signature) return undefined
   const data = signature.split(',')[1]
   if (!data) {
-    console.error(`Bad formatting of signature image to ${to}.  Omitting attachment.`)
+    console.error(`Unable to image signature image to ${to}.  Omitting attachment.`)
     return undefined
   }
   return new mg.Attachment({
@@ -35,27 +25,44 @@ const makePngAttachment = (
   })
 }
 
-export const sendEmail = async (
-  {voterEmail, officialEmails, subject, md, html, signature, force}: EmailData
-): Promise<mailgun.messages.SendResponse | null> => {
-  if (process.env.MG_DISABLE) { // to disable MG for testing
-    console.log('No email sent (disabled)')
-    return null
-  }
+// separate out this function for testing purposes
+export const toEmailData = (
+  letter: Letter,
+  voterEmail: string,
+  officialEmails: string[],
+  force = false,
+): mailgun.messages.SendData => {
   const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
   const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
-  
-  const {domain, apiKey, from, replyTo} = mgData()
-  const mg = mailgun({domain, apiKey})
-  const attachment = makePngAttachment(signature, to, mg)
+  const subject = 'Vote By Mail Request'
+  const { md, html, signature } = letter
+  const mgData = {
+    from: processEnvOrThrow('MG_FROM_ADDR'),
+    replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
+  }
 
-  return mg.messages().send({
-    from,
+  const attachment = makePngAttachment(signature, voterEmail)
+  return {
     to,
     subject,
     html,
     text: md,
     attachment,
-    'h:Reply-To': replyTo,
-  })
+    ...mgData,
+  }
+}
+
+export const sendEmail = async (
+  letter: Letter,
+  voterEmail: string,
+  officialEmails: string[],
+  force = false,
+): Promise<mailgun.messages.SendResponse | null> => {
+  if (process.env.MG_DISABLE) { // to disable MG for testing
+    console.log('No email sent (disabled)')
+    return null
+  }
+
+  const emailData = toEmailData(letter, voterEmail, officialEmails, force)
+  return mg.messages().send(emailData)
 }

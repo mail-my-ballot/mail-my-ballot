@@ -1,8 +1,8 @@
 import { createMock } from 'ts-auto-mock'
 
-import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo, ContactMethod } from "../../common"
-import { toLetter } from '../letter'
-import { toEmailData } from '.'
+import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo, ContactMethod } from "../common"
+import { toLetter } from './letter'
+import { toEmailData } from './mg'
 
 const email = 'email@example.com'
 
@@ -20,13 +20,18 @@ const check = (info: StateInfo, checkSignature = false): void => {
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const emailDataProd = toEmailData(letter!, info.email, officialsEmails, true)
+  expect(emailDataProd.to.length).toBeGreaterThanOrEqual(2)
+  expect(emailDataProd.to).toContain(email)
+  expect(emailDataProd.html).toContain(confirmationId)
+  
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const emailData = toEmailData(letter!, info.email, officialsEmails)
-  expect(emailData.officialEmails.length).toBeGreaterThanOrEqual(1)
-  expect(emailData.voterEmail).toEqual(email)
-  expect(emailData.md).toContain(confirmationId)
+  expect(emailData.to).toEqual([email])
+  expect(emailData.html).toContain(confirmationId)
 
   if (checkSignature) {
-    expect(emailData.signature).toBeTruthy()
+    expect(emailData.attachment).toBeTruthy()
   }
 }
 
@@ -43,7 +48,7 @@ test('michigan', () => {
   const info = createMock<MichiganInfo>({
     city: 'Grand Rapids City',
     county: 'Kent County',
-    signature: 'signature',
+    signature: 'data:image/png;base64,signature',
     email,
   })
 
