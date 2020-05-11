@@ -84,14 +84,14 @@ gulp.task('test', async () => {
 gulp.task('tsc', runEnv('tsc --build'))
 gulp.task('pug', () => gulp.src('./src/views/*.pug').pipe(gulp.dest('./dist/views')))
 gulp.task('md', () => gulp.src('./src/service/letter/views/*.md').pipe(gulp.dest('./dist/service/letter/views')))
-gulp.task('png', () => gulp.src('./src/service/letter/*.png').pipe(gulp.dest('./dist/service/letter/')))
+gulp.task('png', () => gulp.src('./src/service/letter/*.png').pipe(gulp.dest('./dist/service/letter')))
 
 gulp.task('build', gulp.series(
   envRequired,
+  'tsc',
   'pug',
   'md',
   'png',
-  'tsc',
 ))
 
 // deploy
