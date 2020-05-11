@@ -17,4 +17,4 @@ handlers:
     redirect_http_response_code: 301
     script: auto
 
-entrypoint: node ./dist/server/src/index.js
+entrypoint: node ./dist/index.js
