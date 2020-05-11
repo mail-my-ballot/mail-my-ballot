@@ -25,6 +25,29 @@ const RawWarningMsg = () => {
   const { path } = useAppHistory()
   const [state, setState] = React.useState<ImplementedState>(defaultState(path))
   const addresses = sampleAddresses[state]
+
+  const fillData = (address: string) => {
+    return () => {
+      switch (path?.type) {
+        case 'start': {
+          const input = document.getElementById('start-zip') as HTMLInputElement
+          const match = address.match(/(\d{5})$/)
+          if (match) {
+            input.value = match[1]
+            document.getElementById('start-submit')?.click()
+          }
+          
+          break
+        }
+        case 'address': {
+          const input = document.getElementById('addr-input') as HTMLInputElement
+          input.value = address
+          document.getElementById('addr-submit')?.click()
+          break
+        }
+      }
+    }
+  }
   
   return (<RedOutline>
     <h3>Warning: Not Production!</h3>
@@ -56,14 +79,10 @@ const RawWarningMsg = () => {
     <ul style={{marginTop: '1em'}}>
       {addresses
         .map((addrData, key) => <li key={key}>
-          {addrData.address} ({addrData.city}, {addrData.county}, {addrData.state})
+          {addrData.address} ({addrData.city}, {addrData.county ?? '[No County]'}, {addrData.state})
           <button
             style={{marginLeft: '1em'}}
-            onClick={() => {
-              const input = document.getElementById('addr-input') as HTMLInputElement
-              input.value = addrData.address
-              document.getElementById('addr-submit')?.click()
-            }}
+            onClick={fillData(addrData.address)}
           >
             Fill
           </button>

@@ -105,8 +105,9 @@ export const Blurb: React.FC<{}> = () => {
             <Prompt>Enter your zipcode to see if you&apos;re eligible</Prompt>
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
-                <ZipInput data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
-                <SubmitButton data-testid='start-submit' variant='raised'>Start</SubmitButton>
+                {/* id is used by WarningMsg to fill out zipcode */}
+                <ZipInput id='start-zip' data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
+                <SubmitButton id='start-submit' data-testid='start-submit' variant='raised'>Start</SubmitButton>
               </FlexContainer>
             </Form>
           </FlexBox>
