@@ -9,7 +9,7 @@ import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
 import { StorageFile } from './storage'
 import { toLetter } from './letter'
-import { sendFaxes } from './twillio'
+import { sendFaxes } from './twilio'
 
 const firestoreService = new FirestoreService()
 

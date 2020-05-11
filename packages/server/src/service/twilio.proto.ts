@@ -1,5 +1,5 @@
 import { StorageFile } from './storage'
-import { sendFaxes } from './twillio'
+import { sendFaxes } from './twilio'
 import { processEnvOrThrow } from '../../../client/src/common'
 
 const main = async () => {

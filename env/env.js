@@ -1,9 +1,9 @@
 // Based on https://www.npmjs.com/package/env-cmd
 const {
   MG_API_KEY,
-  TWILLIO_SID,
-  TWILLIO_TOKEN,
-  TWILLIO_FAX_NUMBER,
+  TWILIO_SID,
+  TWILIO_TOKEN,
+  TWILIO_FAX_NUMBER,
   RECEIVE_FAX_NUMBER,
   STAGING,
   DEV,
@@ -22,9 +22,9 @@ const removeNullValues = (obj) => {
 
 const base = removeNullValues({
   MG_API_KEY,
-  TWILLIO_SID,
-  TWILLIO_TOKEN,
-  TWILLIO_FAX_NUMBER,
+  TWILIO_SID,
+  TWILIO_TOKEN,
+  TWILIO_FAX_NUMBER,
   RECEIVE_FAX_NUMBER,
   USER_MAX_ORGS: 8,
   REACT_APP_BRAND_NAME: 'MailMyBallot.org',
@@ -61,7 +61,7 @@ const development = removeNullValues({
   DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@example.com',
   NUNJUNKS_DISABLE_CACHE: 1,
-  TWILLIO_DIVERT: 1,
+  TWILIO_DIVERT: 1,
   ...developmentRaw,
 })
 
@@ -84,7 +84,7 @@ const staging = removeNullValues({
   GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
   DEBUG_LETTER: 1,
-  TWILLIO_DIVERT: 1,
+  TWILIO_DIVERT: 1,
 })
 
 const production = removeNullValues({
@@ -117,7 +117,7 @@ const test = removeNullValues({
   FIRESTORE_EMULATOR_HOST: 'localhost:8081',
   GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
-  TWILLIO_DISABLE: 1,
+  TWILIO_DISABLE: 1,
 })
 
 const ci = removeNullValues({
