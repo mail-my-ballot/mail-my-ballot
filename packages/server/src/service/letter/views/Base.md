@@ -1,6 +1,6 @@
 {% from "ContactMethod.md" import contactMethod %}
 
-Dear Local Supervisor of Elections,
+Dear Election Official,
 
 I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}}]({{brandUrl}}).  This letter conforms to the requirements set forth by {{guidance}}.
 
