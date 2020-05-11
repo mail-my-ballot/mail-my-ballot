@@ -12,6 +12,7 @@ export type PathEnum = (typeof allPathEnums)[number]
 interface PathBase {
   type: PathEnum
   oid: string
+  scroll?: string
 }
 
 export interface StartPath extends PathBase {
@@ -40,7 +41,7 @@ export type Path = (
 
 interface PathDatum<P extends Path = Path> {
   path: string
-  toUrl: (path: P) => string
+  toRawUrl: (path: P) => string
   scrollId: string
 }
 
@@ -51,43 +52,48 @@ type PathData = { [E in PathEnum]: PathDatum<PathByEnum<E>> }
 export const pathData: PathData = {
   'start': {
     path: '/org/:oid',
-    toUrl: ({oid}) => `/org/${oid}`,
+    toRawUrl: ({oid}) => `/org/${oid}`,
     scrollId: 'start',
   },
   'address': {
     path: '/org/:oid/address/:state/:zip?',
-    toUrl: ({oid, state, zip}) => `/org/${oid}/address/${state}/${zip || ''}`,
+    toRawUrl: ({oid, state, zip}) => `/org/${oid}/address/${state}/${zip || ''}`,
     scrollId: 'address'
   },
   'state': {
     path: '/org/:oid/state/:state',
-    toUrl: ({oid, state}) => `/org/${oid}/state/${state}`,
+    toRawUrl: ({oid, state}) => `/org/${oid}/state/${state}`,
     scrollId: 'address',
   },
   'success': {
     path: '/org/:oid/success/:id?',
-    toUrl: ({oid, id}) => `/org/${oid}/success/${id || ''}`,
+    toRawUrl: ({oid, id}) => `/org/${oid}/success/${id || ''}`,
     scrollId: 'address',
   }
 }
 
 export const toUrl = <P extends Path>(path: P): string => {
   // arg -- can't get around this typecast
-  return (pathData[path.type] as PathDatum<P>).toUrl(path)
+  const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
+  return rawUrl + (path.scroll ? '?scroll=1' : '')
 }
 
 const defaultOid = 'default'
 export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 
-const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, exact = false): P | null => {
+const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: URLSearchParams, exact = false): P | null => {
   const { path } = pathData[pathEnum]
   const match = matchPath<P>(url, { path, exact })
   if (!match) return null
-  return { type: pathEnum, ...match.params }
+  return {
+    type: pathEnum,
+    ...match.params,
+    scroll: query.get('scroll')
+  }
 }
 
-export const toPath = (pathname: string): Path | null => {
-  const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, true))
+export const toPath = (pathname: string, query: URLSearchParams): Path | null => {
+  const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, query, true))
   return matches.reduce((x, y) => x || y, null)
 }
 
@@ -101,8 +107,8 @@ const scrollToId = (id: string) => {
 export const useAppHistory = () => {
   const history = useHistory()
   const { pathname, search } = useLocation()
-  const _query = new URLSearchParams(search)
-  const path = toPath(pathname)
+  const query = new URLSearchParams(search)
+  const path = toPath(pathname, query)
   const oid = path?.oid || defaultOid
   
   const pushScroll = (path: Path) => {
@@ -116,7 +122,7 @@ export const useAppHistory = () => {
     oid,
     pushStart: () => pushScroll({oid, type: 'start'}),
     pushAddress: (state: string, zip?: string) => {
-      pushScroll({oid, type: 'address', state, zip})
+      pushScroll({oid, type: 'address', state, zip, scroll: '1'})
     },
     pushState: (state: string) => {
       pushScroll({oid, type: 'state', state})
@@ -125,7 +131,7 @@ export const useAppHistory = () => {
       pushScroll({oid, type: 'success', id})
     },
     query: (id: string) => {
-      return _query.get(id)
+      return query.get(id)
     }
   }
 }

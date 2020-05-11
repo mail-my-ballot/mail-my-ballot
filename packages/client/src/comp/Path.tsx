@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PathEnum, pathData } from '../lib/path'
+import { PathEnum, pathData, useAppHistory } from '../lib/path'
 
 interface Props {
   pathEnum: PathEnum
@@ -9,8 +9,11 @@ interface Props {
 
 export const ScrollHook: React.FC<Props> = ({pathEnum, pageStart, children}) => {
   const { scrollId } = pathData[pathEnum]
+  const { path } = useAppHistory()
+
+  // Automatically go to the location on pageStart if path.scroll is not set
   React.useEffect(() => {
-    if (pageStart) {
+    if (pageStart && !path?.scroll) {
       document.getElementById(scrollId)?.scrollIntoView({
         behavior: 'auto',
         block: 'start',
