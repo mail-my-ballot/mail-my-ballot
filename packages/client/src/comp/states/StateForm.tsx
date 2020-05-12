@@ -9,7 +9,7 @@ import { Maryland } from './Maryland'
 import { Maine } from './Maine'
 import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/state'
-import { Locale } from '../../common'
+import { Locale, ContactMethod } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
@@ -38,6 +38,16 @@ export const RawStateForm: React.FC<Props> = ({
 export const PaddingTop = styled.div`
   padding-top: 4em;
 `
+
+const methodExplain = (method: ContactMethod): string => {
+  const email = 'email the vote-by-mail application to both you and the election official'
+  const fax = 'fax the vote-by-mail application to the election official and email you a copy'
+  switch(method.stateMethod) {
+    case 'email': return email
+    case 'fax': return fax
+    case 'fax-email': return (method.emails.length > 0) ? email : fax
+  }
+}
 
 export const StateForm = () => {
   const { address, locale } = AddressContainer.useContainer()
@@ -72,7 +82,7 @@ export const StateForm = () => {
   return <PaddingTop>
     <h2>{locale.state} Vote by Mail Form</h2>
     <ContactInfo locale={locale} contact={contact}/>
-    <p>To apply, fill out the following form and we will send the vote-by-mail application email to both you and the local elections official:</p>
+    <p>To apply, fill out the following form and we will {methodExplain(method)}</p>
     <RawStateForm locale={locale}/>
   </PaddingTop>
 }
