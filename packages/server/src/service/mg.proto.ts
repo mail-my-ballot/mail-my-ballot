@@ -1,11 +1,15 @@
 import { sendEmail } from './mg'
+import { Letter } from './letter'
 
 if (process.env.DEV_EMAIL) {
-  sendEmail({
-    to: [process.env.DEV_EMAIL],
-    subject: "Hello",
-    md: "**This is a test**",
-  }).then(
+  sendEmail(
+    new Letter(
+      '#Hi',
+      { stateMethod: 'email', emails: ['bob@gmail.com'], faxes: [] }
+    ),
+    process.env.DEV_EMAIL,
+    []
+  ).then(
     (value) => console.log(value)
   )
 }
