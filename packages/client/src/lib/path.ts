@@ -75,7 +75,7 @@ export const pathData: PathData = {
 export const toUrl = <P extends Path>(path: P): string => {
   // arg -- can't get around this typecast
   const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
-  return rawUrl + (path.scroll ? '?scroll=1' : '')
+  return rawUrl + (path.scroll ? `?scroll=${path.scroll}` : '')
 }
 
 const defaultOid = 'default'
