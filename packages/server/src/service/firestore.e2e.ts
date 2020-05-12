@@ -50,14 +50,34 @@ describe('FirestoreService.claimNewOrg method', () => {
 })
 
 describe('Viewing Data', () => {
-  test('user can view their own org\'s registrations', async () => {
-    expect(await fs.addRegistration({
+  test('user can update and view their own org\'s registrations', async () => {
+    const id = await fs.addRegistration({
       oid,
       name: 'Bob',
       state: 'Florida',
-    } as StateInfo)).toBeTruthy()
+    } as StateInfo)
+    expect(id).toBeTruthy()
 
-    await expect(fs.fetchRegistrations(uids[0], oid)).resolves.toHaveLength(1)
+    const richInfos = await fs.fetchRegistrations(uids[0], oid)
+    expect(richInfos).toBeTruthy()
+    expect(richInfos).toHaveLength(1)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const richInfo = richInfos![0]
+    expect(richInfo.mgResponse).toBeUndefined()
+    expect(richInfo.twilioResponses).toBeUndefined()
+
+    fs.updateRegistration(
+      id, 
+      {message: 'message', id: '123'},
+      []
+    )
+
+    const richInfos2 = await fs.fetchRegistrations(uids[0], oid)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const richInfo2 = richInfos2![0]
+    expect(richInfo2.mgResponse).toEqual({message: 'message', id: '123'})
+    expect(richInfo2.twilioResponses).toHaveLength(0)
+
   })
 
   test('user cannot view another org\'s registrations', async () => {

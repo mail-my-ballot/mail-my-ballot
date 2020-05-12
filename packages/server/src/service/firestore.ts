@@ -2,8 +2,9 @@ import * as admin from 'firebase-admin'
 
 import { processEnvOrThrow, StateInfo, WithId } from '../common'
 import { Profile } from 'passport'
-import { User, RichStateInfo, Org } from './types'
+import { User, RichStateInfo, Org, TwilioResponse } from './types'
 import { Analytics } from '../common/analytics'
+import Mailgun = require('mailgun-js')
 
 type DocumentReference = admin.firestore.DocumentReference<admin.firestore.DocumentData>
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
@@ -83,6 +84,18 @@ export class FirestoreService {
     }
     const { id } = await this.db.collection('StateInfo').add(richInfo)
     return id
+  }
+
+  async updateRegistration(
+    id: string,
+    mgResponse: Mailgun.messages.SendResponse | null,
+    twilioResponses: TwilioResponse[],
+  ): Promise<void> {
+    const update: Partial<RichStateInfo> = {
+      mgResponse,
+      twilioResponses,
+    }
+    await this.db.collection('StateInfo').doc(id).update(update)
   }
 
   async getRegistration(id: string): Promise<RichStateInfo | null> {

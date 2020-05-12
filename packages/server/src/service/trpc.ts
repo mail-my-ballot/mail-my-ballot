@@ -10,6 +10,7 @@ import { toPdfBuffer } from './pdf'
 import { StorageFile } from './storage'
 import { toLetter } from './letter'
 import { sendFaxes } from './twilio'
+import { TwilioResponse } from './types'
 
 const firestoreService = new FirestoreService()
 
@@ -69,17 +70,21 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       await file.upload(pdfBuffer)
 
       // Send email (perhaps only to voter)
-      await sendEmail(
+      const mgResponse = await sendEmail(
         letter,
         info.email,
         method.emails,
       )
 
       // Send faxes
+      let twilioResponses: TwilioResponse[] = []
       if (method.faxes.length > 0) {
         const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
-        await sendFaxes(uri, method.faxes)
+        const resposnes = await sendFaxes(uri, method.faxes)
+        twilioResponses = resposnes.map(({url, sid, status}) => ({url, sid, status}))
       }
+
+      await firestoreService.updateRegistration(id, mgResponse, twilioResponses)
     })
   }
 }
