@@ -88,7 +88,8 @@ const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: URLSe
   return {
     type: pathEnum,
     ...match.params,
-    scroll: query.get('scroll')
+    // In Jest testing, URLSearchParams are always undefined so just don't use
+    scroll: query ? query.get('scroll') : undefined,
   }
 }
 
