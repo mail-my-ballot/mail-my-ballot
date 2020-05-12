@@ -62,3 +62,8 @@ gulp.task('deploy', gulp.series(
 
 // serve
 gulp.task('serve', runEnv('serve -s ./build'))
+
+// clean
+gulp.task('clean',
+  runEnv('rm -rf build/*')
+)

@@ -91,14 +91,18 @@ gulp.task('check', (cb) => {
   cb() 
 })
 
-gulp.task('build', gulp.series(
-  envRequired,
-  'tsc',
-  'check',
-  'pug',
-  'md',
-  'png',
-))
+gulp.task('build',
+  gulp.series(
+    envRequired,
+    gulp.parallel(
+      'tsc',
+      'pug',
+      'md',
+      'png',
+    ),
+    'check',
+  )
+)
 
 // deploy
 gulp.task('appsubst', gulp.series(
@@ -134,3 +138,12 @@ gulp.task('deploy-index', async (cb) => {
 gulp.task('dev-index', 
   runEnv('./dev_index.sh')
 )
+
+gulp.task('clean',
+  runEnv('rm -rf dist/*')
+)
+
+gulp.task('clobber', gulp.parallel(
+  'clean',
+  runEnv('rm -f cache/*')
+))
