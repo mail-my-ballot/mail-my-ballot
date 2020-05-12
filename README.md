@@ -92,6 +92,3 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 
 # Issues with Geocoding
 - Cannot find 135 SE Martin Luther King, Jr. Blvd. Stuart, FL 34994 (https://dos.elections.myflorida.com/supervisors/countyInfo.asp?county=MRT)
-
-# Contributors
-- [SimpleMaps.com](https://simplemaps.com/data/us-zips)
