@@ -1,43 +1,53 @@
 import React from 'react'
 import { Status, Statuses } from '../../common'
-import { useAppHistory } from '../../lib/path'
 
-type StateField = {state: string}
+interface StateField {
+  state: string
+  zip?: string
+}
 type StatusProps<T extends Status> = React.PropsWithChildren<T & StateField>
 
-export const Automatic = ({state}: StatusProps<Statuses.Automatic>) => (<>
+const ExplanationString = ({state, zip}: StateField): JSX.Element => {
+  if (zip) {
+    return <>Your zipcode {zip} is in {state}.&nbsp;</>
+  } else {
+    return <>You are in {state}.&nbsp;</>
+  }
+}
+
+export const Automatic = ({state, zip}: StatusProps<Statuses.Automatic>) => (<>
   <h2 data-testid='status-title'>Great News!</h2>
   <p data-testid='status-detail'>
-    Your zipcode is in {state}.&nbsp;
+    <ExplanationString state={state} zip={zip}/>
     All registered voters in {state} are automatically enrolled in vote by mail.
     For more information, visit your state election website.
   </p>
 </>)
 
-export const Website = ({state, regUrl, infoUrl}: StatusProps<Statuses.Website>) => (<>
+export const Website = ({state, regUrl, infoUrl, zip}: StatusProps<Statuses.Website>) => (<>
   <h2 data-testid='status-title'>Great News!</h2>
   <p data-testid='status-detail'>
-    Your zipcode is in {state}.&nbsp;
+    <ExplanationString state={state} zip={zip}/>
     {state} allows registered voters to vote by mail.
     You can apply on the <a href={regUrl}>official state election application page</a>.
     For more information, visit your <a href={infoUrl}>state election website</a>.
   </p>
 </>)
 
-export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
+export const Mail = ({state, infoUrl, zip}: StatusProps<Statuses.Mail>) => (<>
   <h2 data-testid='status-title'>Great News!</h2>
   <p data-testid='status-detail'>
-    Your zipcode is in {state}.&nbsp;
+    <ExplanationString state={state} zip={zip}/>
     {state} allows registered voters to vote by mail.
     However, the state requires mailing a physical application, which we cannot support.
     For more information, visit your <a href={infoUrl}>state election website</a>.
   </p>
 </>)
 
-export const VbmApp = ({state, children}: StatusProps<Statuses.VbmApp>) => (<>
+export const VbmApp = ({state, children, zip}: StatusProps<Statuses.VbmApp>) => (<>
   <h2 data-testid='status-title'>Great News!</h2>
   <p data-testid='status-detail'>
-    Your zipcode is in {state}.&nbsp;
+    <ExplanationString state={state} zip={zip}/>
     {state} allows registered voters to vote by mail and we can help you enroll.
   </p>
   { children }
@@ -74,16 +84,14 @@ const useIframeResize = () => {
   })
 }
 
-export const VoteDotOrg = ({state}: StatusProps<Statuses.VoteDotOrg>) => {
+export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
   useIframeResize()
-  const { path } = useAppHistory()
-  const zip = (path?.type === 'address' && path.zip) ? path.zip : ''
 
   // Grabbed from here https://www.vote.org/technology/
   return <>
     <h2 data-testid='status-title'>Great News!</h2>
     <p data-testid='status-detail'>
-      Your zipcode is in {state}.&nbsp;
+      <ExplanationString state={state} zip={zip}/>
       You can register below through our friends at <a href='https://vote.org'>vote.org</a>
     </p>
     <iframe
@@ -98,10 +106,10 @@ export const VoteDotOrg = ({state}: StatusProps<Statuses.VoteDotOrg>) => {
   </>
 }
 
-export const Unidentified = ({state}: StateField) => (<>
+export const Unidentified = ({state, zip}: StateField) => (<>
   <h2 data-testid='status-title'>Sorry!</h2>
   <p data-testid='status-detail'>
-    Your zipcode is in {state}.&nbsp;
+    <ExplanationString state={state} zip={zip}/>
     Unfortunately, We do not have any information on vot by mail for {state}.
   </p>
 </>)
