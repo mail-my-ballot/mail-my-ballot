@@ -92,7 +92,7 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
     <h2 data-testid='status-title'>Great News!</h2>
     <p data-testid='status-detail'>
       <ExplanationString state={state} zip={zip}/>
-      You can register below through our friends at <a href='https://vote.org'>vote.org</a>
+      You can sign up below through our friends at <a href='https://vote.org'>vote.org</a>
     </p>
     <iframe
       style={{marginTop: '2em'}}
