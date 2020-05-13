@@ -12,7 +12,7 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer } from '../../lib/state'
+import { AddressContainer } from '../../lib/unstated'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 

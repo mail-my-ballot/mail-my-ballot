@@ -17,7 +17,7 @@ import { StateForm } from './comp/states/StateForm'
 import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
-import { StateContainer } from './comp/StateContainer'
+import { UnstatedContainer } from './comp/StateContainer'
 
 const TallStyleContainer = styled(Container)`
   min-height: 100vh;
@@ -86,10 +86,10 @@ const Layout = () => {
 }
 
 const App = () => (<>
-  <StateContainer>
+  <UnstatedContainer>
     <Analytics/>
     <Layout/>
-  </StateContainer>
+  </UnstatedContainer>
   <script src="http://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
 </>)
 

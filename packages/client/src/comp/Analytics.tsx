@@ -1,7 +1,7 @@
 import React from 'react'
 import { client } from '../lib/trpc'
 import { useAppHistory } from '../lib/path'
-import { AnalyticsContainer } from '../lib/state'
+import { AnalyticsContainer } from '../lib/unstated'
 import { initializeAnalytics } from '../lib/analytics'
 
 export const Analytics: React.FC = () => {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
-import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer } from '../lib/state'
+import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer } from '../lib/unstated'
 // export for testing purposes
-export const StateContainer: React.FC<{}> = ({ children }) => (<HashRouter>
+export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
   <QueryContainer.Provider>
     <AddressContainer.Provider>
       <ContactContainer.Provider>

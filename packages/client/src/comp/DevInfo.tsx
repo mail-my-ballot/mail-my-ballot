@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { client } from '../lib/trpc'
-import { AddressContainer } from '../lib/state'
+import { AddressContainer } from '../lib/unstated'
 import { RedOutline } from './util/RedOutline'
 
 const Section = styled.div`

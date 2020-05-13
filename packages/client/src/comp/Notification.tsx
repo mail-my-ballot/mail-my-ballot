@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import { QueryContainer } from '../lib/state'
+import { QueryContainer } from '../lib/unstated'
 
 type Props = React.PropsWithChildren<{type: "info" | "error" | undefined}>
 

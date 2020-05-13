@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, waitForElement, act } from '@testing-library/react'
 import { RawAddressForm } from './AddressForm'
-import { StateContainer } from "./StateContainer"
+import { UnstatedContainer } from "./StateContainer"
 import { client } from '../lib/trpc'
 import { pageView } from '../lib/analytics'
 import { mocked } from 'ts-jest/utils'
@@ -22,7 +22,7 @@ test('AddressForm works', async () => {
 
   const { getByLabelText, getByTestId } = render(
     <RawAddressForm state='Florida'/>,
-    { wrapper: StateContainer }
+    { wrapper: UnstatedContainer }
   )
 
   act(() => {

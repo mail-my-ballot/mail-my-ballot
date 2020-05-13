@@ -8,12 +8,12 @@ jest.mock('react-signature-canvas')
 
 import { Michigan } from './Michigan'
 import { Wisconsin } from './Wisconsin'
-import { StateContainer } from "../StateContainer"
+import { UnstatedContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { toPath, SuccessPath } from '../../lib/path'
 import { Analytics } from '../Analytics'
-import { AddressContainer } from '../../lib/state'
+import { AddressContainer } from '../../lib/unstated'
 jest.mock('../../lib/trpc')
 
 /** Fill out form without signing */
@@ -92,7 +92,7 @@ test('State Form with Signature (Michigan) works', async () => {
         <Michigan/>
       </AddressContainer.Provider>
     </Router>,
-    { wrapper: StateContainer }
+    { wrapper: UnstatedContainer }
   )
 
   fillWithoutSigning(renderResult)
@@ -137,7 +137,7 @@ test('State Form Without Signature (Wisconsin) works', async () => {
         <Wisconsin/>
       </AddressContainer.Provider>
     </Router>,
-    { wrapper: StateContainer }
+    { wrapper: UnstatedContainer }
   )
 
   fillWithoutSigning(renderResult)
