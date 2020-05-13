@@ -6,7 +6,7 @@ export declare namespace Statuses {
   export interface Automatic { status: 'Automatic' }
   export interface Mail { status: "Mail", infoUrl: string }  // Must apply by mail
   export interface VbmApp { status: "VbmApp" }  // Works with our app
-  export interface VoteOrg { status: 'Vote.org' }
+  export interface VoteDotOrg { status: 'Vote.org' }
   export interface Website { status: "Website", regUrl: string, infoUrl: string }  // Can apply via state website
 }
 
@@ -14,7 +14,7 @@ export type Status = (
   | Statuses.Automatic
   | Statuses.Mail
   | Statuses.VbmApp
-  | Statuses.VoteOrg
+  | Statuses.VoteDotOrg
   | Statuses.Website
 )
 

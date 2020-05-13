@@ -73,9 +73,10 @@ const useIframeResize = () => {
   })
 }
 
-export const VoteOrg = ({state}: StatusProps<Statuses.VoteOrg>) => {
+export const VoteDotOrg = ({state}: StatusProps<Statuses.VoteDotOrg>) => {
   useIframeResize()
 
+  // Grabbed from here https://www.vote.org/technology/
   return <>
     <h2 data-testid='status-title'>Great News!</h2>
     <p data-testid='status-detail'>
@@ -90,8 +91,6 @@ export const VoteOrg = ({state}: StatusProps<Statuses.VoteOrg>) => {
       id='frame2'
       scrolling='no'
     />
-    {/* <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js"/>
-    <script type='text/javascript'>{`iFrameResize({ log:true, checkOrigin:false})`}</script> */}
   </>
 }
 

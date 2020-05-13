@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { vbmStatus, isState } from '../../common'
-import { Automatic, Website, Mail, VbmApp, VoteOrg, Unidentified } from './Status'
+import { Automatic, Website, Mail, VbmApp, VoteDotOrg, Unidentified } from './Status'
 
 export const StatusReport: React.FC<{state: string}> = ({state, children}) => {
   if (!isState(state)) {
@@ -14,7 +14,7 @@ export const StatusReport: React.FC<{state: string}> = ({state, children}) => {
     case "Automatic": return <Automatic {...args}/>
     case "Website": return <Website {...args}/>
     case "Mail": return <Mail {...args}/>
-    case "Vote.org" : return <VoteOrg {...args}/>
+    case "Vote.org" : return <VoteDotOrg {...args}/>
     case "VbmApp": return <VbmApp {...args}>
       {children}
     </VbmApp>
