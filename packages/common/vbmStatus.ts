@@ -29,18 +29,6 @@ export const vbmStatus = (state: State): Status => {
       regUrl: "https://servicearizona.com/voterRegistration?popularclick",
       infoUrl: "https://www.azcleanelections.gov/how-to-vote/early-voting/ballot-by-mail",
     }
-    case "Iowa": return {
-      status: "Mail",
-      infoUrl: "https://sos.iowa.gov/elections/electioninfo/absenteemail.html",
-    }
-    case "North Carolina": return {
-      status: "Mail",
-      infoUrl: "https://www.ncsbe.gov/Voting-Options/Absentee-Voting#RequestingAbsenteeBallot",
-    }
-    case "Ohio": return {
-      status: "Mail",
-      infoUrl: "https://www.ohiosos.gov/elections/voters/absentee-voting/#byMail",
-    }
     case "Pennsylvania": return {
       status: "Website",
       regUrl: "https://www.pavoterservices.pa.gov/OnlineAbsenteeApplication/#/OnlineAbsenteeBegin",
