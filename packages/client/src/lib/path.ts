@@ -131,8 +131,6 @@ export const useAppHistory = () => {
     pushSuccess: (id: string) => {
       pushScroll({oid, type: 'success', id})
     },
-    query: (id: string) => {
-      return query.get(id)
-    }
+    query,
   }
 }

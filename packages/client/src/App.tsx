@@ -6,7 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom"
 
 import { About } from './comp/About'
 import { Footer } from './comp/Footer'
-import { Analytics } from './comp/Analytics'
+import { Initialize } from './comp/Initialize'
 import { AddressForm } from './comp/AddressForm'
 import { DevInfo } from './comp/DevInfo'
 import { Success } from './comp/Success'
@@ -87,7 +87,7 @@ const Layout = () => {
 
 const App = () => (<>
   <UnstatedContainer>
-    <Analytics/>
+    <Initialize/>
     <Layout/>
   </UnstatedContainer>
   <script src="http://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
