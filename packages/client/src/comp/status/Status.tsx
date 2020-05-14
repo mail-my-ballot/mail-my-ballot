@@ -102,6 +102,7 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
       frameBorder={0}
       id='frame2'
       scrolling='no'
+      title='vote.org'
     />
   </>
 }
