@@ -26,3 +26,4 @@ export const AnalyticsContainer = createContainer(useAnalyticsContainer)
 
 export * from './query'
 export * from './user'
+export * from './memoize'

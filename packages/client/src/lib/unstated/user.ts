@@ -1,6 +1,7 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
 import { UserData, UTM } from '../../common'
+import { useDeepMemoize } from './memoize'
 
 const localStorageKey = 'user-data'
 
@@ -34,14 +35,15 @@ const useUserContainer = (initialState: UserData = defaultInitialState) => {
     ...(initialState ?? {}),
     ...existingUserData 
   })
+  const userDataMemo = useDeepMemoize(userData)
 
   /** Non-overwriting update of user data */
-  const conservativeUpdateUserData = (utm: UTM) => {
-    const newUserData = {...utm, ...userData}
+  const conservativeUpdateUserData = React.useCallback((utm: UTM) => {
+    const newUserData = {...utm, ...userDataMemo}
     saveLocalStorage(newUserData)
     setUserData(newUserData)
-  }
-  return { userData, conservativeUpdateUserData }
+  }, [userDataMemo])
+  return { userData: userDataMemo, conservativeUpdateUserData }
 }
 
 export const UserContainer = createContainer(useUserContainer)
