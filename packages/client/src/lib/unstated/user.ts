@@ -1,18 +1,6 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
-
-// From here: https://ga-dev-tools.appspot.com/campaign-url-builder/
-interface UTM {
-  utmSource?: string
-  utmMedium?: string
-  utmCampaign?: string
-  utmTerm?: string
-  utmContent?: string
-}
-
-interface UserData extends UTM {
-  uid: string
-}
+import { UserData, UTM } from '../../common'
 
 const localStorageKey = 'user-data'
 

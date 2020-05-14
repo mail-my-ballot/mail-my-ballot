@@ -12,7 +12,7 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer } from '../../lib/unstated'
+import { AddressContainer, UserContainer } from '../../lib/unstated'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -25,6 +25,7 @@ type Props<Info> = React.PropsWithChildren<{
 export const Base = <Info extends StateInfo>({enrichValues, children }: Props<Info>) => {
   const { pushSuccess, oid } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
+  const { userData } = UserContainer.useContainer()
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
@@ -55,7 +56,7 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
 
     const info = enrichValues(baseInfo)
     if (!info) return  // TODO: Add warning
-    const result = await client.register(info)
+    const result = await client.register(info, userData)
     result.type === 'data' && pushSuccess(result.data)
     // TODO: Add warning if error
   }

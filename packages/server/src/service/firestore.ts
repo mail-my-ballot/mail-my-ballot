@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, StateInfo, WithId } from '../common'
+import { processEnvOrThrow, WithId } from '../common'
 import { Profile } from 'passport'
 import { User, RichStateInfo, Org, TwilioResponse } from './types'
 import { Analytics } from '../common/analytics'
@@ -10,6 +10,9 @@ type DocumentReference = admin.firestore.DocumentReference<admin.firestore.Docum
 type Query = admin.firestore.Query<admin.firestore.DocumentData>
 type DocumentSnapshot = admin.firestore.DocumentSnapshot
 type Transaction = admin.firestore.Transaction
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DistributeOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never
 
 export class FirestoreService {
   db: admin.firestore.Firestore
@@ -77,7 +80,7 @@ export class FirestoreService {
   ////////////////////////////////////////////
   // Registration
 
-  async addRegistration(info: StateInfo): Promise<string> {
+  async addRegistration(info: DistributeOmit<RichStateInfo, 'created'>): Promise<string> {
     const richInfo: RichStateInfo = {
       ...info,
       created: admin.firestore.Timestamp.fromDate(new Date())

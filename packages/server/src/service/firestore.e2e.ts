@@ -1,7 +1,7 @@
 import * as firebase from '@firebase/testing'
 
 import { FirestoreService } from './firestore'
-import { StateInfo } from '../common'
+import { RichStateInfo } from './types'
 
 const projectId = 'new-test'
 
@@ -55,7 +55,7 @@ describe('Viewing Data', () => {
       oid,
       name: 'Bob',
       state: 'Florida',
-    } as StateInfo)
+    } as RichStateInfo)
     expect(id).toBeTruthy()
 
     const richInfos = await fs.fetchRegistrations(uids[0], oid)
@@ -86,7 +86,7 @@ describe('Viewing Data', () => {
         oid: 'new_org',
         name: 'Bob',
         state: 'Florida',
-      } as StateInfo)
+      } as RichStateInfo)
     ).resolves.toBeTruthy()
 
     await expect(fs.fetchRegistrations(uids[0], 'new_org')).resolves.toBeNull()

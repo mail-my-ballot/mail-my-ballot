@@ -1,7 +1,7 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { ImplRpc } from '@tianhuil/simple-trpc/dist/type'
 import { Request } from 'express'
-import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState } from '../common'
+import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState, UserData } from '../common'
 import { FirestoreService } from './firestore'
 import { sendEmail } from './mg'
 import { toContact } from './contact'
@@ -50,10 +50,11 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     if (!contact) return error('Unable to find contact')
     return data({contact, address})
   }
-  public register = async (request: Request, info: StateInfo) => {
+  public register = async (request: Request, info: StateInfo, user: UserData) => {
     const id = await firestoreService.addRegistration({
       ...info,
-      ...hostInfo(request)
+      ...hostInfo(request),
+      user,
     })
 
     const contact = await toContact(info)
