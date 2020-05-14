@@ -12,7 +12,6 @@ import { UnstatedContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { toPath, SuccessPath } from '../../lib/path'
-import { Analytics } from '../Analytics'
 import { AddressContainer } from '../../lib/unstated'
 jest.mock('../../lib/trpc')
 
@@ -88,7 +87,6 @@ test('State Form with Signature (Michigan) works', async () => {
   const renderResult = render(
     <Router history={history}>
       <AddressContainer.Provider initialState={michiganAddress}>
-        <Analytics/>
         <Michigan/>
       </AddressContainer.Provider>
     </Router>,
@@ -104,9 +102,10 @@ test('State Form with Signature (Michigan) works', async () => {
   signForm(renderResult)
 
   // this succeeds
-  await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
-    {id: "confirmationId", oid: "default", type: "success"}
-  ))
+  await wait(
+    () => expect(toPath(history.location.pathname, new URLSearchParams('')))
+      .toEqual<SuccessPath>({id: "confirmationId", oid: "default", type: "success"})
+  )
   await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
   await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })
@@ -133,7 +132,6 @@ test('State Form Without Signature (Wisconsin) works', async () => {
   const renderResult = render(
     <Router history={history}>
       <AddressContainer.Provider initialState={wisconsinAddress}>
-        <Analytics/>
         <Wisconsin/>
       </AddressContainer.Provider>
     </Router>,
@@ -142,8 +140,9 @@ test('State Form Without Signature (Wisconsin) works', async () => {
 
   fillWithoutSigning(renderResult)
 
-  await wait(() => expect(toPath(history.location.pathname)).toEqual<SuccessPath>(
-    {id: "confirmationId", oid: "default", type: "success"}
-  ))
+  await wait(
+    () => expect(toPath(history.location.pathname, new URLSearchParams('')))
+      .toEqual<SuccessPath>({id: "confirmationId", oid: "default", type: "success"})
+  )
   await wait(() => expect(register).toHaveBeenCalledTimes(1))
 })
