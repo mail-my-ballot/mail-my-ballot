@@ -1,30 +1,57 @@
 extends layout.pug
 
 block pageName
-  title Edit details of #{richOrg.id}
+  title Details of #{richOrg.id}
 
 block content
   include flash.pug
 
   .container.mt-5
-    h1 Edit details of #{richOrg.id}
+    h1 Details of #{richOrg.id}
 
-  .container.card.mt-5.p-3
-    form(action=richOrg.updateAnalyticsUrl method='post')
-      .form-group
-        label(for='facebookId') Facebook Pixel Id
-        input(type='text' class='form-control' id='facebookId' name='facebookId' placeholder='1234567890123456' value=richOrg.facebookId pattern='\\d*')
-        small.form-text.text-muted(id='facebookHelp').
-          16 digit number. Visit Facebook's #[a(href='https://www.facebook.com/business/help/952192354843755') help page] for more information
+  .container
+    .row
+      .col-lg
+        .card.mt-5.p-3
+          h4.text-primary Analytics Ids
+          form(action=richOrg.updateAnalyticsUrl method='post')
+            .form-group
+              label(for='facebookId') Facebook Pixel Id
+              input(type='text' class='form-control' id='facebookId' name='facebookId' placeholder='1234567890123456' value=richOrg.facebookId pattern='\\d*')
+              small.form-text.text-muted(id='facebookHelp').
+                16 digit number. Visit Facebook's #[a(href='https://www.facebook.com/business/help/952192354843755') help page] for more information
 
-      .form-group
-        label(for='googleId') Google Analytics Tracking Id
-        input(type='text' class='form-control' id='googleId' name='googleId' placeholder='UA-123456789-0' value=richOrg.googleId pattern='UA-\\d+-\\d+')
-        small.form-text.text-muted(id='facebookHelp').
-          Starts with "UA". Visit Google's #[a(href='https://support.google.com/analytics/answer/1008080') support page] for more information
-      
-      .d-flex.justify-content-end
-        button.btn.btn-primary(type='submit') Update
+            .form-group
+              label(for='googleId') Google Analytics Tracking Id
+              input(type='text' class='form-control' id='googleId' name='googleId' placeholder='UA-123456789-0' value=richOrg.googleId pattern='UA-\\d+-\\d+')
+              small.form-text.text-muted(id='googleHelp').
+                Starts with "UA". Visit Google's #[a(href='https://support.google.com/analytics/answer/1008080') support page] for more information
+            
+            .d-flex.justify-content-end
+              button.btn.btn-primary(type='submit') Update
+
+      .col-lg
+        .card.mt-5.p-3
+          - var campaignUrl = richOrg.displayUrl + '?utm_campaign=campaignId1234'
+          - var sourceUrl = richOrg.displayUrl + '?utm_source=source1234'
+          h4.text-primary UTM Codes
+          p You can use UTM codes for this landing page like this:
+          ul
+            li
+              a(href=campaignUrl target='_blank')= campaignUrl
+            li
+              a(href=sourceUrl target='_blank')= sourceUrl
+          p We save the following five standard campaign parameters, which you can download once the user has completed their flow:
+          ul
+            li utm_source
+            li utm_medium
+            li utm_campaign
+            li utm_term
+            li utm_content
+          small.text-muted.
+            Visit Google's #[a(href='https://support.google.com/analytics/answer/1033867?hl=en') documentation] for more information about UTM codes.
+          small.text-muted.
+            Visit Google's #[a(href='https://ga-dev-tools.appspot.com/campaign-url-builder/') campaign url bulder] for assistance building your own UTM url.
 
   .container.mt-5
     h4.text-primary Recent VBM Signups
