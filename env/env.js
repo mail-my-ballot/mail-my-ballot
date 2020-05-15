@@ -59,7 +59,6 @@ const development = removeNullValues({
   DEV_SERVER_PORT: 8080,
   REACT_APP_DEFAULT_ADDRESS: 1,
   REACT_APP_TIMEOUT: 2000,
-  DEBUG_LETTER: 1,
   DEV_EMAIL: 'email@example.com',
   NUNJUNKS_DISABLE_CACHE: 1,
   TWILIO_DIVERT: 1,
@@ -84,7 +83,6 @@ const staging = removeNullValues({
   GOOGLE_CLIENT_CALLBACK: 'https://app-staging.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
-  DEBUG_LETTER: 1,
   TWILIO_DIVERT: 1,
 })
 
@@ -105,7 +103,6 @@ const production = removeNullValues({
   GOOGLE_MAPS_API_KEY: PROD.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
-  DEBUG_LETTER: undefined,
   REACT_APP_EMAIL_FAX_OFFICIALS: 1,
 })
 

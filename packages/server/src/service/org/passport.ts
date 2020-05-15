@@ -11,6 +11,7 @@ import { FirestoreStore } from '@google-cloud/connect-firestore'
 import { toCSVSting } from '../csv'
 import { Org } from '../types'
 import { storageFileFromId } from '../storage'
+import { router as letterRouter } from '../letter/router'
 
 const scope = [
   'https://www.googleapis.com/auth/userinfo.email',
@@ -214,4 +215,6 @@ export const registerPassportEndpoints = (app: Express.Application) => {
       res.render('status', { env })
     }
   )
+
+  app.use('/letter', validSession, letterRouter)
 }

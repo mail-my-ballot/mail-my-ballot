@@ -41,7 +41,7 @@ export const sampleMethod: ContactMethod = {
   faxes: [],
 }
 
-router.get('/sample/:stateIndex', async (req, res) => {
+router.get('/:stateIndex', async (req, res) => {
   const { stateIndex } = req.params
   const [state, rawIndex] = stateIndex.split('-')
 

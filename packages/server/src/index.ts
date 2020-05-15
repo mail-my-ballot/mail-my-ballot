@@ -7,7 +7,6 @@ import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
 import { processEnvOrThrow } from './common'
-import { router as letterRouter } from './service/letter/router'
 import { VbmRpc } from './service/trpc'
 import { registerPassportEndpoints } from './service/org'
 
@@ -29,10 +28,6 @@ app.get('/_ah/warmup', (_, res) => {
 app.get('/', (_, res: Response) => {
   res.render('index')
 })
-
-if (process.env.DEBUG_LETTER) {
-  app.use('/letter', letterRouter)
-}
 
 registerExpressHandler(app, new VbmRpc())
 registerPassportEndpoints(app)
