@@ -9,7 +9,7 @@ jest.mock('./lib/path')
 jest.mock('./lib/analytics')
 jest.mock('./lib/trpc')
 
-describe('App', () => {
+describe('App', () => {  
   beforeAll(() => {
     mocked(client, true).fetchState = jest.fn().mockResolvedValue({
       type: 'data',
@@ -22,7 +22,10 @@ describe('App', () => {
   it('Scrolls when clicked on Blurb page', () => {
     const pushAddress = jest.fn()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mocked(useAppHistory).mockReturnValue({pushAddress} as any)
+    mocked(useAppHistory).mockReturnValue({
+      pushAddress,
+      query: {utmCampaign: '2'}
+    } as any)
 
     const mockedPageView = mocked(pageView)
 

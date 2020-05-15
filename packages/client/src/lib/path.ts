@@ -81,7 +81,7 @@ export const toUrl = <P extends Path>(path: P): string => {
 const defaultOid = 'default'
 export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 
-const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: URLSearchParams, exact = false): P | null => {
+const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: Record<string, string>, exact = false): P | null => {
   const { path } = pathData[pathEnum]
   const match = matchPath<P>(url, { path, exact })
   if (!match) return null
@@ -89,11 +89,11 @@ const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: URLSe
     type: pathEnum,
     ...match.params,
     // In Jest testing, URLSearchParams are always undefined so just don't use
-    scroll: query ? query.get('scroll') ?? undefined : undefined,
+    scroll: query['scroll'],
   }
 }
 
-export const toPath = (pathname: string, query: URLSearchParams): Path | null => {
+export const toPath = (pathname: string, query: Record<string, string>): Path | null => {
   const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, query, true))
   return matches.reduce((x, y) => x || y, null)
 }
@@ -105,10 +105,14 @@ const scrollToId = (id: string) => {
   })
 }
 
+const parseQS = (search: string): Record<string, string> => {
+  return Object.fromEntries((new URLSearchParams(search)).entries())
+}
+
 export const useAppHistory = () => {
   const history = useHistory()
   const { pathname, search } = useLocation()
-  const query = new URLSearchParams(search)
+  const query = parseQS(search)
   const path = toPath(pathname, query)
   const oid = path?.oid || defaultOid
   

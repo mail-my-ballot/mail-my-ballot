@@ -11,11 +11,11 @@ export const Initialize: React.FC = () => {
   const { conservativeUpdateUserData } = UserContainer.useContainer()
   const { query } = useAppHistory()
   const utm: UTM = {
-    utmSource: query.get('utm_source') ?? undefined,
-    utmMedium: query.get('utm_medium') ?? undefined,
-    utmCampaign: query.get('utm_campaign') ?? undefined,
-    utmTerm: query.get('utm_term') ?? undefined,
-    utmContent: query.get('utm_content') ?? undefined,
+    utmSource: query['utm_source'],
+    utmMedium: query['utm_medium'],
+    utmCampaign: query['utm_campaign'],
+    utmTerm: query['utm_term'],
+    utmContent: query['utm_content'],
   }
 
   React.useEffect(() => {

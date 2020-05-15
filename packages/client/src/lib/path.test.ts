@@ -2,7 +2,7 @@ import { toUrl, toPath, Path } from './path'
 
 const toUrlAndBack = <P extends Path>(path: P): Path | null => {
   const url = toUrl(path)
-  return toPath(url)
+  return toPath(url, {})
 }
 
 describe('Test PathData roundtrip translation', () => {
