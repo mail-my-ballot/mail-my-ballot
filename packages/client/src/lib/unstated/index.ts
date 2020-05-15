@@ -25,5 +25,5 @@ const useAnalyticsContainer = (initialAnalytics: Analytics | null = null) => {
 export const AnalyticsContainer = createContainer(useAnalyticsContainer)
 
 export * from './query'
-export * from './user'
+export * from './voter'
 export * from './memoize'

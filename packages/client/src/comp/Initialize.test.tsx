@@ -15,6 +15,6 @@ test('Initialize picks up utm parameters', () => {
     { wrapper: UnstatedContainer } 
   )
 
-  const userData = localStorage.getItem('user-data')
+  const userData = localStorage.getItem('voter-data')
   expect(userData).toContain('campaignid1234')
 })

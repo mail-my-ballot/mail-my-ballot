@@ -22,10 +22,8 @@ describe('App', () => {
   it('Scrolls when clicked on Blurb page', () => {
     const pushAddress = jest.fn()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mocked(useAppHistory).mockReturnValue({
-      pushAddress,
-      query: {utmCampaign: '2'}
-    } as any)
+    const returnValue = { pushAddress, query: {utmCampaign: '2'}} as any
+    mocked(useAppHistory).mockReturnValue(returnValue)
 
     const mockedPageView = mocked(pageView)
 

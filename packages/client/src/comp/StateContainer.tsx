@@ -1,15 +1,15 @@
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
-import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, UserContainer } from '../lib/unstated'
+import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer } from '../lib/unstated'
 // export for testing purposes
 export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
   <QueryContainer.Provider>
     <AddressContainer.Provider>
       <ContactContainer.Provider>
         <AnalyticsContainer.Provider>
-          <UserContainer.Provider>
+          <VoterContainer.Provider>
             {children}
-          </UserContainer.Provider>
+          </VoterContainer.Provider>
         </AnalyticsContainer.Provider>
       </ContactContainer.Provider>
     </AddressContainer.Provider>

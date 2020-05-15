@@ -7,6 +7,6 @@ export interface UTM {
   utmContent?: string
 }
 
-export interface UserData extends UTM {
+export interface Voter extends UTM {
   uid: string
 }

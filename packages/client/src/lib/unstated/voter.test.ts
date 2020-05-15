@@ -1,35 +1,35 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import { UserContainer } from './user'
+import { VoterContainer } from './voter'
 
-describe('testing user container', () => {
+describe('testing VoterContainer', () => {
   test('data can be created', () => {
     const { result } = renderHook(
-      () => UserContainer.useContainer(),
+      () => VoterContainer.useContainer(),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      { wrapper: UserContainer.Provider as any }
+      { wrapper: VoterContainer.Provider as any }
     )
-    const uid = result.current.userData.uid
+    const uid = result.current.voter.uid
     expect(uid.length).toBeGreaterThan(5)
 
     // Assigning a new field updates it
     act(// eslint-disable-next-line @typescript-eslint/camelcase
-      () => result.current.conservativeUpdateUserData({utmCampaign: 'c1'})
+      () => result.current.conservativeUpdateVoter({utmCampaign: 'c1'})
     )
-    expect(result.current.userData.utmCampaign).toBe('c1')
+    expect(result.current.voter.utmCampaign).toBe('c1')
 
     // Assigning again doesn't do anything
     act(// eslint-disable-next-line @typescript-eslint/camelcase
-      () => result.current.conservativeUpdateUserData({utmCampaign: 'c2'})
+      () => result.current.conservativeUpdateVoter({utmCampaign: 'c2'})
     )
-    expect(result.current.userData.utmCampaign).toBe('c1')
+    expect(result.current.voter.utmCampaign).toBe('c1')
 
     // rerende does not trigger a new uid
     const { result: result2 } = renderHook(
-      () => UserContainer.useContainer(),
+      () => VoterContainer.useContainer(),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      { wrapper: UserContainer.Provider as any }
+      { wrapper: VoterContainer.Provider as any }
     )
-    const uid2 = result2.current.userData.uid
+    const uid2 = result2.current.voter.uid
     expect(uid).toBe(uid2)
   })
 })

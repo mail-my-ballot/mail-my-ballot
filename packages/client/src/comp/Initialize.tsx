@@ -1,14 +1,14 @@
 import React from 'react'
 import { client } from '../lib/trpc'
 import { useAppHistory } from '../lib/path'
-import { AnalyticsContainer, UserContainer, useDeepMemoize } from '../lib/unstated'
+import { AnalyticsContainer, VoterContainer, useDeepMemoize } from '../lib/unstated'
 import { initializeAnalytics } from '../lib/analytics'
 import { UTM } from '../common'
 
 export const Initialize: React.FC = () => {
   const { oid } = useAppHistory()
   const { setAnalytics } = AnalyticsContainer.useContainer()
-  const { conservativeUpdateUserData } = UserContainer.useContainer()
+  const { conservativeUpdateVoter } = VoterContainer.useContainer()
   const { query } = useAppHistory()
   const utm: UTM = {
     utmSource: query['utm_source'],
@@ -32,8 +32,8 @@ export const Initialize: React.FC = () => {
   const utmMemo = useDeepMemoize(utm)
 
   React.useEffect(() => {
-    conservativeUpdateUserData(utmMemo)
-  }, [conservativeUpdateUserData, utmMemo])
+    conservativeUpdateVoter(utmMemo)
+  }, [conservativeUpdateVoter, utmMemo])
 
   return <></>
 }
