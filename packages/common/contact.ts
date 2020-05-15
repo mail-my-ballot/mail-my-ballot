@@ -39,7 +39,7 @@ export type ContactMethod = {
   faxes: string[]
 }
 
-const toStateMethod = (state: AvailableState): StateMethod => {
+export const toStateMethod = (state: AvailableState): StateMethod => {
   return stateMethods[state]
 }
 

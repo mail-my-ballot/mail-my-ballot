@@ -12,14 +12,23 @@ block content
       a(href='/auth/google/logout')
         button.btn.btn-primary Signout
     
-  .container.card.mt-4
-    .mt-3
-      h2 Account Details
-    .mt-2
-      p #{user.displayName}
-      ul
-        each email in user.emails
-          li= email.value
+  .container
+    .row
+      .col-lg
+        .card.mt-4.p-3
+          h3 Account Details
+          .mt-2
+            p #{user.displayName}
+            ul
+              each email in user.emails
+                li= email.value
+      .col-lg
+        .card.mt-4.p-3
+          h3 Implemented States
+          .mt-2
+            ul
+              each state in implementedStates
+                li #{state} (#{toStateMethod(state)})
 
   .container.mt-4
     h2 Organizations

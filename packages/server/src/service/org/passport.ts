@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import flash from 'connect-flash'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 
-import { processEnvOrThrow } from '../../common'
+import { processEnvOrThrow, implementedStates, toStateMethod } from '../../common'
 import { FirestoreService } from '../firestore'
 import { FirestoreStore } from '@google-cloud/connect-firestore'
 import { toCSVSting } from '../csv'
@@ -142,6 +142,8 @@ export const registerPassportEndpoints = (app: Express.Application) => {
         richOrgs,
         frontEnd,
         flash: req.flash(),
+        implementedStates: new Array(...implementedStates).sort(),
+        toStateMethod,
       })
     }
   )
