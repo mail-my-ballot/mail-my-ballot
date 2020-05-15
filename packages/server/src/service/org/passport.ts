@@ -153,7 +153,7 @@ export const registerPassportEndpoints = (app: Express.Application) => {
     async (req, res) => {
       const uid = getUid(req)
       const { oid } = req.params
-      const stateInfos = await firestoreService.fetchRegistrations(uid, oid, { limit: 10 }) || []
+      const stateInfos = await firestoreService.fetchRegistrations(uid, oid, { limit: 5 }) || []
       const enrichedtateInfos = await Promise.all(stateInfos.map(async s => ({
         ...s,
         signedUrl: await storageFileFromId(s.id || '').getSignedUrl(60 * 60 * 1000)
