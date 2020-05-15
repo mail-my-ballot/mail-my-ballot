@@ -105,7 +105,7 @@ const scrollToId = (id: string) => {
   })
 }
 
-const parseQS = (search: string): Record<string, string> => {
+export const parseQS = (search: string): Record<string, string> => {
   return Object.fromEntries((new URLSearchParams(search)).entries())
 }
 
