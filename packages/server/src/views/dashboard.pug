@@ -18,13 +18,14 @@ block content
         .card.mt-4.p-3
           h3 Account Details
           .mt-2
-            p #{user.displayName}
+            p.text-muted #{user.displayName}
             ul
               each email in user.emails
-                li= email.value
+                li.text-muted= email.value
       .col-lg
         .card.mt-4.p-3
-          h3 Implemented States
+          h3.text-primary Implemented States
+          p.text-muted We directly support the following states and indirectly support all other states through either Vote.org or the state signup website.
           .mt-2
             ul
               each state in implementedStates
@@ -38,7 +39,7 @@ block content
       .col-lg.mt-3
         .d-flex.justify-content-between
           .flex-grow-1.mr-3
-            h4 Claim a new organization 
+            h4.text-primary Claim a new organization 
           .flex-grow-0
             p.text-muted (maximum #{maxOrgs})
         
@@ -67,7 +68,7 @@ block content
       .col-lg.mt-3
         .d-flex.justify-content-between
           .flex-grow-1.mr-3
-            h4 Organizations
+            h4.text-primary Organizations
           .flex-grow-0
             p.text-muted (#{richOrgs.length} / #{maxOrgs})
         if richOrgs
