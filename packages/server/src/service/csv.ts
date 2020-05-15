@@ -2,14 +2,35 @@ import { createArrayCsvStringifier } from 'csv-writer'
 import { RichStateInfo } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const toCSVStingGeneral = <K extends string>(records: Record<K, any>[], keys: K[]): string => {
+const selector = (obj: Record<string, any>, key: string | string[]): string => {
+  if (key instanceof Array) {
+    if (key.length === 0) {
+      return String(obj)
+    } else {
+      const key0 = key[0]
+      if (!obj) return obj
+      return selector(obj[key0] as object, key.splice(1))
+    }
+  } else {
+    return selector(obj, key.split('.'))
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const toCSVStingGeneral = (records: Record<string, any>[], keys: string[]): string => {
   const writer = createArrayCsvStringifier({
     header: keys
   })
 
   return (
     writer.getHeaderString() +
-    writer.stringifyRecords(records.map(info => keys.map(k => info[k])))
+    writer.stringifyRecords(
+      records.map(
+        info => keys.map(
+          k => selector(info, k)
+        )
+      )
+    )
   )
 }
 
@@ -18,7 +39,7 @@ type KeysOfUnion<T> = T extends any ? keyof T: never
 type StateKeys = KeysOfUnion<RichStateInfo>
 
 // Must keep this list manually updated
-const keys: StateKeys[] = [
+const simpleKeys: StateKeys[] = [
   'created',
   'id',
   'ip',
@@ -35,6 +56,16 @@ const keys: StateKeys[] = [
   'phone',
 ]
 
+const compoundKeys: string[] = [
+  'voter.uid',
+  'voter.utmSource',
+  'voter.utmMedium',
+  'voter.utmCampaign',
+  'voter.utmTerm',
+  'voter.utmContent',
+  'mgResponse.id',
+]
+
 export const toCSVSting = (infos: RichStateInfo[]) => {
   // Need to convert firestore TimeStamp to milliseconds since Epoch
   // https://firebase.google.com/docs/reference/js/firebase.firestore.Timestamp#todate
@@ -45,5 +76,5 @@ export const toCSVSting = (infos: RichStateInfo[]) => {
     created: info.created.toMillis()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as Record<StateKeys, any>))
-  return toCSVStingGeneral(records, keys)
+  return toCSVStingGeneral(records, (simpleKeys as string[]).concat(compoundKeys))
 }
