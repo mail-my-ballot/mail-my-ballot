@@ -4,8 +4,12 @@
 
 {% block body %}
 - Phone: **{{phone}}**
+{% if city %}
 - City: **{{city}}**
+{% endif %}
+{% if county %}
 - County: **{{county}}**
+{% endif %}
 - Election: **{{election}}**
 - Method of Delivery: I request that my ballot be mailed to me.
 
