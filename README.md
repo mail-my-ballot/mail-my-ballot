@@ -11,8 +11,17 @@ Almost all dependnecies are listed in devDependencies.  However, still depends o
 ### Installation
 In the root directory, run `yarn install`.
 
+### Starting the dev server
+To start the client and backend dev servers, run
+```bash
+yarn server gulp start // server on localhost:8080
+yarn client gulp start // client on localhost:3000
+```
+
+These commands will likely fail until you have setup the configuration correctly (see below).
+
 ### Configuration
-This app requires a lot of configuration.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control, one for application secrets (`secrets.nogit.json`) and one to override dev dependencies (`env.dev.nogit.js`).
+Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control, one for application secrets (`secrets.nogit.json`) and one to override dev dependencies (`env.dev.nogit.js`).
 
 - The dev overrides can be blank to get started.
 - The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
