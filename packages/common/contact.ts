@@ -68,7 +68,7 @@ const toAllowableMethod = (contact: ContactData): PartialContactMethod => {
 
   switch(stateMethod) {
     // send only email if we have it, send fax if we don't
-    case 'fax-email': return emails ? { stateMethod, emails } : { stateMethod, faxes }
+    case 'fax-email': return emails.length > 0 ? { stateMethod, emails } : { stateMethod, faxes }
 
     // send emails since faxes are not allowed
     case 'email': return { stateMethod, emails }
