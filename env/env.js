@@ -43,6 +43,7 @@ const development = removeNullValues({
   ...base,
   NODE_ENV: 'development',
   REACT_APP_ENVIRONMENT: 'development',
+  GCLOUD_PROJECT: 'mmb-dev-cee81',
   GOOGLE_APPLICATION_CREDENTIALS: './secrets/mmb-dev-cee81-firebase-adminsdk-qlb2m-0f68a6fdc7.json',
   REACT_APP_GOOGLE_UA: 'UA-164550246-2',
   REACT_APP_URL: 'http://localhost:3000/',

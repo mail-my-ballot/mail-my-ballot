@@ -6,16 +6,10 @@ block pageName
 block content
   include flash.pug
 
-  .container.mt-4
+  .container.mt-5
     h1 Edit details of #{richOrg.id}
 
-  .container.mt-3
-    p Total registrations: #{totalCount}
-      | &nbsp;(
-      a(href=richOrg.downloadUrl) Download
-      | )
-
-  .container.card.mt-4.p-3
+  .container.card.mt-5.p-3
     form(action=richOrg.updateAnalyticsUrl method='post')
       .form-group
         label(for='facebookId') Facebook Pixel Id
@@ -31,3 +25,22 @@ block content
       
       .d-flex.justify-content-end
         button.btn.btn-primary(type='submit') Update
+
+  .container.mt-5
+    h4.text-primary Recent VBM Signups
+    .d-flex.justify-content-between
+      .d-flex.justify-content-start
+        .mr-1 Most recent submissions
+      d-flex.justify-content-start
+        a(href=richOrg.downloadUrl) Download All
+
+    ul.mt-2.list-group
+      each info in stateInfos
+        li.list-group-item
+          .d-flex.justify-content-between
+            .d-flex.justify-content-start
+              p.mr-2 #{info.name} (#{info.state})
+              a(href= info.signedUrl target='_blank') (letter)
+              
+            .d-flex.justify-content-start
+              small.text-muted #{new Date(info.created.seconds).toUTCString()}

@@ -38,10 +38,15 @@ export class StorageFile {
     })  
   }
 
-  getSignedUrl(durationMs: number) {
-    return this.file.getSignedUrl({
+  async getSignedUrl(durationMs: number) {
+    const [result] = await this.file.getSignedUrl({
       action: 'read',
       expires: new Date(new Date().getTime() + durationMs)
     })
+    return result
   }
+}
+
+export const storageFileFromId = (id: string): StorageFile => {
+  return new StorageFile(`letter/${id}.pdf`)
 }

@@ -7,7 +7,7 @@ import { sendEmail } from './mg'
 import { toContact } from './contact'
 import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
-import { StorageFile } from './storage'
+import { storageFileFromId } from './storage'
 import { toLetter } from './letter'
 import { sendFaxes } from './twilio'
 import { TwilioResponse } from './types'
@@ -67,7 +67,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
 
     return data(id, async (): Promise<void> => {
       const pdfBuffer = await toPdfBuffer(letter.html)
-      const file = new StorageFile(`letter/${id}.pdf`)
+      const file = storageFileFromId(id)
       await file.upload(pdfBuffer)
 
       // Send email (perhaps only to voter)
@@ -80,7 +80,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       // Send faxes
       let twilioResponses: TwilioResponse[] = []
       if (method.faxes.length > 0) {
-        const [uri] = await file.getSignedUrl(24 * 60 * 60 * 1000)
+        const uri = await file.getSignedUrl(24 * 60 * 60 * 1000)
         const resposnes = await sendFaxes(uri, method.faxes)
         twilioResponses = resposnes.map(({url, sid, status}) => ({url, sid, status}))
       }

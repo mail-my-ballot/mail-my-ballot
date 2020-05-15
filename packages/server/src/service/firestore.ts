@@ -14,6 +14,14 @@ type Transaction = admin.firestore.Transaction
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributeOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never
 
+interface FetchOptions {
+  limit: number
+}
+
+const defaultFetchOptions: FetchOptions = {
+  limit: 5000,
+}
+
 export class FirestoreService {
   db: admin.firestore.Firestore
 
@@ -234,15 +242,15 @@ export class FirestoreService {
   }
 
   // user pulls all registration from org
-  async fetchRegistrations(uid: string, oid: string, limit = 5000): Promise<RichStateInfo[] | null> {
+  async fetchRegistrations(uid: string, oid: string, options: FetchOptions = defaultFetchOptions): Promise<RichStateInfo[] | null> {
     const org = await this.fetchOrg(oid)
     if (!org) return null
     if (!org.user.members.includes(uid)) return null
     return this.query<RichStateInfo>(
       this.db.collection('StateInfo')
         .where('oid', '==', oid)
-        .orderBy('created', 'asc')
-        .limit(limit)
+        .orderBy('created', 'desc')
+        .limit(options.limit)
     )
   }
 }
