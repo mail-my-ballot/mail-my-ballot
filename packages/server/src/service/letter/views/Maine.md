@@ -7,6 +7,7 @@
 - City or Township: **{{city}}**
 - County: **{{county}}**
 - Election: **{{election}}**
+- Method of Ballot Delivery: By Mail.
 
 {% endblock %}
 
