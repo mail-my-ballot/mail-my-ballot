@@ -34,7 +34,7 @@ You only need these to send emails (last step in signup flow).  It's easy to get
 You only need these to send faxes (last step in signup flow).  It's easy to get set up for free.
 
 ### Incoming fax numbers
-To test Twilio, we setup an incoming fax number ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
+To test Twilio, we setup an incoming fax number.  ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
 
 ### Dev Firestore Access
 Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
