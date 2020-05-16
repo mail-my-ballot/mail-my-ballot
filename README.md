@@ -23,7 +23,7 @@ These commands will likely fail until you have setup the configuration correctly
 ### Configuration
 Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control, one for application secrets (`secrets.nogit.json`) and one to override dev dependencies (`env.dev.nogit.js`).
 
-- The dev overrides can be blank to get started.
+- The dev overrides can be blank to get the front-end working.  To run the backend services, you will want to override the existing configuration.
 - The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
 
 ## Configuration Details
