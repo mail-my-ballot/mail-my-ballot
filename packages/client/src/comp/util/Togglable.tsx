@@ -11,7 +11,7 @@ const useCheckbox = (init = false) => {
 const CheckboxContainer = createContainer(useCheckbox)
 
 interface Props extends CheckboxProps {
-  children?: (checked: boolean) => React.ReactNode
+  children: (checked: boolean) => React.ReactNode
 }
 
 const RawTogglable: React.FC<Props> = ({children, ...props}) => {

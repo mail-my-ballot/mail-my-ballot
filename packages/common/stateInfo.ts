@@ -55,6 +55,7 @@ export interface WisconsinInfo extends _Id, BaseInfo {
   // no signature required
   // Wisconsin allows ballots by fax, email, or in-person, but we will stick to mail
   state: 'Wisconsin'
+  idPhoto?: string
 }
 
 export interface NebraskaInfo extends _Id, SignatureBaseInfo {

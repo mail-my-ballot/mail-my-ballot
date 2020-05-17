@@ -90,7 +90,6 @@ const App = () => (<>
     <Initialize/>
     <Layout/>
   </UnstatedContainer>
-  <script src="http://maps.googleapis.com/maps/api/js?key=API-KEY"></script>
 </>)
 
 export default App
