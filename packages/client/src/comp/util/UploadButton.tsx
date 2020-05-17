@@ -52,10 +52,21 @@ export const UploadButton: React.FC<Props> = ({
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
-      const data = await toDataUrl(file)
-      setImage({name: file.name, data: data})
-      setDataString(data)
+      if (file.size > 1024 * 1024) {
+        window.alert('File size is limited to 1MB')
+      } else {
+        const data = await toDataUrl(file)
+        setImage({name: file.name, data: data})
+        setDataString(data)
+      }
     }
+  }
+
+  const centerBlock: React.CSSProperties = {
+    display: 'block',
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 
   return <div>
@@ -63,14 +74,25 @@ export const UploadButton: React.FC<Props> = ({
       <div>
         {
           (image) ? <>
-              <img src={image.data} style={{maxHeight: '150px', display: 'block', margin: 'auto'}}/>
-              <small style={{display: 'block', textAlign: 'center'}}>{image.name}</small>
+              <img src={image.data} style={{maxHeight: '150px', ...centerBlock}}/>
+              <small style={centerBlock}>{image.name}</small>
             </>
-            : <h1 style={{textAlign: 'center', marginTop: '0'}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+            : <>
+              <h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+              <p style={centerBlock}>Limit: 1MB</p>
+            </>
         }
-        <RoundedButton color='primary' style={{display: 'block', margin: 'auto'}} >{label}</RoundedButton>
+        <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>
       </div>
     </div>
-    <input name='upload' type='file' style={{opacity: '0', height: '1px' }} ref={el => ref.current = el} onChange={onChange} required={required}/>
+    <input
+      name='upload'
+      type='file'
+      style={{opacity: '0', height: '1px' }}
+      ref={el => ref.current = el}
+      onChange={onChange}
+      accept='image/*,.pdf'
+      required={required}
+    />
   </div>
 }
