@@ -21,10 +21,10 @@ export const Wisconsin = () => {
   >
     <Togglable
       id='needIdPhoto'
-      label='This is my first time voting by mail.'
+      label='This is my first time voting by mail in Wisconsin.'
     >
       {(checked) => <>
-        <p>Wisconsin requires all first-time voters to submit a copy of their ID.</p>
+        <p>Wisconsin requires all first-time Vote-by-Mail voters to submit a copy of their ID, even if they have voted in-person in the state previously.</p>
         <UploadButton label='Upload Photo of ID' setDataString={setIdPhoto} required={checked}/>
       </>}
     </Togglable>
