@@ -33,7 +33,7 @@ const FlexBox = styled.div`
 
 const FlexGrow = styled.div`
   flex-grow: 1;
-  min-width: 400px;
+  min-width: 250px;
 `
 
 const FlexFixed = styled.div`
