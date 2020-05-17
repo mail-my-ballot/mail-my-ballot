@@ -8,7 +8,9 @@ import { toLetter } from '.'
 
 export const router = Router()
 
-const signaturePng = fs.readFileSync(__dirname + '/signature.png')
+const loadBase64 = (filename: string) => {
+  return fs.readFileSync(__dirname + '/' + filename).toString('base64')
+}
 
 const baseStateInfo: BaseInfo = {
   state: 'Florida',
@@ -24,7 +26,8 @@ const baseStateInfo: BaseInfo = {
 
 export const signatureStateInfo: BaseInfo & {signature: string} = {
   ...baseStateInfo,
-  signature: 'data:image/png;base64,' + signaturePng.toString('base64'),
+  signature: 'data:image/png;base64,' + loadBase64('signature.png'),
+  idPhoto: 'data:image/jpg;base64,' + loadBase64('idPhoto.jpg'),
 }
 
 const sampleStateInfo: GeorgiaInfo = {
