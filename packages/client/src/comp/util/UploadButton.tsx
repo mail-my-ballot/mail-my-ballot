@@ -58,7 +58,7 @@ export const UploadButton: React.FC<Props> = ({
     }
   }
 
-  return <>
+  return <div>
     <div onClick={onClick} style={style}>
       <div>
         {
@@ -72,5 +72,5 @@ export const UploadButton: React.FC<Props> = ({
       </div>
     </div>
     <input name='upload' type='file' style={{opacity: '0', height: '1px' }} ref={el => ref.current = el} onChange={onChange} required={required}/>
-  </>
+  </div>
 }

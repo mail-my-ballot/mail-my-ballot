@@ -83,7 +83,7 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
     />
     <Togglable
       id='separate'
-      label='Mail My Ballot to a Separate Mailing Address'
+      label='Mail My Ballot to a separate mailing address'
     >{
       (checked) => <BaseInput
         id='mailing'

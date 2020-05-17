@@ -72,6 +72,7 @@ export interface MarylandInfo extends _Id, SignatureBaseInfo {
 
 export interface NevadaInfo extends _Id, SignatureBaseInfo {
   state: 'Nevada'
+  idPhoto?: string
 }
 
 export type StateInfo = (
