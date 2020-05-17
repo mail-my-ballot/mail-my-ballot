@@ -74,7 +74,7 @@ export const UploadButton: React.FC<Props> = ({
       <div>
         {
           (image) ? <>
-              <img src={image.data} style={{maxHeight: '150px', ...centerBlock}}/>
+              <img src={image.data} style={{maxHeight: '150px', ...centerBlock}} alt='thumbnail'/>
               <small style={centerBlock}>{image.name}</small>
             </>
             : <>
