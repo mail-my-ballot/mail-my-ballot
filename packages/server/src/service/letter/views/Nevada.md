@@ -9,5 +9,9 @@
 - County: **{{county}}**
 {% endif %}
 - Election: generally, all elections through the end of the calendar year; in particular, **{{election}}**
+{% if idPhoto %}
+- Photo of ID (see below)
+<img src='{{idPhoto}}'/>
+{% endif %}
 
 {% endblock %}

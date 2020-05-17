@@ -28,6 +28,7 @@ export interface BaseInfo extends Locale {
   ip?: string
   userAgent?: string
   signature?: string
+  idPhoto?: string
 }
 
 interface SignatureBaseInfo extends BaseInfo {

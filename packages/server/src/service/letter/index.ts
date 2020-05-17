@@ -8,17 +8,24 @@ nunjucks.configure(__dirname + '/views', {
   noCache: !!process.env.NUNJUNKS_DISABLE_CACHE
 })
 
+interface Options { 
+  signature?: string
+  idPhoto?: string
+}
+
 export class Letter {
   md: string
   html: string
   method: ContactMethod
   signature?: string
+  idPhoto?: string
 
-  constructor(md: string, method: ContactMethod, signature?: string) {
+  constructor(md: string, method: ContactMethod, { signature, idPhoto }: Options = {}) {
     this.md = md
     this.html = marked(md)
     this.method = method
     this.signature = signature
+    this.idPhoto = idPhoto
   }
 }
 
@@ -48,6 +55,6 @@ export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId:
   return new Letter(
     nunjucks.render(template, { ...info, ...envVars, confirmationId, method }),
     method,
-    info.signature
+    { signature: info.signature, idPhoto: info.idPhoto }
   )
 }

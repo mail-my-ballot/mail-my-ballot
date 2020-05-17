@@ -9,20 +9,22 @@ const mg = mailgun({
   apiKey: processEnvOrThrow('MG_API_KEY'),
 })
 
-const makePngAttachment = (
-  signature: string | undefined,
-  to: string
-): mailgun.Attachment | undefined => {
-  if (!signature) return undefined
-  const data = signature.split(',')[1]
-  if (!data) {
-    console.error(`Unable to image signature image to ${to}.  Omitting attachment.`)
-    return undefined
+const makeImageAttachment = (
+  image: string,
+  filename: string,  // without file extension
+  to: string,        // just for error reporting
+): mailgun.Attachment[] => {
+  const match = image.match(/data:image\/(.+);base64,(.+)/)
+  if (!match) {
+    console.error(`Unable to read image ${filename} image to ${to}.  Omitting attachment.`)
+    return []
   }
-  return new mg.Attachment({
+  const ext = match[1]
+  const data = match[2]
+  return [new mg.Attachment({
     data: Buffer.from(data, 'base64'),
-    filename: 'signature.png'
-  })
+    filename: filename + '.' + ext,
+  })]
 }
 
 // separate out this function for testing purposes
@@ -35,19 +37,20 @@ export const toEmailData = (
   const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
   const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
   const subject = 'Vote By Mail Request'
-  const { md, html, signature } = letter
+  const { md, html, signature, idPhoto } = letter
   const mgData = {
     from: processEnvOrThrow('MG_FROM_ADDR'),
     replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
   }
 
-  const attachment = makePngAttachment(signature, voterEmail)
+  const attachment1 = signature ? makeImageAttachment(signature, 'signature', voterEmail) : []
+  const attachment2 = idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : []
   return {
     to,
     subject,
     html,
     text: md,
-    attachment,
+    attachment: [...attachment1, ...attachment2],
     ...mgData,
   }
 }
@@ -63,6 +66,6 @@ export const sendEmail = async (
     return null
   }
 
-  const emailData = toEmailData(letter, voterEmail, officialEmails, force)
+  const emailData = toEmailData(letter, voterEmail, officialEmails, force)  
   return mg.messages().send(emailData)
 }
