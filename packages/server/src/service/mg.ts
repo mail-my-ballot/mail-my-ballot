@@ -59,7 +59,7 @@ export const sendEmail = async (
   force = false,
 ): Promise<mailgun.messages.SendResponse | null> => {
   if (process.env.MG_DISABLE) { // to disable MG for testing
-    console.log('No email sent (disabled)')
+    console.warn('No email sent (disabled)')
     return null
   }
 

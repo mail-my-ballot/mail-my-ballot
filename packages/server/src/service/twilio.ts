@@ -24,7 +24,7 @@ const tos = (faxes: string[], force: boolean): string[] => {
 
 export const sendFaxes = async (url: string, faxes: string[], force = false) => {
   if (process.env.TWILIO_DISABLE) { // to disable Twilio for testing
-    console.log('No fax sent (disabled)')
+    console.info('No fax sent (disabled)')
     return []
   }
 
