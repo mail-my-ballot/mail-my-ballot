@@ -11,7 +11,7 @@ import { Wisconsin } from './Wisconsin'
 import { UnstatedContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
-import { toPath, SuccessPath } from '../../lib/path'
+import { toPath, SuccessPath, parseQS } from '../../lib/path'
 import { AddressContainer } from '../../lib/unstated'
 jest.mock('../../lib/trpc')
 
@@ -103,7 +103,7 @@ test('State Form with Signature (Michigan) works', async () => {
 
   // this succeeds
   await wait(
-    () => expect(toPath(history.location.pathname, new URLSearchParams('')))
+    () => expect(toPath(history.location.pathname, parseQS('')))
       .toEqual<SuccessPath>({id: "confirmationId", oid: "default", type: "success"})
   )
   await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
@@ -141,7 +141,7 @@ test('State Form Without Signature (Wisconsin) works', async () => {
   fillWithoutSigning(renderResult)
 
   await wait(
-    () => expect(toPath(history.location.pathname, new URLSearchParams('')))
+    () => expect(toPath(history.location.pathname, parseQS('')))
       .toEqual<SuccessPath>({id: "confirmationId", oid: "default", type: "success"})
   )
   await wait(() => expect(register).toHaveBeenCalledTimes(1))
