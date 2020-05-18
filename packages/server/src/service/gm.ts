@@ -13,7 +13,14 @@ const findByType = (
   type: string
 ) => components.find(c => c.types.includes(type))?.long_name
 
-const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'queryAddr'> | null => {
+export const rawGeocode = async (query: string): Promise<google.maps.GeocoderResult | null> => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${apiKey}`
+  const response = (await (await fetch(url)).json() as GMResults)
+  if (response.status != 'OK') return null
+  return response.results[0]
+}
+
+export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'queryAddr'> | null => {
   const components = result.address_components
 
   const country = findByType(components, 'country')
@@ -39,10 +46,9 @@ const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'queryAddr
 }
 
 export const geocode = async (query: string): Promise<Address | null> => {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${apiKey}`
-  const response = (await (await fetch(url)).json() as GMResults)
-  if (response.status != 'OK') return null
-  const address = toAddress(response.results[0])
+  const result = await rawGeocode(query)
+  if (!result) return null
+  const address = toAddress(result)
   if (!address) return null
   return {
     ...address,

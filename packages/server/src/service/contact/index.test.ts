@@ -1,25 +1,8 @@
 import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData } from '../../common'
 import { toContact } from '.'
-import { geocode } from '../gm'
-import fs from 'fs'
+import { rawGeocode, toAddress } from '../gm'
+import { cache } from '../util'
 
-const encoding = 'utf8'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Func<T extends Record<string, any>> = (_: string) => Promise<T>
-const cache = <T>(f: Func<T>): Func<T> => {
-  return async (arg: string) => {
-    const path = `${__dirname}/cache/${arg}.json`
-    if (fs.existsSync(path)) {
-      const data = fs.readFileSync(path, { encoding } )
-      return JSON.parse(data)
-    } else {
-      const ret = await f(arg)
-      const data = JSON.stringify(ret)
-      fs.writeFileSync(path, data, { encoding })
-    }
-  }
-}
 
 describe('Google Maps is returning stable results', () => {
   const table: AddressData[] = Object
@@ -29,8 +12,12 @@ describe('Google Maps is returning stable results', () => {
   test.each(table)(
     'Checking Geocoding for %s',
     async ({address, state, county, city}) => {
-      const result = await cache(geocode)(address)
+      const geoResult = await cache(rawGeocode)(address)
+      expect(geoResult).toBeTruthy()
+      if (!geoResult) return
+      const result = toAddress(geoResult)
       expect(result).toBeTruthy()
+      if (!result) return
       const locale = toLocale(result as Address)
       expect(locale).toBeTruthy()
       expect(locale).toEqual({state, county, city})
