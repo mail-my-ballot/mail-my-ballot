@@ -67,6 +67,12 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
       ref={nameRef}
       required
     />
+    <BaseInput
+        id='registrationAddress'
+        label='Registration Address'
+        value={address?.queryAddr}
+        disabled
+      />
     <BirthDateInput
       id='birthdate'
       ref={birthdateRef}

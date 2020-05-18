@@ -48,7 +48,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
   const { pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const { load, error, success } = QueryContainer.useContainer()
-  const { setAddress } = AddressContainer.useContainer()
+  const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -99,7 +99,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
               id='addr-input'  // This id is used for Warning Box to fill form quickly
               label='Address'
               ref={addrRef}
-              defaultValue={defaultAddr(state)}
+              defaultValue={address?.queryAddr ?? defaultAddr(state)}
             />
           </FlexGrow>
           <FlexFixed>
