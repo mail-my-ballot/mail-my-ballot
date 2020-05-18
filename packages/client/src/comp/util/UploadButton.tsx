@@ -27,7 +27,7 @@ const style: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '2em',
+  padding: '1em',
 }
 
 interface Image {

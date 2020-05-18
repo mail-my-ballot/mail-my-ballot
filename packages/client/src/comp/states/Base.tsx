@@ -131,6 +131,6 @@ export const SignatureBase = <Info extends StateInfo>(
     enrichValues={enrichValuesWithSignature}
   >
     { children }
-    <Signature setSignature={setSignature} label='Signature (use your Mouse or Finger)'/>
+    <Signature setSignature={setSignature}/>
   </Base>
 }

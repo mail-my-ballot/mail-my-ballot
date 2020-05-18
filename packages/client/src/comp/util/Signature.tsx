@@ -2,8 +2,10 @@ import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
 import { RoundedButton } from './Button'
+import { Switchable, Choice } from './Switchable'
+import { UploadButton } from './UploadButton'
 
-const width = 350
+const width = 300
 const height = width / 1.618
 
 const Label = styled.label`
@@ -28,10 +30,17 @@ const WhiteButton = styled(RoundedButton)`
 
 type Props = React.PropsWithChildren<{
   setSignature: (_: string | null) => void
-  label: string
 }>
 
-export const Signature = ({ setSignature, label }: Props) => {
+const style: React.CSSProperties = {
+  margin: '2em auto',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width,
+}
+
+const Canvas: React.FC<Props> = ({ setSignature }) => {
   const ref = React.useRef<SignatureCanvas>(null)
   
   const onEnd = () => {
@@ -46,16 +55,9 @@ export const Signature = ({ setSignature, label }: Props) => {
     setSignature(null)
   }
 
-  const style: React.CSSProperties = {
-    margin: '2em auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  }
-
-  return <div style={style}>
-    <div style={{margin: 'auto'}}>
-      <Label>{label}</Label>
+  return <>
+    <div>
+      <Label>Signature (use your Mouse or Finger)</Label>
       <BottomLine>
         <SignatureCanvas
           canvasProps={{width, height}}
@@ -67,5 +69,30 @@ export const Signature = ({ setSignature, label }: Props) => {
     <WhiteButton onClick={clearClick} variant='raised'>
       Clear Signature
     </WhiteButton>
+  </>
+}
+
+export const Signature: React.FC<Props> = ({ setSignature }) => {
+  return <div style={style}>
+    <div style={{margin: 'auto'}}>
+      <Switchable>
+      {
+        (choice: Choice) => {
+          if (choice === 'canvas') {
+            return <div style={style}>
+              <Canvas setSignature={setSignature}/>
+            </div>
+          } else {
+            return <div style={style}>
+              <div>
+                <Label>Upload Signature Image</Label>
+                <UploadButton label='Upload' setDataString={setSignature} />
+              </div>
+            </div>
+          }
+        }
+      }
+      </Switchable>
+    </div>
   </div>
 }

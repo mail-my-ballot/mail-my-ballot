@@ -19,11 +19,17 @@ import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
 import { UnstatedContainer } from './comp/StateContainer'
 
-const TallStyleContainer = styled(Container)`
+const StyleContainer = styled(Container)`
+  @media only screen and (max-width: 400px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+`
+
+const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
 `
 
-const StyleContainer = Container
 
 const Layout = () => {
   return (<>
