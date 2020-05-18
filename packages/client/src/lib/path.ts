@@ -63,12 +63,12 @@ export const pathData: PathData = {
   'state': {
     path: '/org/:oid/state/:state',
     toRawUrl: ({oid, state}) => `/org/${oid}/state/${state}`,
-    scrollId: 'address',
+    scrollId: 'state',
   },
   'success': {
     path: '/org/:oid/success/:id?',
     toRawUrl: ({oid, id}) => `/org/${oid}/success/${id || ''}`,
-    scrollId: 'address',
+    scrollId: 'success',
   }
 }
 
