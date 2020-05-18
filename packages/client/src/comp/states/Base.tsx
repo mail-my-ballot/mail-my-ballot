@@ -1,8 +1,6 @@
 import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
-import SignatureCanvas from 'react-signature-canvas'
-
 
 import { BaseInfo, StateInfo } from '../../common'
 import { client } from '../../lib/trpc'
@@ -111,13 +109,13 @@ export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>
 export const SignatureBase = <Info extends StateInfo>(
   {enrichValues, children}: Props<NoSignature<Info>>
 ) => {
-  const signatureRef = React.useRef<SignatureCanvas>(null)
+  const [signature, setSignature] = React.useState<string | null>()
 
   const enrichValuesWithSignature = (baseInfo: StatelessInfo): Info | null => {
     const values = enrichValues(baseInfo)
     if (!values) return null
 
-    if (!signatureRef.current || signatureRef.current.isEmpty()) {
+    if (!signature) {
       alert('Please sign form')
       return null
     }
@@ -125,7 +123,7 @@ export const SignatureBase = <Info extends StateInfo>(
     return {
       ...baseInfo,
       ...values,
-      signature: signatureRef.current.toDataURL(),
+      signature,
     } as Info  // hack b/c it cannot understand how to distribute over types
   }
 
@@ -133,6 +131,6 @@ export const SignatureBase = <Info extends StateInfo>(
     enrichValues={enrichValuesWithSignature}
   >
     { children }
-    <Signature inputRef={signatureRef} label='Signature (use your Mouse or Finger)'/>
+    <Signature setSignature={setSignature} label='Signature (use your Mouse or Finger)'/>
   </Base>
 }

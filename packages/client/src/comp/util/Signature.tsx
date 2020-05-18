@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './Button'
 
 const width = 350
+const height = width / 1.618
 
 const Label = styled.label`
   font-size: 12px;
@@ -25,31 +26,46 @@ const WhiteButton = styled(RoundedButton)`
   }
 `
 
-const SigWrap = styled.div`
-  margin: 2em 0;
-`
-
 type Props = React.PropsWithChildren<{
-  inputRef: React.RefObject<SignatureCanvas>
+  setSignature: (_: string | null) => void
   label: string
 }>
 
-export const Signature = ({ inputRef, label }: Props) => {
-  const handleClick: React.MouseEventHandler = (event) => {
-    event.preventDefault()
-    inputRef.current && inputRef.current.clear()
+export const Signature = ({ setSignature, label }: Props) => {
+  const ref = React.useRef<SignatureCanvas>(null)
+  
+  const onEnd = () => {
+    if (!ref.current) return
+    if (ref.current.isEmpty()) setSignature(null)
+    setSignature(ref.current.toDataURL())
   }
 
-  return <SigWrap>
-    <Label>{label}</Label>
-    <BottomLine>
-      <SignatureCanvas
-        canvasProps={{width, height: 200}}
-        ref={inputRef}
-      />
-    </BottomLine>
-    <WhiteButton onClick={handleClick} variant='raised'>
+  const clearClick: React.MouseEventHandler = (event) => {
+    event.preventDefault()
+    ref.current && ref.current.clear()
+    setSignature(null)
+  }
+
+  const style: React.CSSProperties = {
+    margin: '2em auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }
+
+  return <div style={style}>
+    <div style={{margin: 'auto'}}>
+      <Label>{label}</Label>
+      <BottomLine>
+        <SignatureCanvas
+          canvasProps={{width, height}}
+          ref={ref}
+          onEnd={onEnd}
+        />
+      </BottomLine>
+    </div>
+    <WhiteButton onClick={clearClick} variant='raised'>
       Clear Signature
     </WhiteButton>
-  </SigWrap>
+  </div>
 }

@@ -19,7 +19,6 @@ interface Props {
   required?: boolean
 }
 
-
 const style: React.CSSProperties = {
   borderWidth: '2px',
   borderStyle: 'dashed',
