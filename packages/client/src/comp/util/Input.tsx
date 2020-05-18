@@ -22,17 +22,6 @@ export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(
   />
 })
 
-export const BirthYearInput = React.forwardRef<Input, InputProps>(function BirthYearInput (props, ref) {
-  return <BaseInput
-    label='Birth Year (yyyy)'
-    type='number'
-    min={1900}
-    max={2100}
-    {...props}
-    ref={ref}
-  />
-})
-
 export const BirthDateInput = React.forwardRef<Input, InputProps>(function BirthDateInput(props, ref) {
   return <BaseInput
     label='Birthdate (mm/dd/yyyy)'
