@@ -77,10 +77,11 @@ export const UploadButton: React.FC<Props> = ({
               <img src={image.data} style={{maxHeight: '150px', ...centerBlock}} alt='thumbnail'/>
               <small style={centerBlock}>{image.name}</small>
             </>
-            : <>
-              <h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-              <p style={centerBlock}>Limit: 1MB</p>
-            </>
+            : <>{
+              // eslint-disable-next-line
+              }<h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+                <p style={centerBlock}>Limit: 1MB</p>
+              </>
         }
         <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>
       </div>
