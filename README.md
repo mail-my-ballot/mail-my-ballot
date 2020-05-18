@@ -55,6 +55,20 @@ You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in
 ### Express session secrets
 Set `SESSION_SECRET` to a random string of your choice to encrypt sessions.
 
+## Repo Structure
+The code is a lerna repo split into three packages:
+- `packages/client`
+- `packages/server`
+- `packages/common` shared code symlinked between above to
+
+Each package has it's own `gulpfile.js`
+
+### Runnign tasks
+To invoke the grunt file, run commands like
+```bash
+yarn server gulp script --env developement --file src/script/fetchData.ts
+```
+
 ## App Engine (Deploy)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
 
@@ -68,7 +82,7 @@ Configuration and secrets are currently added into `app.yaml` (not in git) from 
 
 Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/54055525/8930600), put all secrets in a special file that is not stored in source control.
 
-## Consoles
+## Web Data
 ### Development
 - [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-dev-cee81)
 - [Console](https://console.cloud.google.com/home/dashboard?project=mmb-dev-cee81)
