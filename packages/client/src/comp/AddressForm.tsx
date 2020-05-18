@@ -26,19 +26,21 @@ const defaultAddr = (state: string) => {
 const FlexBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
   align-items: center;
+  margin: 1em -1em;
 `
 
 const FlexGrow = styled.div`
   flex-grow: 1;
-  min-width: 250px;
+  min-width: 300px;
+  padding: 0 1em;
 `
 
 const FlexFixed = styled.div`
   flex-grow: 0;
-  margin-left: 2em;
+  padding: 0 1em;
 `
 
 // pulled out for testing
@@ -107,7 +109,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
               variant='raised'
               data-testid='submit'
               style={{flexGrow: 0}}
-            >Can I vote by Mail?
+            >Find my election official
             </RoundedButton>
           </FlexFixed>
         </FlexBox>
