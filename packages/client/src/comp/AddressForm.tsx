@@ -14,15 +14,6 @@ import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
 import { sampleAddresses, ImplementedState } from '../common'
 
-const defaultAddr = (state: string) => {
-  if (process.env.REACT_APP_DEFAULT_ADDRESS) {
-    const addresses = sampleAddresses[state as ImplementedState] ?? []
-    return addresses[0]?.address ?? ''
-  } else {
-    return ''
-  }
-}
-
 const FlexBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -44,12 +35,37 @@ const FlexFixed = styled.div`
 `
 
 // pulled out for testing
-export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
-  const { pushState } = useAppHistory()
+export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, zip}) => {
+  const { path, pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const { load, error, success } = QueryContainer.useContainer()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
+
+  // When we first arrive at page, set focus and move cursor to beginning
+  React.useEffect(() => {
+    if (path?.type === 'address' && addrRef?.current) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const controlEl = (addrRef.current as any).controlEl as HTMLInputElement
+      controlEl.focus({preventScroll: true})
+      controlEl.setSelectionRange(0, 0)
+    }
+  }, [])
+
+  const defaultAddress = () => {
+    // if zip was provided, return partial address
+    if (zip) {
+      return ' ' + state + ', ' + zip
+    }
+  
+    // fill in default address
+    if (process.env.REACT_APP_DEFAULT_ADDRESS) {
+      const addresses = sampleAddresses[state as ImplementedState] ?? []
+      return addresses[0]?.address ?? ''
+    } else {
+      return ''
+    }
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -99,7 +115,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
               id='addr-input'  // This id is used for Warning Box to fill form quickly
               label='Address'
               ref={addrRef}
-              defaultValue={address?.queryAddr ?? defaultAddr(state)}
+              defaultValue={ address?.queryAddr ?? defaultAddress() }
             />
           </FlexGrow>
           <FlexFixed>
@@ -119,7 +135,7 @@ export const RawAddressForm: React.FC<{state: string}> = ({state}) => {
 }
 
 export const AddressForm = () => {
-  const { state } = useParams()
+  const { state, zip } = useParams()
   if (!state) throw Error('state not set in AddressForm')
-  return <RawAddressForm state={state}/>
+  return <RawAddressForm state={state} zip={zip} />
 }

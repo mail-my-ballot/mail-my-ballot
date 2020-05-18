@@ -6,6 +6,7 @@ import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
+import { AddressContainer } from '../lib/unstated'
 
 const Background = styled.div`
   top: 0;
@@ -70,7 +71,8 @@ const SubmitButton = styled(RoundedButton)`
 `
 
 export const Blurb: React.FC<{}> = () => {
-  const { pushAddress } = useAppHistory()
+  const { path, pushAddress } = useAppHistory()
+  const { address } = AddressContainer.useContainer()
   const zipRef = React.useRef<HTMLInputElement>(null)
 
   // mobile browsers don't support 100vh, so use this trick instead
@@ -93,6 +95,14 @@ export const Blurb: React.FC<{}> = () => {
     // TODO: handle error
   }
 
+  const defaultValue = () => {
+    if (path?.type === 'address' && path.zip) {
+      return path.zip
+    } else {
+      return address?.postcode ?? undefined
+    }
+  }
+
   return <Background style={{height}}>
     <Container>
       <Row>
@@ -106,8 +116,21 @@ export const Blurb: React.FC<{}> = () => {
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
                 {/* id is used by WarningMsg to fill out zipcode */}
-                <ZipInput id='start-zip' data-testid='start-zip' type='text' pattern='[0-9]{5}' placeholder='Zipcode' ref={zipRef}/>
-                <SubmitButton id='start-submit' data-testid='start-submit' variant='raised'>Start</SubmitButton>
+                <ZipInput
+                  id='start-zip'
+                  data-testid='start-zip'
+                  type='text'
+                  pattern='[0-9]{5}'
+                  placeholder='Zipcode'
+                  value={defaultValue()}
+                  ref={zipRef} />
+                <SubmitButton
+                  id='start-submit'
+                  data-testid='start-submit'
+                  variant='raised'
+                >
+                  Start
+                </SubmitButton>
               </FlexContainer>
             </Form>
           </FlexBox>
