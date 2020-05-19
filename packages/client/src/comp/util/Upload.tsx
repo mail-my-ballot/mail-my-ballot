@@ -83,7 +83,7 @@ export const Upload: React.FC<Props> = ({
             : <>{
               // eslint-disable-next-line
               }<h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-                <p style={centerBlock}>Limit: ${maxSizeMBReal}MB</p>
+                <p style={centerBlock}>Limit: {maxSizeMBReal}MB</p>
               </>
         }
         <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>

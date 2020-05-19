@@ -14,7 +14,7 @@ const Label = styled.label`
 `
 
 const style: React.CSSProperties = {
-  margin: '2em auto',
+  margin: '0.5em auto',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -26,7 +26,7 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Signature: React.FC<Props> = ({ setSignature }) => {
-  return <div style={style}>
+  return <div style={{...style, paddingTop: '15px'}}>
     <div style={{margin: 'auto'}}>
       <Switchable>
       {

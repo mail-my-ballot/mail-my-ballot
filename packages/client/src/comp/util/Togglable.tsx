@@ -17,14 +17,15 @@ interface Props extends CheckboxProps {
 const RawTogglable: React.FC<Props> = ({children, ...props}) => {
   const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
-  return <>
+  // Matching style of input fields
+  return <div style={{paddingTop: '15px', marginBottom: '20px'}}>
     <Checkbox
       {...props}
       checked={checked}
       onChange={toggleCheck}
     />
     {(checked && children) && children(checked)}
-  </>
+  </div>
 }
 
 export const Togglable: React.FC<Props> = (props) => {

@@ -43,7 +43,7 @@ export const Canvas: React.FC<Props> = ({ width, height, setSignature }) => {
     width: `${width}px`
   }
 
-  return <>
+  return <div style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
     <div style={bottomLine} data-testid='signature-canvas-wrap'>
       <SignatureCanvas data-testid='signature-canvas'
         canvasProps={
@@ -56,5 +56,5 @@ export const Canvas: React.FC<Props> = ({ width, height, setSignature }) => {
     <WhiteButton onClick={clearClick} variant='raised'>
       Clear Signature
     </WhiteButton>
-  </>
+  </div>
 }
