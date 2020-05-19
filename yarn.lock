@@ -3083,10 +3083,10 @@
     spawn-args "0.2.0"
     timeout-as-promise "^1.0.0"
 
-"@tianhuil/simple-trpc@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.7.3.tgz#1805c02179c873d006ecb8df27408b505bcd370e"
-  integrity sha512-A1IAAwWn93ILPF71S1hGpmeDUO6dhnKzDa4se3R9IrR5NMrWMh9SsdGrXJEsCL9zeUYA/koqdYwg4JzqgaaSlA==
+"@tianhuil/simple-trpc@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@tianhuil/simple-trpc/-/simple-trpc-1.8.0.tgz#1ca01b741af7740e9665d7745600f7e23bb26b19"
+  integrity sha512-zVs4XasEyxMu214tRWPyh85pnZHuMvjHSjstrR7qh/FSOTzjvPCeZrOOQBRPrfdNZgWnQkCin8Z+MmtKKYHqdw==
 
 "@tootallnate/once@1":
   version "1.0.0"

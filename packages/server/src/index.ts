@@ -6,7 +6,7 @@ import { AddressInfo } from 'net'
 import cors from 'cors'
 import { registerExpressHandler } from '@tianhuil/simple-trpc/dist/handler/express'
 
-import { processEnvOrThrow } from './common'
+import { processEnvOrThrow, IVbmRpc } from './common'
 import { VbmRpc } from './service/trpc'
 import { registerPassportEndpoints } from './service/org'
 
@@ -29,7 +29,7 @@ app.get('/', (_, res: Response) => {
   res.render('index')
 })
 
-registerExpressHandler(app, new VbmRpc())
+registerExpressHandler<IVbmRpc>(app, new VbmRpc(), { bodyParserOptions: { limit: '3MB' } })
 registerPassportEndpoints(app)
 
 // https://github.com/GoogleCloudPlatform/nodejs-getting-started/tree/master/1-hello-world
