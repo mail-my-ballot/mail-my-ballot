@@ -50,7 +50,7 @@ Following the instructions [here](http://www.passportjs.org/docs/google/):
 Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
 
 ### Google Maps API
-You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in order to do the zipcode to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
+You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in order to do the ZIP code to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
 
 ### Express session secrets
 Set `SESSION_SECRET` to a random string of your choice to encrypt sessions.

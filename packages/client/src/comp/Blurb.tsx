@@ -112,7 +112,7 @@ export const Blurb: React.FC<{}> = () => {
             <Text>
               Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.  28 states now allow <i>any</i> registered voter to vote by mail.  Does yours?
             </Text>
-            <Prompt>Enter your zipcode to see if you&apos;re eligible</Prompt>
+            <Prompt>Enter your ZIP code to see if you&apos;re eligible</Prompt>
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
                 {/* id is used by WarningMsg to fill out zipcode */}
@@ -121,7 +121,7 @@ export const Blurb: React.FC<{}> = () => {
                   data-testid='start-zip'
                   type='text'
                   pattern='[0-9]{5}'
-                  placeholder='Zipcode'
+                  placeholder='ZIP code'
                   value={defaultValue()}
                   ref={zipRef} />
                 <SubmitButton
