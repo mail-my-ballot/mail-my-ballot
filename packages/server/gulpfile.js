@@ -83,6 +83,7 @@ gulp.task('tsc', runEnv('tsc --build'))
 gulp.task('pug', () => gulp.src('./src/views/*.pug').pipe(gulp.dest('./dist/views')))
 gulp.task('md', () => gulp.src('./src/service/letter/views/*.md').pipe(gulp.dest('./dist/service/letter/views')))
 gulp.task('png', () => gulp.src('./src/service/letter/*.png').pipe(gulp.dest('./dist/service/letter')))
+gulp.task('jpg', () => gulp.src('./src/service/letter/*.jpg').pipe(gulp.dest('./dist/service/letter')))
 gulp.task('check', (cb) => {
   const executable = './dist/index.js'
   if (!fs.existsSync(executable)) throw Error(`Compile did not create ${executable}`)
@@ -97,6 +98,7 @@ gulp.task('build',
       'pug',
       'md',
       'png',
+      'jpg',
     ),
     'check',
   )
