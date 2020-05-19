@@ -36,7 +36,7 @@ interface Image {
   data: string
 }
 
-export const UploadButton: React.FC<Props> = ({
+export const Upload: React.FC<Props> = ({
   label,
   setDataString,
   required,

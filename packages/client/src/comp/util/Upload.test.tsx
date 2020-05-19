@@ -1,6 +1,6 @@
 import React from 'react'
 import 'jest-canvas-mock'
-import { UploadButton } from './UploadButton'
+import { Upload } from './Upload'
 
 import { render, fireEvent, wait, act } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
@@ -8,7 +8,7 @@ import { mocked } from 'ts-jest/utils'
 describe('UploadButton', () => {
   const setup = (maxSizeMB: number) => {
     const setDataString = jest.fn<void, [string]>()
-    const { getByTestId } = render(<UploadButton
+    const { getByTestId } = render(<Upload
       label='label'
       setDataString={setDataString}
       maxSizeMB={maxSizeMB}

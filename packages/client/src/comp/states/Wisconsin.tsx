@@ -2,7 +2,7 @@ import React from 'react'
 
 import { WisconsinInfo } from '../../common'
 import { Base } from './Base'
-import { UploadButton } from '../util/UploadButton'
+import { Upload } from '../util/Upload'
 import { Togglable } from '../util/Togglable'
 
 
@@ -25,7 +25,7 @@ export const Wisconsin = () => {
     >
       {(checked) => <>
         <p>Wisconsin requires all first-time Vote-by-Mail voters to submit a copy of their ID, even if they have voted in-person in the state previously.</p>
-        <UploadButton label='Upload Photo of ID' setDataString={setIdPhoto} required={checked}/>
+        <Upload label='Upload Photo of ID' setDataString={setIdPhoto} required={checked}/>
       </>}
     </Togglable>
   </Base>
