@@ -5,7 +5,7 @@ import { Upload } from './Upload'
 import { render, fireEvent, wait, act } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
 
-describe('UploadButton', () => {
+describe('Upload', () => {
   const setup = (maxSizeMB: number) => {
     const setDataString = jest.fn<void, [string]>()
     const { getByTestId } = render(<Upload
@@ -54,6 +54,7 @@ describe('UploadButton', () => {
 
     await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
     await wait(() => expect(setDataString).toHaveBeenCalledTimes(1))
+    await wait(() => expect(setDataString.mock.calls[0][0]).toContain(btoa('somedata')))
   })
 
   test('Max size stops upload', async () => {
