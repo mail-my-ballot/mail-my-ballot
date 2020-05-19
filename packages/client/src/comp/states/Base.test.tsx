@@ -6,7 +6,6 @@ import { Router } from 'react-router'
 import SignatureCanvas from 'react-signature-canvas'
 jest.mock('react-signature-canvas')
 
-import { Michigan } from './Michigan'
 import { Wisconsin } from './Wisconsin'
 import { UnstatedContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
@@ -48,67 +47,6 @@ const fillWithoutSigning = ({getByLabelText, getByTestId}: RenderResult) => {
     })
   })
 }
-
-const signForm = ({getByTestId}: RenderResult) => {
-  // now sign form
-  act(() => {
-    // Mock signing
-    SignatureCanvas.prototype.isEmpty = jest.fn(() => false)
-    SignatureCanvas.prototype.toDataURL = jest.fn(() => 'abcd')
-    mocked(window, true).alert = jest.fn()
-
-    fireEvent.click(getByTestId('submit'), {
-      bubbles: true,
-      cancelable: true,
-    })
-  })
-}
-
-const michiganAddress = {
-  fullAddr: '24624 W Warren St, Dearborn Heights, MI 48127, USA',
-  city: 'Dearborn Heights',
-  country: 'United States',
-  state: 'Michigan',
-  postcode: '48127',
-  county: 'Wayne County',
-  queryAddr: '24624 W Warren St, Dearborn Heights 48127, MI'
-}
-
-test('State Form with Signature (Michigan) works', async () => {
-  const history = createMemoryHistory()
-
-  const register = mocked(client, true).register = jest.fn().mockResolvedValue({
-    type: 'data',
-    data: 'confirmationId',
-  })
-  mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
-
-  // load page
-  const renderResult = render(
-    <Router history={history}>
-      <AddressContainer.Provider initialState={michiganAddress}>
-        <Michigan/>
-      </AddressContainer.Provider>
-    </Router>,
-    { wrapper: UnstatedContainer }
-  )
-
-  fillWithoutSigning(renderResult)
-
-  // this fails
-  await wait(() => expect(register).toHaveBeenCalledTimes(0))
-  await wait(() => expect(window.alert).toHaveBeenCalledTimes(1))
-
-  signForm(renderResult)
-
-  // this succeeds
-  await wait(
-    () => expect(toPath(history.location.pathname, parseQS('')))
-      .toEqual<SuccessPath>({id: "confirmationId", oid: "default", type: "success"})
-  )
-  await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
-  await wait(() => expect(register).toHaveBeenCalledTimes(1))
-})
 
 const wisconsinAddress = {
   fullAddr: '1 S Pinckney St, Madison, WI 53703, USA',
