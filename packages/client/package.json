@@ -31,7 +31,7 @@
     "@types/styled-components": "^5.0.1",
     "gulp": "^4.0.2",
     "jest-canvas-mock": "^2.2.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.3",
     "react-app-rewired": "^2.1.5",
     "react-scripts": "3.4.1",
     "serve": "^11.3.0",
