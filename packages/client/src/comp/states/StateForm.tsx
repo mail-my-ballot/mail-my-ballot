@@ -9,14 +9,14 @@ import { Maryland } from './Maryland'
 import { Maine } from './Maine'
 import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/unstated'
-import { Locale, ContactMethod } from '../../common'
+import { Locale, ContactMethod, ImplementedState, isImplementedLocale } from '../../common'
 import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
 import { Nebraska } from './Nebraska'
 
 type Props = React.PropsWithChildren<{
-  locale: Locale
+  locale: Locale<ImplementedState>
 }>
 
 export const RawStateForm: React.FC<Props> = ({
@@ -31,7 +31,6 @@ export const RawStateForm: React.FC<Props> = ({
     case 'Maryland': return <Maryland />
     case 'Maine': return <Maine />
     case 'Nevada': return <Nevada />
-    default: return null
   }
 }
 
@@ -54,30 +53,28 @@ export const StateForm = () => {
   const { contact, method } = ContactContainer.useContainer()
   const { path, pushAddress, pushStart } = useAppHistory()
 
-  if (!locale) {
-    if(!path) {
+  // if we do not have locale or address data, go back
+  if (!locale || !address) {
+    if (!path) {
+      pushStart()
+      return null
+    } else if (path.type === 'state') {
+      pushAddress(path.state)
+      return null
+    } else {
       pushStart()
       return null
     }
-    switch (path.type) {
-      case 'state': {
-        pushAddress(path.state)
-        return null
-      }
-      default: {
-        pushStart()
-        return null
-      }
-    }
   }
 
-  if (!locale) throw Error(`Could not derive locale from Address`)
-  if (!address) throw Error(`Could not find Address`)
+  // if we do not have contact or method data, we just cannot find a contact
   if (!contact || !method) {
     return <InvalidContact locale={locale} contact={contact}/>
   }
 
+  // unlikely cases, caught mostly for type checking
   if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
+  if (!isImplementedLocale(locale)) throw Error(`Locale state ${locale.state} is not implemented`)
 
   return <PaddingTop>
     <h2>{locale.state} Vote by Mail Form</h2>

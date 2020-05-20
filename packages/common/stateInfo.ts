@@ -12,9 +12,10 @@ export const implementedStates = [
   'Nevada',
 ] as const
 export type ImplementedState = (typeof implementedStates)[number]
-const implementedStateSet = new Set(implementedStates)
-export const isImplementedState = (x: string): x is ImplementedState => implementedStateSet.has(x as ImplementedState)
+const implementedStateSet = new Set<string>(implementedStates)
+export const isImplementedState = (x: string): x is ImplementedState => implementedStateSet.has(x)
 export type ImplementedStateField = {state: ImplementedState}
+export const isImplementedLocale = (l: Locale): l is Locale<ImplementedState> => implementedStateSet.has(l.state)
 
 export interface BaseInfo extends Locale {
   state: ImplementedState
