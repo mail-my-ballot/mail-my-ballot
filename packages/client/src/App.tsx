@@ -18,6 +18,7 @@ import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
 import { UnstatedContainer } from './comp/StateContainer'
+import { StateRedirect } from './comp/StateRedirect'
 
 const StyleContainer = styled(Container)`
   @media only screen and (max-width: 400px) {
@@ -70,6 +71,9 @@ const Layout = () => {
           <Notification/>
           <WarningMsg/>
         </TallStyleContainer>
+      </Route>
+      <Route path={pathData['stateRedirect'].path} exact>
+        <StateRedirect/>
       </Route>
       <Route path={pathData['state'].path}>
         <Blurb/>

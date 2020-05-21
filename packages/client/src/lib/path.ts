@@ -5,6 +5,7 @@ const allPathEnums = [
   'start',
   'address',
   'state',
+  'stateRedirect',
   'success',
 ] as const
 export type PathEnum = (typeof allPathEnums)[number]
@@ -27,6 +28,10 @@ export interface StatePath extends PathBase {
   type: 'state'
   state: string
 }
+
+export interface StateRedirectPath extends PathBase {
+  type: 'stateRedirect'
+}
 export interface SuccessPath extends PathBase {
   type: 'success'
   id?: string
@@ -36,6 +41,7 @@ export type Path = (
   | StartPath
   | AddressPath
   | StatePath
+  | StateRedirectPath
   | SuccessPath
 )
 
@@ -64,6 +70,11 @@ export const pathData: PathData = {
     path: '/org/:oid/state/:state',
     toRawUrl: ({oid, state}) => `/org/${oid}/state/${state}`,
     scrollId: 'state',
+  },
+  'stateRedirect': {
+    path: '/org/:oid/state',
+    toRawUrl: ({oid}) => `/org/${oid}/state`,
+    scrollId: 'stateRedirect',
   },
   'success': {
     path: '/org/:oid/success/:id?',
