@@ -68,7 +68,7 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
     <BaseInput
         id='registrationAddress'
         label='Registration Address'
-        value={address?.queryAddr}
+        defaultValue={address?.queryAddr}
         disabled
       />
     <BirthDateInput
