@@ -45,12 +45,13 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
     if (path?.type === 'address' && addrRef?.current) {
+      console.log('a')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const controlEl = (addrRef.current as any).controlEl as HTMLInputElement
       controlEl.focus({preventScroll: true})
       controlEl.setSelectionRange(0, 0)
     }
-  }, [])
+  }, [addrRef, path])
 
   const defaultAddress = () => {
     // if zip was provided, return partial address
