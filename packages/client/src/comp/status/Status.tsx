@@ -75,15 +75,17 @@ const useIframeResize = () => {
 export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
   useIframeResize()
 
+  const partnerId = 829218
+
   // Grabbed from here https://www.vote.org/technology/
   return <>
     <h2 data-testid='status-title'>Great News!</h2>
     <p data-testid='status-detail'>
-      You can sign up below through our friends at <a href='https://vote.org'>vote.org</a>
+      You can sign up below through our friends at <a href='https://vote.org'>Vote.org</a>
     </p>
     <iframe
       style={{marginTop: '2em'}}
-      src={`https://absentee.vote.org/?partner=111111&state=${state}&campaign=free-tools&zip_5=${zip}`}
+      src={`https://absentee.vote.org/?partner=${partnerId}&state=${state}&campaign=free-tools&zip_5=${zip}`}
       width='100%'
       marginHeight={0}
       frameBorder={0}
