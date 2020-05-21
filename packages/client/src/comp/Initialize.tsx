@@ -10,13 +10,13 @@ export const Initialize: React.FC = () => {
   const { setAnalytics } = AnalyticsContainer.useContainer()
   const { conservativeUpdateVoter } = VoterContainer.useContainer()
   const { query } = useAppHistory()
-  const utm: UTM = {
+  const utm: UTM = useDeepMemoize({
     utmSource: query['utm_source'],
     utmMedium: query['utm_medium'],
     utmCampaign: query['utm_campaign'],
     utmTerm: query['utm_term'],
     utmContent: query['utm_content'],
-  }
+  })
 
   React.useEffect(() => {
     (async () => {
@@ -29,11 +29,9 @@ export const Initialize: React.FC = () => {
     })()
   }, [oid, setAnalytics])
 
-  const utmMemo = useDeepMemoize(utm)
-
   React.useEffect(() => {
-    conservativeUpdateVoter(utmMemo)
-  }, [conservativeUpdateVoter, utmMemo])
+    conservativeUpdateVoter(utm)
+  }, [conservativeUpdateVoter, utm])
 
   return <></>
 }

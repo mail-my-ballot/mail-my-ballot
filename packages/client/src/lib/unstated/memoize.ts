@@ -13,7 +13,7 @@ const deepEqual = (a: any, b: any): boolean => {
 }
 
 // From https://stackoverflow.com/a/54096391/8930600
-export const useDeepMemoize = <T extends object>(val: T): T => {
+export const useDeepMemoize = <T extends object | null>(val: T): T => {
   const ref = React.useRef<T>()
 
   if (!deepEqual(val, ref.current)) {

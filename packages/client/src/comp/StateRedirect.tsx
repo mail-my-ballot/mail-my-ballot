@@ -21,6 +21,6 @@ export const StateRedirect = () => {
         return pushStart()
       }
     })()
-  }, [])
+  }, [addr, pushStart, pushState, setAddress, setContact])
   return <></>
 }

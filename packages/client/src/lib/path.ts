@@ -1,5 +1,8 @@
+import React from "react"
 import { useHistory, useLocation, matchPath } from "react-router-dom"
 import { pageView } from "./analytics"
+import { useDeepMemoize } from "./unstated"
+
 
 const allPathEnums = [
   'start',
@@ -92,7 +95,12 @@ export const toUrl = <P extends Path>(path: P): string => {
 const defaultOid = 'default'
 export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 
-const rawToPath = <P extends Path>(url: string, pathEnum: PathEnum, query: Record<string, string>, exact = false): P | null => {
+const rawToPath = <P extends Path>(
+  url: string,
+  pathEnum: PathEnum,
+  query: Record<string, string>, 
+  exact = false
+): P | null => {
   const { path } = pathData[pathEnum]
   const match = matchPath<P>(url, { path, exact })
   if (!match) return null
@@ -123,29 +131,29 @@ export const parseQS = (search: string): Record<string, string> => {
 export const useAppHistory = () => {
   const history = useHistory()
   const { pathname, search } = useLocation()
-  const query = parseQS(search)
-  const path = toPath(pathname, query)
+  const query = useDeepMemoize(parseQS(search))
+  const path = useDeepMemoize(toPath(pathname, query))
   const oid = path?.oid || defaultOid
   
-  const pushScroll = (path: Path) => {
+  const pushScroll = React.useCallback((path: Path) => {
     history.push(toUrl(path))
     scrollToId(pathData[path.type].scrollId)
     pageView()
-  }
+  }, [history])
 
   return {
     path,
     oid,
-    pushStart: () => pushScroll({oid, type: 'start'}),
-    pushAddress: (state: string, zip?: string) => {
+    pushStart: React.useCallback(() => pushScroll({oid, type: 'start'}), [oid, pushScroll]),
+    pushAddress: React.useCallback((state: string, zip?: string) => {
       pushScroll({oid, type: 'address', state, zip, scroll: '1'})
-    },
-    pushState: (state: string) => {
+    }, [oid, pushScroll]),
+    pushState: React.useCallback((state: string) => {
       pushScroll({oid, type: 'state', state})
-    },
-    pushSuccess: (id: string) => {
+    }, [oid, pushScroll]),
+    pushSuccess: React.useCallback((id: string) => {
       pushScroll({oid, type: 'success', id})
-    },
+    }, [oid, pushScroll]),
     query,
   }
 }
