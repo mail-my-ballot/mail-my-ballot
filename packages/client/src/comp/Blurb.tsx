@@ -122,7 +122,7 @@ export const Blurb: React.FC<{}> = () => {
                   type='text'
                   pattern='[0-9]{5}'
                   placeholder='ZIP code'
-                  value={defaultValue()}
+                  defaultValue={defaultValue()}
                   ref={zipRef} />
                 <SubmitButton
                   id='start-submit'
