@@ -9,14 +9,14 @@ import { useAppHistory, Path } from '../lib/path'
 
 const defaultState = (path: Path | null): ImplementedState => {
   switch(path?.type) {
-    case undefined: 
-    case 'start':
-    case 'success': {
-      return 'Florida'
-    }
+    // if we have a state, use it
     case 'address':
     case 'state': {
       return isImplementedState(path.state) ? path.state : 'Florida'
+    }
+    // otherwise, use Florida
+    default: {
+      return 'Florida'
     }
   }
 }
