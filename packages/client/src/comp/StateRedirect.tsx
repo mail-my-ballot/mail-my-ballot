@@ -5,23 +5,23 @@ import { AddressContainer, ContactContainer } from '../lib/unstated'
 
 export const StateRedirect = () => {
   const { pushState, pushStart, query } = useAppHistory()
-  const { addr, ...queryRest } = query
+  const { registrationAddress } = query
   const { setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
 
   React.useEffect(() => {
-    if (!addr) { return pushStart() }
+    if (!registrationAddress) { return pushStart() }
     (async () => {
-      const result = await client.fetchContactAddress(addr)
+      const result = await client.fetchContactAddress(registrationAddress)
       if (result.type === 'data') {
         const { address, contact } = result.data
         setAddress(address)
         setContact(contact)
-        return pushState(address.state, queryRest)
+        return pushState(address.state)
       } else {
         return pushStart()
       }
     })()
-  }, [addr, pushStart, pushState, setAddress, setContact])
+  }, [registrationAddress, pushStart, pushState, setAddress, setContact])
   return <></>
 }

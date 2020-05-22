@@ -22,7 +22,7 @@ type Props<Info> = React.PropsWithChildren<{
 
 /**
  * this works with redirect urls of the form
- * /#/org/default/state?addr=100%20S%20Biscayne%20Blvd,%20Miami,%20FL%2033131&name=George%20Washington&birthdate=1945-01-01&email=george@us.gov&telephone=212-111-1111
+ * /#/org/default/state?registrationAddress=100%20S%20Biscayne%20Blvd,%20Miami,%20FL%2033131&name=George%20Washington&birthdate=1945-01-01&email=george@us.gov&telephone=212-111-1111
  */
 export const Base = <Info extends StateInfo>({enrichValues, children }: Props<Info>) => {
   const { pushSuccess, oid, query } = useAppHistory()
