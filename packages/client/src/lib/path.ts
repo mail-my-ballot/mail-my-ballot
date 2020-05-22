@@ -150,8 +150,8 @@ export const useAppHistory = () => {
     pushAddress: React.useCallback((state: string, zip?: string) => {
       pushScroll({oid, type: 'address', state, zip}, {scroll: '1'})
     }, [oid, pushScroll]),
-    pushState: React.useCallback((state: string) => {
-      pushScroll({oid, type: 'state', state})
+    pushState: React.useCallback((state: string, query: QueryParams = {}) => {
+      pushScroll({oid, type: 'state', state}, query)
     }, [oid, pushScroll]),
     pushSuccess: React.useCallback((id: string) => {
       pushScroll({oid, type: 'success', id})

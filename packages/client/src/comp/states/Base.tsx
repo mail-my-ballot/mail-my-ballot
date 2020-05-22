@@ -20,8 +20,12 @@ type Props<Info> = React.PropsWithChildren<{
   enrichValues: EnrichValues<Info>
 }>
 
+/**
+ * this works with redirect urls of the form
+ * /#/org/default/state?addr=100%20S%20Biscayne%20Blvd,%20Miami,%20FL%2033131&name=George%20Washington&birthdate=1945-01-01&email=george@us.gov&telephone=212-111-1111
+ */
 export const Base = <Info extends StateInfo>({enrichValues, children }: Props<Info>) => {
-  const { pushSuccess, oid } = useAppHistory()
+  const { pushSuccess, oid, query } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
 
@@ -63,6 +67,7 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
     <NameInput
       id='name'
       ref={nameRef}
+      defaultValue={query.name}
       required
     />
     <BaseInput
@@ -74,19 +79,22 @@ export const Base = <Info extends StateInfo>({enrichValues, children }: Props<In
     <BirthDateInput
       id='birthdate'
       ref={birthdateRef}
+      defaultValue={query.birthdate}
       required
     />
     <EmailInput
       id='email'
       ref={emailRef}
+      defaultValue={query.email}
       required
     />
     <PhoneInput
-      id='tel'
+      id='telephone'
       ref={phoneRef}
+      defaultValue={query.telephone}
     />
     <Togglable
-      id='separate'
+      id='mailing'
       label='Mail My Ballot to a separate mailing address'
     >{
       (checked) => <BaseInput
