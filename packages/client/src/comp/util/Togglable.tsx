@@ -23,6 +23,7 @@ const RawTogglable: React.FC<Props> = ({children, ...props}) => {
       {...props}
       checked={checked}
       onChange={toggleCheck}
+      style={{fontSize: '16px'}}
     />
     {(checked && children) && children(checked)}
   </div>
