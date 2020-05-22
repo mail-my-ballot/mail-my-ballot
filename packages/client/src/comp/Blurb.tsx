@@ -23,7 +23,7 @@ const Title = styled.h1`
 `
 
 const Text = styled.p`
-  margin: 0 0;
+  margin: 0.5em 0;
   font-size: 1.2em;
 `
 
@@ -110,9 +110,11 @@ export const Blurb: React.FC<{}> = () => {
           <FlexBox style={{height}}>
             <Title>Vote by Mail</Title>
             <Text>
-              Voting by mail is a secure, time-tested, and <i>easy</i> way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.  28 states now allow <i>any</i> registered voter to vote by mail.  Does yours?
+              Voting by mail is a secure, time-tested, and easy way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.
             </Text>
-            <Prompt>Enter your ZIP code to see if you&apos;re eligible</Prompt>
+            <Text>Sign up today in <b style={{fontSize: '1.1em'}}>2 minutes</b> before your state deadline expires.
+            </Text>
+            <Prompt>Enter your ZIP code to get started</Prompt>
             <Form onSubmit={handleSubmit}>
               <FlexContainer> 
                 {/* id is used by WarningMsg to fill out zipcode */}
