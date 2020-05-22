@@ -3,7 +3,7 @@ import { useHistory, useLocation, matchPath } from "react-router-dom"
 import { pageView } from "./analytics"
 import { useDeepMemoize } from "./unstated"
 
-type QueryParams = Record<string, string>
+export type QueryParams = Record<string, string>
 
 const allPathEnums = [
   'start',
@@ -86,10 +86,17 @@ export const pathData: PathData = {
   }
 }
 
+const isEmpty = (query: QueryParams) => {
+  return Object.values(query).filter(v => !!v).length == 0
+}
+
 export const toUrl = <P extends Path>(path: P, query: QueryParams = {}): string => {
   // arg -- can't get around this typecast  
   const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
-  const queryUrl = query ? ('?' + new URLSearchParams(query).toString()) : ''
+  const queryUrl = isEmpty(query) ?  '' : ('?' + new URLSearchParams(query).toString())
+
+  
+
 
   return rawUrl + queryUrl
 }
