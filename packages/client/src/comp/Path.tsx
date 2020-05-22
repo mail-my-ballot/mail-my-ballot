@@ -9,8 +9,8 @@ interface Props {
 
 export const ScrollHook: React.FC<Props> = ({pathEnum, pageStart, children}) => {
   const { scrollId } = pathData[pathEnum]
-  const { path } = useAppHistory()
-  const scroll = path?.scroll
+  const { query } = useAppHistory()
+  const scroll = query?.scroll
 
   // Automatically go to the location on pageStart if path.scroll is not set
   React.useEffect(() => {
