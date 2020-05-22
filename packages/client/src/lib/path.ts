@@ -89,7 +89,7 @@ export const pathData: PathData = {
 export const toUrl = <P extends Path>(path: P, query: QueryParams = {}): string => {
   // arg -- can't get around this typecast  
   const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
-  const queryUrl = query ? (new URLSearchParams(query).toString()) : ''
+  const queryUrl = query ? ('?' + new URLSearchParams(query).toString()) : ''
 
   return rawUrl + queryUrl
 }
@@ -146,6 +146,7 @@ export const useAppHistory = () => {
   return {
     path,
     oid,
+    query,
     pushStart: React.useCallback(() => pushScroll({oid, type: 'start'}), [oid, pushScroll]),
     pushAddress: React.useCallback((state: string, zip?: string) => {
       pushScroll({oid, type: 'address', state, zip}, {...query, scroll: '1'})
@@ -156,6 +157,5 @@ export const useAppHistory = () => {
     pushSuccess: React.useCallback((id: string) => {
       pushScroll({oid, type: 'success', id}, query)
     }, [oid, pushScroll]),
-    query,
   }
 }
