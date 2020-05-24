@@ -2,7 +2,9 @@ import { _Id } from './util'
 import { Locale } from './locale'
 import { ExtendsState } from './states'
 
+// States for which we now support
 export const implementedStates = [
+  'Arizona',
   'Florida',
   'Michigan',
   'Georgia',
@@ -35,6 +37,10 @@ export interface BaseInfo extends Locale {
 
 interface SignatureBaseInfo extends BaseInfo {
   signature: string
+}
+
+export interface ArizonaInfo extends _Id, BaseInfo{
+  state: 'Arizona'
 }
 
 export interface FloridaInfo extends _Id, SignatureBaseInfo{
@@ -79,6 +85,7 @@ export interface NevadaInfo extends _Id, SignatureBaseInfo {
 }
 
 export type StateInfo = (
+  | ArizonaInfo
   | FloridaInfo
   | MichiganInfo
   | GeorgiaInfo

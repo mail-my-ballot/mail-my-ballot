@@ -39,6 +39,7 @@ const envVars = {
 
 const toTemplate = (info: StateInfo): string => {
   switch(info.state) {
+    case 'Arizona': return 'Arizona.md'
     case 'Florida': return 'Florida.md'
     case 'Michigan': return 'Michigan.md'
     case 'Georgia': return 'Georgia.md'

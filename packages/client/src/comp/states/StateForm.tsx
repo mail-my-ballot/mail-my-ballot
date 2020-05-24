@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
 import { Nebraska } from './Nebraska'
+import { Arizona } from './Arizona'
 
 type Props = React.PropsWithChildren<{
   locale: Locale<ImplementedState>
@@ -23,6 +24,7 @@ export const RawStateForm: React.FC<Props> = ({
   locale,
 }) => {
   switch(locale.state) {
+    case 'Arizona': return <Arizona />
     case 'Florida': return <Florida />
     case 'Michigan': return <Michigan />
     case 'Georgia': return <Georgia />

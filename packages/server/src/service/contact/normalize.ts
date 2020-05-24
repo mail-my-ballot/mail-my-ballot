@@ -13,6 +13,7 @@ const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
 const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
     // only county
+    case 'Arizona':
     case 'Florida':
     case 'Georgia':
     case 'Minnesota':

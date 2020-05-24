@@ -40,6 +40,7 @@ export const keys = (
   locale: Locale<AvailableState>,
 ): string[] => {
   switch(locale.state) {
+    case 'Arizona':
     case 'Florida':
     case 'Georgia':
     case 'Minnesota':

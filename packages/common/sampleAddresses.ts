@@ -5,7 +5,25 @@ export interface AddressData extends Locale<ImplementedState> {
   address: string
 }
 
+// The Chamber of Commerce for the 3 largest cities in the state
+// and others addresses as necessary
 export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
+  'Arizona': [{
+    address: '201 N Central Ave, Phoenix, AZ 85004',
+    city: 'Phoenix',
+    county: 'Maricopa County',
+    state: 'Arizona',
+  }, {
+    address: '212 E Broadway Blvd, Tucson, AZ 85701',
+    city: 'Tucson',
+    county: 'Pima County',
+    state: 'Arizona',
+  }, {
+    address: '165 N Centennial Way, Mesa, AZ 85201',
+    city: 'Mesa',
+    county: 'Maricopa County',
+    state: 'Arizona',
+  }],
   'Florida': [{
     address: '100 S Biscayne Blvd, Miami, FL 33131',
     city: 'Miami',

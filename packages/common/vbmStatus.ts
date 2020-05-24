@@ -24,11 +24,6 @@ export const vbmStatus = (state: State): Status => {
   }
 
   switch (state) {
-    case "Arizona": return {
-      status: "Website",
-      regUrl: "https://servicearizona.com/voterRegistration?popularclick",
-      infoUrl: "https://www.azcleanelections.gov/how-to-vote/early-voting/ballot-by-mail",
-    }
     case "Pennsylvania": return {
       status: "Website",
       regUrl: "https://www.pavoterservices.pa.gov/OnlineAbsenteeApplication/#/OnlineAbsenteeBegin",

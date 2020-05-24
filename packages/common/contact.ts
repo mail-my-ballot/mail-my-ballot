@@ -1,6 +1,8 @@
 import { ExtendsState } from "./states"
 
+// States for which we are loading election contactdata
 export const availableStates = [
+  'Arizona',
   'Florida',
   'Georgia',
   'Maine',
@@ -23,6 +25,7 @@ export const isAvailableState = (str: string): str is AvailableState => {
 type StateMethod = 'fax' | 'fax-email' | 'email'
 
 const stateMethods: Record<AvailableState, StateMethod> = {
+  'Arizona': 'email',
   'Florida': 'fax-email',
   'Georgia': 'fax-email',
   'Michigan': 'fax-email',
