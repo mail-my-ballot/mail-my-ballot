@@ -73,6 +73,16 @@ To invoke the grunt file, run commands like
 yarn server gulp script --env developement --file src/script/fetchData.ts
 ```
 
+## Adding a State
+To add a new state, you will need to complete the following steps:
+1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
+1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`
+1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors for incomplete issues when you run
+    ```
+    yarn build
+    ```
+    It is not too difficult to fix those errors by pattern matching
+
 ## App Engine (Server Deploy)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
 
