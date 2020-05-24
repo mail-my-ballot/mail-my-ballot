@@ -73,6 +73,12 @@ To invoke the grunt file, run commands like
 yarn server gulp script --env developement --file src/script/fetchData.ts
 ```
 
+### Checking repo
+To check if the repo is working run the following four commands
+```bash
+yarn bootstrap && yarn build && yarn lint && yarn test
+```
+
 ## Adding a State
 To add a new state, you will need to complete the following steps:
 1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
