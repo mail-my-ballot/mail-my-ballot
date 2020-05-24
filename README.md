@@ -21,26 +21,30 @@ yarn client gulp start // client on localhost:3000
 These commands will likely fail until you have setup the configuration correctly (see below).
 
 ### Configuration
-Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control, one for application secrets (`secrets.nogit.json`) and one to override dev dependencies (`env.dev.nogit.js`).
+Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control:
 
-- The dev overrides can be blank to get the front-end working.  To run the backend services, you will want to override the existing configuration.
-- The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
+#### Dev Overrides
+`env.dev.nogit.js`: will generally work out of the box.  To run the backend services, you will want to override the existing configuration.
+#### Application Secrets
+`secrets.nogit.json`: The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
 
 ## Configuration Details
-### Mailgun
+Below are the settings that need to be set to get an environment to work:
+
+#### Mailgun
 You only need these to send emails (last step in signup flow).  It's easy to get set up for free.
 
-### Twilio
+#### Twilio
 You only need these to send faxes (last step in signup flow).  It's easy to get set up for free.
 
-### Incoming fax numbers
+#### Incoming fax numbers
 To test Twilio, we setup an incoming fax number.  ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
 
-### Dev Firestore Access
+#### Dev Firestore Access
 Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
 Then make sure `env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `./secrets/[...].json` (override using `developmentRaw`).
 
-### Google OAuth (development of organizer-facing pages only)
+#### Google OAuth (development of organizer-facing pages only)
 Following the instructions [here](http://www.passportjs.org/docs/google/):
 
 1. Enable [Google+ API from the Console](https://console.developers.google.com/apis/api/plus.googleapis.com/overview?project=mmb-staging)
@@ -49,10 +53,10 @@ Following the instructions [here](http://www.passportjs.org/docs/google/):
 
 Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
 
-### Google Maps API
+#### Google Maps API
 You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in order to do the ZIP code to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
 
-### Express session secrets
+#### Express session secrets
 Set `SESSION_SECRET` to a random string of your choice to encrypt sessions.
 
 ## Repo Structure
@@ -69,7 +73,7 @@ To invoke the grunt file, run commands like
 yarn server gulp script --env developement --file src/script/fetchData.ts
 ```
 
-## App Engine (Deploy)
+## App Engine (Server Deploy)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
 
 Don't forget to enable the indexes (see the gulp file server's `gulpfile.js`).  The recommended procedure is to
