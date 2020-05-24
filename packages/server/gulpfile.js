@@ -66,11 +66,10 @@ gulp.task('test', async () => {
   const baseCommand =`jest \\.${kind}\\.ts ${watch}`
   switch (kind) {
     case 'e2e': {
-      return runEnv(`firebase emulators:exec --only firestore "${baseCommand}"`, envs.test)()
+      return runEnv(`firebase emulators:exec --only firestore "${baseCommand} --testTimeout=10000"`, envs.test)()
     }
     case 'ext': {
-      const extraFlags = (kind === 'ext') ? '--maxWorkers=1 --testTimeout=30000' : ''
-      return runEnv(`${baseCommand} ${extraFlags}`, envs.test)()
+      return runEnv(`${baseCommand} --maxWorkers=1 --testTimeout=30000`, envs.test)()
     }
     case 'test': {
       return runEnv(baseCommand, envs.test)()
