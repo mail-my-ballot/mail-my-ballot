@@ -14,7 +14,7 @@ const findByType = (
 ) => components.find(c => c.types.includes(type))?.long_name
 
 export const rawGeocode = async (query: string): Promise<google.maps.GeocoderResult | null> => {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${apiKey}`
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=${apiKey}`
   const response = (await (await fetch(url)).json() as GMResults)
   if (response.status != 'OK') return null
   return response.results[0]
