@@ -1,3 +1,5 @@
+import { ExtendsState } from "./states"
+
 export const availableStates = [
   'Florida',
   'Georgia',
@@ -12,7 +14,7 @@ export const availableStates = [
 ] as const
 
 const availableStatesSet = new Set(availableStates)
-export type AvailableState = (typeof availableStates)[number]
+export type AvailableState = ExtendsState<(typeof availableStates)[number]>
 
 export const isAvailableState = (str: string): str is AvailableState => {
   return availableStatesSet.has(str as AvailableState)

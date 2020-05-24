@@ -1,5 +1,6 @@
 import { _Id } from './util'
 import { Locale } from './locale'
+import { ExtendsState } from './states'
 
 export const implementedStates = [
   'Florida',
@@ -11,7 +12,7 @@ export const implementedStates = [
   'Maryland',
   'Nevada',
 ] as const
-export type ImplementedState = (typeof implementedStates)[number]
+export type ImplementedState = ExtendsState<(typeof implementedStates)[number]>
 const implementedStateSet = new Set<string>(implementedStates)
 export const isImplementedState = (x: string): x is ImplementedState => implementedStateSet.has(x)
 export type ImplementedStateField = {state: ImplementedState}
