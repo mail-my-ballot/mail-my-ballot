@@ -169,5 +169,21 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     address: '1900 S Carson St, Carson City, NV 89701',
     city: 'Carson City',
     state: 'Nevada',
+  }],
+  'New York': [{
+    address: '335 Adams St #2700, Brooklyn, NY 11201',
+    city: 'Brooklyn',
+    county: 'Kings County',
+    state: 'New York',
+  }, {
+    address: '257 W Genesee St #600, Buffalo, NY 14202',
+    city: 'Buffalo',
+    county: 'Erie County',
+    state: 'New York',
+  }, {
+    address: '5 Computer Dr S, Albany, NY 12205',
+    city: 'Albany',
+    county: 'Albany County',
+    state: 'New York',
   }]
 }

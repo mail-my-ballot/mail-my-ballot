@@ -43,9 +43,10 @@ export const keys = (
     case 'Arizona':
     case 'Florida':
     case 'Georgia':
+    case 'Maine':
     case 'Minnesota':
     case 'Nebraska':
-    case 'Maine': {
+    case 'New York': {
       return [normalizeLocale(locale)]
     }
     case 'Michigan': {

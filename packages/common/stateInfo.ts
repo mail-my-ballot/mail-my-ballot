@@ -6,13 +6,14 @@ import { ExtendsState } from './states'
 export const implementedStates = [
   'Arizona',
   'Florida',
-  'Michigan',
   'Georgia',
-  'Wisconsin',
-  'Nebraska',
   'Maine',
   'Maryland',
+  'Michigan',
+  'Nebraska',
   'Nevada',
+  'New York',
+  'Wisconsin',
 ] as const
 export type ImplementedState = ExtendsState<(typeof implementedStates)[number]>
 const implementedStateSet = new Set<string>(implementedStates)
@@ -74,18 +75,6 @@ export interface GeorgiaInfo extends _Id, SignatureBaseInfo {
   party?: GeorgiaParty // Name of party ballot being requested (for primaries)
 }
 
-export interface WisconsinInfo extends _Id, BaseInfo {
-  // https://elections.wi.gov/sites/elections.wi.gov/files/2019-02/Faxing%20or%20Emailing%20Absentee%20Ballots.pdf
-  // no signature required
-  // Wisconsin allows ballots by fax, email, or in-person, but we will stick to mail
-  state: 'Wisconsin'
-  idPhoto?: string
-}
-
-export interface NebraskaInfo extends _Id, SignatureBaseInfo {
-  state: 'Nebraska'
-}
-
 export interface MaineInfo extends _Id, SignatureBaseInfo {
   state: 'Maine'
 }
@@ -94,19 +83,38 @@ export interface MarylandInfo extends _Id, SignatureBaseInfo {
   state: 'Maryland'
 }
 
+
+export interface NebraskaInfo extends _Id, SignatureBaseInfo {
+  state: 'Nebraska'
+}
+
 export interface NevadaInfo extends _Id, SignatureBaseInfo {
   state: 'Nevada'
   idPhoto?: string
 }
 
+export interface NewYorkInfo extends _Id, BaseInfo {
+  state: 'New York'
+}
+
+export interface WisconsinInfo extends _Id, BaseInfo {
+  // https://elections.wi.gov/sites/elections.wi.gov/files/2019-02/Faxing%20or%20Emailing%20Absentee%20Ballots.pdf
+  // no signature required
+  // Wisconsin allows ballots by fax, email, or in-person, but we will stick to mail
+  state: 'Wisconsin'
+  idPhoto?: string
+}
+
+
 export type StateInfo = (
   | ArizonaInfo
   | FloridaInfo
-  | MichiganInfo
   | GeorgiaInfo
-  | WisconsinInfo
-  | NebraskaInfo
   | MaineInfo
   | MarylandInfo
+  | MichiganInfo
+  | NebraskaInfo
   | NevadaInfo
+  | NewYorkInfo
+  | WisconsinInfo
 )

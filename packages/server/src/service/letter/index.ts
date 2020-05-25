@@ -48,6 +48,7 @@ const toTemplate = (info: StateInfo): string => {
     case 'Maine': return 'Maine.md'
     case 'Maryland': return 'Maryland.md'
     case 'Nevada': return 'Nevada.md'
+    case 'New York': return 'NewYork.md'
   }
 }
 

@@ -5,7 +5,8 @@ import { RawContactRecord, RawContact } from "./type"
 const version = processEnvOrThrow('ELECTIONS_OFFICIALS_VERSION')
 
 const url = (state: State) => {
-  return `https://raw.githubusercontent.com/mail-my-ballot/elections-officials/${version}/public/${state.toLowerCase()}.json`
+  const stateStr = state.toLowerCase().replace(' ', '_')
+  return `https://raw.githubusercontent.com/mail-my-ballot/elections-officials/${version}/public/${stateStr}.json`
 }
 
 export const loadState = async (state: AvailableState): Promise<[AvailableState, RawContact[]]> => {
