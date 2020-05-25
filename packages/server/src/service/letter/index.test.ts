@@ -1,5 +1,5 @@
 import { toLetter } from '.'
-import { signatureStateInfo, sampleMethod } from './router'
+import { stateInfo, sampleMethod } from './router'
 import { implementedStates } from '../../common'
 
 test('Leter for all states render correctly', () => {
@@ -7,8 +7,9 @@ test('Leter for all states render correctly', () => {
 
   const letters = implementedStates.map(state => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const info = stateInfo(state)
     return toLetter(
-      {...signatureStateInfo, state},
+      info,
       sampleMethod,
       confirmationId
     )

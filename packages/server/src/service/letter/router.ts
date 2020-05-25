@@ -1,7 +1,7 @@
 import { Router} from 'express'
 
 import { getContactRecords } from '../contact'
-import { toContactMethod, StateInfo, ImplementedState, implementedStates, BaseInfo, GeorgiaInfo, ContactMethod, isImplementedState } from '../../common'
+import { toContactMethod, StateInfo, ImplementedState, implementedStates, BaseInfo, ContactMethod, isImplementedState } from '../../common'
 import fs from 'fs'
 import { toLetter } from '.'
 
@@ -24,18 +24,36 @@ const baseStateInfo: BaseInfo = {
   oid: 'default',
 }
 
-export const signatureStateInfo: BaseInfo & {signature: string} = {
-  ...baseStateInfo,
-  signature: 'data:image/png;base64,' + loadBase64('signature.png'),
-  idPhoto: 'data:image/jpg;base64,' + loadBase64('idPhoto.jpg'),
-}
+const signature = 'data:image/png;base64,' + loadBase64('signature.png')
+const idPhoto = 'data:image/jpg;base64,' + loadBase64('idPhoto.jpg')
 
-const sampleStateInfo: GeorgiaInfo = {
-  ...signatureStateInfo,
-  ip: '128.0.0.1',
-  userAgent: 'Firefox',
-  party: 'Non-Partisan',
-  state: 'Georgia',
+export const stateInfo = (state: ImplementedState): StateInfo => {
+  switch(state) {
+    case 'Wisconsin': return {
+      ...baseStateInfo,
+      idPhoto,
+      state,
+    }
+    case 'Nevada': return {
+      ...baseStateInfo,
+      signature,
+      idPhoto,
+      state,
+    }
+
+    case 'Arizona': return {
+      ...baseStateInfo,
+      idType: 'Arizona License Number',
+      idData: '1234',
+      party: 'Non-Partisan',
+      state,
+    }
+    default: return {
+      ...baseStateInfo,
+      signature,
+      state,
+    }
+  }
 }
 
 export const sampleMethod: ContactMethod = {
@@ -60,10 +78,7 @@ router.get('/:stateIndex', async (req, res) => {
   const method = toContactMethod({...contact, state})
 
   // generate sample info
-  const info = {
-    ...sampleStateInfo,
-    state: state as ImplementedState,
-  } as StateInfo // casting to state info is a bit of a hack
+  const info = stateInfo(state)
   const confirmationId = '#sampleId1234'
 
   const renderLetter = (letter: string) => {
