@@ -23,6 +23,7 @@ const defaultState = (path: Path | null): ImplementedState => {
 const RawWarningMsg = () => {
   const { path } = useAppHistory()
   const { state } = StateContainer.useContainer()
+  
   const addresses = sampleAddresses[state]
 
   const fillData = (address: string) => {
@@ -48,24 +49,23 @@ const RawWarningMsg = () => {
     }
   }
   
-  return (<StateSelector initialState={defaultState(path)}>
-    <ul style={{marginTop: '1em'}}>
-      {addresses
-        .map((addrData, key) => <li key={key}>
-          {addrData.address} ({addrData.city}, {addrData.county ?? '[No County]'}, {addrData.state})
-          <button
-            style={{marginLeft: '1em'}}
-            onClick={fillData(addrData.address)}
-          >
-            Fill
-          </button>
-        </li>
-      )}
-    </ul>
-  </StateSelector>)
+  return (<ul style={{marginTop: '1em'}}>
+    {addresses
+      .map((addrData, key) => <li key={key}>
+        {addrData.address} ({addrData.city}, {addrData.county ?? '[No County]'}, {addrData.state})
+        <button
+          style={{marginLeft: '1em'}}
+          onClick={fillData(addrData.address)}
+        >
+          Fill
+        </button>
+      </li>
+    )}
+  </ul>)
 }
 
 export const WarningMsg = () => {
+  const { path } = useAppHistory()
   if (process.env.REACT_APP_EMAIL_FAX_OFFICIALS) return null
   
   return <RedOutline>
@@ -78,7 +78,7 @@ export const WarningMsg = () => {
     <h4>Filling out the form:</h4>
     <p><b>Address:</b> You can fill this out with any address.  But to see it in action, you will want to use an address in a state we support.  Sample addresses are listed below.</p>
     <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
-    <StateSelector>
+    <StateSelector initialState={defaultState(path)}>
       <RawWarningMsg/>
     </StateSelector>
   </RedOutline>
