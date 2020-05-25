@@ -62,12 +62,16 @@ export interface MichiganInfo extends _Id, SignatureBaseInfo {
   state: 'Michigan'
 }
 
+export const georgiaParty = ['Democratic Party', 'Republican Party', 'Non-Partisan'] as const
+export type GeorgiaParty = (typeof georgiaParty)[number]
+export const isGeorgiaParty = (x: string | null): x is GeorgiaParty => georgiaParty.includes(x as GeorgiaParty)
+
 export interface GeorgiaInfo extends _Id, SignatureBaseInfo {
   // mailingAddress must be in a different county
   // https://sos.ga.gov/admin/uploads/Absentee_Voting_A_Guide_for_Registered_Voters_2017.pdf
   // Must specify type of election (presidential preference primary, general primary, primary runoff, municipal, municipal runoff, special, general, general runoff)
   state: 'Georgia'
-  party?: 'Democratic' | 'Republican' | 'Non-Partisan' // Name of party ballot being requested (for primaries)
+  party?: GeorgiaParty // Name of party ballot being requested (for primaries)
 }
 
 export interface WisconsinInfo extends _Id, BaseInfo {
