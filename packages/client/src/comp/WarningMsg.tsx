@@ -1,11 +1,10 @@
 import React from 'react'
-import Dropdown from 'muicss/lib/react/dropdown'
-import DropdownItem from 'muicss/lib/react/dropdown-item'
 
 import { RedOutline } from './util/RedOutline'
 import { sampleAddresses } from '../common/sampleAddresses'
-import { ImplementedState, implementedStates, isImplementedState } from '../common'
+import { ImplementedState, isImplementedState } from '../common'
 import { useAppHistory, Path } from '../lib/path'
+import { StateSelector, StateContainer } from './StateSelector'
 
 const defaultState = (path: Path | null): ImplementedState => {
   switch(path?.type) {
@@ -23,7 +22,7 @@ const defaultState = (path: Path | null): ImplementedState => {
 
 const RawWarningMsg = () => {
   const { path } = useAppHistory()
-  const [state, setState] = React.useState<ImplementedState>(defaultState(path))
+  const { state } = StateContainer.useContainer()
   const addresses = sampleAddresses[state]
 
   const fillData = (address: string) => {
@@ -49,33 +48,7 @@ const RawWarningMsg = () => {
     }
   }
   
-  return (<RedOutline>
-    <h3>Warning: Not Production!</h3>
-    <p>This is <b>not</b> a production build.
-      In production, the application email is sent to both the local elections official and yourself.
-      Since this is not production, the email is only sent to you.
-      No email is sent to a local elections official so you can safely play with this demo.
-    </p>
-    <h4>Filling out the form:</h4>
-    <p><b>Address:</b> You can fill this out with any address.  But to see it in action, you will want to use an address in a state we support.  Sample addresses are listed below.</p>
-    <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
-
-    <Dropdown
-      label={state}
-      color='primary'
-      style={{marginTop: '2em'}}
-    >
-      {
-        [...implementedStates].sort().map((state, key) => {
-          return <DropdownItem
-            key={key}
-            onClick={() => setState(state)}
-          >
-            {state}
-          </DropdownItem>
-        })
-      }
-    </Dropdown>
+  return (<StateSelector initialState={defaultState(path)}>
     <ul style={{marginTop: '1em'}}>
       {addresses
         .map((addrData, key) => <li key={key}>
@@ -89,10 +62,24 @@ const RawWarningMsg = () => {
         </li>
       )}
     </ul>
-
-  </RedOutline>)
+  </StateSelector>)
 }
 
-export const WarningMsg = () => (
-  (!process.env.REACT_APP_EMAIL_FAX_OFFICIALS) ? <RawWarningMsg/> : null
-)
+export const WarningMsg = () => {
+  if (process.env.REACT_APP_EMAIL_FAX_OFFICIALS) return null
+  
+  return <RedOutline>
+    <h3>Warning: Not Production!</h3>
+    <p>This is <b>not</b> a production build.
+      In production, the application email is sent to both the local elections official and yourself.
+      Since this is not production, the email is only sent to you.
+      No email is sent to a local elections official so you can safely play with this demo.
+    </p>
+    <h4>Filling out the form:</h4>
+    <p><b>Address:</b> You can fill this out with any address.  But to see it in action, you will want to use an address in a state we support.  Sample addresses are listed below.</p>
+    <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
+    <StateSelector>
+      <RawWarningMsg/>
+    </StateSelector>
+  </RedOutline>
+}

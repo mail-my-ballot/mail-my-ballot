@@ -19,6 +19,7 @@ import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
 import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
+import { MockPage } from './comp/MockPage'
 
 const StyleContainer = styled(Container)`
   @media only screen and (max-width: 400px) {
@@ -46,6 +47,11 @@ const Layout = () => {
         </TallStyleContainer>
       </Route>
       <Redirect exact from='/' to={defaultUrl}/>
+      <Route exact path='/mock'>
+        <TallStyleContainer>
+          <MockPage/>
+        </TallStyleContainer>
+      </Route>
       <Route exact path={pathData['start'].path}>
         <ScrollHook pathEnum='start'>
           <Blurb/>

@@ -62,6 +62,7 @@ const development = removeNullValues({
   DEV_EMAIL: 'email@example.com',
   NUNJUNKS_DISABLE_CACHE: 1,
   TWILIO_DIVERT: 1,
+  REACT_APP_MOCK: 1,
   ...developmentRaw,
 })
 
