@@ -39,8 +39,19 @@ interface SignatureBaseInfo extends BaseInfo {
   signature: string
 }
 
+export const arizonaParty = ['Democratic Party', 'Republican Party', 'Non-Partisan', 'Green Party (Pima County only)'] as const
+export type ArizonaParty = (typeof arizonaParty)[number]
+export const isArizonaParty = (x: string | null): x is ArizonaParty => arizonaParty.includes(x as ArizonaParty)
+
+export const arizonaIdentityType = ['Arizona License Number', 'Last 4 numbers of SSN', 'Place of Birth'] as const
+export type ArizonaIdentityType = (typeof arizonaIdentityType)[number]
+export const isArizonaIdentity = (x: string | null): x is ArizonaIdentityType => arizonaIdentityType.includes(x as ArizonaIdentityType)
+
 export interface ArizonaInfo extends _Id, BaseInfo{
   state: 'Arizona'
+  party: ArizonaParty
+  idType: ArizonaIdentityType
+  idData: string
 }
 
 export interface FloridaInfo extends _Id, SignatureBaseInfo{
