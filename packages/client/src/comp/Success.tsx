@@ -7,7 +7,6 @@ import Panel from 'muicss/lib/react/panel'
 import styled from 'styled-components'
 
 const AppPanel = styled(Panel)`
-  border-radius: 0;
   padding: 2em 2em;
   margin: 2em 0;
 `

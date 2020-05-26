@@ -26,7 +26,7 @@ type Props = React.PropsWithChildren<{
 const StyledPanel = styled(Panel)`
   padding: 40px;
   margin-top: 40px;
-  border-radius: 4px
+  border-radius: 0;
 `
 
 export const StatePanel: React.FC<Props> = ({
