@@ -83,7 +83,7 @@ yarn bootstrap && yarn build && yarn lint && yarn test
 To add a new state, you will need to complete the following steps:
 1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
 1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`
-1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors for incomplete issues when you run
+1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors from incomplete switch statements when you run
     ```
     yarn build
     ```
