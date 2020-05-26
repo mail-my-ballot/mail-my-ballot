@@ -24,6 +24,21 @@ const useAnalyticsContainer = (initialAnalytics: Analytics | null = null) => {
 
 export const AnalyticsContainer = createContainer(useAnalyticsContainer)
 
+export type zipFinderVisibility = 'visible' | 'hiding' | 'hidden'
+const useZipFinderContainer = (initialVisibility: (zipFinderVisibility) = 'hidden') => {
+  const [zipFinder, setZipFinder] = React.useState<zipFinderVisibility>(initialVisibility)
+  const toggleZipFinder = () => {
+    if (zipFinder === 'visible') {
+      setZipFinder('hiding')
+      setTimeout(() => setZipFinder('hidden'), 450)
+    } else if (zipFinder === 'hidden') {
+      setZipFinder('visible')
+    }
+  }
+  return { zipFinder, toggleZipFinder }
+}
+export const ZipFinderContainer = createContainer(useZipFinderContainer)
+
 export * from './query'
 export * from './voter'
 export * from './memoize'
