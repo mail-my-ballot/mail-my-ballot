@@ -12,7 +12,7 @@
     "client": "yarn workspace @vbm/client",
     "common": "yarn workspace @vbm/common",
     "server": "yarn workspace @vbm/server",
-    "clean": "mv node_modules /tmp/ && rm -rf /tmp/node_modules&",
+    "clean": "rm -rf node_modules",
     "clobber": "yarn clean && rm -f yarn.lock",
     "gulp": "lerna run gulp --",
     "test": "lerna run gulp -- test && yarn server gulp test --e2e",

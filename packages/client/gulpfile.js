@@ -50,7 +50,7 @@ gulp.task('analyze', gulp.series(
 ))
 
 // deploy
-gulp.task('now', runEnv(`now --prod ./build --local-config=./now.${options.env}.json --confirm`))
+gulp.task('now', runEnv(`vercel --prod ./build --local-config=./now.${options.env}.json --confirm`))
 gulp.task('tag', runEnv(`./tag.sh client ${options.env}`))
 
 gulp.task('deploy', gulp.series(
