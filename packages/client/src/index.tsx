@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'muicss/dist/css/mui.min.css'
+import './index.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 

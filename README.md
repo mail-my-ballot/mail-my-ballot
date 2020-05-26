@@ -87,7 +87,7 @@ To add a new state, you will need to complete the following steps:
     ```
     yarn build
     ```
-    Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For an example, here is the core commit [adding Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona).
+    Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
 
 ## App Engine (Server Deploy)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
