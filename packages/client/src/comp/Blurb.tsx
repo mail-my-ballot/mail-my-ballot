@@ -43,7 +43,7 @@ const FlexBox = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-contnet: flex-start;
+  justify-content: flex-start;
   align-content: center;
 `
 
