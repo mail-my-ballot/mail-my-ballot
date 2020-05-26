@@ -20,18 +20,18 @@ const FlexBox = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  margin: 1em -1em;
+  margin: 1em -.5em;
 `
 
 const FlexGrow = styled.div`
   flex-grow: 1;
   min-width: 300px;
-  padding: 0 1em;
+  margin: 0 .5em;
 `
 
 const FlexFixed = styled.div`
   flex-grow: 0;
-  padding: 0 1em;
+  margin: 0 .5em;
 `
 
 // pulled out for testing
@@ -104,21 +104,20 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
     }
   }
 
-  return <div style={{paddingTop: '4em' }}>
-    <StatusReport state={state}>
-      <Form onSubmit={handleSubmit}>
-        <legend>Enter your address to find your local election official</legend>
-        <p></p>
-        <FlexBox>
-          <FlexGrow>
-            <BaseInput
-              id='addr-input'  // This id is used for Warning Box to fill form quickly
-              label='Address'
-              ref={addrRef}
-              defaultValue={ address?.queryAddr ?? defaultAddress() }
-            />
-          </FlexGrow>
-          <FlexFixed>
+  return <StatusReport state={state}>
+    <Form onSubmit={handleSubmit}>
+      <p><b>Enter your address</b> to find your local election official</p>
+      <FlexBox>
+        <FlexGrow>
+          <BaseInput
+            id='addr-input'  // This id is used for Warning Box to fill form quickly
+            label='Address'
+            ref={addrRef}
+            defaultValue={ address?.queryAddr ?? defaultAddress() }
+          />
+        </FlexGrow>
+        <FlexFixed>
+          <div style={{paddingTop: '15px', marginBottom: '20px'}}>
             <RoundedButton
               id='addr-submit'  // This id is used for Warning Box to submit form quickly
               color='primary'
@@ -127,11 +126,11 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
               style={{flexGrow: 0}}
             >Find my election official
             </RoundedButton>
-          </FlexFixed>
-        </FlexBox>
-      </Form>
-    </StatusReport>
-  </div>
+          </div>
+        </FlexFixed>
+      </FlexBox>
+    </Form>
+  </StatusReport>
 }
 
 export const AddressForm = () => {

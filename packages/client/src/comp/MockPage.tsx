@@ -1,7 +1,7 @@
 import React from 'react'
 import { AddressContainer } from '../lib/unstated'
 import { Address, ImplementedState } from '../common'
-import { RawStateForm } from './states/StateForm'
+import { StatePanel } from './states/StateForm'
 import { StateSelector, StateContainer } from './StateSelector'
 
 const sampleAddress: Address & { city: string, state: ImplementedState } = {
@@ -19,8 +19,9 @@ const RawMockPage: React.FC<{}> = () => {
   const address = {...sampleAddress, state}
 
   return <AddressContainer.Provider initialState={address}>
-    <h2>Sample {state} Form</h2>
-    <RawStateForm locale={address}/>
+    <h1>Sample {state} Form</h1>
+    <p><b>Fill out</b> the following form</p>
+    <StatePanel locale={address}/>
   </AddressContainer.Provider>
 }
 

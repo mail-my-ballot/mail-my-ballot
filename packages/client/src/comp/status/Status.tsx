@@ -8,7 +8,7 @@ interface StateField {
 type StatusProps<T extends Status> = React.PropsWithChildren<T & StateField>
 
 export const Automatic = ({state}: StatusProps<Statuses.Automatic>) => (<>
-  <h2 data-testid='status-title'>Great News!</h2>
+  <h1 data-testid='status-title'>Great News!</h1>
   <p data-testid='status-detail'>
   {state} automatically enrolls all registered voters to vote by mail.
     For more information, visit your state election website.
@@ -16,7 +16,7 @@ export const Automatic = ({state}: StatusProps<Statuses.Automatic>) => (<>
 </>)
 
 export const Website = ({state, regUrl, infoUrl}: StatusProps<Statuses.Website>) => (<>
-  <h2 data-testid='status-title'>Great News!</h2>
+  <h1 data-testid='status-title'>Great News!</h1>
   <p data-testid='status-detail'>
     {state} allows all registered voters to vote by mail.
     You can apply on the <a href={regUrl}>official state election application page</a>.
@@ -25,7 +25,7 @@ export const Website = ({state, regUrl, infoUrl}: StatusProps<Statuses.Website>)
 </>)
 
 export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
-  <h2 data-testid='status-title'>Great News!</h2>
+  <h1 data-testid='status-title'>Great News!</h1>
   <p data-testid='status-detail'>
     {state} allows all registered voters to vote by mail.
     However, the state requires mailing a physical application, which we cannot support.
@@ -34,7 +34,7 @@ export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
 </>)
 
 export const VbmApp = ({state, children}: StatusProps<Statuses.VbmApp>) => (<>
-  <h2 data-testid='status-title'>Great News!</h2>
+  <h1 data-testid='status-title'>Great News!</h1>
   <p data-testid='status-detail'>
     {state} allows all registered voters to vote by mail and we can help you enroll.
   </p>
@@ -79,7 +79,7 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
 
   // Grabbed from here https://www.vote.org/technology/
   return <>
-    <h2 data-testid='status-title'>Great News!</h2>
+    <h1 data-testid='status-title'>Great News!</h1>
     <p data-testid='status-detail'>
       You can sign up below through our friends at <a href='https://vote.org'>Vote.org</a>
     </p>
@@ -97,7 +97,7 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
 }
 
 export const Unidentified = ({state}: StateField) => (<>
-  <h2 data-testid='status-title'>Sorry!</h2>
+  <h1 data-testid='status-title'>Sorry!</h1>
   <p data-testid='status-detail'>
     Unfortunately, We do not have any information on vot by mail for {state}.
   </p>

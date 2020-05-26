@@ -1,5 +1,4 @@
 import React from 'react'
-import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
 import { Switch, Route, Redirect } from "react-router-dom"
@@ -20,13 +19,7 @@ import { pathData, defaultUrl } from './lib/path'
 import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
-
-const StyleContainer = styled(Container)`
-  @media only screen and (max-width: 400px) {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-`
+import { StyleContainer } from './comp/util/Container'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
