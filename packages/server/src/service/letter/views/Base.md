@@ -34,7 +34,7 @@ Sincerely,
 [{{brandName}}]({{brandUrl}}) is a Vote at Home project.
 [Vote at Home](https://voteathome.org/) is a non-partisan 501(c)3 that supports vote by mail.
 
-Questions? Feedback? email us at [{{feedbackEmail}}](mailto:{{feedbackEmail}}).
+Questions? Feedback? Email us at [{{feedbackEmail}}](mailto:{{feedbackEmail}}).
 
 **Elections Officials**: do you want direct, secure access to your VBM requests?  Email us at [{{electionsEmail}}](mailto:{{electionsEmail}}) to become an the Election Offical Beta User.
 
