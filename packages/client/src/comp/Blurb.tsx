@@ -12,6 +12,7 @@ const Background = styled.div`
   top: 0;
   left: 0;
   min-width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
   background: rgb(144,202,249);
   background: linear-gradient(45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
   color: #f1f1ff;
@@ -32,6 +33,7 @@ const Prompt = styled.h3`
 `
 
 const FlexBox = styled.div`
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,15 +77,6 @@ export const Blurb: React.FC<{}> = () => {
   const { address } = AddressContainer.useContainer()
   const zipRef = React.useRef<HTMLInputElement>(null)
 
-  // mobile browsers don't support 100vh, so use this trick instead
-  // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html
-  // Also, need to use a state variable instead of a simpler ts variable
-  // https://stackoverflow.com/a/56156394/8930600
-  const [height, setHeight] = React.useState('100vh')
-  React.useEffect(() => {
-    setHeight(`${window.innerHeight}px`)
-  }, [])
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.persist()  // allow async function call
     event.preventDefault()
@@ -103,11 +96,11 @@ export const Blurb: React.FC<{}> = () => {
     }
   }
 
-  return <Background style={{height}}>
+  return <Background>
     <Container>
       <Row>
         <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={6}>
-          <FlexBox style={{height}}>
+          <FlexBox>
             <Title>Vote by Mail</Title>
             <Text>
               Voting by mail is a secure, time-tested, and easy way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.
@@ -116,7 +109,7 @@ export const Blurb: React.FC<{}> = () => {
             </Text>
             <Prompt>Enter your ZIP code to get started</Prompt>
             <Form onSubmit={handleSubmit}>
-              <FlexContainer> 
+              <FlexContainer>
                 {/* id is used by WarningMsg to fill out zipcode */}
                 <ZipInput
                   id='start-zip'
