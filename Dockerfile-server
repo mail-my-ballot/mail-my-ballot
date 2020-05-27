@@ -1,0 +1,12 @@
+# Create Builder
+FROM node:12
+MAINTAINER Geunta Buwono
+LABEL version="0.0.1"
+WORKDIR /app
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn global add yarn -s
+RUN yarn install -s --frozen-lockfile
+COPY . .
+EXPOSE 8080
+CMD ["yarn", "server", "gulp", "start" ]

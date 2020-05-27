@@ -1,11 +1,13 @@
 #the docker compose file version
 version: "3.7"
 services:
-  react-staging-client:
-    container_name: react-staging-client
+  client:
+    container_name: mbb-client
     build:
       context: .
-      dockerfile: Dockerfile-staging-client
+      dockerfile: Dockerfile
+    ports: 
+      - "80:80"
     environment:
       - NODE_ENV=staging
       - VIRTUAL_HOST=mail-my-ballot.metasora.com
