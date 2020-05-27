@@ -39,6 +39,16 @@ gulp.task('start',
   )
 )
 
+gulp.task(
+  "start:staging",
+  runEnv("ts-node-dev --respawn --transpileOnly src/index.ts", envs.staging)
+)
+
+gulp.task(
+  "start:prod",
+  runEnv("ts-node-dev --respawn --transpileOnly src/index.ts", envs.production)
+)
+
 // proto
 gulp.task('proto',
   runEnv(`ts-node-dev --transpileOnly ${options.file}`)
