@@ -1,6 +1,7 @@
 import React from 'react'
-import { RoundedButton } from './Button'
-import { Outline } from './Outline'
+import { SmallButton } from './Button'
+import { GoldRatioOutline } from './Outline'
+import styled from 'styled-components'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -25,6 +26,14 @@ interface Image {
   name: string
   data: string
 }
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:    center;
+  height: 100%;
+`
 
 export const Upload: React.FC<Props> = ({
   label,
@@ -57,33 +66,36 @@ export const Upload: React.FC<Props> = ({
 
   const centerBlock: React.CSSProperties = {
     display: 'block',
-    textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
   }
 
   return <div>
-    <Outline onClick={onClick}>
-      <div data-testid='upload-click-target'>
-        {
-          (image) ? <>
-              <img src={image.data} style={{maxHeight: '150px', ...centerBlock}} alt='thumbnail'/>
-              <small style={centerBlock}>{image.name}</small>
-            </>
-            : <>{
-              // eslint-disable-next-line
-              }<h1 style={{marginTop: '0', paddingTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-                <p style={centerBlock}>Limit: {maxSizeMBReal}MB</p>
-              </>
-        }
-        <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>
-      </div>
-    </Outline>
+    <div onClick={onClick}>
+    <GoldRatioOutline>
+      {
+        ({width, height}) => (<div data-testid='upload-click-target' style={{width, height}}>
+          {
+            (image) ? <FlexBox>
+                <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
+                <small>{image.name}</small>
+              </FlexBox>
+              : <FlexBox>{
+                // eslint-disable-next-line
+                }<h1 style={{marginTop: '0', paddingTop: '0'}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+                  <p>Limit: {maxSizeMBReal}MB</p>
+              </FlexBox>
+          }
+        </div>)
+      }
+    </GoldRatioOutline>
+    <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
+    </div>
     <input
       data-testid='upload-input'
       name='upload'
       type='file'
-      style={{opacity: '0', height: '1px' }}
+      style={{opacity: 0, height: 0 }}
       ref={el => ref.current = el}
       onChange={onChange}
       accept='image/*,.pdf'
