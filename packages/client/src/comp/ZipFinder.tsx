@@ -180,8 +180,6 @@ export const ZipFinder: React.FC = () => {
   const { zipFinder, toggleZipFinder } = ZipFinderContainer.useContainer()
   const { pushAddress } = useAppHistory()
 
-  if (zipFinder === 'hidden') return null
-
   const onSuggestSelect = async (s: Suggest) => {
     let zipCode = ''
     for (const ac of s?.gmaps?.address_components ?? []) {
