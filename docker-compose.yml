@@ -3,6 +3,9 @@ version: "3.7"
 services:
   client:
     container_name: mbb-client
+    restart: always
+    depends_on:
+      - mbb-server
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,6 +15,7 @@ services:
       - LETSENCRYPT_EMAIL=metasoradev@gmail.com
   server:
     container_name: mbb-server
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile-server
