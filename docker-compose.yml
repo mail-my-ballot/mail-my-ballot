@@ -1,0 +1,18 @@
+#the docker compose file version
+version: "3.7"
+services:
+  react-staging-client:
+    container_name: react-staging-client
+    build:
+      context: .
+      dockerfile: Dockerfile-staging-client
+    environment:
+      - NODE_ENV=staging
+      - VIRTUAL_HOST=mail-my-ballot.metasora.com
+      - LETSENCRYPT_HOST=mail-my-ballot.metasora.com
+      - LETSENCRYPT_EMAIL=metasoradev@gmail.com
+
+networks:
+  default:
+    external:
+      name: webproxy
