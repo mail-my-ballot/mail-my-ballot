@@ -1,5 +1,6 @@
 import React from 'react'
-import { RoundedButton } from './Button'
+import { SmallButton } from './Button'
+
 
 export type Choice = 'upload' | 'canvas'
 
@@ -11,22 +12,22 @@ export const Switchable: React.FC<Props> = ({children}) => {
   const [choice, setChoice] = React.useState<Choice>('upload')
   return <>
     <div style={{display: 'flex', justifyContent: 'center'}}>
-      <RoundedButton
-        style={{marginRight: '0', borderRadius: '2em 0 0 2em'}}
+      <SmallButton
+        style={{marginRight: '0', borderRadius: '4px 0 0 4px'}}
         color='primary'
         disabled={choice === 'upload'}
         onClick={() => setChoice('upload')}
       >
         Upload
-      </RoundedButton>
-      <RoundedButton
-        style={{marginLeft: '0', borderRadius: '0 2em 2em 0'}}
+      </SmallButton>
+      <SmallButton
+        style={{marginLeft: '0', borderRadius: '0 4px 4px 0'}}
         color='primary'
         disabled={choice === 'canvas'}
         onClick={() => setChoice('canvas')}
       >
         Pad
-      </RoundedButton>
+      </SmallButton>
     </div>
     {(choice && children) && children(choice)}
   </>

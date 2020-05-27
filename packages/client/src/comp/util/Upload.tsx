@@ -1,5 +1,6 @@
 import React from 'react'
 import { RoundedButton } from './Button'
+import { Outline } from './Outline'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -18,17 +19,6 @@ interface Props {
   setDataString: (dataString: string) => void
   required?: boolean
   maxSizeMB?: number
-}
-
-const style: React.CSSProperties = {
-  borderWidth: '2px',
-  borderStyle: 'dashed',
-  borderColor: '#2196F3',
-  minHeight: '200px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1em',
 }
 
 interface Image {
@@ -73,7 +63,7 @@ export const Upload: React.FC<Props> = ({
   }
 
   return <div>
-    <div onClick={onClick} style={style}>
+    <Outline onClick={onClick}>
       <div data-testid='upload-click-target'>
         {
           (image) ? <>
@@ -82,13 +72,13 @@ export const Upload: React.FC<Props> = ({
             </>
             : <>{
               // eslint-disable-next-line
-              }<h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+              }<h1 style={{marginTop: '0', paddingTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
                 <p style={centerBlock}>Limit: {maxSizeMBReal}MB</p>
               </>
         }
         <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>
       </div>
-    </div>
+    </Outline>
     <input
       data-testid='upload-input'
       name='upload'
