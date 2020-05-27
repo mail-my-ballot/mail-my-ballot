@@ -7,6 +7,7 @@ import { Row, Col } from 'muicss/react'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/unstated'
+import { toast } from 'react-toastify'
 
 const Background = styled.div`
   top: 0;
@@ -90,9 +91,13 @@ export const Blurb: React.FC<{}> = () => {
     const zip = zipRef?.current?.value
     if (!zip) return
     const resp = await client.fetchState(zip)
-    if (resp.type === 'error') return
+    if (resp.type === 'error') {
+      toast.error(resp.message, {
+        position: 'top-right'
+      })
+      return 
+    }
     pushAddress(resp.data, zip)
-    // TODO: handle error
   }
 
   const defaultValue = () => {

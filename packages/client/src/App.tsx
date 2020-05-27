@@ -3,6 +3,8 @@ import Container from 'muicss/lib/react/container'
 import styled from 'styled-components'
 
 import { Switch, Route, Redirect } from "react-router-dom"
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { About } from './comp/About'
 import { Footer } from './comp/Footer'
@@ -35,6 +37,7 @@ const TallStyleContainer = styled(StyleContainer)`
 
 const Layout = () => {
   return (<>
+    <ToastContainer limit={3}/>
     <Switch>
       <Route path='/status'>
         <StyleContainer>
