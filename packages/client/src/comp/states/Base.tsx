@@ -107,7 +107,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     { children }
 
     <RoundedButton color='primary' variant='raised' data-testid='submit'>
-      Send my application email
+      Send my signup email
     </RoundedButton>
   </Form>
 }
