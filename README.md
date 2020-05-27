@@ -95,7 +95,7 @@ To add a new state, you will need to complete the following steps:
 The best way to showcase changes to your site is to host your own staging instance.  Each instance has its own configuration (e.g. `production` or `staging`) and can be edited via the gulpfile via `--env production`.  To add your own, copy and modify the contents the `staging` object in `env/env.js` using your own namespace (e.g. your GithubID).
 
 ### Now (Client Hosting)
-The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.
+The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.  If you create your own zeit hosting account and point it to our dev or staging backend instance, you should be able to have your own front-end.
 
 ### App Engine (Server Hosting)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
