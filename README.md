@@ -86,7 +86,7 @@ To add a new state, you will need to complete the following steps:
 1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
 1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`
 1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors from incomplete switch statements when you run
-    ```
+    ```bash
     yarn build
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
@@ -95,7 +95,7 @@ To add a new state, you will need to complete the following steps:
 The best way to showcase changes to your site is to host your own staging instance.  Each instance has its own configuration (e.g. `production` or `staging`) and can be edited via the gulpfile via `--env production`.  To add your own, copy and modify the contents the `staging` object in `env/env.js` using your own namespace (e.g. your GithubID).
 
 ### Now (Client Hosting)
-The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.  If you create your own zeit hosting account and point it to our dev or staging backend instance, you should be able to have your own front-end.
+The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.  If you create and deploy to your own zeit hosting instance and point it to the dev or staging backend instance, you should be able to experiment / show off your own front-end.
 
 ### App Engine (Server Hosting)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
