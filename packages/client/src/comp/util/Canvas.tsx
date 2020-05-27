@@ -15,6 +15,20 @@ const WhiteButton = styled(SmallButton)`
   }
 `
 
+const CanvasContainer = styled.div`
+  position: relative;
+  text-align: center;
+`
+
+const CanvasOverlay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  line-height: 22px;
+`
+
 type Props = React.PropsWithChildren<{
   setSignature: (_: string | null) => void
   width: number
@@ -23,6 +37,11 @@ type Props = React.PropsWithChildren<{
 
 export const Canvas: React.FC<Props> = ({ setSignature }) => {
   const ref = React.useRef<SignatureCanvas>(null)
+  const [dirty, setDirty] = React.useState<boolean>(false)
+
+  const onBegin = () => {
+    setDirty(true)
+  }
   
   const onEnd = () => {
     if (!ref.current) return
@@ -37,6 +56,7 @@ export const Canvas: React.FC<Props> = ({ setSignature }) => {
     event.preventDefault()
     ref.current && ref.current.clear()
     setSignature(null)
+    setDirty(false)
   }
 
   const centerBlock: React.CSSProperties = {
@@ -47,13 +67,18 @@ export const Canvas: React.FC<Props> = ({ setSignature }) => {
 
   return <div>
     <GoldRatioOutline>
-      { ({width, height}) => <SignatureCanvas
-        canvasProps={
-          {width, height, 'data-testid': 'canvas'} as React.CanvasHTMLAttributes<HTMLCanvasElement>
-        }
-        ref={ref}
-        onEnd={onEnd}
-      /> }
+      { ({width, height}) => <CanvasContainer>
+          <SignatureCanvas
+            canvasProps={
+              {width, height, 'data-testid': 'canvas'} as React.CanvasHTMLAttributes<HTMLCanvasElement>
+            }
+            ref={ref}
+            onBegin={onBegin}
+            onEnd={onEnd}
+          />
+          {dirty ? null : <CanvasOverlay>Sign with your Mouse or Finger</CanvasOverlay>}
+        </CanvasContainer>
+      }
     </GoldRatioOutline>
     <WhiteButton onClick={clearClick} style={centerBlock}>
       Clear Signature
