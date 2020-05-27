@@ -5,7 +5,7 @@ services:
     container_name: mbb-client
     restart: always
     depends_on:
-      - mbb-server
+      - server
     build:
       context: .
       dockerfile: Dockerfile
