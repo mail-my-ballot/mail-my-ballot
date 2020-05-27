@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
+import { Muted } from './Text'
 
 const WhiteButton = styled(SmallButton)`
   margin: 1em 0;
@@ -25,8 +26,6 @@ const CanvasOverlay = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px;
-  line-height: 22px;
 `
 
 type Props = React.PropsWithChildren<{
@@ -76,7 +75,7 @@ export const Canvas: React.FC<Props> = ({ setSignature }) => {
             onBegin={onBegin}
             onEnd={onEnd}
           />
-          {dirty ? null : <CanvasOverlay>Sign with your Mouse or Finger</CanvasOverlay>}
+          {dirty ? null : <CanvasOverlay><Muted>Sign with your Mouse or Finger</Muted></CanvasOverlay>}
         </CanvasContainer>
       }
     </GoldRatioOutline>

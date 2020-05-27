@@ -2,6 +2,7 @@ import React from 'react'
 import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
 import styled from 'styled-components'
+import { Muted } from './Text'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -75,21 +76,23 @@ export const Upload: React.FC<Props> = ({
     <GoldRatioOutline>
       {
         ({width, height}) => (<div data-testid='upload-click-target' style={{width, height}}>
+          <FlexBox>
           {
-            (image) ? <FlexBox>
+            (image) ? <>
                 <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
-                <small>{image.name}</small>
-              </FlexBox>
-              : <FlexBox>{
+                <Muted>{image.name}</Muted>
+              </>
+              : <>{
                 // eslint-disable-next-line
                 }<h1 style={{marginTop: '0', paddingTop: '0'}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-                  <p>Limit: {maxSizeMBReal}MB</p>
-              </FlexBox>
+                  <Muted>Limit: {maxSizeMBReal}MB</Muted>
+                  <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
+                </>   
           }
+          </FlexBox>
         </div>)
       }
     </GoldRatioOutline>
-    <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
     </div>
     <input
       data-testid='upload-input'
