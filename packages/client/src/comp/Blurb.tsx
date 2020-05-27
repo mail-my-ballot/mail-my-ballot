@@ -6,7 +6,8 @@ import Container from 'muicss/lib/react/container'
 import { Row, Col } from 'muicss/react'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
-import { AddressContainer } from '../lib/unstated'
+import { AddressContainer, ZipFinderContainer } from '../lib/unstated'
+import { ZipFinder } from './ZipFinder'
 
 const Background = styled.div`
   top: 0;
@@ -16,6 +17,7 @@ const Background = styled.div`
   background: rgb(144,202,249);
   background: linear-gradient(45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
   color: #f1f1ff;
+  overflow-x: hidden;
 `
 
 const Title = styled.h1`
@@ -72,9 +74,18 @@ const SubmitButton = styled(RoundedButton)`
   }
 `
 
+const ToggleZipGetter = styled.div`
+  text-decoration: underline;
+
+  &:hover {
+    color: #fff;
+  }
+`
+
 export const Blurb: React.FC<{}> = () => {
   const { path, pushAddress } = useAppHistory()
   const { address } = AddressContainer.useContainer()
+  const { zipFinder, toggleZipFinder } = ZipFinderContainer.useContainer()
   const zipRef = React.useRef<HTMLInputElement>(null)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -96,10 +107,37 @@ export const Blurb: React.FC<{}> = () => {
     }
   }
 
+  // Moves and blurs the content of the Blurb when the ZipFinder is being
+  // shown
+  const mainColumnStyle = (): React.CSSProperties => {
+    const { matches: smallScreen } = window.matchMedia('(max-width: 991px)')
+    return {
+      marginLeft: zipFinder === 'visible' && smallScreen ? '-100%' : undefined,
+      opacity: zipFinder === 'visible' ? 0.5 : 1,
+      filter: zipFinder === 'visible' && !smallScreen ? 'blur(7px)' : undefined,
+      // Prevents accidental clicks on ZipCode field when it should be blurred
+      pointerEvents: zipFinder === 'visible' ? 'none' : undefined,
+      transition: 'margin-left ease .4s, filter ease .4s, opacity ease 1s',
+    }
+  }
+  const mdOffset = () => {
+    return zipFinder === 'visible' ? 0 : 2
+  }
+  const lgOffset = () => {
+    return zipFinder === 'visible' ? 0 : 6
+  }
+
   return <Background>
     <Container>
-      <Row>
-        <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={6}>
+      <Row style={{ position: 'relative' }}>
+        <Col
+          style={mainColumnStyle()}
+          xs={12}
+          md={8}
+          md-offset={mdOffset()}
+          lg={6}
+          lg-offset={lgOffset()}
+        >
           <FlexBox>
             <Title>Vote by Mail</Title>
             <Text>
@@ -127,9 +165,13 @@ export const Blurb: React.FC<{}> = () => {
                   Start
                 </SubmitButton>
               </FlexContainer>
+              <ToggleZipGetter onClick={toggleZipFinder}>
+                Don&apos;t know your ZIP Code?
+              </ToggleZipGetter>
             </Form>
           </FlexBox>
         </Col>
+        <ZipFinder />
       </Row>
     </Container>
   </Background>
