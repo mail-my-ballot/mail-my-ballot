@@ -21,6 +21,9 @@ h1 {
   margin-bottom:  24px;
   margin-top:     0px;
   padding-top:    120px;
+  @media only screen and (max-width: 400px) {
+    padding-top:    40px;
+  }
 }
 
 h2 {
