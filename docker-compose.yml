@@ -6,10 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports: 
-      - "80:80"
     environment:
-      - NODE_ENV=staging
       - VIRTUAL_HOST=mbb-staging.metasora.com
       - LETSENCRYPT_HOST=mbb-staging.metasora.com
       - LETSENCRYPT_EMAIL=metasoradev@gmail.com
@@ -18,10 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-server
-    ports: 
-      - "8080:8080"
     environment:
-      - NODE_ENV=staging
       - VIRTUAL_HOST=mbb-app-staging.metasora.com
       - LETSENCRYPT_HOST=mbb-app-staging.metasora.com
       - LETSENCRYPT_EMAIL=metasoradev@gmail.com

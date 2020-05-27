@@ -1,0 +1,22 @@
+#the docker compose file version
+version: "3.7"
+services:
+  client:
+    container_name: mbb-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+  server:
+    container_name: mbb-server
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    ports:
+      - "8080:8080"
+
+networks:
+  default:
+    external:
+      name: webproxy
