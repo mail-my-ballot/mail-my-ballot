@@ -1,6 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
-import Panel from 'muicss/lib/react/panel'
 
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
@@ -17,17 +15,12 @@ import { InvalidContact, ContactInfo } from './ContactInfo'
 import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
+import { StyledPanel } from '../util/Panel'
 
 
 type Props = React.PropsWithChildren<{
   locale: Locale<ImplementedState>
 }>
-
-const StyledPanel = styled(Panel)`
-  padding: 40px;
-  margin-top: 40px;
-  border-radius: 0;
-`
 
 export const StatePanel: React.FC<Props> = ({
   locale
