@@ -4,11 +4,9 @@ import { toContact } from './contact'
 import { Locale, toContactMethod } from '../common'
 
 const main = async() => {
-  const geoResult = await cache(rawGeocode)('132 N Royal St Apt #34, Alexandria, VA 22314-3246')
-  if (!geoResult) {
-    console.log('No Result Returned')
-    return
-  }
+  const geoResult = await cache(rawGeocode)('3600 Telegraph Rd, Bloomfield Twp, MI 48302')
+  if (!geoResult) return 
+  
   console.log(JSON.stringify(geoResult, null, 2))
   const address = await toAddress(geoResult)
   console.log(address)
