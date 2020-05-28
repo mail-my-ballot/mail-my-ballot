@@ -20,7 +20,9 @@ describe('Google Maps is returning stable results', () => {
       if (!result) return
       const locale = toLocale(result as Address)
       expect(locale).toBeTruthy()
-      expect(locale).toEqual({state, county, city})
+      expect(locale?.state).toEqual(state)
+      expect(locale?.county).toEqual(county)
+      expect(locale?.city).toEqual(city)
       expect(isAvailableState((locale as Locale).state)).toBeTruthy()
       const contact = await toContact(locale as Locale<AvailableState>)
       expect(contact).toBeTruthy()

@@ -10,9 +10,9 @@ const citySuffixes = (suffixes: string[], city: string): string[] => {
 
 /* add in possible prefixes, assuming larger entities are most likely to have prefix dropped */
 const possibleBeginnings = [
-  'City of ',
-  'Town of ',
-  'Village of ',
+  'city of ',
+  'town of ',
+  'village of ',
 ]
 const wisconsinCities = (city: string): string[] => {
   if (possibleBeginnings.some(beginning => city.startsWith(beginning))) {
@@ -29,16 +29,35 @@ const wisconsinCounties = (county: string): string[] => {
  *  So just try matching on cities first and then county if city doesn't match
 */
 const keysCityState = (locale: Locale<AvailableState>): string[] => {
-  const cityLocales = citySuffixes([' City'], locale.city)
+  const cityLocales = citySuffixes([' city'], locale.city)
     .map(city => normalizeLocale({...locale, city}))
   const countyLocales = normalizeLocale({...locale, city: ''})
   return cityLocales.concat([countyLocales])
 }
 
+const michiganCitySuffixes = (city: string): string[] => {
+  // Township / Charter Township are relatively interchangable
+  if (city.endsWith(' charter township')) {
+    return [city, city.replace(' charter township', ' township')]
+  } else if (city.endsWith(' township')) {
+      return [city, city.replace(' township', ' charter township')]
+  } else if (city.endsWith(' city')) { // we sometimes drop the name city
+    return [city]
+  } else {
+    return [city, city + ' city', city + ' township', city + ' charter township']
+  }
+}
+
 /* list of keys to try (in order) */
 export const keys = (
-  locale: Locale<AvailableState>,
+  _locale: Locale<AvailableState>,
 ): string[] => {
+  const locale =  {
+    ..._locale,
+    city: _locale.city.toLocaleLowerCase(),
+    county: _locale.county ? _locale.county.toLocaleLowerCase() : _locale.county,
+    otherCities: _locale.otherCities ? _locale.otherCities.map(c => c.toLocaleLowerCase()) : _locale.otherCities,
+  }
   switch(locale.state) {
     case 'Arizona':
     case 'Florida':
@@ -50,11 +69,13 @@ export const keys = (
       return [normalizeLocale(locale)]
     }
     case 'Michigan': {
-      return citySuffixes([
-        ' City',
-        ' Township',
-        ' Charter Township',
-      ], locale.city).map(city => normalizeLocale({...locale, city}))
+      // In Michigan, first try administrative_area_level_3 (otherCities)
+      // before locality (city) and vary each locality
+      const orderedCities = [
+        ...(locale?.otherCities ?? []),
+        locale.city
+      ].flatMap(michiganCitySuffixes)
+      return orderedCities.map(city => normalizeLocale({...locale, city}))
     }
     case 'Wisconsin': {
       if (!locale.county) return []
