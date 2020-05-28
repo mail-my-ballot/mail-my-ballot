@@ -13,7 +13,7 @@ const BlueH2 = styled.h2`
 `
 
 const Container = styled.div`
-  paddingTop: '4em'
+  paddingTop: '4em';
 
   @media only screen and (max-width: 414px) {
     align-items: center;
