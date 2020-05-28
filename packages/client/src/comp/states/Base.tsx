@@ -37,7 +37,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   if (!locale) return null
 
   const uspsAddress = address ? address.fullAddr : null
-  const { city, county } = locale
+  const { city, county, otherCities } = locale
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -47,6 +47,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     const baseInfo: StatelessInfo = {
       city,
       county,
+      otherCities,
       oid,
       name: nameRef.value() || '',
       birthdate: birthdateRef.value() || '',
