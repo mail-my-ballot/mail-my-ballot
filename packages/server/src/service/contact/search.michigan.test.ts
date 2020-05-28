@@ -43,6 +43,7 @@ const addresses = [
   // "Holland Charter Township" is administrative_area_level_3 but "Holland" is locality
   ['12251 James Street, Holland, MI 49424', 'Holland Township:Ottawa County'],  // from https://mvic.sos.state.mi.us/Clerk
   ['12220 Fillmore Street, Room 130, West Olive, MI 49460', 'Olive Township:Ottawa County'],  // from https://mvic.sos.state.mi.us/Clerk
+  ['414 Washington Ave, Room 115, Grand Haven, MI 49417', 'Grand Haven City:Ottawa County'],  // from https://mvic.sos.state.mi.us/Clerk
   ['3920 Baldwin Rd, Orion Charter Township, MI 48359', 'Orion Township:Oakland County'],
   // Google API claims it's in Clarkston, which it's not
   // ['5464 Waterford Rd, Independence Charter Township, MI 48346', 'Independence Township:Oakland County'],
