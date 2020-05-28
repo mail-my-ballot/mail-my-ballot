@@ -11,22 +11,31 @@ import { AddressContainer } from '../lib/unstated'
 const Background = styled.div`
   top: 0;
   left: 0;
+  width: 100%;
   min-width: 100%;
   background: rgb(144,202,249);
   background: linear-gradient(-45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
   color: #f1f1ff;
+  @media only screen and (max-width: 414px) {
+    overflow-x: hidden;
+  }
 `
 
 const Title = styled.h1`
   font-weight: 100;
   padding-top: 24px;
-  @media only screen and (max-width: 400px) {
-    padding-top: 8px;
+  @media only screen and (max-width: 414px) {
+    padding-top: 0px;
+    font-size: 55px;
   }
 `
 
 const Text = styled.p`
   margin-bottom: 16px;
+  @media only screen and (max-width: 414px) {
+    font-size: 28px;
+    width: 90%;
+  }
 `
 
 const FlexBox = styled.div`
@@ -34,14 +43,24 @@ const FlexBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  @media only screen and (max-width: 414px) {
+    text-align: center;
+    align-items: center;
+  }
 `
 
 const FlexContainer = styled.div`
   margin-top: 24px;
   display: flex;
   flex-direction: row;
-  justify-contnet: flex-start;
+  justify-content: flex-start;
   align-content: center;
+  @media only screen and (max-width: 414px) {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
 `
 
 const ZipInput = styled.input`
@@ -54,6 +73,11 @@ const ZipInput = styled.input`
   line-height: 22px;
   border-radius: 4px;
   margin-right: 1rem;
+  @media only screen and (max-width: 414px) {
+    width: 130px;
+    height: 80px;
+    font-size: 30px;
+  }
 `
 
 const SubmitButton = styled(RoundedButton)`
@@ -64,6 +88,10 @@ const SubmitButton = styled(RoundedButton)`
   :hover {
     background: #5DC6BC;
     color: #f1f1ff;
+  }
+  @media only screen and (max-width: 414px) {
+    height: 110px;
+    font-size: 30px;
   }
 `
 
@@ -77,8 +105,10 @@ export const Blurb: React.FC<{}> = () => {
   // Also, need to use a state variable instead of a simpler ts variable
   // https://stackoverflow.com/a/56156394/8930600
   const [height, setHeight] = React.useState('100vh')
+  const [width, setWidth] = React.useState('100vw')
   React.useEffect(() => {
     setHeight(`${window.innerHeight}px`)
+    setWidth(`${window.innerWidth}px`)
   }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -100,7 +130,7 @@ export const Blurb: React.FC<{}> = () => {
     }
   }
 
-  return <Background style={{height}}>
+  return <Background style={{height, width}}>
     <StyleContainer>
       <FlexBox style={{height}}>
         <Title>Vote by Mail</Title>

@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
@@ -11,6 +12,16 @@ import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer } from '../../lib/unstated'
+
+const FormContainer = styled.div`
+@media only screen and (max-width: 414px) {
+  padding-right: 20px;
+  padding-left: 20px;
+  form>div {
+    margin-bottom: 50px;
+  }
+}
+`
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -63,53 +74,55 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     // TODO: Add warning if error
   }
 
-  return <Form onSubmit={handleSubmit}>
-    <NameInput
-      id='name'
-      ref={nameRef}
-      defaultValue={query.name}
-      required
-    />
-    <BaseInput
-      id='registrationAddress'
-      label='Registration Address'
-      defaultValue={address?.queryAddr}
-      disabled
-    />
-    <BirthDateInput
-      id='birthdate'
-      ref={birthdateRef}
-      defaultValue={query.birthdate}
-      required
-    />
-    <EmailInput
-      id='email'
-      ref={emailRef}
-      defaultValue={query.email}
-      required
-    />
-    <PhoneInput
-      id='telephone'
-      ref={phoneRef}
-      defaultValue={query.telephone}
-    />
-    <Togglable
-      id='mailing'
-      label='Mail My Ballot to a separate mailing address'
-    >{
-      (checked) => <BaseInput
-        id='mailing'
-        label='Mailing Address'
-        ref={mailingRef}
-        required={checked}
+  return <FormContainer>
+    <Form onSubmit={handleSubmit}>
+      <NameInput
+        id='name'
+        ref={nameRef}
+        defaultValue={query.name}
+        required
       />
-    }</Togglable>
-    { children }
+      <BaseInput
+        id='registrationAddress'
+        label='Registration Address'
+        defaultValue={address?.queryAddr}
+        disabled
+      />
+      <BirthDateInput
+        id='birthdate'
+        ref={birthdateRef}
+        defaultValue={query.birthdate}
+        required
+      />
+      <EmailInput
+        id='email'
+        ref={emailRef}
+        defaultValue={query.email}
+        required
+      />
+      <PhoneInput
+        id='telephone'
+        ref={phoneRef}
+        defaultValue={query.telephone}
+      />
+      <Togglable
+        id='mailing'
+        label='Mail My Ballot to a separate mailing address'
+      >{
+        (checked) => <BaseInput
+          id='mailing'
+          label='Mailing Address'
+          ref={mailingRef}
+          required={checked}
+        />
+      }</Togglable>
+      { children }
 
-    <RoundedButton color='primary' variant='raised' data-testid='submit'>
-      Send my signup email
-    </RoundedButton>
-  </Form>
+      <RoundedButton color='primary' variant='raised' data-testid='submit'>
+        Send my signup email
+      </RoundedButton>
+    </Form>
+  </FormContainer>
 }
 
 export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>

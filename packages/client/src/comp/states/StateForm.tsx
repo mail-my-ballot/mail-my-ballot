@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import { Florida } from './Florida'
 import { Michigan } from './Michigan'
@@ -16,6 +17,24 @@ import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
 import { StyledPanel } from '../util/Panel'
+
+const Title = styled.h1`
+  padding-top: 50px;
+  @media only screen and (max-width: 414px) {
+    padding-top: 0px;
+    font-size: 55px;
+    margin-top: 50px;
+  }
+`
+
+const Text = styled.p`
+  margin-bottom: 16px;
+  @media only screen and (max-width: 414px) {
+    font-size: 25px;
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+`
 
 
 type Props = React.PropsWithChildren<{
@@ -86,9 +105,9 @@ export const StateForm = () => {
   if (!isImplementedLocale(locale)) throw Error(`Locale state ${locale.state} is not implemented`)
 
   return <>
-    <h1>{locale.state} Vote by Mail Form</h1>
+    <Title>{locale.state} Vote by Mail Form</Title>
     <ContactInfo locale={locale} contact={contact}/>
-    <p><b>Fill out</b> the following form and we will {methodExplain(method)}</p>
+    <Text><b>Fill out</b> the following form and we will {methodExplain(method)}</Text>
     <StatePanel locale={locale}/>
   </>
 }

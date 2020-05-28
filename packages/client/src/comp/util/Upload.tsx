@@ -75,7 +75,7 @@ export const Upload: React.FC<Props> = ({
     <div onClick={onClick}>
     <GoldRatioOutline>
       {
-        ({width, height}) => (<div data-testid='upload-click-target' style={{width, height}}>
+        ({height}) => (<div data-testid='upload-click-target' style={{height, width: '100%'}}>
           <FlexBox>
           {
             (image) ? <>

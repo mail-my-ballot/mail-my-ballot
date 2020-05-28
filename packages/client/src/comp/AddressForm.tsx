@@ -21,17 +21,34 @@ const FlexBox = styled.div`
   flex-wrap: wrap;
   align-items: center;
   margin: 1em -.5em;
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `
 
 const FlexGrow = styled.div`
   flex-grow: 1;
   min-width: 300px;
   margin: 0 .5em;
+  @media only screen and (max-width: 414px) {
+    min-width: 560px;
+    flex-direction: column;
+  }
 `
 
 const FlexFixed = styled.div`
   flex-grow: 0;
   margin: 0 .5em;
+`
+
+const Text = styled.p`
+  margin-bottom: 16px;
+  @media only screen and (max-width: 414px) {
+    font-size: 28px;
+    padding-right: 60px;
+    padding-left: 60px;
+  }
 `
 
 // pulled out for testing
@@ -106,7 +123,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
 
   return <StatusReport state={state}>
     <Form onSubmit={handleSubmit}>
-      <p><b>Enter your address</b> to find your local election official</p>
+      <Text><b>Enter your address</b> to find your local election official</Text>
       <FlexBox>
         <FlexGrow>
           <BaseInput
