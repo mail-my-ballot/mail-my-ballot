@@ -1,15 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { ContactData, Locale } from '../../common'
-
-const Text = styled.p`
-  margin-bottom: 16px;
-  @media only screen and (max-width: 414px) {
-    font-size: 28px;
-    padding-right: 60px;
-    padding-left: 60px;
-  }
-`
+import { P } from '../util/Text'
 
 type ContactInfoProps = React.PropsWithChildren<{
   locale: Locale
@@ -40,7 +31,7 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   locale, contact
 }) => {
   if (!contact) {
-    return <Text> We could not find the local eletions official for {localeString(locale)}.</Text>
+    return <P> We could not find the local eletions official for {localeString(locale)}.</P>
   }
 
   const texts = [
@@ -52,7 +43,7 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
     contact.url ? `Their email is ${contact.url}.` : ''
   ]
 
-  return <Text>{texts.join(' ')}</Text>
+  return <P>{texts.join(' ')}</P>
 }
 
 export const ContactInfo: React.FC<ContactInfoProps> = ({
@@ -65,5 +56,5 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({
     englishList('phone number', 'phone numbers', contact.phones),
   ]
 
-  return <Text>{texts.join(' ')}</Text>
+  return <P>{texts.join(' ')}</P>
 }

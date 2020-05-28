@@ -16,14 +16,6 @@ const RawBaseInput = React.forwardRef<Input, InputProps>(function BaseInput(prop
 
 export const BaseInput = styled(RawBaseInput)`
   font-size: 16px;
-  @media only screen and (max-width: 414px) {
-    label {
-      font-size: 20px !important;
-    }
-    input {
-      margin-top: 22px;
-      font-size: 25px !important;
-    }
   }
 `
 

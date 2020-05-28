@@ -2,6 +2,7 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
+import { H1, P } from './util/Text'
 import { StyleContainer } from './util/Container'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
@@ -21,30 +22,13 @@ const Background = styled.div`
   }
 `
 
-const Title = styled.h1`
-  font-weight: 100;
-  padding-top: 24px;
-  @media only screen and (max-width: 414px) {
-    padding-top: 0px;
-    font-size: 55px;
-  }
-`
-
-const Text = styled.p`
-  margin-bottom: 16px;
-  @media only screen and (max-width: 414px) {
-    font-size: 28px;
-    width: 90%;
-  }
-`
-
 const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   @media only screen and (max-width: 414px) {
-    text-align: center;
+    P-align: center;
     align-items: center;
   }
 `
@@ -75,7 +59,7 @@ const ZipInput = styled.input`
   margin-right: 1rem;
   @media only screen and (max-width: 414px) {
     width: 130px;
-    height: 80px;
+    height: 60px;
     font-size: 30px;
   }
 `
@@ -90,7 +74,7 @@ const SubmitButton = styled(RoundedButton)`
     color: #f1f1ff;
   }
   @media only screen and (max-width: 414px) {
-    height: 110px;
+    height: 90px;
     font-size: 30px;
   }
 `
@@ -133,20 +117,20 @@ export const Blurb: React.FC<{}> = () => {
   return <Background style={{height, width}}>
     <StyleContainer>
       <FlexBox style={{height}}>
-        <Title>Vote by Mail</Title>
-        <Text>
+        <H1>Vote by Mail</H1>
+        <P>
           Voting by mail is a secure, time-tested, and easy way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.
-        </Text>
-        <Text>Sign up today in <b>2 minutes</b> before your state deadline expires.
-        </Text>
+        </P>
+        <P>Sign up today in <b>2 minutes</b> before your state deadline expires.
+        </P>
         <Form onSubmit={handleSubmit}>
-          <Text><b>Enter your ZIP code</b> to get started</Text>
+          <P><b>Enter your ZIP code</b> to get started</P>
           <FlexContainer> 
             {/* id is used by WarningMsg to fill out zipcode */}
             <ZipInput
               id='start-zip'
               data-testid='start-zip'
-              type='text'
+              type='P'
               pattern='[0-9]{5}'
               placeholder='ZIP code'
               defaultValue={defaultValue()}

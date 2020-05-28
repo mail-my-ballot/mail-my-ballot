@@ -3,6 +3,7 @@ import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
+import { P } from './util/Text'
 import { client } from '../lib/trpc'
 import { QueryContainer, AddressContainer, ContactContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
@@ -32,7 +33,7 @@ const FlexGrow = styled.div`
   min-width: 300px;
   margin: 0 .5em;
   @media only screen and (max-width: 414px) {
-    min-width: 560px;
+    min-width: 90%;
     flex-direction: column;
   }
 `
@@ -40,15 +41,6 @@ const FlexGrow = styled.div`
 const FlexFixed = styled.div`
   flex-grow: 0;
   margin: 0 .5em;
-`
-
-const Text = styled.p`
-  margin-bottom: 16px;
-  @media only screen and (max-width: 414px) {
-    font-size: 28px;
-    padding-right: 60px;
-    padding-left: 60px;
-  }
 `
 
 // pulled out for testing
@@ -123,7 +115,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
 
   return <StatusReport state={state}>
     <Form onSubmit={handleSubmit}>
-      <Text><b>Enter your address</b> to find your local election official</Text>
+      <P><b>Enter your address</b> to find your local election official</P>
       <FlexBox>
         <FlexGrow>
           <BaseInput

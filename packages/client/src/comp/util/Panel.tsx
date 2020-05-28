@@ -4,6 +4,7 @@ import styled from 'styled-components'
 export const StyledPanel = styled(Panel)`
   @media only screen and (max-width: 400px) {
     padding: 10px;
+    width: 90%;
   }
   padding: 40px;
   margin-top: 40px;

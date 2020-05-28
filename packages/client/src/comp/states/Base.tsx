@@ -15,10 +15,11 @@ import { AddressContainer, VoterContainer } from '../../lib/unstated'
 
 const FormContainer = styled.div`
 @media only screen and (max-width: 414px) {
-  padding-right: 20px;
-  padding-left: 20px;
+  text-align: left;
+  width: 90%,
+  align-items: center;
   form>div {
-    margin-bottom: 50px;
+    margin-bottom: 35px;
   }
 }
 `
@@ -118,7 +119,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       }</Togglable>
       { children }
 
-      <RoundedButton color='primary' variant='raised' data-testid='submit'>
+      <RoundedButton color='primary' variant='raised' data-testid='submit' style={{marginLeft: '13%'}}>
         Send my signup email
       </RoundedButton>
     </Form>

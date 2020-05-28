@@ -7,8 +7,9 @@ const Container = styled.div`
   @media only screen and (max-width: 414px) {
     top: 0;
     left: 0;
-    max-width: max-content;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     justify-content: center;
   }
@@ -24,11 +25,6 @@ export const ScrollHook: React.FC<Props> = ({pathEnum, pageStart, children}) => 
   const { query } = useAppHistory()
   const scroll = query?.scroll
 
-  const [width, setWidth] = React.useState('100vw')
-  React.useEffect(() => {
-    setWidth(`${window.innerWidth}px`)
-  }, [])
-
   // Automatically go to the location on pageStart if path.scroll is not set
   React.useEffect(() => {
     if (pageStart && !scroll) {
@@ -39,7 +35,7 @@ export const ScrollHook: React.FC<Props> = ({pathEnum, pageStart, children}) => 
     }
   }, [pageStart, scroll, scrollId])
 
-  return <Container id={scrollId} data-testid={scrollId} style={{width}}>
+  return <Container id={scrollId} data-testid={scrollId}>
     {children}
   </Container>
 }

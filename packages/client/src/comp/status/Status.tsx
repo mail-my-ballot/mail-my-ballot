@@ -1,24 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Status, Statuses } from '../../common'
-
-const Title = styled.h1`
-  padding-top: 50px;
-  @media only screen and (max-width: 414px) {
-    padding-top: 0px;
-    font-size: 55px;
-    margin-top: 50px;
-  }
-`
-
-const Text = styled.p`
-  margin-bottom: 16px;
-  @media only screen and (max-width: 414px) {
-    font-size: 28px;
-    padding-right: 60px;
-    padding-left: 60px;
-  }
-`
+import { H1, P } from '../util/Text'
 
 interface StateField {
   state: string
@@ -27,36 +9,36 @@ interface StateField {
 type StatusProps<T extends Status> = React.PropsWithChildren<T & StateField>
 
 export const Automatic = ({state}: StatusProps<Statuses.Automatic>) => (<>
-  <Title data-testid='status-title'>Great News!</Title>
-  <Text data-testid='status-detail'>
+  <H1 data-testid='status-title'>Great News!</H1>
+  <P data-testid='status-detail'>
   {state} automatically enrolls all registered voters to vote by mail.
     For more information, visit your state election website.
-  </Text>
+  </P>
 </>)
 
 export const Website = ({state, regUrl, infoUrl}: StatusProps<Statuses.Website>) => (<>
-  <Title data-testid='status-title'>Great News!</Title>
-  <Text data-testid='status-detail'>
+  <H1 data-testid='status-title'>Great News!</H1>
+  <P data-testid='status-detail'>
     {state} allows all registered voters to vote by mail.
     You can apply on the <a href={regUrl}>official state election application page</a>.
     For more information, visit your <a href={infoUrl}>state election website</a>.
-  </Text>
+  </P>
 </>)
 
 export const Mail = ({state, infoUrl}: StatusProps<Statuses.Mail>) => (<>
-  <Title data-testid='status-title'>Great News!</Title>
-  <Text data-testid='status-detail'>
+  <H1 data-testid='status-title'>Great News!</H1>
+  <P data-testid='status-detail'>
     {state} allows all registered voters to vote by mail.
     However, the state requires mailing a physical application, which we cannot support.
     For more information, visit your <a href={infoUrl}>state election website</a>.
-  </Text>
+  </P>
 </>)
 
 export const VbmApp = ({state, children}: StatusProps<Statuses.VbmApp>) => (<>
-  <Title data-testid='status-title'>Great News!</Title>
-  <Text data-testid='status-detail'>
+  <H1 data-testid='status-title'>Great News!</H1>
+  <P data-testid='status-detail'>
     {state} allows all registered voters to vote by mail and we can help you enroll.
-  </Text>
+  </P>
   { children }
 </>)
 
@@ -98,10 +80,10 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
 
   // Grabbed from here https://www.vote.org/technology/
   return <>
-    <Title data-testid='status-title'>Great News!</Title>
-    <Text data-testid='status-detail'>
+    <H1 data-testid='status-title'>Great News!</H1>
+    <P data-testid='status-detail'>
       You can sign up below through our friends at <a href='https://vote.org'>Vote.org</a>
-    </Text>
+    </P>
     <iframe
       style={{marginTop: '2em'}}
       src={`https://absentee.vote.org/?partner=${partnerId}&state=${state}&campaign=free-tools&zip_5=${zip}`}
@@ -116,8 +98,8 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
 }
 
 export const Unidentified = ({state}: StateField) => (<>
-  <Title data-testid='status-title'>Sorry!</Title>
-  <Text data-testid='status-detail'>
+  <H1 data-testid='status-title'>Sorry!</H1>
+  <P data-testid='status-detail'>
     Unfortunately, We do not have any information on vot by mail for {state}.
-  </Text>
+  </P>
 </>)
