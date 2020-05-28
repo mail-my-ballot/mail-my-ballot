@@ -17,8 +17,6 @@ export const loadState = async (state: AvailableState): Promise<[AvailableState,
 export const loadStates = async (): Promise<RawContactRecord> => {
   const startTime = new Date()
   const records = await Promise.all(availableStates.map(state => loadState(state)))
-  if (!Object.fromEntries)
-    Object.fromEntries = l => l.reduce((a, [k,v]) => ({...a, [k]: v}), {})
   const ret = Object.fromEntries(records) as RawContactRecord
   const endTime = new Date()
   const seconds = (endTime.getTime() - startTime.getTime()) / 1000.
