@@ -41,3 +41,28 @@ input, .mui-textfield > input {
   padding: 14px 6px;
   height: 22px;
 }
+
+
+// Toast Custom UI
+.toast-custom-container {
+  border-style: solid;
+  border-width: thin;
+  padding: 1em !important;
+  border-radius: 1em !important;
+  background: #fafafa;
+  z-index: 4;
+  max-width: 300px;
+  width: 100%;
+  margin: 2em auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.toast-custom-success {
+  border-color: #4DB6AC !important;
+  color: #4DB6AC !important;
+}
+
+.toast-custom-error {
+  border-color: #C62828 !important;
+  color: #C62828 !important;
+}

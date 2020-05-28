@@ -89,8 +89,8 @@ export const Blurb: React.FC<{}> = () => {
     if (!zip) return
     const resp = await client.fetchState(zip)
     if (resp.type === 'error') {
-      toast.error(resp.message, {
-        position: 'top-right'
+      toast(resp.message, {
+        className: 'toast-custom-container toast-custom-error'
       })
       return 
     }
