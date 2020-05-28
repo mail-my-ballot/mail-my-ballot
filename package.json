@@ -9,7 +9,6 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "postinstall": "yarn run client",
     "client": "yarn workspace @vbm/client",
     "common": "yarn workspace @vbm/common",
     "server": "yarn workspace @vbm/server",
