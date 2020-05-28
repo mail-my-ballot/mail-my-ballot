@@ -16,7 +16,7 @@
     "clobber": "yarn clean && rm -f yarn.lock",
     "gulp": "lerna run gulp --",
     "test": "lerna run gulp -- test && yarn server gulp test --e2e",
-    "build": "lerna run gulp -- build --env production",
+    "build": "lerna run gulp -- build --env staging",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "eslintConfig": {
