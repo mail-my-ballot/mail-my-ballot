@@ -58,7 +58,7 @@ const RawDevInfo = () => {
   const { address } = AddressContainer.useContainer()
 
   return <RedOutline>
-    <h2>Dev Info</h2>
+    <h1>Dev Info</h1>
     <p>This only appears in development</p>
     <CheckAdd/>
     <ObjectTable title='Process Env' obj={process.env}/>

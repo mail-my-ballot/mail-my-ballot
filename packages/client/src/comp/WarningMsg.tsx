@@ -69,13 +69,14 @@ export const WarningMsg = () => {
   if (process.env.REACT_APP_EMAIL_FAX_OFFICIALS) return null
   
   return <RedOutline>
-    <h3>Warning: Not Production!</h3>
+    <h2>Warning: Not Production!</h2>
     <p>This is <b>not</b> a production build.
       In production, the application email is sent to both the local elections official and yourself.
       Since this is not production, the email is only sent to you.
       No email is sent to a local elections official so you can safely play with this demo.
     </p>
-    <h4>Filling out the form:</h4>
+    <p>If you really want to submit a Vote by Mail signup do so on production: <a href='https://mailmyballot.org'>https://mailmyballot.org</a>.</p>
+    <h2>Filling out the form:</h2>
     <p><b>Address:</b> You can fill this out with any address.  But to see it in action, you will want to use an address in a state we support.  Sample addresses are listed below.</p>
     <p><b>Email:</b> When prompted, please use your own email (so as to not spam others!)</p>
     <StateSelector initialState={defaultState(path)}>

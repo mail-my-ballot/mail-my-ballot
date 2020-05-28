@@ -1,4 +1,4 @@
-# vbm
+# MailMyBallot.org
 
 ## Getting Started
 
@@ -65,13 +65,15 @@ The code is a lerna repo split into three packages:
 - `packages/server`
 - `packages/common` shared code symlinked between above to
 
-Each package has it's own `gulpfile.js`
+Each package has it's own `gulpfile.js`.
 
 ### Runnign tasks
 To invoke the grunt file, run commands like
 ```bash
 yarn server gulp script --env developement --file src/script/fetchData.ts
 ```
+
+Check out the gulpfiles for more information.
 
 ### Checking repo
 To check if the repo is working run the following four commands
@@ -84,18 +86,21 @@ To add a new state, you will need to complete the following steps:
 1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
 1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`
 1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors from incomplete switch statements when you run
-    ```
+    ```bash
     yarn build
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
 
-## App Engine (Server Deploy)
+## Hosting
+The best way to showcase changes to your site is to host your own staging instance.  Each instance has its own configuration (e.g. `production` or `staging`) and can be edited via the gulpfile via `--env production`.  To add your own, copy and modify the contents the `staging` object in `env/env.js` using your own namespace (e.g. your GithubID).
+
+### Now (Client Hosting)
+The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.  If you create and deploy to your own zeit hosting instance and point it to the dev or staging backend instance, you should be able to experiment / show off your own front-end.
+
+### App Engine (Server Hosting)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
 
-Don't forget to enable the indexes (see the gulp file server's `gulpfile.js`).  The recommended procedure is to
-1. Claim an org on dev and clik the download button.  This will fail but the server log on dev will give you a link where you can create the index.  Alternatively, the current index is saved in `firestore.index.json`.
-2. Run `yarn server-gulp dev-index` to update `firestore.index.json` (optional -- only if there are additional index needs).
-3. Run the command resulting from `yarn server-gulp deploy-index --env staging` to upload the index to staging (and also production).
+Don't forget to enable the indexes (see the gulp file server's `gulpfile.js`).  To do this, run the command resulting from `yarn server gulp deploy-index --env [your environment]`.
 
 ### Secrets in Server Production
 Configuration and secrets are currently added into `app.yaml` (not in git) from `app.tmpl.yaml` via gulp process (stored in git).

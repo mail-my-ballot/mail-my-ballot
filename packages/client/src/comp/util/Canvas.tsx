@@ -2,9 +2,11 @@ import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
 
-import { RoundedButton } from './Button'
+import { SmallButton } from './Button'
+import { GoldRatioOutline } from './Outline'
+import { Muted } from './Text'
 
-const WhiteButton = styled(RoundedButton)`
+const WhiteButton = styled(SmallButton)`
   margin: 1em 0;
   background: #ffffff;
   color: #000;
@@ -14,14 +16,31 @@ const WhiteButton = styled(RoundedButton)`
   }
 `
 
+const CanvasContainer = styled.div`
+  position: relative;
+  text-align: center;
+`
+
+const CanvasOverlay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
 type Props = React.PropsWithChildren<{
   setSignature: (_: string | null) => void
   width: number
   height: number
 }>
 
-export const Canvas: React.FC<Props> = ({ width, height, setSignature }) => {
+export const Canvas: React.FC<Props> = ({ setSignature }) => {
   const ref = React.useRef<SignatureCanvas>(null)
+  const [dirty, setDirty] = React.useState<boolean>(false)
+
+  const onBegin = () => {
+    setDirty(true)
+  }
   
   const onEnd = () => {
     if (!ref.current) return
@@ -36,24 +55,31 @@ export const Canvas: React.FC<Props> = ({ width, height, setSignature }) => {
     event.preventDefault()
     ref.current && ref.current.clear()
     setSignature(null)
+    setDirty(false)
   }
 
-  const bottomLine: React.CSSProperties = {
-    borderBottom: '1px solid rgba(0, 0, 0, 0.26)',
-    width: `${width}px`
+  const centerBlock: React.CSSProperties = {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }
 
-  return <div style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
-    <div style={bottomLine} data-testid='signature-canvas-wrap'>
-      <SignatureCanvas data-testid='signature-canvas'
-        canvasProps={
-          {width, height, 'data-testid': 'canvas'} as React.CanvasHTMLAttributes<HTMLCanvasElement>
-        }
-        ref={ref}
-        onEnd={onEnd}
-      />
-    </div>
-    <WhiteButton onClick={clearClick} variant='raised'>
+  return <div>
+    <GoldRatioOutline>
+      { ({width, height}) => <CanvasContainer>
+          <SignatureCanvas
+            canvasProps={
+              {width, height, 'data-testid': 'canvas'} as React.CanvasHTMLAttributes<HTMLCanvasElement>
+            }
+            ref={ref}
+            onBegin={onBegin}
+            onEnd={onEnd}
+          />
+          {dirty ? null : <CanvasOverlay><Muted>Sign with your Mouse or Finger</Muted></CanvasOverlay>}
+        </CanvasContainer>
+      }
+    </GoldRatioOutline>
+    <WhiteButton onClick={clearClick} style={centerBlock}>
       Clear Signature
     </WhiteButton>
   </div>

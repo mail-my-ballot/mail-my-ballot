@@ -1,5 +1,8 @@
 import React from 'react'
-import { RoundedButton } from './Button'
+import { SmallButton } from './Button'
+import { GoldRatioOutline } from './Outline'
+import styled from 'styled-components'
+import { Muted } from './Text'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -20,21 +23,18 @@ interface Props {
   maxSizeMB?: number
 }
 
-const style: React.CSSProperties = {
-  borderWidth: '2px',
-  borderStyle: 'dashed',
-  borderColor: '#2196F3',
-  minHeight: '200px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '1em',
-}
-
 interface Image {
   name: string
   data: string
 }
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:    center;
+  height: 100%;
+`
 
 export const Upload: React.FC<Props> = ({
   label,
@@ -67,33 +67,38 @@ export const Upload: React.FC<Props> = ({
 
   const centerBlock: React.CSSProperties = {
     display: 'block',
-    textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
   }
 
   return <div>
-    <div onClick={onClick} style={style}>
-      <div data-testid='upload-click-target'>
-        {
-          (image) ? <>
-              <img src={image.data} style={{maxHeight: '150px', ...centerBlock}} alt='thumbnail'/>
-              <small style={centerBlock}>{image.name}</small>
-            </>
-            : <>{
-              // eslint-disable-next-line
-              }<h1 style={{marginTop: '0', ...centerBlock}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-                <p style={centerBlock}>Limit: {maxSizeMBReal}MB</p>
+    <div onClick={onClick}>
+    <GoldRatioOutline>
+      {
+        ({width, height}) => (<div data-testid='upload-click-target' style={{width, height}}>
+          <FlexBox>
+          {
+            (image) ? <>
+                <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
+                <Muted>{image.name}</Muted>
               </>
-        }
-        <RoundedButton color='primary' style={centerBlock} >{label}</RoundedButton>
-      </div>
+              : <>{
+                // eslint-disable-next-line
+                }<h1 style={{marginTop: '0', paddingTop: '0'}}><i className="fa fa-upload" aria-hidden="true"/></h1>
+                  <Muted>Limit: {maxSizeMBReal}MB</Muted>
+                  <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
+                </>   
+          }
+          </FlexBox>
+        </div>)
+      }
+    </GoldRatioOutline>
     </div>
     <input
       data-testid='upload-input'
       name='upload'
       type='file'
-      style={{opacity: '0', height: '1px' }}
+      style={{opacity: 0, height: 0 }}
       ref={el => ref.current = el}
       onChange={onChange}
       accept='image/*,.pdf'

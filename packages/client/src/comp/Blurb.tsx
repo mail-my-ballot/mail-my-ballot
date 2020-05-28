@@ -2,34 +2,32 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
-import Container from 'muicss/lib/react/container'
-import { Row, Col } from 'muicss/react'
+import { StyleContainer } from './util/Container'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/unstated'
 import { toast } from 'react-toastify'
+
 
 const Background = styled.div`
   top: 0;
   left: 0;
   min-width: 100%;
   background: rgb(144,202,249);
-  background: linear-gradient(45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
+  background: linear-gradient(-45deg, rgba(144,202,249,1) 0%, rgba(30,136,229,1) 25%, rgba(21,101,192,1) 100%);
   color: #f1f1ff;
 `
 
 const Title = styled.h1`
   font-weight: 100;
-  margin: 1em 0;
+  padding-top: 24px;
+  @media only screen and (max-width: 400px) {
+    padding-top: 8px;
+  }
 `
 
 const Text = styled.p`
-  margin: 0.5em 0;
-  font-size: 1.2em;
-`
-
-const Prompt = styled.h3`
-  margin-bottom: 0;
+  margin-bottom: 16px;
 `
 
 const FlexBox = styled.div`
@@ -40,6 +38,7 @@ const FlexBox = styled.div`
 `
 
 const FlexContainer = styled.div`
+  margin-top: 24px;
   display: flex;
   flex-direction: row;
   justify-contnet: flex-start;
@@ -47,24 +46,22 @@ const FlexContainer = styled.div`
 `
 
 const ZipInput = styled.input`
-  margin: 2em 0;
-  padding: 0.5em 1em;
-  width: 6em;
-  height: 22px;
+  padding: 14px 16px;
   border: none;
-  border-color: transparent;
   box-shadow: none;
   outline: none;
-  border-radius: 2em 0 0 2em;
+  width: 84px;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 4px;
+  margin-right: 1rem;
 `
 
 const SubmitButton = styled(RoundedButton)`
-  margin: 2em 0;
-  width: 8em;  // ZipInput's width + margin
-  border-radius: 0 2em 2em 0;
   z-index: 0;
   background: #4DB6AC;
   color: #f1f1ff;
+  margin 0;
   :hover {
     background: #5DC6BC;
     color: #f1f1ff;
@@ -109,40 +106,36 @@ export const Blurb: React.FC<{}> = () => {
   }
 
   return <Background style={{height}}>
-    <Container>
-      <Row>
-        <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={6}>
-          <FlexBox style={{height}}>
-            <Title>Vote by Mail</Title>
-            <Text>
-              Voting by mail is a secure, time-tested, and easy way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.
-            </Text>
-            <Text>Sign up today in <b style={{fontSize: '1.1em'}}>2 minutes</b> before your state deadline expires.
-            </Text>
-            <Prompt>Enter your ZIP code to get started</Prompt>
-            <Form onSubmit={handleSubmit}>
-              <FlexContainer> 
-                {/* id is used by WarningMsg to fill out zipcode */}
-                <ZipInput
-                  id='start-zip'
-                  data-testid='start-zip'
-                  type='text'
-                  pattern='[0-9]{5}'
-                  placeholder='ZIP code'
-                  defaultValue={defaultValue()}
-                  ref={zipRef} />
-                <SubmitButton
-                  id='start-submit'
-                  data-testid='start-submit'
-                  variant='raised'
-                >
-                  Start
-                </SubmitButton>
-              </FlexContainer>
-            </Form>
-          </FlexBox>
-        </Col>
-      </Row>
-    </Container>
+    <StyleContainer>
+      <FlexBox style={{height}}>
+        <Title>Vote by Mail</Title>
+        <Text>
+          Voting by mail is a secure, time-tested, and easy way to vote.  Your ballot arrives safely in the mail weeks before the election and can be filled out and returned at your convenience.
+        </Text>
+        <Text>Sign up today in <b>2 minutes</b> before your state deadline expires.
+        </Text>
+        <Form onSubmit={handleSubmit}>
+          <Text><b>Enter your ZIP code</b> to get started</Text>
+          <FlexContainer> 
+            {/* id is used by WarningMsg to fill out zipcode */}
+            <ZipInput
+              id='start-zip'
+              data-testid='start-zip'
+              type='text'
+              pattern='[0-9]{5}'
+              placeholder='ZIP code'
+              defaultValue={defaultValue()}
+              ref={zipRef} />
+            <SubmitButton
+              id='start-submit'
+              data-testid='start-submit'
+              variant='raised'
+            >
+              Start
+            </SubmitButton>
+          </FlexContainer>
+        </Form>
+      </FlexBox>
+    </StyleContainer>
   </Background>
 }

@@ -1,0 +1,43 @@
+$mui-base-font-family:    'Open Sans', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+$mui-base-font-size:      20px;
+$mui-base-font-style:     normal;
+$mui-base-font-weight:    normal;
+$mui-base-line-height:    1.5;
+
+$mui-input-font-size:     16px;
+$mui-input-font-color:    #4F4F4F;
+
+$mui-btn-height:          36px;
+$mui-btn-height-lg:       50px;
+
+@import '~muicss/lib/sass/mui';
+
+h1, h2, h3, h4 {
+  font-family: Merriweather, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+  font-size:      48px;
+  line-height:    58px;
+  font-weight:    bold;
+  margin-bottom:  24px;
+  margin-top:     0px;
+  padding-top:    120px;
+  @media only screen and (max-width: 400px) {
+    padding-top:    40px;
+  }
+}
+
+h2 {
+  font-size:    40px;
+  line-height:  48px;
+}
+
+b {
+  font-weight:  600;
+}
+
+input, .mui-textfield > input {
+  padding: 14px 6px;
+  height: 22px;
+}

@@ -10,16 +10,25 @@ import { Maine } from './Maine'
 import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/unstated'
 import { Locale, ContactMethod, ImplementedState, isImplementedLocale } from '../../common'
-import styled from 'styled-components'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact, ContactInfo } from './ContactInfo'
 import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
+import { StyledPanel } from '../util/Panel'
+
 
 type Props = React.PropsWithChildren<{
   locale: Locale<ImplementedState>
 }>
+
+export const StatePanel: React.FC<Props> = ({
+  locale
+}) => {
+  return <StyledPanel>
+    <RawStateForm locale={locale}/>
+  </StyledPanel>
+}
 
 export const RawStateForm: React.FC<Props> = ({
   locale,
@@ -37,10 +46,6 @@ export const RawStateForm: React.FC<Props> = ({
     case 'Wisconsin': return <Wisconsin />
   }
 }
-
-export const PaddingTop = styled.div`
-  padding-top: 4em;
-`
 
 const methodExplain = (method: ContactMethod): string => {
   const email = 'email the vote-by-mail application to both you and the election official'
@@ -80,10 +85,10 @@ export const StateForm = () => {
   if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
   if (!isImplementedLocale(locale)) throw Error(`Locale state ${locale.state} is not implemented`)
 
-  return <PaddingTop>
-    <h2>{locale.state} Vote by Mail Form</h2>
+  return <>
+    <h1>{locale.state} Vote by Mail Form</h1>
     <ContactInfo locale={locale} contact={contact}/>
-    <p>To apply, fill out the following form and we will {methodExplain(method)}</p>
-    <RawStateForm locale={locale}/>
-  </PaddingTop>
+    <p><b>Fill out</b> the following form and we will {methodExplain(method)}</p>
+    <StatePanel locale={locale}/>
+  </>
 }
