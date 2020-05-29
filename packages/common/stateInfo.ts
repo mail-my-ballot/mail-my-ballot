@@ -61,6 +61,7 @@ export interface FloridaInfo extends _Id, SignatureBaseInfo{
 
 export interface MichiganInfo extends _Id, SignatureBaseInfo {
   state: 'Michigan'
+  permanentList?: boolean
 }
 
 export const georgiaParty = ['Democratic Party', 'Republican Party', 'Non-Partisan'] as const
