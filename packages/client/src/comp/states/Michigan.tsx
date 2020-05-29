@@ -19,6 +19,7 @@ export const Michigan = () => {
     <Checkbox
       ref={ref}
       label={'Request Michigan mail me an application for absentee ballots for all future elections.'}
+      defaultChecked={true}
     />
   </SignatureBase>
 }
