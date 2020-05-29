@@ -9,10 +9,10 @@ const compose = (...fs: Transform[]): Transform => {
 
 /* expand appreviations for "Saint" */
 const expandSaint: Transform = (text): string => {
-  if (text.startsWith('St ')) {
-    return text.replace('St ', 'Saint ')
-  } else if (text.startsWith('St. ')) { 
-    return text.replace('St. ', 'Saint ')
+  if (text.startsWith('st ')) {
+    return text.replace('st ', 'saint ')
+  } else if (text.startsWith('st. ')) { 
+    return text.replace('st. ', 'saint ')
   } else {
     return text
   }
