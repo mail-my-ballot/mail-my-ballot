@@ -32,6 +32,7 @@ export const toEmailData = (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
+  pdfBuffer: Buffer,
   force = false,
 ): mailgun.messages.SendData => {
   const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
@@ -45,12 +46,16 @@ export const toEmailData = (
 
   const attachment1 = signature ? makeImageAttachment(signature, 'signature', voterEmail) : []
   const attachment2 = idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : []
+  const attachment3 = [new mg.Attachment({
+    data: pdfBuffer,
+    filename: 'letter.pdf',
+  })]
   return {
     to,
     subject,
     html,
     text: md,
-    attachment: [...attachment1, ...attachment2],
+    attachment: [...attachment1, ...attachment2, ...attachment3],
     ...mgData,
   }
 }
@@ -59,6 +64,7 @@ export const sendEmail = async (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
+  pdfBuffer: Buffer,
   force = false,
 ): Promise<mailgun.messages.SendResponse | null> => {
   if (process.env.MG_DISABLE) { // to disable MG for testing
@@ -66,6 +72,6 @@ export const sendEmail = async (
     return null
   }
 
-  const emailData = toEmailData(letter, voterEmail, officialEmails, force)  
+  const emailData = toEmailData(letter, voterEmail, officialEmails, pdfBuffer, force)  
   return mg.messages().send(emailData)
 }
