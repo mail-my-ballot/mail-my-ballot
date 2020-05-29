@@ -74,7 +74,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
         letter,
         info.email,
         method.emails,
-        pdfBuffer,
+        { pdfBuffer },
       )
 
       // Send faxes
