@@ -89,5 +89,3 @@ typings/
 dist/
 tsconfig.tsbuildinfo
 venv
-
-.vercel
