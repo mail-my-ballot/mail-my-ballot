@@ -39,16 +39,17 @@ gulp.task('start',
   )
 )
 
-// proto
-gulp.task('proto',
-  runEnv(`ts-node-dev --transpileOnly ${options.file}`)
-)
-
 // script
 gulp.task('script',
   gulp.series(
     envRequired,
-    runEnv(`ts-node-dev --transpileOnly ${options.file} ${options.env}`),
+    async () => {
+      const args = (Object.entries(options)
+        .filter(([key, _]) => key !== '_')
+        .map(([key, val]) => `--${key} ${val}`)
+        .join(' '))
+      return runEnv(`ts-node-dev --transpileOnly ${options.script} ${args}`)()
+    }
   )
 )
 
