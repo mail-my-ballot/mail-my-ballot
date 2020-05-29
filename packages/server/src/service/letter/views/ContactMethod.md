@@ -5,18 +5,20 @@
 {% endmacro %}
 
 {% macro fax(faxes) %}
-  Per said requirements, the request may be sent by fax.  It is being faxed to the following fax number(s):
+  Per said requirements, the request may be sent by fax to the following fax number(s)
   {{ list(faxes) }}
 {% endmacro %}
 
 {% macro email(emails) %}
-  Per said requirements, the request may be sent by email.  It is being sent to the following email address(es):
+  Per said requirements, the request may be sent by email to the following email address(es)
   {{ list(emails) }}
+  with a PDF copy of this letter as an attachment.
 {% endmacro %}
 
 {% macro convenienceEmail(emails) %}
-  As a convenience to the elections official, it is being emailed to the following email address(es):
+  As a convenience to the elections official, it is being emailed to the following email address(es)
   {{ list(emails) }}
+  with a PDF copy of this letter as an attachment.
 {% endmacro %}
 
 {% macro contactMethod(method) %}
