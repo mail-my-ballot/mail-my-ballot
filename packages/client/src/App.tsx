@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Switch, Route, Redirect } from "react-router-dom"
+import { ModalProvider } from 'styled-react-modal'
 
 import { About } from './comp/About'
 import { Footer } from './comp/Footer'
@@ -20,6 +21,8 @@ import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
+import { StyledModalProvider } from './comp/ModalContext'
+import { StyledModal } from './comp/StyledModal'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -77,10 +80,16 @@ const Layout = () => {
       <Route path={pathData['state'].path}>
         <Blurb/>
         <TallStyleContainer>
+        <StyledModalProvider>
+          <>
           <AddressForm/>
-          <ScrollHook pathEnum='state'>
-            <StateForm/>
-          </ScrollHook>
+          <ModalProvider>
+            <StyledModal>
+              <StateForm/>
+            </StyledModal>
+          </ModalProvider>
+          </>
+          </StyledModalProvider>
           <Notification/>
           <WarningMsg/>
         </TallStyleContainer>

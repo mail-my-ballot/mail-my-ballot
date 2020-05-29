@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
 import { sampleAddresses, ImplementedState } from '../common'
+import { StyledModalContext } from './ModalContext'
 
 const FlexBox = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   const { load, error, success } = QueryContainer.useContainer()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
+  const { modal, handleModal } = useContext(StyledModalContext)
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
@@ -84,6 +86,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           const {contact, address} = result.data
           setContact(contact)
           setAddress(address)
+          handleModal(!modal)
           break
         }
         case 'error': {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
@@ -11,6 +11,7 @@ import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer } from '../../lib/unstated'
+import { StyledModalContext } from '../ModalContext'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -25,6 +26,7 @@ type Props<Info> = React.PropsWithChildren<{
  * /#/org/default/state?registrationAddress=100%20S%20Biscayne%20Blvd,%20Miami,%20FL%2033131&name=George%20Washington&birthdate=1945-01-01&email=george@us.gov&telephone=212-111-1111
  */
 export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<Info>) => {
+  const { modal, handleModal } = useContext(StyledModalContext)
   const { pushSuccess, oid, query } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
@@ -58,6 +60,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
 
     const info = enrichValues(baseInfo)
     if (!info) return  // TODO: Add warning
+    handleModal(!modal)
     const result = await client.register(info, voter)
     result.type === 'data' && pushSuccess(result.data)
     // TODO: Add warning if error
