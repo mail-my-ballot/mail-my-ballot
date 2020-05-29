@@ -67,6 +67,11 @@ const SubmitButton = styled(RoundedButton)`
   }
 `
 
+interface PreviousZips {
+  id: string;
+  data: any;
+}
+
 export const Blurb: React.FC<{}> = () => {
   const { path, pushAddress } = useAppHistory()
   const { address } = AddressContainer.useContainer()
@@ -77,6 +82,9 @@ export const Blurb: React.FC<{}> = () => {
   // Also, need to use a state variable instead of a simpler ts variable
   // https://stackoverflow.com/a/56156394/8930600
   const [height, setHeight] = React.useState('100vh')
+
+  const [zips, setZips] = React.useState<PreviousZips[]>([])
+
   React.useEffect(() => {
     setHeight(`${window.innerHeight}px`)
   }, [])
@@ -86,10 +94,19 @@ export const Blurb: React.FC<{}> = () => {
     event.preventDefault()
     const zip = zipRef?.current?.value
     if (!zip) return
-    const resp = await client.fetchState(zip)
-    if (resp.type === 'error') return
-    pushAddress(resp.data, zip)
-    // TODO: handle error
+    const zipData = zips.find(element => element.id === zip)
+    if( zipData === undefined){
+      const resp = await client.fetchState(zip)
+      if (resp.type === 'error') return
+      // TODO: handle error
+      setZips(prevZips => ([
+        ...prevZips,
+        {id: zip, data: resp.data}
+      ]))
+      pushAddress(resp.data, zip)
+    } else {
+      pushAddress(zipData.data, zip)
+    }
   }
 
   const defaultValue = () => {
