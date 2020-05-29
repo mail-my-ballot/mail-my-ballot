@@ -2,7 +2,7 @@ import React, { createContext} from 'react'
 import useModal from '../lib/hooks/useModal'
 
 type ModalContext = {
-  handleModal(val: boolean): void
+  handleModal(): void
   modal: boolean
 }
 

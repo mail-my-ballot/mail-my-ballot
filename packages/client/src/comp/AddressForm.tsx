@@ -42,7 +42,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   const { load, error, success } = QueryContainer.useContainer()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
-  const { modal, handleModal } = useContext(StyledModalContext)
+  const { handleModal } = useContext(StyledModalContext)
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
@@ -86,7 +86,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           const {contact, address} = result.data
           setContact(contact)
           setAddress(address)
-          handleModal(!modal)
+          handleModal()
           break
         }
         case 'error': {

@@ -19,7 +19,7 @@ interface IModal {
 const StyledModal = ({ children }: IModal) => {
   const { modal, handleModal } = useContext(StyledModalContext)
   const toggleModal = () => {
-    handleModal(!modal)
+    handleModal()
   }
 
   return (

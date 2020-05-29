@@ -4,9 +4,7 @@ import { useState } from 'react'
 export default () => {
   const [modal, setModal] = useState(false)
 
-  const handleModal = (isOpen: boolean) => {
-    setModal(isOpen)
-  }
+  const handleModal = () => setModal(!modal)
 
   return { modal, handleModal }
 }
