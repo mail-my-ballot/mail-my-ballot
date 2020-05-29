@@ -48,15 +48,17 @@ export const toEmailData = (
     replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
   }
 
-  const attachment1 = signature ? makeImageAttachment(signature, 'signature', voterEmail) : []
-  const attachment2 = idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : []
-  const attachment3 = pdfBuffer ? [new mg.Attachment({data: pdfBuffer, filename: 'letter.pdf'})] : []
+  const attachment = [
+    signature ? makeImageAttachment(signature, 'signature', voterEmail) : [],
+    idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : [],
+    pdfBuffer ? [new mg.Attachment({data: pdfBuffer, filename: 'letter.pdf'})] : []
+  ].flatMap(x => x)
   return {
     to,
     subject,
     html,
     text: md,
-    attachment: [...attachment1, ...attachment2, ...attachment3],
+    attachment,
     ...mgData,
   }
 }
