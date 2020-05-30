@@ -17,7 +17,7 @@ export const Success: React.FC = () => {
 
   return <div >
     <h1>Success!</h1>
-    <p>You have successfully sent your Vote by Mail signup to your local election official.  We emailed you a copy of the signup letter.</p>
+    <p>You have successfully sent your Vote by Mail signup to your local election official.  We emailed you a copy as well.</p>
     {id && <p>Your Confirmation ID is <b>{id}</b>.</p>}
     <StyledPanel>
       <BlueH2>One Last Step ...</BlueH2>
