@@ -15,13 +15,13 @@ export const Success: React.FC = () => {
   const { pushStart } = useAppHistory()
   const { id } = useParams()
 
-  return <div style={{paddingTop: '4em' }}>
+  return <div >
     <h1>Success!</h1>
-    <p>You have successfully sent your Vote by Mail signup to your local election official.  You received a copy of this signup via email.</p>
-    {id && <p>Your Confirmation ID is <b>{id}</b>.  You may save off a copy for your records if you wish.</p>}
+    <p>You have successfully sent your Vote by Mail signup to your local election official.  We emailed you a copy of the signup letter.</p>
+    {id && <p>Your Confirmation ID is <b>{id}</b>.</p>}
     <StyledPanel>
       <BlueH2>One Last Step ...</BlueH2>
-      <p>Check your inbox for the signup email and <b>Reply All</b> with &ldquo;<i>I confirm this request</i>&rdquo; to confirm with your local elections official.</p>
+      <p>Check your inbox for the signup email and <b>Reply All</b> with &ldquo;<i>I confirm this request.</i>&rdquo;  (This is not strictly necessary but election officials appreciate the confirmation.)</p>
     </StyledPanel>
     <RoundedButton color='primary' variant='raised' onClick={pushStart}>
       Start Over
