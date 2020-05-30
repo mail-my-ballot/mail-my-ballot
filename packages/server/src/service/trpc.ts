@@ -51,17 +51,19 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     return data({contact, address})
   }
   public register = async (info: StateInfo, voter: Voter, request: Request) => {
-    const id = await firestoreService.addRegistration({
-      ...info,
-      ...hostInfo(request),
-      voter,
-    })
-
     const contact = await toContact(info)
     if (!contact) return error('Unable to find local official')
 
     const method = toContactMethod(contact)
     if (!method) return error('Unable to find contct details for local official')
+
+    const id = await firestoreService.addRegistration({
+      ...info,
+      ...hostInfo(request),
+      voter,
+      contact,
+      method,
+    })
 
     return data(id, async (): Promise<void> => {
       const letter = toLetter(info, method, id)

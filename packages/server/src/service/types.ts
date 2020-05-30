@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { StateInfo, _Id, Voter } from '../common'
+import { StateInfo, _Id, Voter, ContactData, ContactMethod } from '../common'
 import Mailgun from 'mailgun-js'
 import { FaxStatus } from 'twilio/lib/rest/fax/v1/fax'
 
@@ -37,4 +37,6 @@ export type RichStateInfo = StateInfo & {
   voter: Voter
   mgResponse?: Mailgun.messages.SendResponse | null
   twilioResponses?: TwilioResponse[]
+  contact?: ContactData
+  method?: ContactMethod
 }
