@@ -117,7 +117,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           />
         </FlexGrow>
         <FlexFixed>
-          <div style={{paddingTop: '15px', marginBottom: '20px'}}>
+          <div style={{paddingTop: '15px', marginBottom: '20px'}}>  {/* To match BaseInput's spacing */}
             <RoundedButton
               id='addr-submit'  // This id is used for Warning Box to submit form quickly
               color='primary'
