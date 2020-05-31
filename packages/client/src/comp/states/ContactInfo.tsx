@@ -1,8 +1,10 @@
 import React from 'react'
-import { ContactData, Locale } from '../../common'
+import Modal from 'react-modal'
+import { ContactData, Locale, ImplementedState } from '../../common'
+import { client } from '../../lib/trpc'
 
 type ContactInfoProps = React.PropsWithChildren<{
-  locale: Locale
+  locale: Locale<ImplementedState>
   contact: ContactData
 }>
 
@@ -45,9 +47,56 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   return <p>{texts.join(' ')}</p>
 }
 
+const modalStyles = {
+  content: {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',  
+    marginRight           : '-50%',
+    width                 : '50%',
+    transform             : 'translate(-50%, -50%)',
+  }
+}
+
+interface Props {
+  open: boolean
+  setOpen: (_: boolean) => void
+  state: ImplementedState
+}
+
+const ContactModal: React.FC<Props> = ({
+  state,
+  open,
+  setOpen,
+}) => {
+  const [keys, setKeys] = React.useState<string[]>([])
+  React.useEffect(() => {
+    (async() => {
+      const result = await client.fetchContacts(state)
+      if (result.type === 'data') {
+        setKeys(result.data)
+      }
+    })()
+  }, [state])
+  React.useEffect(() => Modal.setAppElement('body'))
+
+  return <Modal
+    isOpen={open}
+    onRequestClose={() => setOpen(false)}
+    contentLabel='Example Modal'
+    style={modalStyles}
+  >
+    <h2>Select your election Official</h2>
+    <ul>{keys.splice(0, 5).map((k, i) => <li key={i}>{k}</li>)}</ul>
+  </Modal>
+}
+
 export const ContactInfo: React.FC<ContactInfoProps> = ({
   locale, contact
 }) => {
+  const [open, setOpen] = React.useState<boolean>(false)
+
   const texts = [
     `The local elections official for ${localeString(locale)} is ${contact.official}.`,
     englishList('email address', 'email addresses', contact.emails),
@@ -55,5 +104,10 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({
     englishList('phone number', 'phone numbers', contact.phones),
   ]
 
-  return <p>{texts.join(' ')}</p>
+  return <p>
+    {texts.join(' ')}
+    {' '}
+    <a onClick={() => setOpen(true)}>Wrong Elections Official?</a>
+    <ContactModal open={open} setOpen={setOpen} state={locale.state}/>
+  </p>
 }

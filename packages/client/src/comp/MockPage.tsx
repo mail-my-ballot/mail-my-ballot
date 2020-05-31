@@ -33,7 +33,7 @@ const RawMockPage: React.FC<{}> = () => {
     })()
   }, [state, setAddress, setContact])
 
-  return <StateForm/>
+  return <StateForm ignoreError={true}/>
 }
 
 export const MockPage: React.FC<{}> = () => {
