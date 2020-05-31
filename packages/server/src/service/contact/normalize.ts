@@ -63,7 +63,10 @@ const normalizeContact = (contact: RawContact): RawContact => {
   }
 }
 
-export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
+export const normalizeState = (
+  state: AvailableState,
+  contacts: RawContact[]
+): Record<string, RawContact> => {
   const array = contacts.map(
     contact => [
       normalizeLocaleKey({
@@ -87,4 +90,3 @@ export const normalizeStates = (records: RawContactRecord): ContactRecord => {
   )
   return Object.fromEntries(array)
 }
-
