@@ -9,21 +9,25 @@ const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
   }
 }
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/**
+ * Every key is of the form `city + ':' + county`
+ * */
 const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
-    // only county
+    // Only county
     case 'Arizona':
     case 'Florida':
     case 'Georgia':
     case 'Minnesota':
     case 'Nebraska':
     case 'New York': {
-      return county!
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return ':' + county!
     }
 
-    // only city
-    case 'Maine': return city!
+    // Only city
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    case 'Maine': return city! + ':'
 
     // hybrid count or city
     case 'Maryland': // Baltimore city is independent of county
