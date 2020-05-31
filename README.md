@@ -91,6 +91,11 @@ To add a new state, you will need to complete the following steps:
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
 
+
+## Notes on Submitting Code
+Please submit code via pull requests, ideally from this repo if you have access or from your own fork if you do not.
+- We strive to only use [rebase merges](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+
 ## Hosting
 The best way to showcase changes to your site is to host your own staging instance.  Each instance has its own configuration (e.g. `production` or `staging`) and can be edited via the gulpfile via `--env production`.  To add your own, copy and modify the contents the `staging` object in `env/env.js` using your own namespace (e.g. your GithubID).
 
