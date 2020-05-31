@@ -52,6 +52,7 @@ export const toStateMethod = (state: AvailableState): StateMethod => {
 
 export interface ContactData {
   // each contact should have a locale and either an email or fax
+  key: string
   state: AvailableState
   city?: string
   county?: string

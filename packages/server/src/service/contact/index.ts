@@ -36,6 +36,7 @@ export const toContact = async (locale: Locale): Promise<ContactData | null> => 
     if (stateless) {
       return {
         ...stateless,
+        key,
         state,
       }
     }
