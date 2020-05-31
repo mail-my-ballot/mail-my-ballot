@@ -43,7 +43,7 @@ const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string
 })
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
-export const normalizeLocale = ({state, city, county}: OptionalLocale): string => {
+export const normalizeLocaleKey = ({state, city, county}: OptionalLocale): string => {
   return normalizeKey({
     state,
     city: city ? mandatoryTransform(city.toLowerCase()) : undefined,
@@ -62,7 +62,7 @@ const normalizeContact = (contact: RawContact): RawContact => {
 export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
   const array = contacts.map(
     contact => [
-      normalizeLocale({
+      normalizeLocaleKey({
         state,
         city: contact.city,
         county: contact.county,
