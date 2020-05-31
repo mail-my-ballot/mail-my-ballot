@@ -1,6 +1,6 @@
 import { ContactRecord } from './type'
 import { loadStates } from './loader'
-import { normalizeRecords } from './normalize'
+import { normalizeStates } from './normalize'
 import { Locale, isAvailableState, ContactData, AvailableState } from '../../common'
 import { keys } from './search'
 
@@ -8,7 +8,7 @@ let contactRecords: null | ContactRecord = null;
 
 (async (): Promise<void> => {
   const data = await loadStates()
-  contactRecords = normalizeRecords(data)
+  contactRecords = normalizeStates(data)
 })()
 
 const delay = (t: number): Promise<void> => new Promise(resolve => setTimeout(resolve, t))
@@ -23,9 +23,7 @@ const poll = async (condition: () => boolean, interval: number, timeout: number)
 
 export const getContactRecords = async (): Promise<ContactRecord> => {
   await poll(() => !!contactRecords, 100, 5000)
-  if (!contactRecords) {
-    throw Error('Unable to load data')
-  }
+  if (!contactRecords) throw Error('Unable to load data')
   return contactRecords
 }
 

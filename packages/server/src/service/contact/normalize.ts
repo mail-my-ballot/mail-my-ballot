@@ -73,7 +73,7 @@ export const normalizeState = (state: AvailableState, contacts: RawContact[]): R
   return Object.fromEntries(array)
 }
 
-export const normalizeRecords = (records: RawContactRecord): ContactRecord => {
+export const normalizeStates = (records: RawContactRecord): ContactRecord => {
   const rawArray  = Object.entries(records) as Array<[AvailableState, RawContact[]]>
   const array = rawArray.map(
     ([state, contactDatas]) => [
