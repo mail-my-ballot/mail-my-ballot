@@ -82,7 +82,7 @@ export const StateForm = () => {
   }
 
   // unlikely cases, caught mostly for type checking
-  if (locale.state !== contact.state) throw Error(`Locale state ${locale.state} does not match ${contact.state}`)
+  if (locale.state !== contact.state) console.warn(`Locale state ${locale.state} does not match ${contact.state}`)
   if (!isImplementedLocale(locale)) throw Error(`Locale state ${locale.state} is not implemented`)
 
   return <>

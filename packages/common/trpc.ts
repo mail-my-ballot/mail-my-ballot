@@ -5,11 +5,13 @@ import { ContactData } from './contact'
 import { Analytics } from './analytics'
 import { StateInfo } from './stateInfo'
 import { Voter } from './voter'
+import { Locale } from './locale'
 
 export interface IVbmRpc extends IRpc<IVbmRpc> {
   add(x: number, y: number): Promise<RpcRet<number>>
   fetchState(zip: string): Promise<RpcRet<State>>
   fetchAnalytics(org: string): Promise<RpcRet<Analytics>>
   fetchContactAddress(addr: string): Promise<RpcRet<{contact: ContactData, address: Address}>>
+  fetchContact(locale: Locale): Promise<RpcRet<ContactData>>
   register(info: StateInfo, voter: Voter): Promise<RpcRet<string>>
 }
