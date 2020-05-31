@@ -69,8 +69,8 @@ export const keys = (
       return [normalizeLocaleKey(locale)]
     }
     case 'Michigan': {
-      // In Michigan, first try administrative_area_level_3 (otherCities)
-      // before locality (city) and vary each locality
+      // In Michigan, first try 'administrative_area_level_3' (otherCities)
+      // before 'locality' (city) and vary each locality
       const orderedCities = [
         ...(locale?.otherCities ?? []),
         locale.city
