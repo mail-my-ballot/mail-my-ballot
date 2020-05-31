@@ -84,7 +84,8 @@ const toTitleCase = (str: string) => {
 }
 
 const jurisdictionName = (contactKey: string) => {
-  const [city, county] = toTitleCase(contactKey).split(':')
+  // The toTitleCase does not handle ':' properly so we apply after split
+  const [city, county] = contactKey.split(':').map(toTitleCase)
   if (city === '') return county
   if (county === '') return city
   return `${city} (${county})`
