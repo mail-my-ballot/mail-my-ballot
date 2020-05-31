@@ -27,19 +27,25 @@ export const getContactRecords = async (): Promise<ContactRecord> => {
   return contactRecords
 }
 
+export const getContact = async (state: AvailableState, key: string): Promise<ContactData | null> => {
+  const stateRecords = (await getContactRecords())[state]
+  const stateless = stateRecords[key]
+  if (stateless) {
+    return {
+      ...stateless,
+      key,
+      state,
+    }
+  }
+  return null
+}
+
 export const toContact = async (locale: Locale): Promise<ContactData | null> => {
   const { state } = locale
   if (!isAvailableState(state)) return null
-  const stateRecords = (await getContactRecords())[state]
   for (const key of keys(locale as Locale<AvailableState>)) {
-    const stateless = stateRecords[key]
-    if (stateless) {
-      return {
-        ...stateless,
-        key,
-        state,
-      }
-    }
+    const result = await getContact(state, key)
+    if (result) return result
   }
   return null
 }
