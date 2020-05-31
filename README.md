@@ -80,6 +80,7 @@ To check if the repo is working run the following four commands
 ```bash
 yarn bootstrap && yarn build && yarn lint && yarn test
 ```
+Please do this before you submit a PR.
 
 ## Adding a State
 To add a new state, you will need to complete the following steps:
