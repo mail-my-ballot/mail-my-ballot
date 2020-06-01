@@ -24,9 +24,9 @@ Thank you in advance for your help.  If you have any questions, please feel free
 
 Sincerely,
 
-{{name}}{% if signature %} (Signature Attached)
+{{name}}{% if signature %} (Signature Below and Attached)
 
-<img src='{{signature}}'/>
+<img style='max-width: 400px;' src='{{signature}}'/>
 {% endif %}
 
 <font style='font-size:75%;'>

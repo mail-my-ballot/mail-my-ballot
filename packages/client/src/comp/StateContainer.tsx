@@ -1,6 +1,9 @@
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
+import { ModalProvider } from 'styled-react-modal'
 import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer } from '../lib/unstated'
+
+
 // export for testing purposes
 export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
   <QueryContainer.Provider>
@@ -8,7 +11,9 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
       <ContactContainer.Provider>
         <AnalyticsContainer.Provider>
           <VoterContainer.Provider>
-            {children}
+            <ModalProvider>
+              {children}
+            </ModalProvider>
           </VoterContainer.Provider>
         </AnalyticsContainer.Provider>
       </ContactContainer.Provider>

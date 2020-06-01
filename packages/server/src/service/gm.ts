@@ -20,8 +20,6 @@ export const rawGeocode = async (query: string): Promise<google.maps.GeocoderRes
   return response.results[0]
 }
 
-const nonEmpty = <T>(x: T | null | undefined): x is T => !!x
-
 export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'queryAddr'> | null => {
   const components = result.address_components
 
@@ -49,7 +47,7 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
     state,
     postcode,
     county,
-    otherCities: otherCities.filter(nonEmpty)
+    otherCities: otherCities.filter((c): c is string => !!c)
   }
 }
 

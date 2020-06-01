@@ -10,7 +10,7 @@ export const About = () => {
   const url = processEnvOrThrow('REACT_APP_URL')
   const { pushStart } = useAppHistory()
 
-  return <div style={{paddingTop: '4em'}}>
+  return <div>
     <Row>
       <Col xs={12} md={8} md-offset={2} lg={6} lg-offset={3}>
         <h1>About Us</h1>

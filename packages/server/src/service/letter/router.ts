@@ -1,6 +1,6 @@
 import { Router} from 'express'
 
-import { getContactRecords } from '../contact'
+import { getContact, getFirstContact, getContactRecords } from '../contact'
 import { toContactMethod, StateInfo, ImplementedState, implementedStates, BaseInfo, ContactMethod, isImplementedState } from '../../common'
 import fs from 'fs'
 import { toLetter } from '.'
@@ -12,7 +12,7 @@ const loadBase64 = (filename: string) => {
   return fs.readFileSync(__dirname + '/' + filename).toString('base64')
 }
 
-const baseStateInfo: BaseInfo = {
+const baseStateInfo: Omit<BaseInfo, 'contact'> = {
   state: 'Florida',
   name: 'George Washington',
   email: 'george.washington@gmail.com',
@@ -27,29 +27,34 @@ const baseStateInfo: BaseInfo = {
 const signature = 'data:image/png;base64,' + loadBase64('signature.png')
 const idPhoto = 'data:image/jpg;base64,' + loadBase64('idPhoto.jpg')
 
-export const stateInfo = (state: ImplementedState): StateInfo => {
+export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => {
+  const commonStateInfo = {
+    ...baseStateInfo,
+    contact: await getFirstContact(state)
+  }
+  
   switch(state) {
     case 'Wisconsin': return {
-      ...baseStateInfo,
+      ...commonStateInfo,
       idPhoto,
       state,
     }
     case 'Nevada': return {
-      ...baseStateInfo,
+      ...commonStateInfo,
       signature,
       idPhoto,
       state,
     }
 
     case 'Arizona': return {
-      ...baseStateInfo,
+      ...commonStateInfo,
       idType: 'Arizona License Number',
       idData: '1234',
       party: 'Non-Partisan',
       state,
     }
     default: return {
-      ...baseStateInfo,
+      ...commonStateInfo,
       signature,
       state,
     }
@@ -62,23 +67,19 @@ export const sampleMethod: ContactMethod = {
   faxes: [],
 }
 
-router.get('/:stateIndex', async (req, res) => {
-  const { stateIndex } = req.params
-  const [state, rawIndex] = stateIndex.split('-')
+router.get('/:state/:key?', async (req, res) => {
+  const { state, key } = req.params
 
-  if (!isImplementedState(state)) return res.redirect('/sample/Florida-0')
-  const index = parseInt(rawIndex)
-  if (isNaN(index)) return res.redirect(`/sample/${state}-0`)
+  if (!isImplementedState(state)) return res.redirect('/letter/Florida/')
+  const contact = await (key ? getContact(state, key) : getFirstContact(state))
+  if (!contact) return res.redirect(`/${state}`)
 
-  // get contact method
-  const contactRecords = await getContactRecords()
-  const stateContacts = Object.keys(contactRecords[state])
-  const key = stateContacts[index]
-  const contact = contactRecords[state][key]  
   const method = toContactMethod({...contact, state})
+  const contactRecords = await getContactRecords()
+  const keys = Object.keys(contactRecords[state])
 
   // generate sample info
-  const info = stateInfo(state)
+  const info = await stateInfo(state)
   const confirmationId = '#sampleId1234'
 
   const renderLetter = (letter: string) => {
@@ -90,8 +91,8 @@ router.get('/:stateIndex', async (req, res) => {
       state,
 
       // locale data
-      stateContacts,
-      index,
+      keys,
+      key,
     })
   }
 

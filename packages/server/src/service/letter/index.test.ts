@@ -2,18 +2,18 @@ import { toLetter } from '.'
 import { stateInfo, sampleMethod } from './router'
 import { implementedStates } from '../../common'
 
-test('Leter for all states render correctly', () => {
+test('Leter for all states render correctly', async () => {
   const confirmationId = 'sampleConfirmationId'
 
-  const letters = implementedStates.map(state => {
+  const letters = await Promise.all(implementedStates.map(async state => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const info = stateInfo(state)
+    const info = await stateInfo(state)
     return toLetter(
       info,
       sampleMethod,
       confirmationId
     )
-  }).filter(letter => !!letter)
+  }))
   
   letters.forEach(letter => {
     expect(letter?.md).toContain(confirmationId)

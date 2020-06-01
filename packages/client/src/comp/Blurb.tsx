@@ -20,7 +20,7 @@ const Background = styled.div`
 const Title = styled.h1`
   font-weight: 100;
   padding-top: 24px;
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 544px) {
     padding-top: 8px;
   }
 `

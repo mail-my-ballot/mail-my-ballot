@@ -1,5 +1,6 @@
 import { _Id } from './util'
 import { Locale } from './locale'
+import { ContactData } from './contact'
 import { ExtendsState } from './states'
 
 // States for which we now support
@@ -34,6 +35,7 @@ export interface BaseInfo extends Locale {
   userAgent?: string
   signature?: string
   idPhoto?: string
+  contact: ContactData
 }
 
 interface SignatureBaseInfo extends BaseInfo {
@@ -61,6 +63,7 @@ export interface FloridaInfo extends _Id, SignatureBaseInfo{
 
 export interface MichiganInfo extends _Id, SignatureBaseInfo {
   state: 'Michigan'
+  permanentList?: boolean
 }
 
 export const georgiaParty = ['Democratic Party', 'Republican Party', 'Non-Partisan'] as const

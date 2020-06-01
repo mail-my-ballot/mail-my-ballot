@@ -1,6 +1,6 @@
 import { ContactData, AvailableState } from "../../common"
 
-export type RawContact = Omit<ContactData, 'state'>
+export type RawContact = Omit<ContactData, 'state' | 'key'>
 
 export type RawContactRecord = Record<AvailableState, RawContact[]>
 

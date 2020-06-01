@@ -1,8 +1,19 @@
 import React from 'react'
-import { ContactData, Locale } from '../../common'
+import Select from 'muicss/lib/react/select'
+import Option from 'muicss/lib/react/option'
+import Modal from 'styled-react-modal'
+import { ContactData, Locale, ImplementedState } from '../../common'
+import { client } from '../../lib/trpc'
+import { RoundedButton } from '../util/Button'
+import Form from 'muicss/lib/react/form'
+import { useControlRef } from '../util/ControlRef'
+import { ContactContainer } from '../../lib/unstated'
+import styled from 'styled-components'
+import Panel from 'muicss/lib/react/panel'
+
 
 type ContactInfoProps = React.PropsWithChildren<{
-  locale: Locale
+  locale: Locale<ImplementedState>
   contact: ContactData
 }>
 
@@ -36,7 +47,7 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   const texts = [
     (contact.official)
       ? `The local elections official for ${localeString(locale)} is ${contact.official}.`
-      : `We were able to find the local eletions official for ${localeString(locale)}.`,
+      : `We were able to find the local election official for ${localeString(locale)}.`,
     'Unfortunately, they are one of the few that do not list an email or fax.',
     englishList('phone number', 'phone numbers', contact.phones),
     contact.url ? `Their email is ${contact.url}.` : ''
@@ -45,15 +56,129 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   return <p>{texts.join(' ')}</p>
 }
 
+const StyledModal = Modal.styled`
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  marginRight: 50%;
+  width: 50%;
+  transform: 'translate(-50%, -50%)';
+  background-color: white;
+  padding: 40px;
+  @media only screen and (max-width: 544px) {
+    padding: 20px;
+    width: 80%;
+  }
+`
+
+interface Props {
+  open: boolean
+  setOpen: (_: boolean) => void
+  state: ImplementedState
+  contactKey: string
+}
+
+// from https://stackoverflow.com/a/196991/8930600
+const toTitleCase = (str: string) => {
+  return str.replace(
+    /\w\S*/g,
+    (word: string) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
+  )
+}
+
+const jurisdictionName = (contactKey: string) => {
+  // The toTitleCase does not handle ':' properly so we apply after split
+  const [city, county] = contactKey.split(':').map(toTitleCase)
+  if (city === '') return county
+  if (county === '') return city
+  return `${city} (${county})`
+}
+
+const ContactPanel = styled(Panel)`
+  font-size: 16px;
+  line-height: 22px;
+`
+
+const ContactModal: React.FC<Props> = ({
+  state,
+  open,
+  setOpen,
+  contactKey,
+}) => {
+  const [contactKeys, setLocaleKeys] = React.useState<string[]>([])
+  const contactRef = useControlRef<Select>()
+  const { setContact } = ContactContainer.useContainer()
+
+  React.useEffect(() => {
+    (async() => {
+      const result = await client.fetchContacts(state)
+      if (result.type === 'data') {
+        setLocaleKeys(result.data)
+      }
+    })()
+  }, [state])
+
+  const handleSubmit = async () => {
+    const newContactKey = contactRef.value()
+    if (!newContactKey || newContactKey === contactKey) return
+    const result = await client.getContact(state, newContactKey)
+    if (result.type === 'data') {
+      setContact(result.data)
+      setOpen(false)
+    }
+  }
+
+  return <StyledModal
+    isOpen={open}
+    onBackgroundClick={() => setOpen(false)}
+    onEscapeKeydown={() => setOpen(false)}
+  >
+    <h4>Select Election Jurisdiction</h4>
+    <Form onSubmit={handleSubmit}>
+      <Select ref={contactRef} label='Select Jurisdiction' defaultValue={contactKey}>
+        {contactKeys.sort().map((contactKey, idx) => {
+          return <Option
+            value={contactKey}
+            key={idx}
+            label={jurisdictionName(contactKey)}
+          />
+        })}
+      </Select>
+      <RoundedButton color='primary'>Select</RoundedButton>
+    </Form>
+  </StyledModal>
+}
+
+const ContactField: React.FC<{name: string, val?: string}> = ({name, val}) => {
+  if (!val) return null
+  return <p><b>{name}:</b> {val}</p>
+}
+
+const ContactFields: React.FC<{name: string, val?: string[]}> = ({name, val}) => {
+  if (!val || val.length === 0) return null
+  return <ContactField name={name} val={val.join(',')}/>
+}
+
 export const ContactInfo: React.FC<ContactInfoProps> = ({
   locale, contact
 }) => {
-  const texts = [
-    `The local elections official for ${localeString(locale)} is ${contact.official}.`,
-    englishList('email address', 'email addresses', contact.emails),
-    englishList('fax number', 'fax numbers', contact.faxes),
-    englishList('phone number', 'phone numbers', contact.phones),
-  ]
+  const [open, setOpen] = React.useState<boolean>(false)
 
-  return <p>{texts.join(' ')}</p>
+  return <ContactPanel>
+    <h4>Local Election Official Details</h4>
+    <ContactField name={'Official'} val={contact.official}/>
+    <ContactField name='City' val={contact.city}/>
+    <ContactField name='County' val={contact.county}/>
+    <ContactFields name='Email' val={contact.emails}/>
+    <ContactFields name='Fax' val={contact.faxes}/>
+    <ContactFields name='Phone' val={contact.phones}/>
+    <a onClick={() => setOpen(true)}>Wrong Election Official?</a>
+    <ContactModal
+      open={open}
+      setOpen={setOpen}
+      state={locale.state}
+      contactKey={contact.key}
+    />
+  </ContactPanel>
 }

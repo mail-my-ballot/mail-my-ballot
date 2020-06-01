@@ -4,7 +4,7 @@ import { rawGeocode, toAddress } from '../gm'
 import { Locale } from '../../common'
 
 // from: https://en.wikipedia.org/wiki/List_of_municipalities_in_Michigan
-const addresses = [
+const addresses: [string, string][] = [
   // top 10 municipalities in Michigan
   ['2648 W Grand Blvd, Detroit, MI 48208', 'Detroit City:Wayne County'],
   ['834 Leonard St NE, Grand Rapids, MI 49503', 'Grand Rapids City:Kent County'],
@@ -58,6 +58,11 @@ const addresses = [
   ['21516 Telegraph Rd, Brownstown Charter Twp, MI 48183', 'Brownstown Township:Wayne County'],
   ['32414 W Jefferson Ave, Rockwood, MI 48173', 'Brownstown Township:Wayne County'],
   ['1730 Mead Ln, White Lake, MI 48386', 'White Lake Township:Oakland County'],
+
+  // Special cases
+  ['10995 W Jefferson Ave, River Rouge, MI 48229', 'River Rouge City:Wayne County'],
+  // Google just returns Ann Arbor for locality
+  // ['2376 Westbrooke Cir N, Ann Arbor, MI 48105', 'Ann Arbor Township:Washtenaw County'],
 ]
 
 test.each(addresses)(

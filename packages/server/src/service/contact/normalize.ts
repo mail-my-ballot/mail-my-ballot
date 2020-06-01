@@ -9,21 +9,25 @@ const lowerCase = <T>(f: (_: T) => string): (_: T) => string => {
   }
 }
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/**
+ * Every key is of the form `city + ':' + county`
+ * */
 const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string => {
   switch(state) {
-    // only county
+    // Only county
     case 'Arizona':
     case 'Florida':
     case 'Georgia':
     case 'Minnesota':
     case 'Nebraska':
     case 'New York': {
-      return county!
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return ':' + county!
     }
 
-    // only city
-    case 'Maine': return city!
+    // Only city
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    case 'Maine': return city! + ':'
 
     // hybrid count or city
     case 'Maryland': // Baltimore city is independent of county
@@ -43,7 +47,7 @@ const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string
 })
 /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
-export const normalizeLocale = ({state, city, county}: OptionalLocale): string => {
+export const normalizeLocaleKey = ({state, city, county}: OptionalLocale): string => {
   return normalizeKey({
     state,
     city: city ? mandatoryTransform(city.toLowerCase()) : undefined,
@@ -59,10 +63,13 @@ const normalizeContact = (contact: RawContact): RawContact => {
   }
 }
 
-export const normalizeState = (state: AvailableState, contacts: RawContact[]): Record<string, RawContact> => {
+export const normalizeState = (
+  state: AvailableState,
+  contacts: RawContact[]
+): Record<string, RawContact> => {
   const array = contacts.map(
     contact => [
-      normalizeLocale({
+      normalizeLocaleKey({
         state,
         city: contact.city,
         county: contact.county,
@@ -73,7 +80,7 @@ export const normalizeState = (state: AvailableState, contacts: RawContact[]): R
   return Object.fromEntries(array)
 }
 
-export const normalizeRecords = (records: RawContactRecord): ContactRecord => {
+export const normalizeStates = (records: RawContactRecord): ContactRecord => {
   const rawArray  = Object.entries(records) as Array<[AvailableState, RawContact[]]>
   const array = rawArray.map(
     ([state, contactDatas]) => [
@@ -83,4 +90,3 @@ export const normalizeRecords = (records: RawContactRecord): ContactRecord => {
   )
   return Object.fromEntries(array)
 }
-
