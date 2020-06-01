@@ -2,7 +2,7 @@ import React from 'react'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
-import { BaseInfo, StateInfo } from '../../common'
+import { BaseInfo, StateInfo, isImplementedLocale } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -11,6 +11,7 @@ import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
+import { ContactInfo } from './ContactInfo'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -35,7 +36,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
-  if (!locale) return null
+  if (!locale || !isImplementedLocale(locale) || !contact) return null
 
   const uspsAddress = address ? address.fullAddr : null
   const { city, county, otherCities } = locale
@@ -79,6 +80,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       defaultValue={address?.queryAddr}
       disabled
     />
+    <ContactInfo locale={locale} contact={contact}/>
     <BirthDateInput
       id='birthdate'
       ref={birthdateRef}

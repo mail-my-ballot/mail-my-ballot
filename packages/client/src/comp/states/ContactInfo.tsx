@@ -9,7 +9,6 @@ import Form from 'muicss/lib/react/form'
 import { useControlRef } from '../util/ControlRef'
 import { ContactContainer } from '../../lib/unstated'
 import styled from 'styled-components'
-import Panel from 'muicss/lib/react/panel'
 
 
 type ContactInfoProps = React.PropsWithChildren<{
@@ -95,9 +94,10 @@ const jurisdictionName = (contactKey: string) => {
   return `${city} (${county})`
 }
 
-const ContactPanel = styled(Panel)`
+const ContacStyle = styled.div`
   font-size: 16px;
   line-height: 22px;
+  margin-bottom: 20px;
 `
 
 const ContactModal: React.FC<Props> = ({
@@ -119,7 +119,8 @@ const ContactModal: React.FC<Props> = ({
     })()
   }, [state])
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
     const newContactKey = contactRef.value()
     if (!newContactKey || newContactKey === contactKey) return
     const result = await client.getContact(state, newContactKey)
@@ -135,7 +136,7 @@ const ContactModal: React.FC<Props> = ({
     onEscapeKeydown={() => setOpen(false)}
   >
     <h4>Select Election Jurisdiction</h4>
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Select ref={contactRef} label='Select Jurisdiction' defaultValue={contactKey}>
         {contactKeys.sort().map((contactKey, idx) => {
           return <Option
@@ -145,7 +146,7 @@ const ContactModal: React.FC<Props> = ({
           />
         })}
       </Select>
-      <RoundedButton color='primary'>Select</RoundedButton>
+      <RoundedButton onClick={handleSubmit} color='primary'>Select</RoundedButton>
     </Form>
   </StyledModal>
 }
@@ -160,25 +161,32 @@ const ContactFields: React.FC<{name: string, val?: string[]}> = ({name, val}) =>
   return <ContactField name={name} val={val.join(',')}/>
 }
 
+const MutedLink = styled.a`
+  color: rgba(0, 0, 0, 0.87);
+  &:hover {
+    color: #2196F3;
+  }
+`
+
 export const ContactInfo: React.FC<ContactInfoProps> = ({
   locale, contact
 }) => {
   const [open, setOpen] = React.useState<boolean>(false)
 
-  return <ContactPanel>
-    <h4>Local Election Official Details</h4>
+  return <ContacStyle>
+    <p><b>Local Election Official Details.</b> <MutedLink style={{color: ''}} onClick={() => setOpen(true)}>(Wrong Election Official?)</MutedLink></p>
     <ContactField name={'Official'} val={contact.official}/>
     <ContactField name='City' val={contact.city}/>
     <ContactField name='County' val={contact.county}/>
     <ContactFields name='Email' val={contact.emails}/>
     <ContactFields name='Fax' val={contact.faxes}/>
     <ContactFields name='Phone' val={contact.phones}/>
-    <a onClick={() => setOpen(true)}>Wrong Election Official?</a>
+    
     <ContactModal
       open={open}
       setOpen={setOpen}
       state={locale.state}
       contactKey={contact.key}
     />
-  </ContactPanel>
+  </ContacStyle>
 }
