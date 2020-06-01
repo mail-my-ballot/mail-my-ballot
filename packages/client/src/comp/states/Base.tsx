@@ -46,8 +46,8 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     if (!address || !uspsAddress || !contact) return  // TODO: Add warning
 
     const baseInfo: StatelessInfo = {
-      city,
-      county,
+      city: contact.city ?? city,
+      county: contact.county ?? county,
       otherCities,
       oid,
       name: nameRef.value() || '',
