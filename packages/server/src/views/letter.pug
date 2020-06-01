@@ -3,19 +3,19 @@
 .container
   if state
     ul.nav.nav-tabs
-      each availableState in implementedStates
+      each implementedState in implementedStates
         li.nav-item
-          if state === availableState
-            a.nav-link(href=availableState + '-0').active= availableState
+          if state === implementedState
+            a.nav-link(href="/letter/" + implementedState).active= implementedState
           else
-            a.nav-link(href=availableState + '-0')= availableState
+            a.nav-link(href="/letter/" + implementedState)= implementedState
 
   .mt-4
-    select.form-control(onchange="location = '" + state + "' + '-' + this.value")
-      each val, idx in stateContacts
-        if idx === index
-          option(value=idx selected)= val
+    select.form-control(onchange="location = '/letter/" + state + "' + '/' + this.value")
+      each k in keys
+        if key === k
+          option(value=k selected)= k
         else
-          option(value=idx)= val
+          option(value=k)= k
             
   .mt-4 !{letter}

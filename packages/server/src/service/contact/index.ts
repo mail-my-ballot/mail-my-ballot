@@ -1,4 +1,4 @@
-import { ContactRecord } from './type'
+import { ContactRecord, RawContact } from './type'
 import { loadStates } from './loader'
 import { normalizeStates } from './normalize'
 import { Locale, isAvailableState, ContactData, AvailableState } from '../../common'
@@ -27,17 +27,25 @@ export const getContactRecords = async (): Promise<ContactRecord> => {
   return contactRecords
 }
 
+const enrichContact = (raw: RawContact, key: string, state: AvailableState): ContactData => {
+  return {
+    ...raw,
+    key,
+    state,
+  }
+}
+
 export const getContact = async (state: AvailableState, key: string): Promise<ContactData | null> => {
   const stateRecords = (await getContactRecords())[state]
-  const stateless = stateRecords[key]
-  if (stateless) {
-    return {
-      ...stateless,
-      key,
-      state,
-    }
-  }
+  const raw = stateRecords[key]
+  if (raw) return enrichContact(raw, key, state)
   return null
+}
+
+export const getFirstContact = async (state: AvailableState): Promise<ContactData> => {
+  const stateRecords = (await getContactRecords())[state]
+  const [key, raw] = Object.entries(stateRecords)[0]
+  return enrichContact(raw, key, state)
 }
 
 export const toContact = async (locale: Locale): Promise<ContactData | null> => {
