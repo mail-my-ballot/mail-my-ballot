@@ -1,5 +1,6 @@
 import { _Id } from './util'
 import { Locale } from './locale'
+import { ContactData } from './contact'
 import { ExtendsState } from './states'
 
 // States for which we now support
@@ -34,6 +35,7 @@ export interface BaseInfo extends Locale {
   userAgent?: string
   signature?: string
   idPhoto?: string
+  contact: ContactData
 }
 
 interface SignatureBaseInfo extends BaseInfo {

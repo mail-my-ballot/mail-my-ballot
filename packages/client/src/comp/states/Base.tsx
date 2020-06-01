@@ -10,7 +10,7 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer, VoterContainer } from '../../lib/unstated'
+import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -27,6 +27,7 @@ type Props<Info> = React.PropsWithChildren<{
 export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<Info>) => {
   const { pushSuccess, oid, query } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
+  const { contact } = ContactContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
 
   const nameRef = useControlRef<Input>()
@@ -42,7 +43,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    if (!address || !uspsAddress) return  // TODO: Add warning
+    if (!address || !uspsAddress || !contact) return  // TODO: Add warning
 
     const baseInfo: StatelessInfo = {
       city,
@@ -54,7 +55,8 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       email: emailRef.value() || '',
       mailingAddress: mailingRef.value() || '',
       phone: phoneRef.value() || '',
-      uspsAddress
+      uspsAddress,
+      contact,
     }
 
     const info = enrichValues(baseInfo)
