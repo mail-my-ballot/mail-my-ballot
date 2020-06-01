@@ -86,7 +86,10 @@ const toAllowableMethod = (contact: ContactData): PartialContactMethod => {
   }
 }
 
-/** Returns a ContactMethod or null.  Always returns null if no email or fax numbers allowed */
+/**
+ * Returns a ContactMethod or null.
+ * Always returns null if no email or fax numbers allowed.
+ **/
 export const toContactMethod = (contact: ContactData | null): ContactMethod | null => {
   if (!contact) return null
   const method = toAllowableMethod(contact)
