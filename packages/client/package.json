@@ -9,10 +9,10 @@
     "react-dom": "^16.12.0",
     "react-facebook-pixel": "^0.1.3",
     "react-ga": "^2.7.0",
-    "react-modal": "^3.11.2",
     "react-router-dom": "^5.1.2",
     "react-signature-canvas": "^1.0.3",
     "styled-components": "^5.0.1",
+    "styled-react-modal": "^2.0.1",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
@@ -27,10 +27,10 @@
     "@types/node": "^12.6.9",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@types/react-modal": "^3.10.5",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-signature-canvas": "^1.0.0",
     "@types/styled-components": "^5.0.1",
+    "@types/styled-react-modal": "^1.2.0",
     "gulp": "^4.0.2",
     "jest-canvas-mock": "^2.2.0",
     "minimist": "^1.2.5",

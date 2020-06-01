@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'muicss/lib/react/select'
 import Option from 'muicss/lib/react/option'
-import Modal from 'react-modal'
+import Modal from 'styled-react-modal'
 import { ContactData, Locale, ImplementedState } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
@@ -56,17 +56,21 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   return <p>{texts.join(' ')}</p>
 }
 
-const modalStyles = {
-  content: {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',  
-    marginRight           : '-50%',
-    width                 : '50%',
-    transform             : 'translate(-50%, -50%)',
+const StyledModal = Modal.styled`
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  marginRight: 50%;
+  width: 50%;
+  transform: 'translate(-50%, -50%)';
+  background-color: white;
+  padding: 40px;
+  @media only screen and (max-width: 544px) {
+    padding: 20px;
+    width: 80%;
   }
-}
+`
 
 interface Props {
   open: boolean
@@ -114,7 +118,6 @@ const ContactModal: React.FC<Props> = ({
       }
     })()
   }, [state])
-  React.useEffect(() => Modal.setAppElement('body'))
 
   const handleSubmit = async () => {
     const newContactKey = contactRef.value()
@@ -126,13 +129,12 @@ const ContactModal: React.FC<Props> = ({
     }
   }
 
-  return <Modal
+  return <StyledModal
     isOpen={open}
-    onRequestClose={() => setOpen(false)}
-    contentLabel='Example Modal'
-    style={modalStyles}
+    onBackgroundClick={() => setOpen(false)}
+    onEscapeKeydown={() => setOpen(false)}
   >
-    <h3>Select Election Jurisdiction</h3>
+    <h4>Select Election Jurisdiction</h4>
     <Form onSubmit={handleSubmit}>
       <Select ref={contactRef} label='Select Jurisdiction' defaultValue={contactKey}>
         {contactKeys.sort().map((contactKey, idx) => {
@@ -145,7 +147,7 @@ const ContactModal: React.FC<Props> = ({
       </Select>
       <RoundedButton color='primary'>Select</RoundedButton>
     </Form>
-  </Modal>
+  </StyledModal>
 }
 
 const ContactField: React.FC<{name: string, val?: string}> = ({name, val}) => {
@@ -171,7 +173,7 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({
     <ContactFields name='Email' val={contact.emails}/>
     <ContactFields name='Fax' val={contact.faxes}/>
     <ContactFields name='Phone' val={contact.phones}/>
-    <a onClick={() => setOpen(true)}>Wrong Elections Official?</a>
+    <a onClick={() => setOpen(true)}>Wrong Election Official?</a>
     <ContactModal
       open={open}
       setOpen={setOpen}
