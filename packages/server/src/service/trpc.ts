@@ -78,8 +78,6 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     return data(id, async (): Promise<void> => {
       const letter = toLetter(info, method, id)
       const pdfBuffer = await toPdfBuffer(letter.html)
-      const file = storageFileFromId(id)
-      await file.upload(pdfBuffer)
 
       // Send email (perhaps only to voter)
       const mgResponse = await sendSignupEmail(
@@ -88,6 +86,10 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
         method.emails,
         { pdfBuffer },
       )
+
+      // Upload PDF
+      const file = storageFileFromId(id)
+      await file.upload(pdfBuffer)
 
       // Send faxes
       let twilioResponses: TwilioResponse[] = []
