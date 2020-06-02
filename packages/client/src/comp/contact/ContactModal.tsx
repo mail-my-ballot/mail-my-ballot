@@ -35,13 +35,12 @@ interface Props {
 // from https://stackoverflow.com/a/196991/8930600
 const toTitleCase = (str: string) => {
   return str.replace(
-    /\w\S*/g,
+    /\w*/g,
     (word: string) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
   )
 }
 
 const jurisdictionName = (contactKey: string) => {
-  // The toTitleCase does not handle ':' properly so we apply after split
   const [city, county] = contactKey.split(':').map(toTitleCase)
   if (city === '') return county
   if (county === '') return city
