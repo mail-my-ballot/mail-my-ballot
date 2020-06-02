@@ -45,7 +45,7 @@ export const toSignupEmailData = (
   const { md, html, signature, idPhoto } = letter
   const mgData = {
     from: processEnvOrThrow('MG_FROM_ADDR'),
-    replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
+    'h:Reply-To': processEnvOrThrow('MG_REPLY_TO_ADDR'),
   }
 
   const attachment = [
