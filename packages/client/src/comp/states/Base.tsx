@@ -11,7 +11,7 @@ import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
-import { ContactInfo } from './ContactInfo'
+import { ContactInfo } from '../contact/ContactInfo'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
