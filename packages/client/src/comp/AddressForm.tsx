@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
@@ -13,6 +12,7 @@ import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
 import { sampleAddresses, ImplementedState } from '../common'
+import { AppForm } from './util/Form'
 
 const FlexBox = styled.div`
   display: flex;
@@ -105,7 +105,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   }
 
   return <StatusReport state={state}>
-    <Form onSubmit={handleSubmit}>
+    <AppForm onSubmit={handleSubmit}>
       <p><b>Enter your address</b> to find your local election official</p>
       <FlexBox>
         <FlexGrow>
@@ -129,7 +129,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           </div>
         </FlexFixed>
       </FlexBox>
-    </Form>
+    </AppForm>
   </StatusReport>
 }
 

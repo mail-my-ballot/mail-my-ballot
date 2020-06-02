@@ -10,8 +10,6 @@ type Props = React.PropsWithChildren<{
 }>
 
 const ContacStyle = styled.div`
-  font-size: 16px;
-  line-height: 22px;
   margin-bottom: 20px;
 `
 
@@ -22,7 +20,7 @@ const ContactField: React.FC<{name: string, val?: string}> = ({name, val}) => {
 
 const ContactFields: React.FC<{name: string, val?: string[]}> = ({name, val}) => {
   if (!val || val.length === 0) return null
-  return <ContactField name={name} val={val.join(',')}/>
+  return <ContactField name={name} val={val.join(', ')}/>
 }
 
 const MutedLink = styled.a`

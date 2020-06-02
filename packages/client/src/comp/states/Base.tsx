@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { BaseInfo, StateInfo, isImplementedLocale } from '../../common'
@@ -12,6 +11,7 @@ import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
 import { ContactInfo } from '../contact/ContactInfo'
+import { AppForm } from '../util/Form'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -67,7 +67,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     // TODO: Add warning if error
   }
 
-  return <Form onSubmit={handleSubmit}>
+  return <AppForm onSubmit={handleSubmit}>
     <NameInput
       id='name'
       ref={nameRef}
@@ -114,7 +114,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     <RoundedButton color='primary' variant='raised' data-testid='submit'>
       Send my signup email
     </RoundedButton>
-  </Form>
+  </AppForm>
 }
 
 export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>

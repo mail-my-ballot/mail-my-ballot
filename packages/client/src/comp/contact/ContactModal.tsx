@@ -5,9 +5,9 @@ import Modal from 'styled-react-modal'
 import { ImplementedState } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
-import Form from 'muicss/lib/react/form'
 import { useControlRef } from '../util/ControlRef'
 import { ContactContainer } from '../../lib/unstated'
+import { AppForm } from '../util/Form'
 
 const StyledModal = Modal.styled`
   top: 50%;
@@ -83,7 +83,7 @@ export const ContactModal: React.FC<Props> = ({
     onEscapeKeydown={() => setOpen(false)}
   >
     <h4>Select Election Jurisdiction</h4>
-    <Form>
+    <AppForm>
       <Select ref={contactRef} label='Select Jurisdiction' defaultValue={contactKey}>
         {contactKeys.sort().map((contactKey, idx) => {
           return <Option
@@ -94,6 +94,6 @@ export const ContactModal: React.FC<Props> = ({
         })}
       </Select>
       <RoundedButton onClick={handleSubmit} color='primary'>Select</RoundedButton>
-    </Form>
+    </AppForm>
   </StyledModal>
 }
