@@ -162,7 +162,7 @@ const ContactFields: React.FC<{name: string, val?: string[]}> = ({name, val}) =>
 }
 
 const MutedLink = styled.a`
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.54);
   &:hover {
     color: #2196F3;
   }
@@ -174,13 +174,14 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({
   const [open, setOpen] = React.useState<boolean>(false)
 
   return <ContacStyle>
-    <p><b>Local Election Official Details.</b> <MutedLink style={{color: ''}} onClick={() => setOpen(true)}>(Wrong Election Official?)</MutedLink></p>
+    <p><b>Local Election Official Details.</b></p>
     <ContactField name={'Official'} val={contact.official}/>
     <ContactField name='City' val={contact.city}/>
     <ContactField name='County' val={contact.county}/>
     <ContactFields name='Email' val={contact.emails}/>
     <ContactFields name='Fax' val={contact.faxes}/>
     <ContactFields name='Phone' val={contact.phones}/>
+    <p><MutedLink style={{color: ''}} onClick={() => setOpen(true)}>Wrong Election Official?</MutedLink></p>
     
     <ContactModal
       open={open}
