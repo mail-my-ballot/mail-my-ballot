@@ -1,5 +1,12 @@
 {% from "ContactMethod.md" import contactMethod %}
 
+{% if warning %}
+<p style='color:red;'>
+The request was not sent from production.  <b>No email was sent to an election official.</b>  If you want to send a real request, do so from <a href='https://MailMyBallot.org'>MailMyBallot.org.</a><p>
+<p>
+
+{% endif %}
+
 Dear Election Official,
 
 I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}}]({{brandUrl}}).  This letter conforms to the requirements set forth by {{guidance}}.
