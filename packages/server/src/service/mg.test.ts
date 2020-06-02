@@ -2,7 +2,7 @@ import { createMock } from 'ts-auto-mock'
 
 import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo, ContactMethod } from "../common"
 import { toLetter } from './letter'
-import { toEmailData } from './mg'
+import { toSignupEmailData } from './mg'
 
 const email = 'email@example.com'
 
@@ -20,13 +20,13 @@ const check = (info: StateInfo, checkSignature = false): void => {
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const emailDataProd = toEmailData(letter!, info.email, officialsEmails, { force: true })
+  const emailDataProd = toSignupEmailData(letter!, info.email, officialsEmails, { force: true })
   expect(emailDataProd.to.length).toBeGreaterThanOrEqual(2)
   expect(emailDataProd.to).toContain(email)
   expect(emailDataProd.html).toContain(confirmationId)
   
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const emailData = toEmailData(letter!, info.email, officialsEmails)
+  const emailData = toSignupEmailData(letter!, info.email, officialsEmails)
   expect(emailData.to).toEqual([email])
   expect(emailData.html).toContain(confirmationId)
 

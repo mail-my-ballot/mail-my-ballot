@@ -3,7 +3,7 @@ import { ImplRpc } from '@tianhuil/simple-trpc/dist/type'
 import { Request } from 'express'
 import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState, Voter, Locale, ImplementedState } from '../common'
 import { FirestoreService } from './firestore'
-import { sendEmail } from './mg'
+import { sendSignupEmail } from './mg'
 import { toContact, getContactRecords, getContact as _getContact } from './contact'
 import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
@@ -82,7 +82,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
       await file.upload(pdfBuffer)
 
       // Send email (perhaps only to voter)
-      const mgResponse = await sendEmail(
+      const mgResponse = await sendSignupEmail(
         letter,
         info.email,
         method.emails,

@@ -33,7 +33,7 @@ interface Options {
 }
 
 // separate out this function for testing purposes
-export const toEmailData = (
+export const toSignupEmailData = (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
@@ -63,7 +63,7 @@ export const toEmailData = (
   }
 }
 
-export const sendEmail = async (
+export const sendSignupEmail = async (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
@@ -74,6 +74,6 @@ export const sendEmail = async (
     return null
   }
 
-  const emailData = toEmailData(letter, voterEmail, officialEmails, { pdfBuffer, force })
+  const emailData = toSignupEmailData(letter, voterEmail, officialEmails, { pdfBuffer, force })
   return mg.messages().send(emailData)
 }
