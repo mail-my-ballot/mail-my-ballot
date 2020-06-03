@@ -17,7 +17,7 @@ const RawMockPage: React.FC<{}> = () => {
         queryAddr: bareAddress.address,
         fullAddr: bareAddress.address,
         country: 'United States',
-        postcode: 'xxxx',
+        postcode: '20500',
         ...bareAddress
       }
       
