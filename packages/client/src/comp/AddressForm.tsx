@@ -114,6 +114,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
             label='Full Address'
             ref={addrRef}
             pattern={`(?!${partialAddr}$).*`}
+            required
             defaultValue={ address?.queryAddr ?? defaultAddress() }
           />
         </FlexGrow>
