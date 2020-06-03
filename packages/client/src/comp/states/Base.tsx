@@ -12,6 +12,7 @@ import { Signature } from '../util/Signature'
 import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
 import { ContactInfo } from '../contact/ContactInfo'
 import { AppForm } from '../util/Form'
+import { Center } from '../util/Util'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -110,10 +111,11 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       />
     }</Togglable>
     { children }
-
-    <RoundedButton color='primary' variant='raised' data-testid='submit'>
-      Send my signup email
-    </RoundedButton>
+    <Center>
+      <RoundedButton color='primary' variant='raised' data-testid='submit'>
+        Submit signup
+      </RoundedButton>
+    </Center>
   </AppForm>
 }
 
