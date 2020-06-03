@@ -25,8 +25,10 @@ const FlexBox = styled.div`
 
 const FlexGrow = styled.div`
   flex-grow: 1;
-  min-width: 300px;
   margin: 0 .5em;
+  @media only screen and (min-width: 544px) {
+    min-width: 300px;
+  }
 `
 
 const FlexFixed = styled.div`
