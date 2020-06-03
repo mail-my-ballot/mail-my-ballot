@@ -26,7 +26,7 @@ test('AddressForm works', async () => {
   )
 
   act(() => {
-    fireEvent.change(getByLabelText(/^Address/i), {
+    fireEvent.change(getByLabelText(/^Full Address/i), {
       target: {
         value: '100 S Biscayne Blvd, Miami, FL 33131'
       },
