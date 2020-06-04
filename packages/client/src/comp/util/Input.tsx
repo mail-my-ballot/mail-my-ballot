@@ -6,17 +6,18 @@ import styled from 'styled-components'
 // Note the anonymous functions passed to React.forwardRef need to be named for displayName
 // See https://github.com/facebook/react/issues/13703#issuecomment-423346302
 
-const RawBaseInput = React.forwardRef<Input, InputProps>(function BaseInput(props, ref) {
+const Red = styled.sup`
+  color: rgb(220, 14, 82);
+`
+
+export const BaseInput = React.forwardRef<Input, InputProps>(function BaseInput(props, ref) {
   return <Input
     floatingLabel={true}
     {...props}
+    label={<span>{props.label} {props.required ? <Red>*</Red> : null}</span>}
     ref={ref}
   />
 })
-
-export const BaseInput = styled(RawBaseInput)`
-  font-size: 16px;
-`
 
 export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(props, ref) {
   return <BaseInput

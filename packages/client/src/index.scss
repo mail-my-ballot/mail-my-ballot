@@ -7,6 +7,8 @@ $mui-base-line-height:    1.5;
 $mui-input-font-size:     16px;
 $mui-input-font-color:    #4F4F4F;
 
+$mui-danger-color:        rgb(220, 14, 82);  // red color from logo
+
 $mui-btn-height:          36px;
 $mui-btn-height-lg:       50px;
 
@@ -50,9 +52,4 @@ b {
 input, .mui-textfield > input {
   padding: 14px 6px;
   height: 22px;
-}
-
-.mui-checkbox {
-  font-size: 16px;
-  line-height: 22px;
 }

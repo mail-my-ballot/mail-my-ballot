@@ -11,7 +11,7 @@ import { Nevada } from './Nevada'
 import { AddressContainer, ContactContainer } from '../../lib/unstated'
 import { Locale, isImplementedLocale, ContactMethod, ImplementedState } from '../../common'
 import { useAppHistory } from '../../lib/path'
-import { InvalidContact, ContactInfo } from './ContactInfo'
+import { InvalidContact } from '../contact/InvalidContact'
 import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
@@ -89,7 +89,6 @@ export const StateForm: React.FC<Props> = ({ignoreError}) => {
 
   return <>
     <h1>{locale.state} Vote by Mail Form</h1>
-    <ContactInfo locale={locale} contact={contact}/>
     <p><b>Fill out</b> the following form and we will {methodExplain(method)}</p>
     <StyledPanel>
       <StateFormSwitch locale={locale}/>

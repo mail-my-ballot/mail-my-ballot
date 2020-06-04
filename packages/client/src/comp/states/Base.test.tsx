@@ -74,6 +74,7 @@ test('State Form Without Signature (Wisconsin) works', async () => {
     data: 'confirmationId',
   })
   mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
+  mocked(client, true).fetchContacts = jest.fn().mockResolvedValue([])
 
   const renderResult = render(
     <Router history={history}>

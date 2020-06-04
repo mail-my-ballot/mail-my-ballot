@@ -1,7 +1,7 @@
 import marked from 'marked'
 import nunjucks from 'nunjucks'
 
-import { processEnvOrThrow, StateInfo, ContactMethod } from '../../common'
+import { processEnvOrThrow, StateInfo, ContactMethod, ImplementedState } from '../../common'
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
@@ -37,25 +37,33 @@ const envVars = {
   election: processEnvOrThrow('REACT_APP_ELECTION_AND_DATE'),
 }
 
-const toTemplate = (info: StateInfo): string => {
-  switch(info.state) {
+const toTemplate = (state: ImplementedState): string => {
+  switch(state) {
     case 'Arizona': return 'Arizona.md'
     case 'Florida': return 'Florida.md'
-    case 'Michigan': return 'Michigan.md'
     case 'Georgia': return 'Georgia.md'
-    case 'Wisconsin': return 'Wisconsin.md'
-    case 'Nebraska': return 'Nebraska.md'
     case 'Maine': return 'Maine.md'
     case 'Maryland': return 'Maryland.md'
+    case 'Michigan': return 'Michigan.md'
+    case 'Nebraska': return 'Nebraska.md'
     case 'Nevada': return 'Nevada.md'
     case 'New York': return 'NewYork.md'
+    case 'Wisconsin': return 'Wisconsin.md'
   }
 }
 
 export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter => {
-  const template = toTemplate(info)
   return new Letter(
-    nunjucks.render(template, { ...info, ...envVars, confirmationId, method }),
+    nunjucks.render(
+      toTemplate(info.state),
+      {
+        ...info,
+        ...envVars,
+        confirmationId,
+        method,
+        warning: !process.env.REACT_APP_EMAIL_FAX_OFFICIALS
+      }
+    ),
     method,
     { signature: info.signature, idPhoto: info.idPhoto }
   )
