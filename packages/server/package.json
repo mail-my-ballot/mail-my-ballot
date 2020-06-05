@@ -23,6 +23,7 @@
     "@types/jest-expect-message": "^1.0.2",
     "@types/mailgun-js": "^0.22.4",
     "@types/marked": "^0.7.2",
+    "@types/minimist": "^1.2.0",
     "@types/morgan": "^1.7.36",
     "@types/node": "^12.6.9",
     "@types/node-fetch": "^2.5.6",
@@ -32,6 +33,7 @@
     "@types/supertest": "^2.0.8",
     "firebase-tools": "^8.1.1",
     "gulp": "^4.0.2",
+    "install": "^0.13.0",
     "jest": "^24.0.0",
     "jest-expect-message": "^1.0.2",
     "jest-ts-auto-mock": "^1.0.11",
@@ -84,7 +86,9 @@
     "setupFiles": [
       "<rootDir>config.ts"
     ],
-    "setupFilesAfterEnv": ["jest-expect-message"],
+    "setupFilesAfterEnv": [
+      "jest-expect-message"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

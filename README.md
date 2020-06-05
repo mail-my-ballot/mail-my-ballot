@@ -67,19 +67,20 @@ The code is a lerna repo split into three packages:
 
 Each package has it's own `gulpfile.js`.
 
-### Runnign tasks
+### Running tasks
 To invoke the grunt file, run commands like
 ```bash
 yarn server gulp script --env developement --file src/script/fetchData.ts
 ```
 
-Check out the gulpfiles for more information.
+The command `yarn server gulp` and `yarn client gulp` run their respective gulpfiles.  Check out the gulpfiles for more commands.
 
 ### Checking repo
 To check if the repo is working run the following four commands
 ```bash
 yarn bootstrap && yarn build && yarn lint && yarn test
 ```
+Please do this before you submit a PR.
 
 ## Adding a State
 To add a new state, you will need to complete the following steps:
@@ -91,6 +92,11 @@ To add a new state, you will need to complete the following steps:
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
 
+
+## Notes on Submitting Code
+Please submit code via pull requests, ideally from this repo if you have access or from your own fork if you do not.
+- We strive to only use [rebase merges](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+
 ## Hosting
 The best way to showcase changes to your site is to host your own staging instance.  Each instance has its own configuration (e.g. `production` or `staging`) and can be edited via the gulpfile via `--env production`.  To add your own, copy and modify the contents the `staging` object in `env/env.js` using your own namespace (e.g. your GithubID).
 
@@ -100,10 +106,21 @@ The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit
 ### App Engine (Server Hosting)
 To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
 
-Don't forget to enable the indexes (see the gulp file server's `gulpfile.js`).  To do this, run the command resulting from `yarn server gulp deploy-index --env [your environment]`.
+Don't forget to set indexes.  To do this, run the command resulting from
+```bash
+yarn server gulp deploy-index --env [environment]
+```
+(see the gulp file server's `gulpfile.js`).
 
-### Secrets in Server Production
-Configuration and secrets are currently added into `app.yaml` (not in git) from `app.tmpl.yaml` via gulp process (stored in git).
+### Secrets in deployed App Engine
+Configuration environment variables (and hence secrets) in Google Appengine is through `app.yaml`.  We do not store this in git so that secrets are not exposed.  Instead, we store `app.tmpl.yaml` without secrets and fill in the environment variables in `app.yaml` dynamically via gulp:
+```bash
+yarn server gulp appsubst --env staging [environment]
+```
+This is automatically run as a part of
+```bash
+yarn server gulp deploy --env staging [environment]
+```
 
 Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/54055525/8930600), put all secrets in a special file that is not stored in source control.
 

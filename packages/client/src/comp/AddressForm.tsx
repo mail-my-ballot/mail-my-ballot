@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
@@ -14,6 +13,7 @@ import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
 import { sampleAddresses, ImplementedState } from '../common'
+import { AppForm } from './util/Form'
 
 const FlexBox = styled.div`
   display: flex;
@@ -32,10 +32,9 @@ const FlexBox = styled.div`
 
 const FlexGrow = styled.div`
   flex-grow: 1;
-  min-width: 300px;
   margin: 0 .5em;
-  @media only screen and (max-width: 414px) {
-    min-width: 90%;
+  @media only screen and (min-width: 544px) {
+    min-width: 300px;
     flex-direction: column;
   }
 `
@@ -63,11 +62,11 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
     }
   }, [addrRef, path])
 
+  const partialAddr = zip ? ' ' + state + ', ' + zip : null
+
   const defaultAddress = () => {
     // if zip was provided, return partial address
-    if (zip) {
-      return ' ' + state + ', ' + zip
-    }
+    if (partialAddr) return partialAddr
   
     // fill in default address
     if (process.env.REACT_APP_DEFAULT_ADDRESS) {
@@ -82,14 +81,14 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
     event.persist()  // allow async function call
     event.preventDefault()
 
-    const addrInput = addrRef.value()
-    if (addrInput === null) throw Error('address ref not set')
+    const addr = addrRef.value()
+    if (addr === null) throw Error('address ref not set')
 
     load('Fetching information about your address')
     try {
       setContact(null)
       setAddress(null)
-      const result = await client.fetchContactAddress(addrInput)
+      const result = await client.fetchContactAddress(addr)
       switch(result.type) {
         case 'data': {
           const {contact, address} = result.data
@@ -116,19 +115,21 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   }
 
   return <StatusReport state={state}>
-    <Form onSubmit={handleSubmit}>
+    <AppForm onSubmit={handleSubmit}>
       <P><b>Enter your address</b> to find your local election official</P>
       <FlexBox>
         <FlexGrow>
           <BaseInput
             id='addr-input'  // This id is used for Warning Box to fill form quickly
-            label='Address'
+            label='Full Address'
             ref={addrRef}
+            pattern={`(?!${partialAddr}$).*`}
+            required
             defaultValue={ address?.queryAddr ?? defaultAddress() }
           />
         </FlexGrow>
         <FlexFixed>
-          <div style={{paddingTop: '15px', marginBottom: '20px'}}>
+          <div style={{paddingTop: '15px', marginBottom: '20px'}}>  {/* To match BaseInput's spacing */}
             <RoundedButton
               id='addr-submit'  // This id is used for Warning Box to submit form quickly
               color='primary'
@@ -140,7 +141,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           </div>
         </FlexFixed>
       </FlexBox>
-    </Form>
+    </AppForm>
   </StatusReport>
 }
 

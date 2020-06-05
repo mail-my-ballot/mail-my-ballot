@@ -7,10 +7,19 @@ $mui-base-line-height:    1.5;
 $mui-input-font-size:     16px;
 $mui-input-font-color:    #4F4F4F;
 
+$mui-danger-color:        rgb(220, 14, 82);  // red color from logo
+
 $mui-btn-height:          36px;
 $mui-btn-height-lg:       50px;
 
 @import '~muicss/lib/sass/mui';
+
+body {
+  @media only screen and (max-width: 544px) {
+    font-size:      16px;
+    line-height:    1.5
+  }
+}
 
 h1, h2, h3, h4 {
   font-family: Merriweather, Georgia, Times, 'Times New Roman', serif;
@@ -23,7 +32,9 @@ h1 {
   margin-bottom:  24px;
   margin-top:     0px;
   padding-top:    120px;
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 544px) {
+    font-size:      32px;
+    line-height:    42px;  
     padding-top:    40px;
   }
 }
@@ -31,6 +42,24 @@ h1 {
 h2 {
   font-size:    40px;
   line-height:  48px;
+  @media only screen and (max-width: 544px) {
+    font-size:      24px;
+    line-height:    32px;  
+  }
+}
+
+h3 {
+  font-size:    32px;
+  line-height:  42px;
+  @media only screen and (max-width: 544px) {
+    font-size:      20px;
+    line-height:    28px;  
+  }
+}
+
+h4 {
+  font-size:    24px;
+  line-height:  32px;
 }
 
 b {

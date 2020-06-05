@@ -11,6 +11,19 @@ type Query = admin.firestore.Query<admin.firestore.DocumentData>
 type DocumentSnapshot = admin.firestore.DocumentSnapshot
 type Transaction = admin.firestore.Transaction
 
+const nonNullObject = (o: unknown): o is Record<string, unknown> => typeof o === 'object' && o !== null
+
+const removeUndefined = <T extends Record<string, unknown>>(obj: T): T => {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(
+        ([_, val]) => val !== undefined
+      ).map(
+        ([key, val]) => [key, nonNullObject(val) ? removeUndefined(val) : val]
+      )
+  ) as T
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributeOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never
 
@@ -90,7 +103,7 @@ export class FirestoreService {
 
   async addRegistration(info: DistributeOmit<RichStateInfo, 'created'>): Promise<string> {
     const richInfo: RichStateInfo = {
-      ...info,
+      ...removeUndefined(info),
       created: admin.firestore.Timestamp.fromDate(new Date())
     }
     const { id } = await this.db.collection('StateInfo').add(richInfo)

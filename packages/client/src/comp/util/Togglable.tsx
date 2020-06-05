@@ -20,17 +20,12 @@ const Wrapper = styled.div`
   margin-bottom: 20px;
 `
 
-const StyleCheckbox = styled(Checkbox)`
-  font-size: 16px;
-  line-height: 22px;
-`
-
 const RawTogglable: React.FC<Props> = ({children, ...props}) => {
   const { checked, toggleCheck } = CheckboxContainer.useContainer()
 
   // Matching style of input fields
   return <Wrapper>
-    <StyleCheckbox
+    <Checkbox
       {...props}
       checked={checked}
       onChange={toggleCheck}

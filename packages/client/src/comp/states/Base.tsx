@@ -1,9 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
-import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 
-import { BaseInfo, StateInfo } from '../../common'
+import { BaseInfo, StateInfo, isImplementedLocale } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
@@ -11,18 +9,10 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer, VoterContainer } from '../../lib/unstated'
-
-const FormContainer = styled.div`
-@media only screen and (max-width: 414px) {
-  text-align: left;
-  width: 90%,
-  align-items: center;
-  form>div {
-    margin-bottom: 35px;
-  }
-}
-`
+import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
+import { ContactInfo } from '../contact/ContactInfo'
+import { AppForm } from '../util/Form'
+import { Center } from '../util/Util'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -39,6 +29,7 @@ type Props<Info> = React.PropsWithChildren<{
 export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<Info>) => {
   const { pushSuccess, oid, query } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
+  const { contact } = ContactContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
 
   const nameRef = useControlRef<Input>()
@@ -46,26 +37,28 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   const emailRef = useControlRef<Input>()
   const phoneRef = useControlRef<Input>()
   const mailingRef = useControlRef<Input>()
-  if (!locale) return null
+  if (!locale || !isImplementedLocale(locale) || !contact) return null
 
   const uspsAddress = address ? address.fullAddr : null
-  const { city, county } = locale
+  const { city, county, otherCities } = locale
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    if (!address || !uspsAddress) return  // TODO: Add warning
+    if (!address || !uspsAddress || !contact) return  // TODO: Add warning
 
     const baseInfo: StatelessInfo = {
-      city,
-      county,
+      city: contact.city ?? city,
+      county: contact.county ?? county,
+      otherCities,
       oid,
       name: nameRef.value() || '',
       birthdate: birthdateRef.value() || '',
       email: emailRef.value() || '',
       mailingAddress: mailingRef.value() || '',
       phone: phoneRef.value() || '',
-      uspsAddress
+      uspsAddress,
+      contact,
     }
 
     const info = enrichValues(baseInfo)
@@ -75,55 +68,55 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     // TODO: Add warning if error
   }
 
-  return <FormContainer>
-    <Form onSubmit={handleSubmit}>
-      <NameInput
-        id='name'
-        ref={nameRef}
-        defaultValue={query.name}
-        required
-      />
-      <BaseInput
-        id='registrationAddress'
-        label='Registration Address'
-        defaultValue={address?.queryAddr}
-        disabled
-      />
-      <BirthDateInput
-        id='birthdate'
-        ref={birthdateRef}
-        defaultValue={query.birthdate}
-        required
-      />
-      <EmailInput
-        id='email'
-        ref={emailRef}
-        defaultValue={query.email}
-        required
-      />
-      <PhoneInput
-        id='telephone'
-        ref={phoneRef}
-        defaultValue={query.telephone}
-      />
-      <Togglable
+  return <AppForm onSubmit={handleSubmit}>
+    <NameInput
+      id='name'
+      ref={nameRef}
+      defaultValue={query.name}
+      required
+    />
+    <BaseInput
+      id='registrationAddress'
+      label='Registration Address'
+      defaultValue={address?.queryAddr}
+      disabled
+    />
+    <ContactInfo locale={locale} contact={contact}/>
+    <BirthDateInput
+      id='birthdate'
+      ref={birthdateRef}
+      defaultValue={query.birthdate}
+      required
+    />
+    <EmailInput
+      id='email'
+      ref={emailRef}
+      defaultValue={query.email}
+      required
+    />
+    <PhoneInput
+      id='telephone'
+      ref={phoneRef}
+      defaultValue={query.telephone}
+    />
+    <Togglable
+      id='mailing'
+      label='Mail My Ballot to a separate mailing address'
+    >{
+      (checked) => <BaseInput
         id='mailing'
-        label='Mail My Ballot to a separate mailing address'
-      >{
-        (checked) => <BaseInput
-          id='mailing'
-          label='Mailing Address'
-          ref={mailingRef}
-          required={checked}
-        />
-      }</Togglable>
-      { children }
-
-      <RoundedButton color='primary' variant='raised' data-testid='submit' style={{marginLeft: '13%'}}>
-        Send my signup email
+        label='Mailing Address'
+        ref={mailingRef}
+        required={checked}
+      />
+    }</Togglable>
+    { children }
+    <Center>
+      <RoundedButton color='primary' variant='raised' data-testid='submit'>
+        Submit signup
       </RoundedButton>
-    </Form>
-  </FormContainer>
+    </Center>
+  </AppForm>
 }
 
 export type NoSignature<Info extends StateInfo> = Omit<Info, 'signature'>

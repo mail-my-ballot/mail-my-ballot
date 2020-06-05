@@ -11,7 +11,8 @@ import { UnstatedContainer } from "../StateContainer"
 import { client } from '../../lib/trpc'
 import { mocked } from 'ts-jest/utils'
 import { toPath, SuccessPath, parseQS } from '../../lib/path'
-import { AddressContainer } from '../../lib/unstated'
+import { AddressContainer, ContactContainer } from '../../lib/unstated'
+import { ContactData } from '../../common'
 jest.mock('../../lib/trpc')
 
 /** Fill out form without signing */
@@ -58,6 +59,13 @@ const wisconsinAddress = {
   queryAddr: '1 S Pinckney St, Madison, WI 53703'
 }
 
+const wisconsinContact: ContactData = {
+  key: 'town:county',
+  state: 'Wisconsin',
+  city: 'town',
+  county: 'county'
+}
+
 test('State Form Without Signature (Wisconsin) works', async () => {
   const history = createMemoryHistory()
 
@@ -66,11 +74,14 @@ test('State Form Without Signature (Wisconsin) works', async () => {
     data: 'confirmationId',
   })
   mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
+  mocked(client, true).fetchContacts = jest.fn().mockResolvedValue([])
 
   const renderResult = render(
     <Router history={history}>
       <AddressContainer.Provider initialState={wisconsinAddress}>
-        <Wisconsin/>
+        <ContactContainer.Provider initialState={wisconsinContact}>
+          <Wisconsin/>
+        </ContactContainer.Provider>
       </AddressContainer.Provider>
     </Router>,
     { wrapper: UnstatedContainer }

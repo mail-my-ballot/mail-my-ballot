@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from 'muicss/lib/react/form'
 import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import { H1, P } from './util/Text'
@@ -7,6 +6,7 @@ import { StyleContainer } from './util/Container'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
 import { AddressContainer } from '../lib/unstated'
+import { AppForm } from './util/Form'
 
 
 const Background = styled.div`
@@ -53,8 +53,6 @@ const ZipInput = styled.input`
   box-shadow: none;
   outline: none;
   width: 84px;
-  font-size: 16px;
-  line-height: 22px;
   border-radius: 4px;
   margin-right: 1rem;
   @media only screen and (max-width: 414px) {
@@ -117,7 +115,7 @@ export const Blurb: React.FC<{}> = () => {
         </P>
         <P>Sign up today in <b>2 minutes</b> before your state deadline expires.
         </P>
-        <Form onSubmit={handleSubmit}>
+        <AppForm onSubmit={handleSubmit}>
           <P><b>Enter your ZIP code</b> to get started</P>
           <FlexContainer> 
             {/* id is used by WarningMsg to fill out zipcode */}
@@ -137,7 +135,7 @@ export const Blurb: React.FC<{}> = () => {
               Start
             </SubmitButton>
           </FlexContainer>
-        </Form>
+        </AppForm>
       </FlexBox>
     </StyleContainer>
   </Background>

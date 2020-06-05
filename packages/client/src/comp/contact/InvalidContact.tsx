@@ -1,13 +1,9 @@
+
 import React from 'react'
 import { ContactData, Locale } from '../../common'
 import { P } from '../util/Text'
 
-type ContactInfoProps = React.PropsWithChildren<{
-  locale: Locale
-  contact: ContactData
-}>
-
-type InvalidContactProps = React.PropsWithChildren<{
+type Props = React.PropsWithChildren<{
   locale: Locale
   contact: ContactData | null
 }>
@@ -27,7 +23,7 @@ const localeString = ({city, county, state}: Locale) => {
   return `${city}, ${state}` + (county ? ` (${county})` : '')
 }
 
-export const InvalidContact: React.FC<InvalidContactProps> = ({
+export const InvalidContact: React.FC<Props> = ({
   locale, contact
 }) => {
   if (!contact) {
@@ -37,23 +33,10 @@ export const InvalidContact: React.FC<InvalidContactProps> = ({
   const texts = [
     (contact.official)
       ? `The local elections official for ${localeString(locale)} is ${contact.official}.`
-      : `We were able to find the local eletions official for ${localeString(locale)}.`,
+      : `We were able to find the local election official for ${localeString(locale)}.`,
     'Unfortunately, they are one of the few that do not list an email or fax.',
     englishList('phone number', 'phone numbers', contact.phones),
     contact.url ? `Their email is ${contact.url}.` : ''
-  ]
-
-  return <P>{texts.join(' ')}</P>
-}
-
-export const ContactInfo: React.FC<ContactInfoProps> = ({
-  locale, contact
-}) => {
-  const texts = [
-    `The local elections official for ${localeString(locale)} is ${contact.official}.`,
-    englishList('email address', 'email addresses', contact.emails),
-    englishList('fax number', 'fax numbers', contact.faxes),
-    englishList('phone number', 'phone numbers', contact.phones),
   ]
 
   return <P>{texts.join(' ')}</P>

@@ -27,12 +27,17 @@ const makeImageAttachment = (
   })]
 }
 
+interface Options {
+  pdfBuffer?: Buffer
+  force?: boolean
+}
+
 // separate out this function for testing purposes
-export const toEmailData = (
+export const toSignupEmailData = (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
-  force = false,
+  { pdfBuffer, force }: Options = { force: false }
 ): mailgun.messages.SendData => {
   const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
   const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
@@ -40,32 +45,35 @@ export const toEmailData = (
   const { md, html, signature, idPhoto } = letter
   const mgData = {
     from: processEnvOrThrow('MG_FROM_ADDR'),
-    replyTo: processEnvOrThrow('MG_REPLY_TO_ADDR'),
+    'h:Reply-To': processEnvOrThrow('MG_REPLY_TO_ADDR'),
   }
 
-  const attachment1 = signature ? makeImageAttachment(signature, 'signature', voterEmail) : []
-  const attachment2 = idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : []
+  const attachment = [
+    signature ? makeImageAttachment(signature, 'signature', voterEmail) : [],
+    idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : [],
+    pdfBuffer ? [new mg.Attachment({data: pdfBuffer, filename: 'letter.pdf'})] : []
+  ].flatMap(x => x)
   return {
     to,
     subject,
     html,
     text: md,
-    attachment: [...attachment1, ...attachment2],
+    attachment,
     ...mgData,
   }
 }
 
-export const sendEmail = async (
+export const sendSignupEmail = async (
   letter: Letter,
   voterEmail: string,
   officialEmails: string[],
-  force = false,
+  { pdfBuffer, force }: Options = { force: false },
 ): Promise<mailgun.messages.SendResponse | null> => {
   if (process.env.MG_DISABLE) { // to disable MG for testing
     console.warn('No email sent (disabled)')
     return null
   }
 
-  const emailData = toEmailData(letter, voterEmail, officialEmails, force)  
+  const emailData = toSignupEmailData(letter, voterEmail, officialEmails, { pdfBuffer, force })
   return mg.messages().send(emailData)
 }

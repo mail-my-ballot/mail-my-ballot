@@ -1,5 +1,5 @@
 import { Locale, AvailableState } from "../../common"
-import { normalizeLocale } from "./normalize"
+import { normalizeLocaleKey } from "./normalize"
 
 const citySuffixes = (suffixes: string[], city: string): string[] => {
   if (suffixes.some(suffix => city.endsWith(suffix))) {
@@ -30,8 +30,8 @@ const wisconsinCounties = (county: string): string[] => {
 */
 const keysCityState = (locale: Locale<AvailableState>): string[] => {
   const cityLocales = citySuffixes([' city'], locale.city)
-    .map(city => normalizeLocale({...locale, city}))
-  const countyLocales = normalizeLocale({...locale, city: ''})
+    .map(city => normalizeLocaleKey({...locale, city}))
+  const countyLocales = normalizeLocaleKey({...locale, city: ''})
   return cityLocales.concat([countyLocales])
 }
 
@@ -66,22 +66,22 @@ export const keys = (
     case 'Minnesota':
     case 'Nebraska':
     case 'New York': {
-      return [normalizeLocale(locale)]
+      return [normalizeLocaleKey(locale)]
     }
     case 'Michigan': {
-      // In Michigan, first try administrative_area_level_3 (otherCities)
-      // before locality (city) and vary each locality
+      // In Michigan, first try 'administrative_area_level_3' (otherCities)
+      // before 'locality' (city) and vary each locality
       const orderedCities = [
         ...(locale?.otherCities ?? []),
         locale.city
       ].flatMap(michiganCitySuffixes)
-      return orderedCities.map(city => normalizeLocale({...locale, city}))
+      return orderedCities.map(city => normalizeLocaleKey({...locale, city}))
     }
     case 'Wisconsin': {
       if (!locale.county) return []
       return wisconsinCounties(locale.county).flatMap(county =>
         wisconsinCities(locale.city).map(city =>
-          normalizeLocale({...locale, city, county})
+          normalizeLocaleKey({...locale, city, county})
         )
       )
     }
