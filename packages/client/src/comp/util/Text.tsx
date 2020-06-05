@@ -12,6 +12,7 @@ export const P = styled.p`
   @media only screen and (max-width: 414px) {
     font-size: 18px;
     width: 90%;
+    text-align: left;
   }
 `
 
@@ -21,5 +22,6 @@ export const H1 = styled.h1`
   @media only screen and (max-width: 414px) {
     padding-top: 0px;
     font-size: 35px;
+    text-align: left;
   }
 `

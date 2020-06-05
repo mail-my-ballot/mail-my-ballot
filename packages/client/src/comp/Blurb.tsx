@@ -28,8 +28,8 @@ const FlexBox = styled.div`
   justify-content: center;
   align-items: flex-start;
   @media only screen and (max-width: 414px) {
-    P-align: center;
-    align-items: center;
+    P-align: left;
+    align-items: left;
   }
 `
 
@@ -40,9 +40,9 @@ const FlexContainer = styled.div`
   justify-content: flex-start;
   align-content: center;
   @media only screen and (max-width: 414px) {
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    text-align: left;
+    align-items: left;
+    justify-content: left;
     margin-top: 30px;
   }
 `
@@ -58,8 +58,6 @@ const ZipInput = styled.input`
   border-radius: 4px;
   margin-right: 1rem;
   @media only screen and (max-width: 414px) {
-    width: 130px;
-    height: 60px;
     font-size: 30px;
   }
 `
@@ -74,7 +72,6 @@ const SubmitButton = styled(RoundedButton)`
     color: #f1f1ff;
   }
   @media only screen and (max-width: 414px) {
-    height: 90px;
     font-size: 30px;
   }
 `
