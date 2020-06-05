@@ -63,6 +63,7 @@ const addresses: [string, string][] = [
   ['10995 W Jefferson Ave, River Rouge, MI 48229', 'River Rouge City:Wayne County'],
   // Google just returns Ann Arbor for locality
   // ['2376 Westbrooke Cir N, Ann Arbor, MI 48105', 'Ann Arbor Township:Washtenaw County'],
+  // ['21385 Glen Lodge Rd, Ferndale, MI 48220, USA', 'Royal Oak Township:Wayne County']
 ]
 
 test.each(addresses)(
