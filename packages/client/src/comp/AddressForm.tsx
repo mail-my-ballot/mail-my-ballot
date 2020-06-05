@@ -25,6 +25,8 @@ const FlexBox = styled.div`
   @media only screen and (max-width: 414px) {
     width: 100%;
     flex-direction: column;
+    align-items: flex-start;
+    padding-left: 30px;
   }
 `
 

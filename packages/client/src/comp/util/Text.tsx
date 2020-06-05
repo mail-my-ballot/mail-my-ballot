@@ -13,6 +13,7 @@ export const P = styled.p`
     font-size: 18px;
     width: 90%;
     text-align: left;
+    padding-left: 30px;
   }
 `
 
@@ -23,5 +24,6 @@ export const H1 = styled.h1`
     padding-top: 0px;
     font-size: 35px;
     text-align: left;
+    padding-left: 30px;
   }
 `

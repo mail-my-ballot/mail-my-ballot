@@ -9,9 +9,9 @@ const Container = styled.div`
     left: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
+    align-items: left;
+    text-align: left;
+    justify-content: left;
   }
 `
 

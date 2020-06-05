@@ -58,7 +58,7 @@ const ZipInput = styled.input`
   border-radius: 4px;
   margin-right: 1rem;
   @media only screen and (max-width: 414px) {
-    font-size: 30px;
+    margin-left: 30px;
   }
 `
 
@@ -70,9 +70,6 @@ const SubmitButton = styled(RoundedButton)`
   :hover {
     background: #5DC6BC;
     color: #f1f1ff;
-  }
-  @media only screen and (max-width: 414px) {
-    font-size: 30px;
   }
 `
 
