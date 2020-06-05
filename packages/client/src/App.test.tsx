@@ -17,7 +17,6 @@ describe('App', () => {
     })
     mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
     mocked(client, true).fetchFeatureFlags = jest.fn().mockResolvedValue({})
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   })
 
   it('Scrolls when clicked on Blurb page', () => {
