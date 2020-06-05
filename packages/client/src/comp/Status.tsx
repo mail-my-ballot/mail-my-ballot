@@ -1,10 +1,12 @@
 import React from 'react'
 
+import { FeatureFlagsContainer } from '../lib/unstated'
 import { client } from '../lib/trpc'
 
 
 export const Status = () => {
   const [sum, setSum] = React.useState<number | string>('loading ...')
+  const { featureFlags } = FeatureFlagsContainer.useContainer()
   
   React.useEffect(() => {
     (async () => {
@@ -27,7 +29,7 @@ export const Status = () => {
     <ul>
       <li>NODE_ENV: {process.env.NODE_ENV}</li>
       <li>REACT_APP_ENVIRONMENT: {process.env.REACT_APP_ENVIRONMENT}</li>
-      <li>REACT_APP_EMAIL_FAX_OFFICIALS: {process.env.REACT_APP_EMAIL_FAX_OFFICIALS}</li>
+      <li>REACT_APP_EMAIL_FAX_OFFICIALS: {featureFlags?.REACT_APP_EMAIL_FAX_OFFICIALS}</li>
       <li>2 + 3 = {sum}</li>
     </ul>
   </div>

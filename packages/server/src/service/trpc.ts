@@ -1,7 +1,7 @@
 import { data, error } from '@tianhuil/simple-trpc/dist/util'
 import { ImplRpc } from '@tianhuil/simple-trpc/dist/type'
 import { Request } from 'express'
-import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState, Voter, Locale, ImplementedState } from '../common'
+import { IVbmRpc, StateInfo, toLocale, toContactMethod, isState, Voter, Locale, ImplementedState, processEnvOrThrow } from '../common'
 import { FirestoreService } from './firestore'
 import { sendSignupEmail } from './mg'
 import { toContact, getContactRecords, getContact as _getContact } from './contact'
@@ -34,6 +34,11 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     return data({
       facebookId: orgObj?.facebookId,
       googleId: orgObj?.googleId,
+    })
+  }
+  public fetchFeatureFlags = async () => {
+    return data({
+      REACT_APP_EMAIL_FAX_OFFICIALS: Number(processEnvOrThrow('REACT_APP_EMAIL_FAX_OFFICIALS'))
     })
   }
   public fetchState = async (zip: string) => {
