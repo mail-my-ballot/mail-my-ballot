@@ -38,7 +38,7 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
   }
   public fetchFeatureFlags = async () => {
     return data({
-      REACT_APP_EMAIL_FAX_OFFICIALS: Number(processEnvOrThrow('REACT_APP_EMAIL_FAX_OFFICIALS'))
+      emailFaxOfficials: !!processEnvOrThrow('REACT_APP_EMAIL_FAX_OFFICIALS')
     })
   }
   public fetchState = async (zip: string) => {

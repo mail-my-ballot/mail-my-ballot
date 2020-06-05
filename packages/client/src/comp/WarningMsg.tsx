@@ -68,7 +68,7 @@ const RawWarningMsg = () => {
 export const WarningMsg = () => {
   const { featureFlags } = FeatureFlagsContainer.useContainer()
   const { path } = useAppHistory()
-  if (featureFlags?.REACT_APP_EMAIL_FAX_OFFICIALS) return null
+  if (featureFlags?.emailFaxOfficials) return null
   
   return <RedOutline>
     <h2>Warning: Not Production!</h2>
