@@ -136,7 +136,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
               style={{flexGrow: 0}}
             >{ addressC2a === 'FindOfficial'
                 ? 'Find my election official'
-                : 'Find signup form' }
+                : 'Go to signup form' }
             </RoundedButton>
           </div>
         </FlexFixed>
