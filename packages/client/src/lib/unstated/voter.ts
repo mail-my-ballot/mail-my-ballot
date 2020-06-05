@@ -1,7 +1,8 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
-import { Voter, UTM } from '../../common'
+import { Voter, UTM, ExperimentName } from '../../common'
 import { useDeepMemoize } from './memoize'
+import { experiments } from '../experiment'
 
 const localStorageKey = 'voter-data'
 
@@ -26,16 +27,25 @@ const randomUserId = () => {
   return Math.random().toString(36).substring(2, 15)
 }
 
-const defaultInitialState = { uid: randomUserId() }
 
 /** Set initial state without overwriting data in localStorage */
-const useVoterContainer = (initialState: Voter = defaultInitialState) => {
+const useVoterContainer = (uid: string = randomUserId()) => {
   const existingVoter = loadLocalStorage()
   const [voter, setVoter] = React.useState<Voter>({
-    ...(initialState ?? {}),
+    ...{uid},
     ...existingVoter 
   })
   const voterMemo = useDeepMemoize(voter)
+
+  // Precompute experiment group
+  const cacheExperimentGroup = useDeepMemoize(Object.fromEntries(experiments
+    .map(exp => exp.group(uid))
+    .map(({name, group}) => [name, group])
+  ))
+
+  const experimentGroup = React.useCallback((name: ExperimentName) => {
+    return cacheExperimentGroup[name]
+  }, [cacheExperimentGroup])
 
   /** Non-overwriting update of user data */
   const conservativeUpdateVoter = React.useCallback((utm: UTM) => {
@@ -43,7 +53,7 @@ const useVoterContainer = (initialState: Voter = defaultInitialState) => {
     saveLocalStorage(newVoter)
     setVoter(newVoter)
   }, [voterMemo])
-  return { voter: voterMemo, conservativeUpdateVoter }
+  return { voter: voterMemo, conservativeUpdateVoter, experimentGroup }
 }
 
 export const VoterContainer = createContainer(useVoterContainer)
