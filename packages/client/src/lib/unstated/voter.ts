@@ -3,6 +3,7 @@ import { createContainer } from "unstated-next"
 import { Voter, UTM, ExperimentName } from '../../common'
 import { useDeepMemoize } from './memoize'
 import { experiments } from '../experiment'
+import { useAppHistory } from '../path'
 
 const localStorageKey = 'voter-data'
 
@@ -27,20 +28,20 @@ const randomUserId = () => {
   return Math.random().toString(36).substring(2, 15)
 }
 
-
 /** Set initial state without overwriting data in localStorage */
-const useVoterContainer = (uid: string = randomUserId()) => {
+const useVoterContainer = () => {
   const existingVoter = loadLocalStorage()
   const [voter, setVoter] = React.useState<Voter>({
-    ...{uid},
+    ...{ uid: randomUserId() },
     ...existingVoter 
   })
+  const { query } = useAppHistory()
   const voterMemo = useDeepMemoize(voter)
 
-  // Precompute experiment group
+  // Precompute experiment group, which can be overriden with query
   const cacheExperimentGroup = useDeepMemoize(Object.fromEntries(experiments
-    .map(exp => exp.group(uid))
-    .map(({name, group}) => [name, group])
+    .map(exp => exp.group(voter.uid))
+    .map(({name, group}) => [name, query['exp:' + name] ?? group])
   ))
 
   const experimentGroup = React.useCallback((name: ExperimentName) => {
