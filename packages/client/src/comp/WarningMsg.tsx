@@ -4,6 +4,7 @@ import { RedOutline } from './util/RedOutline'
 import { sampleAddresses } from '../common/sampleAddresses'
 import { ImplementedState, isImplementedState } from '../common'
 import { useAppHistory, Path } from '../lib/path'
+import { FeatureFlagsContainer } from '../lib/unstated'
 import { StateSelector, StateContainer } from './StateSelector'
 
 const defaultState = (path: Path | null): ImplementedState => {
@@ -65,8 +66,9 @@ const RawWarningMsg = () => {
 }
 
 export const WarningMsg = () => {
+  const { featureFlags } = FeatureFlagsContainer.useContainer()
   const { path } = useAppHistory()
-  if (process.env.REACT_APP_EMAIL_FAX_OFFICIALS) return null
+  if (featureFlags?.emailFaxOfficials) return null
   
   return <RedOutline>
     <h2>Warning: Not Production!</h2>

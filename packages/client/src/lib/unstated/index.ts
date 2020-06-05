@@ -1,6 +1,6 @@
 import React from 'react'
 import { createContainer } from "unstated-next"
-import { Address, ContactData, Analytics, toLocale, Locale, toContactMethod, ContactMethod } from '../../common'
+import { Address, ContactData, Analytics, toLocale, Locale, toContactMethod, ContactMethod, FeatureFlags } from '../../common'
 
 const useAddressContainer = (initialState: (Address | null) = null) => {
   const [address, setAddress] = React.useState<Address | null>(initialState)
@@ -23,6 +23,13 @@ const useAnalyticsContainer = (initialAnalytics: Analytics | null = null) => {
 }
 
 export const AnalyticsContainer = createContainer(useAnalyticsContainer)
+
+const useFeatureFlagsContainer = (initialFeatureFlags: FeatureFlags | null = null) => {
+  const [featureFlags, setFeatureFlags] = React.useState(initialFeatureFlags)
+  return { featureFlags, setFeatureFlags }
+}
+
+export const FeatureFlagsContainer = createContainer(useFeatureFlagsContainer)
 
 export * from './query'
 export * from './voter'
