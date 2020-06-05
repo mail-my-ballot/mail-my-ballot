@@ -3,7 +3,7 @@ import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { QueryContainer, AddressContainer, ContactContainer, VoterContainer } from '../lib/unstated'
+import { QueryContainer, AddressContainer, ContactContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
@@ -43,8 +43,6 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
   const { load, error, success } = QueryContainer.useContainer()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
-  const { experimentGroup } = VoterContainer.useContainer()
-  const addressC2a = experimentGroup('AddressC2a')
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
@@ -110,11 +108,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
 
   return <StatusReport state={state}>
     <AppForm onSubmit={handleSubmit}>
-      <p><b>Enter Your Full Address</b> to
-        { addressC2a === 'FindOfficial'
-          ? ' find your local election official'
-          : ' sign up for Vote by Mail' }
-      </p>
+      <p><b>Enter Your Full Address</b> to find your local election official</p>
       <FlexBox>
         <FlexGrow>
           <BaseInput
@@ -134,9 +128,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
               variant='raised'
               data-testid='submit'
               style={{flexGrow: 0}}
-            >{ addressC2a === 'FindOfficial'
-                ? 'Find my election official'
-                : 'Go to signup form' }
+            >Find my election official
             </RoundedButton>
           </div>
         </FlexFixed>
