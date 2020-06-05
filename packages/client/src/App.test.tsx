@@ -16,6 +16,7 @@ describe('App', () => {
       data: 'Florida',
     })
     mocked(client, true).fetchAnalytics = jest.fn().mockResolvedValue({})
+    mocked(client, true).fetchFeatureFlags = jest.fn().mockResolvedValue({})
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   })
 
