@@ -20,7 +20,6 @@ const RawMockPage: React.FC<{}> = () => {
         postcode: '20500',
         ...bareAddress
       }
-      
 
       const result = await client.fetchContact(bareAddress)
       if (result.type === 'data') {
