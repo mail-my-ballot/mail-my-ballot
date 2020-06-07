@@ -60,6 +60,8 @@ const addresses: [string, string][] = [
 
   // Special cases
   ['10995 W Jefferson Ave, River Rouge, MI 48229', 'River Rouge City:Wayne County'],
+  ['916 Parkview Ave, Battle Creek, MI 49017, USA', 'Pennfield Township:Calhoun County'],
+  ['117 W Prudence Ln, Battle Creek, MI 49037, USA', 'Bedford Township:Calhoun County'],
   // Google just returns Ann Arbor for locality
   ['2376 Westbrooke Cir N, Ann Arbor, MI 48105', 'Ann Arbor Township:Washtenaw County'],
   ['21385 Glen Lodge Rd, Ferndale, MI 48220, USA', 'Royal Oak Township:Oakland County']
