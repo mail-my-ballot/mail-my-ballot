@@ -104,7 +104,7 @@ const production = removeNullValues({
   GOOGLE_MAPS_API_KEY: PROD.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
-  REACT_APP_EMAIL_FAX_OFFICIALS: 1,
+  EMAIL_FAX_OFFICIALS: 1,
 })
 
 const test = removeNullValues({

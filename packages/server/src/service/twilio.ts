@@ -18,7 +18,7 @@ export const e164 = (number: string): string => {
 
 const tos = (faxes: string[], force: boolean): string[] => {
   if (process.env.TWILIO_DIVERT) return [receiveFax]
-  if (!!process.env.REACT_APP_EMAIL_FAX_OFFICIALS || force) return faxes
+  if (!!process.env.EMAIL_FAX_OFFICIALS || force) return faxes
   return []
 }
 

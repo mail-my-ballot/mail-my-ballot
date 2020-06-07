@@ -39,7 +39,7 @@ export const toSignupEmailData = (
   officialEmails: string[],
   { pdfBuffer, force }: Options = { force: false }
 ): mailgun.messages.SendData => {
-  const emailOfficials = !!process.env.REACT_APP_EMAIL_FAX_OFFICIALS
+  const emailOfficials = !!process.env.EMAIL_FAX_OFFICIALS
   const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
   const subject = 'Vote By Mail Request'
   const { md, html, signature, idPhoto } = letter

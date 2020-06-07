@@ -61,7 +61,7 @@ export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId:
         ...envVars,
         confirmationId,
         method,
-        warning: !process.env.REACT_APP_EMAIL_FAX_OFFICIALS
+        warning: !process.env.EMAIL_FAX_OFFICIALS
       }
     ),
     method,
