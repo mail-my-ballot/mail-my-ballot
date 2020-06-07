@@ -1,5 +1,5 @@
 export interface Address {
-  latLong: [number, number]
+  latLong?: [number, number]
   queryAddr: string
   fullAddr: string
   city?: string

@@ -2,7 +2,7 @@ import { State, isState } from './states'
 import { Address } from './address'
 
 export interface Locale<S extends State = State> {
-  latLong: [number, number]
+  latLong?: [number, number]
   otherCities?: string[]
   city: string
   county?: string
