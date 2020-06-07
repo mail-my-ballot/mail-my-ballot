@@ -20,6 +20,12 @@ export const rawGeocode = async (query: string): Promise<google.maps.GeocoderRes
   return response.results[0]
 }
 
+const getLatLong = (location: google.maps.LatLng): [number, number] => {
+  // Google's API has `.lat()` but you can also call `.lat` directly
+  // and that is how the results are serialized (for cached results)
+  return [location.lat as unknown as number, location.lng as unknown as number]
+}
+
 export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'queryAddr'> | null => {
   const components = result.address_components
 
@@ -41,6 +47,7 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
   if (!country || !state || !postcode) return null
 
   return {
+    latLong: getLatLong(result.geometry.location),
     fullAddr,
     city,
     country,

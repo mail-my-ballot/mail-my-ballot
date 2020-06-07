@@ -40,7 +40,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   if (!locale || !isImplementedLocale(locale) || !contact) return null
 
   const uspsAddress = address ? address.fullAddr : null
-  const { city, county, otherCities } = locale
+  const { city, county, otherCities, latLong } = locale
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
@@ -51,6 +51,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       city: contact.city ?? city,
       county: contact.county ?? county,
       otherCities,
+      latLong,
       oid,
       name: nameRef.value() || '',
       birthdate: birthdateRef.value() || '',

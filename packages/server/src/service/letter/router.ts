@@ -22,6 +22,7 @@ const baseStateInfo: Omit<BaseInfo, 'contact'> = {
   county: 'Fairfax',
   city: 'Fairfax',
   oid: 'default',
+  latLong: [0, 0]
 }
 
 const signature = 'data:image/png;base64,' + loadBase64('signature.png')

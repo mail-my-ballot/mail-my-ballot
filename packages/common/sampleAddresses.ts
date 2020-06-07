@@ -5,9 +5,24 @@ export interface AddressData extends Locale<ImplementedState> {
   address: string
 }
 
+const toAddressData = (addrData: Omit<AddressData, 'latLong'>): AddressData => {
+  // overridable default latLong
+  return { latLong: [0, 0], ...addrData, }
+}
+
+const mapValueList = (
+  record: Record<ImplementedState, Omit<AddressData, 'latLong'>[]>
+): Record<ImplementedState, AddressData[]> => {
+  return Object.fromEntries(
+    Object.entries(record).map(
+      ([key, val]) => [key, val.map(toAddressData)]
+    )
+  ) as Record<ImplementedState, AddressData[]> 
+}
+
 // The Chamber of Commerce for the 3 largest cities in the state
 // and others addresses as necessary
-export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
+export const sampleAddresses: Record<ImplementedState, AddressData[]> = mapValueList({
   'Arizona': [{
     address: '201 N Central Ave, Phoenix, AZ 85004',
     city: 'Phoenix',
@@ -186,4 +201,4 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     county: 'Albany County',
     state: 'New York',
   }]
-}
+})

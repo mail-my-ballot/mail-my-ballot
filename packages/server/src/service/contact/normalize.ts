@@ -55,7 +55,6 @@ export const normalizeLocaleKey = ({state, city, county}: OptionalLocale): strin
   })
 }
 
-
 const normalizeContact = (contact: RawContact): RawContact => {
   return {
     ...contact,
