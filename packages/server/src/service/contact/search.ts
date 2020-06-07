@@ -70,7 +70,7 @@ export const keys = (
     }
     case 'Michigan': {
       // In Michigan, first try 'administrative_area_level_3' (otherCities)
-      // before 'locality' (city) and vary each locality
+      // before 'locality' (city) and vary each them
       const orderedCities = [
         ...(locale?.otherCities ?? []),
         locale.city
