@@ -1,31 +1,9 @@
-import { ContactRecord, RawContact } from './type'
-import { loadStates } from './loader'
-import { normalizeStates } from './normalize'
+import { RawContact } from './type'
 import { Locale, isAvailableState, ContactData, AvailableState } from '../../common'
 import { keys } from './search'
-
-let contactRecords: null | ContactRecord = null;
-
-(async (): Promise<void> => {
-  const data = await loadStates()
-  contactRecords = normalizeStates(data)
-})()
-
-const delay = (t: number): Promise<void> => new Promise(resolve => setTimeout(resolve, t))
-
-/** poll condition every interval millis for a total of timeout millis until condition is true, false otherwise */
-const poll = async (condition: () => boolean, interval: number, timeout: number): Promise<boolean> => {
-  if (condition()) return true
-  if (timeout <= 0) return false
-  await delay(interval)
-  return await poll(condition, interval, timeout - interval)
-}
-
-export const getContactRecords = async (): Promise<ContactRecord> => {
-  await poll(() => !!contactRecords, 100, 5000)
-  if (!contactRecords) throw Error('Unable to load data')
-  return contactRecords
-}
+import { getContactRecords, getMichiganRecords } from './loader'
+import { michiganFipsCode } from '../michiganFipsCode'
+import { normalizeLocaleKey } from './normalize'
 
 const enrichContact = (raw: RawContact, key: string, state: AvailableState): ContactData => {
   return {
@@ -48,12 +26,33 @@ export const getFirstContact = async (state: AvailableState): Promise<ContactDat
   return enrichContact(raw, key, state)
 }
 
+const getMichiganContact = async (latLong: [number, number]): Promise<ContactData | null> => {
+  const fipscode = await michiganFipsCode(latLong)
+  if (!fipscode) return null
+  const records = await getMichiganRecords()
+  const record = records[fipscode]
+  if (!record) return null
+  const key = normalizeLocaleKey({state: 'Michigan', county: record.county, city: record.city})
+  return enrichContact(record, key, 'Michigan') ?? null
+}
+
 export const toContact = async (locale: Locale): Promise<ContactData | null> => {
   const { state } = locale
   if (!isAvailableState(state)) return null
+
+  // Need to search for Michigan Directly
+  if (locale.state === 'Michigan' && locale.latLong) {
+    const contact = await getMichiganContact(locale.latLong)
+    if (contact) return contact
+  }
+
+  console.warn('Unable to directly geocode Michigan address, fallback to inferring')
+
   for (const key of keys(locale as Locale<AvailableState>)) {
     const result = await getContact(state, key)
     if (result) return result
   }
   return null
 }
+
+export { getContactRecords }
