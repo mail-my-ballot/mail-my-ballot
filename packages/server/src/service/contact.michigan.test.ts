@@ -1,7 +1,6 @@
-import { cache } from '../util'
-import { toContact } from '../contact'
-import { rawGeocode, toAddress } from '../gm'
-import { Locale } from '../../common'
+import { cache } from './util'
+import { getMichiganContact } from './contact'
+import { rawGeocode, toAddress } from './gm'
 
 // from: https://en.wikipedia.org/wiki/List_of_municipalities_in_Michigan
 const addresses: [string, string][] = [
@@ -69,18 +68,20 @@ const addresses: [string, string][] = [
 test.each(addresses)(
   'Checking Michigan Geocoding %s',
   async (addr, locality) => {
+    // This function breaks up geocoding into it's parts so that we can cache them at their source
+
+    // break up geocode into it's parts
     const geoResult = await cache(rawGeocode)(addr)
     expect(geoResult).toBeTruthy()
     const errMsg = `Google Result was ${JSON.stringify(geoResult?.address_components, null, 2)}`
   
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const address = await toAddress(geoResult!)
-  
-    expect(
-      address,
-      errMsg,
-    ).toBeTruthy()
-    const contact = await toContact(address as Locale)
+    const address = toAddress(geoResult!)
+    expect(address, errMsg).toBeTruthy()
+    expect(address?.latLong, errMsg).toBeTruthy()
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const contact = await getMichiganContact(address?.latLong!, {cacheQuery: true})
   
     expect(contact, errMsg).toBeTruthy()
     expect(

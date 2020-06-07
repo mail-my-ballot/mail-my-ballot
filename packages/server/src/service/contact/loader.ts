@@ -29,6 +29,15 @@ export const loadStates = async (): Promise<RawContactRecord> => {
   return ret
 }
 
+export const loadMichigan = async (
+  data: Record<string, RawContact>
+): Promise<Record<string, RawContact & { key: string }>> => {
+  return Object.fromEntries(
+    Object.entries(data)
+      .map(([key, rec]) => [(rec as { fipscode: string }).fipscode, {...rec, key}])
+  )
+}
+
 // Utility Functions
 const delay = (t: number): Promise<void> => new Promise(resolve => setTimeout(resolve, t))
 
@@ -47,10 +56,7 @@ let michiganRecords: null | Record<string, RawContact & { key: string }> = null;
 (async (): Promise<void> => {
   const data = await loadStates()
   contactRecords = normalizeStates(data)
-  michiganRecords = Object.fromEntries(
-    Object.entries(contactRecords['Michigan'])
-      .map(([key, rec]) => [(rec as { fipscode: string }).fipscode, {...rec, key}])
-  )
+  michiganRecords = await loadMichigan(contactRecords['Michigan'])
 })()
 
 export const getContactRecords = async (): Promise<ContactRecord> => {

@@ -3,10 +3,10 @@ import fs from 'fs'
 const encoding = 'utf8'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Func<A extends string | number[], T extends Record<string, any>> = (_: A) => Promise<T>
+type Func<A extends string | number[], T extends Record<string, any> | null> = (_: A) => Promise<T>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const cache = <A extends string | number[], T extends Record<string, any>>(
+export const cache = <A extends string | number[], T extends Record<string, any> | null>(
   f: Func<A, T>
 ): Func<A, T> => {
   return async (arg: A) => {

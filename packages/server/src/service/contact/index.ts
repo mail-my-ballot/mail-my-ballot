@@ -26,8 +26,11 @@ export const getFirstContact = async (state: AvailableState): Promise<ContactDat
   return enrichContact(raw, key, state)
 }
 
-const getMichiganContact = async (latLong: [number, number]): Promise<ContactData | null> => {
-  const fipscode = await michiganFipsCode(latLong)
+export const getMichiganContact = async (
+  latLong: [number, number],
+  {cacheQuery} = {cacheQuery: false},
+): Promise<ContactData | null> => {
+  const fipscode = await michiganFipsCode(latLong, {cacheQuery})
   if (!fipscode) return null
   const records = await getMichiganRecords()
   const record = records[fipscode]
@@ -44,9 +47,8 @@ export const toContact = async (locale: Locale): Promise<ContactData | null> => 
   if (locale.state === 'Michigan' && locale.latLong) {
     const contact = await getMichiganContact(locale.latLong)
     if (contact) return contact
+    console.warn(`Unable to directly geocode Michigan locale ${JSON.stringify(locale)}, fallback to inferring`)
   }
-
-  console.warn('Unable to directly geocode Michigan address, fallback to inferring')
 
   for (const key of keys(locale as Locale<AvailableState>)) {
     const result = await getContact(state, key)
