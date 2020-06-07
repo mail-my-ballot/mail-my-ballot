@@ -4,7 +4,7 @@ import { Letter } from './letter'
 import { processEnvOrThrow } from '../common'
 
 
-const mg = mailgun({
+export const mg = mailgun({
   domain: processEnvOrThrow('MG_DOMAIN'),
   apiKey: processEnvOrThrow('MG_API_KEY'),
 })
@@ -45,7 +45,7 @@ export const toSignupEmailData = (
   const { md, html, signature, idPhoto } = letter
   const mgData = {
     from: processEnvOrThrow('MG_FROM_ADDR'),
-    'h:Reply-To': processEnvOrThrow('MG_REPLY_TO_ADDR'),
+    'h:Reply-To': [processEnvOrThrow('MG_REPLY_TO_ADDR'), voterEmail, ...officialEmails].join(','),
   }
 
   const attachment = [

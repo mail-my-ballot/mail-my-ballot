@@ -1,15 +1,20 @@
-import { sendSignupEmail } from './mg'
+import { toSignupEmailData, mg } from './mg'
 import { Letter } from './letter'
 
 if (process.env.DEV_EMAIL) {
-  sendSignupEmail(
+  const emailData = toSignupEmailData(
     new Letter(
-      '#Hi',
+      '# A Test Email xyz',
       { stateMethod: 'email', emails: ['bob@gmail.com'], faxes: [] }
     ),
     process.env.DEV_EMAIL,
     []
-  ).then(
+  )
+  mg.messages().send({
+    ...emailData,
+    'h:Reply-To': 'bob@gmail.com,alice@gmail.com'
+  }).then(
     (value) => console.log(value)
   )
+  console.log(`Emailed ${process.env.DEV_EMAIL}`)
 }
