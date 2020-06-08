@@ -14,13 +14,15 @@ interface Options {
 }
 
 export class Letter {
+  subject: string
   md: string
   html: string
   method: ContactMethod
   signature?: string
   idPhoto?: string
 
-  constructor(md: string, method: ContactMethod, { signature, idPhoto }: Options = {}) {
+  constructor(subject: string, md: string, method: ContactMethod, { signature, idPhoto }: Options = {}) {
+    this.subject = subject
     this.md = md
     this.html = marked(md)
     this.method = method
@@ -49,11 +51,13 @@ const toTemplate = (state: ImplementedState): string => {
     case 'Nevada': return 'Nevada.md'
     case 'New York': return 'NewYork.md'
     case 'Wisconsin': return 'Wisconsin.md'
+    case 'Wyoming': return 'Wyoming.md'
   }
 }
 
 export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter => {
   return new Letter(
+    info.state == 'Wyoming' ? 'Absentee Ballot Request' : 'Vote By Mail Request',
     nunjucks.render(
       toTemplate(info.state),
       {
