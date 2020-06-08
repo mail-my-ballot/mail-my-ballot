@@ -41,7 +41,7 @@ export const toSignupEmailData = (
 ): mailgun.messages.SendData => {
   const emailOfficials = !!process.env.EMAIL_FAX_OFFICIALS
   const to = (emailOfficials || force) ? [voterEmail, ...officialEmails] : [voterEmail]
-  const subject = 'Vote By Mail Request'
+  const subject = letter.subject
   const { md, html, signature, idPhoto } = letter
   const mgData = {
     from: processEnvOrThrow('MG_FROM_ADDR'),

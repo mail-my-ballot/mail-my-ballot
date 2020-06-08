@@ -185,5 +185,21 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     city: 'Albany',
     county: 'Albany County',
     state: 'New York',
+  }],
+  'Wyoming': [{
+    address: '121 W 15th St #204, Cheyenne, WY 82001',
+    city: 'Cheyenne',
+    county: 'Laramie County',
+    state: 'Wyoming',
+  }, {
+    address: '500 N Center St, Casper, WY 82601',
+    city: 'Casper',
+    county: 'Natrona County',
+    state: 'Wyoming',
+  }, {
+    address: '800 S 3rd St, Laramie, WY 82070',
+    city: 'Laramie',
+    county: 'Albany County',
+    state: 'Wyoming',
   }]
 }

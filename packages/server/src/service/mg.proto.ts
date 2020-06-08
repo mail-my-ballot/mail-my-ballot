@@ -4,6 +4,7 @@ import { Letter } from './letter'
 if (process.env.DEV_EMAIL) {
   const emailData = toSignupEmailData(
     new Letter(
+      '# A Test Subject xyz',
       '# A Test Email xyz',
       { stateMethod: 'email', emails: ['bob@gmail.com'], faxes: [] }
     ),
