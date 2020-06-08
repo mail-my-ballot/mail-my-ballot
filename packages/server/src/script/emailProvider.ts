@@ -9,6 +9,12 @@ const main = async() => {
     firestore.db.collection('StateInfo')
       .orderBy('created', 'asc')
   ))
+
+  const users = await (firestore.query<RichStateInfo>(
+    firestore.db.collection('StateInfo')
+      .orderBy('created', 'asc')
+  ))
+  
   const df = new DataFrame(users, ['name', 'email', 'oid'])
   const res = df.groupBy('oid')
     .aggregate((group) => group.count())

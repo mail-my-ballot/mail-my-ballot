@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { DataFrame } from 'data-forge'
 
 import { FirestoreService } from "../service/firestore"
 import { RichStateInfo, Org, User } from "../service/types"
@@ -33,6 +34,16 @@ const main = async() => {
   console.log(`${stateInfo.length} voters written`)
   console.log(`${user.length} users written`)
   console.log(`${org.length} orgs written`)
+
+  const df = new DataFrame(stateInfo)
+  const res = df.groupBy(row => row.oid)
+    .select(group => ({
+      oid: group.first().oid,
+      count: group.count(),
+    }))
+    .inflate()
+    .toCSV()
+  console.log(res)
 }
 
 main()
