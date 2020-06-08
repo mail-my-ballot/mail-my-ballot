@@ -70,9 +70,7 @@ const addresses: [string, string][] = [
 test.each(addresses)(
   'Checking Michigan Geocoding %s',
   async (addr, locality) => {
-    // This function breaks up geocoding into it's parts so that we can cache them at their source
-
-    // break up geocode into it's parts
+    // This function breaks up geocoding into it's parts so that we can cache and get errMsg
     const geoResult = await cache(rawGeocode)(addr)
     expect(geoResult).toBeTruthy()
     const errMsg = `Google Result was ${JSON.stringify(geoResult?.address_components, null, 2)}`

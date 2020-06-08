@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import { processEnvOrThrow, Address } from '../common'
+import { cache } from './util'
 
 interface GMResults {
   results: google.maps.GeocoderResult[]
@@ -58,8 +59,12 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
   }
 }
 
-export const geocode = async (query: string): Promise<Address | null> => {
-  const result = await rawGeocode(query)
+export const geocode = async (
+  query: string,
+  {cacheQuery} = {cacheQuery: false},
+): Promise<Address | null> => {
+  const func = cacheQuery ? cache(rawGeocode) : rawGeocode
+  const result = await func(query)
   if (!result) return null
   const address = toAddress(result)
   if (!address) return null
