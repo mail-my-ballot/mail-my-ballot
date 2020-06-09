@@ -23,35 +23,39 @@ These commands will likely fail until you have setup the configuration correctly
 ### Configuration
 Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control:
 
-#### Dev Overrides
-`env.dev.nogit.js`: will generally work out of the box.  To run the backend services, you will want to override the existing configuration.
-#### Application Secrets
-`secrets.nogit.json`: The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
+- **Dev Overrides**: `env.dev.nogit.js`: will generally work out of the box.  To run the backend services, you will want to override the existing configuration.
+
+- **Application Secrets**: `secrets.nogit.json`: The secrets can be made empty strings (they must be defined for the server to work).  You can set them as you need to
 
 ## Configuration Details
-Below are the settings that need to be set to get an environment to work:
+Below are the settings that need to be set to get an environment to work.
 
-#### Mailgun
-You only need these to send emails (last step in signup flow).  It's easy to get set up for free.
+- **Mailgun**: You only need these to send emails (last step in signup flow).  It's easy to get set up for free.
 
-#### Twilio
-You only need these to send faxes (last step in signup flow).  It's easy to get set up for free.
+- **Twilio**: You only need these to send faxes (last step in signup flow).  It's easy to get set up for free.
 
-#### Incoming fax numbers
-To test Twilio, we setup an incoming fax number.  ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
+- **Incoming fax numbers**: To test Twilio, we setup an incoming fax number.  ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
 
-#### Dev Firestore Access
-Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
+- **Dev Firestore Access**: Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
 Then make sure `env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `./secrets/[...].json` (override using `developmentRaw`).
 
-#### Google OAuth (development of organizer-facing pages only)
-Following the instructions [here](http://www.passportjs.org/docs/google/):
+- **Google OAuth**: (development of organizer-facing pages only) Following the instructions [here](http://www.passportjs.org/docs/google/):
 
-1. Enable [Google+ API from the Console](https://console.developers.google.com/apis/api/plus.googleapis.com/overview?project=mmb-staging)
-2. Once you have done the above, you should be able to turn on the [OAuth Conset screen](https://console.developers.google.com/apis/credentials/consent?project=mmb-staging)
-3. Once you have done the above, you should be able to create [OAuth Credentials](https://console.developers.google.com/apis/credentials?project=mmb-staging)
+  1. Enable [Google+ API from the Console](https://console.developers.google.com/apis/api/plus.googleapis.com/overview?project=mmb-staging)
+  2. Once you have done the above, you should be able to turn on the [OAuth Conset screen](https://console.developers.google.com/apis/credentials/consent?project=mmb-staging)
+  3. Once you have done the above, you should be able to create [OAuth Credentials](https://console.developers.google.com/apis/credentials?project=mmb-staging)
 
-Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
+  Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
+
+### Testing Individual services
+To experiment with or verify an individual service, you can call the "prototype" files from the command line for the individual services, (e.g.):
+```bash
+yarn server gulp script --script src/service/mg.proto.ts --env development
+```
+To find a list of prototype calls, run:
+```bash
+git ls-files | grep proto
+```
 
 #### Google Maps API
 You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in order to do the ZIP code to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
