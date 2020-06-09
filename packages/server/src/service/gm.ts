@@ -59,11 +59,13 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
   }
 }
 
+export const cachedRawGeocode = cache(rawGeocode, async x => x)
+
 export const geocode = async (
   query: string,
   {cacheQuery} = {cacheQuery: false},
 ): Promise<Address | null> => {
-  const func = cacheQuery ? cache(rawGeocode) : rawGeocode
+  const func = cacheQuery ? cachedRawGeocode : rawGeocode
   const result = await func(query)
   if (!result) return null
   const address = toAddress(result)

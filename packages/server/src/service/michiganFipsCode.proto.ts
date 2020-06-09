@@ -1,8 +1,7 @@
-import { rawMichiganResponse, toFipscode } from './michiganFipsCode'
-import { cache } from './util'
+import { cacheRawMichiganResponse, toFipscode } from './michiganFipsCode'
 
 const main = async() => {
-  const response = await cache(rawMichiganResponse)([-84, +45])
+  const response = await cacheRawMichiganResponse([-84, +45])
   if (!response) return
   console.log(response)
   const fipscode = await toFipscode(response)

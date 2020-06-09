@@ -1,10 +1,9 @@
-import { rawGeocode, toAddress } from './gm'
-import { cache } from './util'
+import { cachedRawGeocode, toAddress } from './gm'
 import { toContact } from './contact'
 import { Locale, toContactMethod } from '../common'
 
 const main = async() => {
-  const geoResult = await cache(rawGeocode)('3600 Telegraph Rd, Bloomfield Twp, MI 48302')
+  const geoResult = await cachedRawGeocode('3600 Telegraph Rd, Bloomfield Twp, MI 48302')
   if (!geoResult) return 
   
   console.log(JSON.stringify(geoResult, null, 2))

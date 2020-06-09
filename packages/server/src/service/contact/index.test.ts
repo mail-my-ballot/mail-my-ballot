@@ -1,7 +1,6 @@
 import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData } from '../../common'
 import { toContact } from '.'
-import { rawGeocode, toAddress } from '../gm'
-import { cache } from '../util'
+import { cachedRawGeocode, toAddress } from '../gm'
 
 
 describe('Google Maps is returning stable results', () => {
@@ -12,7 +11,7 @@ describe('Google Maps is returning stable results', () => {
   test.each(table)(
     'Checking Geocoding for %s',
     async ({address, state, county, city}) => {
-      const geoResult = await cache(rawGeocode)(address)
+      const geoResult = await cachedRawGeocode(address)
       expect(geoResult).toBeTruthy()
       if (!geoResult) return
       const result = toAddress(geoResult)
