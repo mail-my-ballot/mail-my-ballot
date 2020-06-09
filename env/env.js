@@ -1,4 +1,10 @@
 // Based on https://www.npmjs.com/package/env-cmd
+const stubSecrets = {
+  STAGING: {},
+  DEV: {},
+  PROD: {}
+}
+
 const {
   MG_API_KEY,
   TWILIO_SID,
@@ -8,7 +14,7 @@ const {
   STAGING,
   DEV,
   PROD,
-} = process.env.CI ? {} : require('./secrets.nogit.json')
+} = process.env.CI ? stubSecrets : require('./secrets.nogit.json')
 
 // These are kept separately to keep development configs out of git
 const { developmentRaw } = process.env.CI ? {} : require('./env.dev.nogit.js')
