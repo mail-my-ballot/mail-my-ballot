@@ -1,5 +1,6 @@
 import { getMichiganContact } from './contact'
 import { cacheGeocode, toAddress } from './gm'
+import { testEach } from '../common'
 
 // from: https://en.wikipedia.org/wiki/List_of_municipalities_in_Michigan
 const addresses: [string, string][] = [
@@ -66,7 +67,7 @@ const addresses: [string, string][] = [
   ['21385 Glen Lodge Rd, Ferndale, MI 48220, USA', 'Royal Oak Township:Oakland County']
 ]
 
-test.each(addresses)(
+testEach(addresses)(
   'Checking Michigan Geocoding %s',
   async (addr, locality) => {
     // This function breaks up geocoding into it's parts so that we can cache and get errMsg
