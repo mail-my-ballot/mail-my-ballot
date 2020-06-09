@@ -32,7 +32,6 @@
     "@types/passport-google-oauth": "^1.0.41",
     "@types/supertest": "^2.0.8",
     "data-forge": "^1.8.9",
-    "dataframe-js": "^1.4.3",
     "firebase-tools": "^8.1.1",
     "gulp": "^4.0.2",
     "install": "^0.13.0",
