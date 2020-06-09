@@ -1,4 +1,5 @@
 # MailMyBallot.org
+![](https://github.com/mail-my-ballot/mail-my-ballot/workflows/Node.js%20CI/badge.svg)
 
 ## Getting Started
 
