@@ -1,10 +1,4 @@
 // Based on https://www.npmjs.com/package/env-cmd
-const stubSecrets = {
-  STAGING: {},
-  DEV: {},
-  PROD: {}
-}
-
 const {
   MG_API_KEY,
   TWILIO_SID,
@@ -14,7 +8,7 @@ const {
   STAGING,
   DEV,
   PROD,
-} = process.env.CI ? stubSecrets : require('./secrets.nogit.json')
+} = process.env.CI ? {} : require('./secrets.nogit.json')
 
 // These are kept separately to keep development configs out of git
 const { developmentRaw } = process.env.CI ? {} : require('./env.dev.nogit.js')
@@ -55,10 +49,10 @@ const development = removeNullValues({
   REACT_APP_URL: 'http://localhost:3000/',
   FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
   REACT_APP_SERVER: 'http://localhost:8080',
-  GOOGLE_CLIENT_ID: DEV.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
-  SESSION_SECRET: DEV.SESSION_SECRET,
-  GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
+  GOOGLE_CLIENT_ID: DEV?.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: DEV?.GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET: DEV?.SESSION_SECRET,
+  GOOGLE_MAPS_API_KEY: DEV?.GOOGLE_MAPS_API_KEY,
   REACT_APP_SHOW_DEV_INFO: 1,
   GOOGLE_CLIENT_CALLBACK: 'http://localhost:8080/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-dev-cee81.appspot.com',
@@ -83,10 +77,10 @@ const staging = removeNullValues({
   REACT_APP_URL: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
   REACT_APP_SERVER: 'https://app-staging.mailmyballot.org/',
-  GOOGLE_CLIENT_ID: STAGING.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: STAGING.GOOGLE_CLIENT_SECRET,
-  SESSION_SECRET: STAGING.SESSION_SECRET,
-  GOOGLE_MAPS_API_KEY: STAGING.GOOGLE_MAPS_API_KEY,
+  GOOGLE_CLIENT_ID: STAGING?.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: STAGING?.GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET: STAGING?.SESSION_SECRET,
+  GOOGLE_MAPS_API_KEY: STAGING?.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app-staging.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
@@ -104,10 +98,10 @@ const production = removeNullValues({
   REACT_APP_URL: 'https://mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-prod.firebaseio.com',
   REACT_APP_SERVER: 'https://app.mailmyballot.org/',
-  GOOGLE_CLIENT_ID: PROD.GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET: PROD.GOOGLE_CLIENT_SECRET,
-  SESSION_SECRET: PROD.SESSION_SECRET,
-  GOOGLE_MAPS_API_KEY: PROD.GOOGLE_MAPS_API_KEY,
+  GOOGLE_CLIENT_ID: PROD?.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: PROD?.GOOGLE_CLIENT_SECRET,
+  SESSION_SECRET: PROD?.SESSION_SECRET,
+  GOOGLE_MAPS_API_KEY: PROD?.GOOGLE_MAPS_API_KEY,
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
   EMAIL_FAX_OFFICIALS: 1,
@@ -120,7 +114,7 @@ const test = removeNullValues({
   REACT_APP_SERVER: 'https://example.com',
   REACT_APP_TIMEOUT: 2000,
   FIRESTORE_EMULATOR_HOST: 'localhost:8081',
-  GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
+  GOOGLE_MAPS_API_KEY: DEV?.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
   TWILIO_DISABLE: 1,
 })
