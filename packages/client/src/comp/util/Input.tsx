@@ -1,4 +1,5 @@
 import React from 'react'
+import { forwardRef } from 'preact/compat'
 import Input from 'muicss/lib/react/input'
 import { InputProps } from 'muicss/react'
 import styled from 'styled-components'
@@ -10,7 +11,7 @@ const Red = styled.sup`
   color: rgb(220, 14, 82);
 `
 
-export const BaseInput = React.forwardRef<Input, InputProps>(function BaseInput(props, ref) {
+export const BaseInput = forwardRef<Input, InputProps>(function BaseInput(props, ref) {
   return <Input
     floatingLabel={true}
     {...props}
@@ -19,7 +20,7 @@ export const BaseInput = React.forwardRef<Input, InputProps>(function BaseInput(
   />
 })
 
-export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(props, ref) {
+export const NameInput = forwardRef<Input, InputProps>(function NameInput(props, ref) {
   return <BaseInput
     label='Full Name'
     type='text'
@@ -28,7 +29,7 @@ export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(
   />
 })
 
-export const BirthDateInput = React.forwardRef<Input, InputProps>(function BirthDateInput(props, ref) {
+export const BirthDateInput = forwardRef<Input, InputProps>(function BirthDateInput(props, ref) {
   return <BaseInput
     label='Birthdate (mm/dd/yyyy)'
     floatingLabel={false}
@@ -38,7 +39,7 @@ export const BirthDateInput = React.forwardRef<Input, InputProps>(function Birth
   />
 })
 
-export const PhoneInput = React.forwardRef<Input, InputProps>(function PhoneInput(props, ref) {
+export const PhoneInput = forwardRef<Input, InputProps>(function PhoneInput(props, ref) {
   return <BaseInput
     label='Phone (123-456-7890)'
     type='tel'
@@ -48,7 +49,7 @@ export const PhoneInput = React.forwardRef<Input, InputProps>(function PhoneInpu
   />
 })
 
-export const EmailInput = React.forwardRef<Input, InputProps>(function EmailInput(props, ref) {
+export const EmailInput = forwardRef<Input, InputProps>(function EmailInput(props, ref) {
   return <BaseInput
     label='Email'
     type='email'

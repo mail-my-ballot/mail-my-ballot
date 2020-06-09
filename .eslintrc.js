@@ -10,12 +10,19 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended'
   ],
+  settings: {
+    "react": {
+      "pragma": "h",
+      "version": "preact"
+    }
+  },
   ignorePatterns: [
     "packages/server/dist/",
     "packages/client/build/",
     "node_modules",
   ],
   rules: {
+    "react/react-in-jsx-scope": "off",
     '@typescript-eslint/member-delimiter-style': ['error', {
       multiline: {
         delimiter: 'none',    // 'none' or 'semi' or 'comma'
