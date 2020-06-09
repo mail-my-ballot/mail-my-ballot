@@ -23,12 +23,16 @@ const RawStateSelector: React.FC<{}> = () => {
     label={state}
     color='primary'
     style={{marginTop: '2em'}}
+    translate="no" 
+    lang="en"
     >
     {
       [...implementedStates].sort().map((state, key) => {
         return <DropdownItem
           key={key}
           onClick={() => setState(state)}
+          translate="no" 
+          lang="en"
         >
           {state}
         </DropdownItem>
