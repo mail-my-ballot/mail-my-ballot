@@ -1,5 +1,5 @@
 import { getMichiganContact } from './contact'
-import { cachedRawGeocode, toAddress } from './gm'
+import { cacheGeocode, toAddress } from './gm'
 
 // from: https://en.wikipedia.org/wiki/List_of_municipalities_in_Michigan
 const addresses: [string, string][] = [
@@ -70,7 +70,7 @@ test.each(addresses)(
   'Checking Michigan Geocoding %s',
   async (addr, locality) => {
     // This function breaks up geocoding into it's parts so that we can cache and get errMsg
-    const geoResult = await cachedRawGeocode(addr)
+    const geoResult = await cacheGeocode(addr)
     expect(geoResult).toBeTruthy()
     const errMsg = `Google Result was ${JSON.stringify(geoResult?.address_components, null, 2)}`
   
