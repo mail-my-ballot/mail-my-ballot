@@ -1,7 +1,7 @@
 export const processEnvOrThrow = (key: string): string => {
   const val = process.env[key]
-  if (!val && !process.env.CI) throw new Error(`Need to set environment variable ${key}`)
-  return val ?? ''
+  if (!val) throw new Error(`Need to set environment variable ${key}`)
+  return val
 }
 
 export * from './util'
