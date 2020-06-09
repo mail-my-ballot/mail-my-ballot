@@ -8,10 +8,10 @@ const {
   STAGING,
   DEV,
   PROD,
-} = require('./secrets.nogit.json')
+} = process.env.CI ? {} : require('./secrets.nogit.json')
 
 // These are kept separately to keep development configs out of git
-const { developmentRaw } = require('./env.dev.nogit.js')
+const { developmentRaw } = process.env.CI ? {} : require('./env.dev.nogit.js')
 
 const removeNullValues = (obj) => {
   Object.keys(obj).forEach(
