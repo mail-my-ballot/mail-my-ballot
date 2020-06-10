@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-import { State, processEnvOrThrow, AvailableState, availableStates } from "../../common"
+import { State, processEnvOrThrow, AvailableState, availableStates, fromEntries } from "../../common"
 import { RawContactRecord, RawContact, ContactRecord } from "./type"
 import { normalizeStates } from "./normalize"
 
@@ -21,7 +21,7 @@ export const loadStates = async (): Promise<RawContactRecord> => {
   const startTime = new Date()
 
   const records = await Promise.all(availableStates.map(state => loadState(state)))
-  const ret = Object.fromEntries(records) as RawContactRecord
+  const ret = fromEntries(records) as RawContactRecord
 
   const endTime = new Date()
   const seconds = (endTime.getTime() - startTime.getTime()) / 1000.
@@ -32,10 +32,10 @@ export const loadStates = async (): Promise<RawContactRecord> => {
 export const loadMichigan = async (
   data: Record<string, RawContact>
 ): Promise<Record<string, RawContact & { key: string }>> => {
-  return Object.fromEntries(
+  return fromEntries(
     Object.entries(data)
       .map(([key, rec]) => [(rec as { fipscode: string }).fipscode, {...rec, key}])
-  )
+  ) as Record<string, RawContact & { key: string }>
 }
 
 // Utility Functions

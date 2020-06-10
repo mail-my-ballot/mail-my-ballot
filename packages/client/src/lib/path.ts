@@ -2,6 +2,7 @@ import React from "react"
 import { useHistory, useLocation, matchPath } from "react-router-dom"
 import { pageView } from "./analytics"
 import { useDeepMemoize } from "./unstated"
+import { fromEntries } from "../common"
 
 export type QueryParams = Record<string, string>
 
@@ -91,7 +92,7 @@ const isEmpty = (query: QueryParams) => {
 }
 
 export const toUrl = <P extends Path>(path: P, query: QueryParams = {}): string => {
-  // arg -- can't get around this typecast  
+  // arg -- can't get around this typecast
   const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
   const queryUrl = isEmpty(query) ?  '' : ('?' + new URLSearchParams(query).toString())
 
@@ -104,7 +105,7 @@ export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 const rawToPath = <P extends Path>(
   url: string,
   pathEnum: PathEnum,
-  query: QueryParams, 
+  query: QueryParams,
   exact = false
 ): P | null => {
   const { path } = pathData[pathEnum]
@@ -131,7 +132,7 @@ const scrollToId = (id: string) => {
 }
 
 export const parseQS = (search: string): QueryParams => {
-  return Object.fromEntries((new URLSearchParams(search)).entries())
+  return fromEntries((new URLSearchParams(search)).entries()) as QueryParams
 }
 
 export const useAppHistory = () => {
@@ -140,7 +141,7 @@ export const useAppHistory = () => {
   const query = useDeepMemoize(parseQS(search))
   const path = useDeepMemoize(toPath(pathname, query))
   const oid = path?.oid || defaultOid
-  
+
   const pushScroll = React.useCallback((path: Path, query: QueryParams = {}) => {
     history.push(toUrl(path, query))
     scrollToId(pathData[path.type].scrollId)

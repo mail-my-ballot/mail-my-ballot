@@ -1,5 +1,5 @@
 import { RawContactRecord, ContactRecord, RawContact, OptionalLocale } from "./type"
-import { AvailableState } from "../../common"
+import { AvailableState, fromEntries } from "../../common"
 import { mandatoryTransform } from "./transformers"
 import { e164 } from '../twilio'
 
@@ -76,7 +76,7 @@ export const normalizeState = (
       normalizeContact(contact),
     ]
   )
-  return Object.fromEntries(array)
+  return fromEntries(array) as Record<string, RawContact>
 }
 
 export const normalizeStates = (records: RawContactRecord): ContactRecord => {
@@ -87,5 +87,5 @@ export const normalizeStates = (records: RawContactRecord): ContactRecord => {
       normalizeState(state, contactDatas)
     ]
   )
-  return Object.fromEntries(array)
+  return fromEntries(array) as ContactRecord
 }

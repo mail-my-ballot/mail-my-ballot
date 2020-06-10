@@ -1,7 +1,7 @@
 import mailgun from 'mailgun-js'
 
 import { Letter } from './letter'
-import { processEnvOrThrow } from '../common'
+import { processEnvOrThrow, flatMap } from '../common'
 
 
 export const mg = mailgun({
@@ -48,11 +48,15 @@ export const toSignupEmailData = (
     'h:Reply-To': [processEnvOrThrow('MG_REPLY_TO_ADDR'), voterEmail, ...officialEmails].join(','),
   }
 
-  const attachment = [
-    signature ? makeImageAttachment(signature, 'signature', voterEmail) : [],
-    idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : [],
-    pdfBuffer ? [new mg.Attachment({data: pdfBuffer, filename: 'letter.pdf'})] : []
-  ].flatMap(x => x)
+  const attachment = flatMap(
+    [
+      signature ? makeImageAttachment(signature, 'signature', voterEmail) : [],
+      idPhoto ? makeImageAttachment(idPhoto, 'identification', voterEmail) : [],
+      pdfBuffer ? [new mg.Attachment({data: pdfBuffer, filename: 'letter.pdf'})] : []
+    ],
+    x => x,
+  )
+
   return {
     to,
     subject,

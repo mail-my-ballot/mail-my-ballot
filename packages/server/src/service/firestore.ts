@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { processEnvOrThrow, WithId } from '../common'
+import { processEnvOrThrow, WithId, fromEntries } from '../common'
 import { Profile } from 'passport'
 import { User, RichStateInfo, Org, TwilioResponse } from './types'
 import { Analytics } from '../common/analytics'
@@ -14,7 +14,7 @@ type Transaction = admin.firestore.Transaction
 const nonNullObject = (o: unknown): o is Record<string, unknown> => typeof o === 'object' && o !== null
 
 const removeUndefined = <T extends Record<string, unknown>>(obj: T): T => {
-  return Object.fromEntries(
+  return fromEntries(
     Object.entries(obj)
       .filter(
         ([_, val]) => val !== undefined
@@ -40,9 +40,9 @@ export class FirestoreService {
 
   // Firebase generates a warning if `admin.initializeApp` is called multiple times
   // However, if `projectId` is provided, (e.g. for testing), we do want to initialize app
-  // 
+  //
   // Warning Below:
-  // 
+  //
   // The default Firebase app already exists. This means you called initializeApp()
   // more than once without providing an app name as the second argument. In most
   // cases you only need to call initializeApp() once.But if you do want to initialize
@@ -58,7 +58,7 @@ export class FirestoreService {
           databaseURL: processEnvOrThrow('FIRESTORE_URL'),
         })
       }
-  
+
       this.db = admin.firestore()
     } else {
       this.db = admin.initializeApp({
@@ -94,7 +94,7 @@ export class FirestoreService {
       return {
         ...doc.data() as unknown as T,
         id: doc.id
-      } 
+      }
     })
   }
 
@@ -207,7 +207,7 @@ export class FirestoreService {
     await this.userRef(uid).set(user, { merge: true })
     return uid
   }
-  
+
   // claim (globally unique) org as role
   async claimNewOrg(uid: string, oid: string): Promise<boolean> {
     const newOrg: Org = {
@@ -228,7 +228,7 @@ export class FirestoreService {
     }
     return true
   }
-  
+
   // user grants another user membership in an org where they are an admin
   async grantExistingOrg(adminUid: string, newUid: string, oid: string): Promise<boolean> {
     if (adminUid == newUid) return false
