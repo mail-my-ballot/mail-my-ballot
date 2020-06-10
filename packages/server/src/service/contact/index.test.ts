@@ -1,4 +1,5 @@
 import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData } from '../../common'
+import { testEach } from '../utilTests'
 import { toContact } from '.'
 import { cacheGeocode, toAddress } from '../gm'
 
@@ -8,7 +9,7 @@ describe('Google Maps is returning stable results', () => {
     .values(sampleAddresses)
     .reduce((x, y) => x.concat(y))
 
-  test.each(table)(
+  testEach(table)(
     'Checking Geocoding for %s',
     async ({address, state, county, city}) => {
       const geoResult = await cacheGeocode(address)
