@@ -1,6 +1,6 @@
 import { getMichiganContact } from './contact'
 import { cacheGeocode, toAddress } from './gm'
-import { testEach } from '../common'
+import { testEach } from './utilTests'
 
 // from: https://en.wikipedia.org/wiki/List_of_municipalities_in_Michigan
 const addresses: [string, string][] = [
