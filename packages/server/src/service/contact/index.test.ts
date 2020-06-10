@@ -1,4 +1,5 @@
-import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData, testEach } from '../../common'
+import { Address, sampleAddresses, toLocale, toContactMethod, AvailableState, isAvailableState, Locale, AddressData } from '../../common'
+import { testEach } from '../utilTests'
 import { toContact } from '.'
 import { cacheGeocode, toAddress } from '../gm'
 

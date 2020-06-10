@@ -1,5 +1,6 @@
 import { getContactRecords, getMichiganRecords } from './loader'
-import { availableStates, testRoutine } from '../../common'
+import { availableStates } from '../../common'
+import { testRoutine } from '../utilTests'
 
 describe('Contact loader', () => {
   test.each(availableStates)(
