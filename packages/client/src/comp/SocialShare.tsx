@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { AboutButtonWrapper } from './About'
 import { RoundedButton } from './util/Button'
 
 const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
@@ -9,51 +10,24 @@ const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
   justify-content: ${(p) => p.fromSuccess ? 'space-around' : 'center'};
   flex-flow: row wrap;
 
-  /*
-    We don't use AboutButtonWrapper here as SocialShare can also be shown
-    on the Success page.
-  */
-  & a {
-    width: ${(p) => p.fromSuccess ? 'initial' : '100%'};
-    display: flex;
-    justify-content: center;
-  }
-  & a button {
-    width: ${(p) => p.fromSuccess ? 'initial' : '90%'}
-  }
-  & i {
-    padding-right: 10px;
-  }
-
   @media screen and (min-width: 1366px) {
-    width: ${(p) => p.fromSuccess ? '70%' : '100%'};
-    margin-left: ${(p) => p.fromSuccess ? '15%' : '0'};
+    & a {
+      width: ${(p) => p.fromSuccess ? '40%' : '100%'};
+    }
     & a button {
-      width: ${(p) => p.fromSuccess ? 'initial' : '70%'}
+      width: ${(p) => p.fromSuccess ? '100%' : '70%'}
     }
   }
-
-  /* Ensures Icons & Labels are alligned */
-  & a button { display: flex; }
-  & a button i,
-  & a button span {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  & a button i { flex: 1; }
-  & a button span { flex: 9; }
 `
 
 export const ShareFacebook: React.FC = () => {
   const href = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmailmyballot.org%2F&amp;src=sdkpreparse'
-  return <a href={href} target="_blank" rel="noopener noreferrer">
+  return <AboutButtonWrapper href={href} target="_blank" rel="noopener noreferrer">
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
       <span>Share on Facebook</span>
     </RoundedButton>
-  </a>
+  </AboutButtonWrapper>
 }
 
 export const ShareTwitter: React.FC = () => {
@@ -64,7 +38,7 @@ export const ShareTwitter: React.FC = () => {
   const hashtag = 'hashtag=mailmyballot,voteathome'
   const params = [refSrc, text, via, related, hashtag].join('&')
 
-  return <a
+  return <AboutButtonWrapper
     href={`https://twitter.com/share?${params}`}
     target="_blank" rel="noopener noreferrer"
     id="twitter_share"
@@ -73,7 +47,7 @@ export const ShareTwitter: React.FC = () => {
       <i className="fa fa-twitter"/>
       <span>Share on Twitter</span>
     </RoundedButton>
-  </a>
+  </AboutButtonWrapper>
 }
 
 interface Props {
