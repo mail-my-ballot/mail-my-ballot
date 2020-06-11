@@ -53,6 +53,7 @@ export const allStates = [
 ] as const
 
 export type State = (typeof allStates)[number]
+// We can't use set here because it seems Google Translator deplays the DOM loading and therefore the array will be empty
 export const isState = (x: string): x is State => allStates.some(state => state === x)
 export type StateField = {state: State}
 export type ExtendsState<T extends State> = T extends State ? T : never
