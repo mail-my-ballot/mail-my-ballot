@@ -25,4 +25,21 @@ export const Footer = () => <FooterWrapper>
   <a href='https://www.voteathome.org/site-terms/'>Privacy Policy</a>
   <VBar/>
   <a href='https://www.voteathome.org/site-terms/'>Terms of Service</a>
+
+  {/*
+    These are temporary social links, since the home page, including the
+    Footer are subject to a redesign.
+   */}
+  <VBar/>
+  <a href="https://www.facebook.com/Mail-My-Ballot-103074334722159/">
+    <i className="fa fa-facebook"/>
+  </a>
+  <VBar/>
+  <a href="https://twitter.com/mailmyballot?ref_src=twsrc%5Etfw">
+    <i className="fa fa-twitter"/>
+  </a>
+  <VBar/>
+  <a href="https://www.instagram.com/mailmyballot">
+    <i className="fa fa-instagram"/>
+  </a>
 </FooterWrapper>
