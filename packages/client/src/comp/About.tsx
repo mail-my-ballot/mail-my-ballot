@@ -5,6 +5,8 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import { useAppHistory } from '../lib/path'
 import { RoundedButton } from './util/Button'
+import { SocialFollow } from './SocialFollow'
+import { SocialShare } from './SocialShare'
 
 export const AboutButtonWrapper = styled.a`
   display: flex;
@@ -42,6 +44,10 @@ export const About = () => {
             Get Started
           </RoundedButton>
         </AboutButtonWrapper>
+      </Col>
+      <Col xs={12} md={6} md-offset={3} xl={4} xl-offset={2}>
+        <SocialFollow/>
+        <SocialShare/>
       </Col>
     </Row>
   </div>
