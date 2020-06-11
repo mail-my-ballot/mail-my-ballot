@@ -17,7 +17,7 @@ export const implementedStates = [
   'Wisconsin',
 ] as const
 export type ImplementedState = ExtendsState<(typeof implementedStates)[number]>
-// We can't use set here because it seems Google Translator deplays the DOM loading and therefore the array will be empty
+// We can't use set here because it seems Google Translator deplays the DOM loading and therefore the resulting set will be empty
 export const isImplementedState = (x: string): x is ImplementedState => implementedStates.some(state => state === x)
 export type ImplementedStateField = {state: ImplementedState}
 export const isImplementedLocale = (l: Locale): l is Locale<ImplementedState> => implementedStates.some(state => state === l.state)
