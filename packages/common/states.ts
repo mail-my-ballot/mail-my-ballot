@@ -53,7 +53,6 @@ export const allStates = [
 ] as const
 
 export type State = (typeof allStates)[number]
-const allStatesSet = new Set(allStates)
-export const isState = (x: string): x is State => allStatesSet.has(x as State)
+export const isState = (x: string): x is State => allStates.some(state => state === x)
 export type StateField = {state: State}
 export type ExtendsState<T extends State> = T extends State ? T : never
