@@ -10,7 +10,7 @@ const FollowTwitter: React.FC = () => {
   >
     <RoundedButton color='primary'>
       <i className="fa fa-twitter"/>
-      <span>Follow us on Twitter</span>
+      <span>Follow on Twitter</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
@@ -23,7 +23,7 @@ const FollowInstagram: React.FC = () => {
   >
     <RoundedButton color='primary'>
       <i className="fa fa-instagram"/>
-      <span>Follow us on Instagram</span>
+      <span>Follow on Instagram</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
@@ -36,7 +36,7 @@ const FollowFacebook: React.FC = () => {
   >
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
-      <span>Follow us on Facebook</span>
+      <span>Follow on Facebook</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
