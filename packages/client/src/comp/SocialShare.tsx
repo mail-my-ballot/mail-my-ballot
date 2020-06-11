@@ -254,6 +254,7 @@ I'm sending you this email because I've just discovered how easy it is to vote a
           data-name="true"
           value={name}
           floatingLabel={true} label="Name"
+          autoFocus={true}
         />
         <Input
           type="text"
