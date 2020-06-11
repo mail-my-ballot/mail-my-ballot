@@ -25,13 +25,25 @@ const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
     padding-right: 10px;
   }
 
-  @media screen and (min-width: 1600px) {
+  @media screen and (min-width: 1366px) {
     width: ${(p) => p.fromSuccess ? '70%' : '100%'};
     margin-left: ${(p) => p.fromSuccess ? '15%' : '0'};
     & a button {
       width: ${(p) => p.fromSuccess ? 'initial' : '70%'}
     }
   }
+
+  /* Ensures Icons & Labels are alligned */
+  & a button { display: flex; }
+  & a button i,
+  & a button span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & a button i { flex: 1; }
+  & a button span { flex: 9; }
 `
 
 export const ShareFacebook: React.FC = () => {
@@ -39,7 +51,7 @@ export const ShareFacebook: React.FC = () => {
   return <a href={href} target="_blank" rel="noopener noreferrer">
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
-      Share on Facebook
+      <span>Share on Facebook</span>
     </RoundedButton>
   </a>
 }
@@ -59,7 +71,7 @@ export const ShareTwitter: React.FC = () => {
   >
     <RoundedButton color='primary'>
       <i className="fa fa-twitter"/>
-      Share on Twitter
+      <span>Share on Twitter</span>
     </RoundedButton>
   </a>
 }

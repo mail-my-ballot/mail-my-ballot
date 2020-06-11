@@ -9,8 +9,8 @@ const FollowTwitter: React.FC = () => {
     target="_blank" rel="noopener noreferrer"
   >
     <RoundedButton color='primary'>
-      <i className="fa fa-twitter" style={{ paddingRight: 10 }}/>
-      Follow us on Twitter
+      <i className="fa fa-twitter"/>
+      <span>Follow us on Twitter</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
@@ -22,8 +22,21 @@ const FollowInstagram: React.FC = () => {
     target="_blank" rel="noopener noreferrer"
   >
     <RoundedButton color='primary'>
-      <i className="fa fa-instagram" style={{ paddingRight: 10 }}/>
-      Follow us on Twitter
+      <i className="fa fa-instagram"/>
+      <span>Follow us on Twitter</span>
+    </RoundedButton>
+  </AboutButtonWrapper>
+}
+
+const FollowFacebook: React.FC = () => {
+  return <AboutButtonWrapper
+    title="Follow @MailMyBallot on Facebook"
+    href="https://www.facebook.com/Mail-My-Ballot-103074334722159/"
+    target="_blank" rel="noopener noreferrer"
+  >
+    <RoundedButton color='primary'>
+      <i className="fa fa-facebook"/>
+      <span>Follow us on Facebook</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
@@ -34,6 +47,7 @@ export const SocialFollow: React.FC = () => {
     <p>
       Stay in touch with us by following us on your favorite social networks.
     </p>
+    <FollowFacebook/>
     <FollowTwitter/>
     <FollowInstagram/>
   </>

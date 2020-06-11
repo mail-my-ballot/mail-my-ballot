@@ -14,13 +14,21 @@ export const AboutButtonWrapper = styled.a`
   justify-content: center;
 
   & button { width: 90%; }
-  @media screen and (min-width: 1600px) {
+  @media screen and (min-width: 1366px) {
     & button { width: 70%; }
   }
 
-  & a i {
-    padding-right: 10px;
+  /* Ensures Icons & Labels are alligned */
+  & button { display: flex; }
+  & button i,
+  & button span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  & button i { flex: 1; }
+  & button span { flex: 9; }
 `
 
 export const About = () => {
@@ -41,7 +49,7 @@ export const About = () => {
         </p>
         <AboutButtonWrapper>
           <RoundedButton color='primary' variant='raised' onClick={pushStart}>
-            Get Started
+            <span>Get Started</span>
           </RoundedButton>
         </AboutButtonWrapper>
       </Col>
