@@ -23,7 +23,7 @@ const FollowInstagram: React.FC = () => {
   >
     <RoundedButton color='primary'>
       <i className="fa fa-instagram"/>
-      <span>Follow us on Twitter</span>
+      <span>Follow us on Instagram</span>
     </RoundedButton>
   </AboutButtonWrapper>
 }
@@ -45,7 +45,7 @@ export const SocialFollow: React.FC = () => {
   return <>
     <h1>We&apos;re social!</h1>
     <p>
-      Stay in touch with us by following us on your favorite social networks.
+      Stay in touch by following us on your favorite social networks.
     </p>
     <FollowFacebook/>
     <FollowTwitter/>
