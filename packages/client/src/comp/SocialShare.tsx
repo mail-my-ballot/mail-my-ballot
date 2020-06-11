@@ -35,10 +35,10 @@ const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
   flex-flow: row wrap;
 
   @media screen and (min-width: 1366px) {
-    & a {
+    & a, & #shareByEmail {
       width: ${(p) => p.fromSuccess ? '40%' : '100%'};
     }
-    & a button {
+    & a > button, & #shareByEmail > button {
       width: ${(p) => p.fromSuccess ? '100%' : '70%'}
     }
   }
@@ -243,7 +243,7 @@ I'm sending you this email because I've just discovered how easy it is to vote a
     }
   }
 
-  return <EmailButtonWrapper>
+  return <EmailButtonWrapper id="shareByEmail">
     <RoundedButton color='primary' onClick={() => toggleVisibility(false)}>
       <i className="fa fa-envelope-o"/>
       <span>Share by Email</span>
