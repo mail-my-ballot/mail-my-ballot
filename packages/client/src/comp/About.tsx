@@ -1,35 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 import { processEnvOrThrow } from '../common'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import { useAppHistory } from '../lib/path'
 import { RoundedButton } from './util/Button'
 import { SocialFollow } from './SocialFollow'
-import { SocialShare } from './SocialShare'
-
-export const AboutButtonWrapper = styled.a`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-
-  & button { width: 90%; }
-  @media screen and (min-width: 1366px) {
-    & button { width: 70%; }
-  }
-
-  /* Ensures Icons & Labels are alligned */
-  & button { display: flex; }
-  & button i,
-  & button span {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  & button i { flex: 1; }
-  & button span { flex: 9; }
-`
+import { SocialShare, AboutButtonWrapper } from './SocialShare'
 
 export const About = () => {
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')

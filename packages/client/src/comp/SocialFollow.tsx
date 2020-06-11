@@ -1,5 +1,5 @@
 import React from 'react'
-import { AboutButtonWrapper } from './About'
+import { AboutButtonWrapper } from './SocialShare'
 import { RoundedButton } from './util/Button'
 
 const FollowTwitter: React.FC = () => {
