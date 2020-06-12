@@ -21,7 +21,7 @@ export const Success: React.FC = () => {
     <h1>Success!</h1>
     <p>You have successfully sent your Vote by Mail signup to your local election official.  We emailed you a copy as well.</p>
     {id && <p>Your Confirmation ID is <b>{id}</b>.</p>}
-    <SocialShare fromSuccess={true}/>
+    <SocialShare/>
     <StyledPanel>
       <BlueH2>One Last Step ...</BlueH2>
       <p>Check your inbox for the signup email and <b>Reply All</b> with &ldquo;<i>I confirm this request.</i>&rdquo;  (This is not strictly necessary but election officials appreciate the confirmation.)</p>

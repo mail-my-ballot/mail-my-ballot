@@ -116,19 +116,11 @@ ${shareText}`
   </SocialButtonWrapper>
 }
 
-interface Props {
-  /**
-   * Changes the title of the SocialShare component when true to better
-   * fit the context displayed at the Success screen.
-   */
-  fromSuccess?: boolean
-}
-
-export const SocialShare: React.FC<Props> = ({ fromSuccess }) => {
+export const SocialShare: React.FC = () => {
   return <>
     <ShareTwitter/>
     <ShareFacebook/>
-    {!fromSuccess && <ShareLink/>}
     <ShareEmail/>
+    <ShareLink/>
   </>
 }
