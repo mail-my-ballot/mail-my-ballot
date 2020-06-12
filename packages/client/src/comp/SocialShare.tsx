@@ -5,6 +5,8 @@ import styled, { css, keyframes } from 'styled-components'
 import { RoundedButton } from './util/Button'
 import { Input } from 'muicss/react'
 
+const shareText = 'I just signed up to Vote by Mail.  You can signup too in under 2 minutes at https://mailmyballot.org.  No printer, envelope, or stamp needed.'
+
 export const AboutButtonWrapper = styled.a`
   display: flex;
   width: 100%;
@@ -58,7 +60,7 @@ export const ShareFacebook: React.FC = () => {
 /** Opens a a new tab with a pre-defined message to tweet about MailMyBallot */
 export const ShareTwitter: React.FC = () => {
   const refSrc = 'ref_src=twsrc%5Etfw'
-  const text = encodeURI('text=Hey I\'ve just started voting from home! You can do it too! More details at https://mailmyballot.org')
+  const text = encodeURI(`text=${shareText}`)
   const via = 'via=mailmyballot'
   const related = 'related=mailmyballot'
   const hashtag = 'hashtag=mailmyballot,voteathome'
@@ -213,7 +215,7 @@ export const ShareEmail: React.FC = () => {
   const body = encodeURI(
 `Hello ${name},
 
-I'm sending you this email because I've just discovered how easy it is to vote at home, you can do it too! Visit https://mailmyballot.com to know more.`
+${shareText}`
   )
 
   // Create a context menu which can hide/show itself when the user is
