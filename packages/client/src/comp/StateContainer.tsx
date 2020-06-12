@@ -6,14 +6,6 @@ import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer,
 
 import 'react-toastify/dist/ReactToastify.css'
 
-// For some reason on the current design toasts placed on the botton are
-// not shown on top of the Blurb
-const toastPosition = () => {
-  return window.matchMedia('(max-width: 991px)').matches
-    ? 'top-center'
-    : 'bottom-right'
-}
-
 // export for testing purposes
 export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
   <QueryContainer.Provider>
@@ -25,7 +17,7 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
               <ModalProvider>
                 {children}
                 <ToastContainer
-                  position={toastPosition()}
+                  position="bottom-right"
                   autoClose={5000}
                   hideProgressBar={true}
                   newestOnTop={true}
