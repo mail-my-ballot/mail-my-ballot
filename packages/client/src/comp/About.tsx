@@ -3,7 +3,7 @@ import { processEnvOrThrow } from '../common'
 import { useAppHistory } from '../lib/path'
 import { RoundedButton } from './util/Button'
 import { SocialFollow } from './SocialFollow'
-import { SocialShare, AboutButtonWrapper } from './SocialShare'
+import { SocialShare, SocialButtonWrapper } from './SocialShare'
 
 export const About = () => {
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
@@ -19,11 +19,11 @@ export const About = () => {
       <a href={url}>{brandName}</a> is a <a href='https://voteathome.org'>Vote at Home</a> project.
       Vote at Home is a non-partisan 501(c)3 that empowers voters, letting them decide when, how and where they vote.
     </p>
-    <AboutButtonWrapper>
+    <SocialButtonWrapper>
       <RoundedButton color='primary' variant='raised' onClick={pushStart}>
         <span>Get Started</span>
       </RoundedButton>
-    </AboutButtonWrapper>
+    </SocialButtonWrapper>
     <h3>Follow</h3>
     <SocialFollow/>
     <h3>Share</h3>

@@ -7,7 +7,7 @@ import { Input } from 'muicss/react'
 
 const shareText = 'I just signed up to Vote by Mail.  You can signup too in under 2 minutes at https://mailmyballot.org.  No printer, envelope, or stamp needed.'
 
-export const AboutButtonWrapper = styled.a`
+export const SocialButtonWrapper = styled.a`
   display: flex;
   width: 100%;
   justify-content: center;
@@ -49,12 +49,12 @@ const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
 /** Opens a new tab to share about MailMyBallot */
 export const ShareFacebook: React.FC = () => {
   const href = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmailmyballot.org%2F&amp;src=sdkpreparse'
-  return <AboutButtonWrapper href={href} target="_blank" rel="noopener noreferrer">
+  return <SocialButtonWrapper href={href} target="_blank" rel="noopener noreferrer">
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
       <span>Share on Facebook</span>
     </RoundedButton>
-  </AboutButtonWrapper>
+  </SocialButtonWrapper>
 }
 
 /** Opens a a new tab with a pre-defined message to tweet about MailMyBallot */
@@ -66,7 +66,7 @@ export const ShareTwitter: React.FC = () => {
   const hashtag = 'hashtag=mailmyballot,voteathome'
   const params = [refSrc, text, via, related, hashtag].join('&')
 
-  return <AboutButtonWrapper
+  return <SocialButtonWrapper
     href={`https://twitter.com/share?${params}`}
     target="_blank" rel="noopener noreferrer"
     id="twitter_share"
@@ -75,7 +75,7 @@ export const ShareTwitter: React.FC = () => {
       <i className="fa fa-twitter"/>
       <span>Share on Twitter</span>
     </RoundedButton>
-  </AboutButtonWrapper>
+  </SocialButtonWrapper>
 }
 
 /** Copies the site URL to the clipboard, notifies the user about this event */
@@ -97,15 +97,15 @@ export const ShareLink: React.FC = () => {
     )
   }
 
-  return <AboutButtonWrapper onClick={onClick}>
+  return <SocialButtonWrapper onClick={onClick}>
     <RoundedButton color='primary'>
       <i className="fa fa-link"/>
       <span>Share by link</span>
     </RoundedButton>
-  </AboutButtonWrapper>
+  </SocialButtonWrapper>
 }
 
-const EmailButtonWrapper = styled(AboutButtonWrapper).attrs({ as: 'div' })`
+const EmailButtonWrapper = styled(SocialButtonWrapper).attrs({ as: 'div' })`
   position: relative;
 
   & > button {
