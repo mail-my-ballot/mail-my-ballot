@@ -100,7 +100,7 @@ export const ShareLink: React.FC = () => {
 export const ShareEmail: React.FC = () => {
   // These are not yet editable in our app, however the user can freely
   // edit the content of the message.
-  const title = 'Hey, I\'ve started to vote at home.'
+  const title = 'Sign up to Vote by Mail in 2 minutes on MailMyBallot.org'
   const body = encodeURI(
 `Hello,
 
