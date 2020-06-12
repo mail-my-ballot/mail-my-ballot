@@ -43,10 +43,6 @@ const FollowFacebook: React.FC = () => {
 
 export const SocialFollow: React.FC = () => {
   return <>
-    <h1>We&apos;re social!</h1>
-    <p>
-      Stay in touch by following us on your favorite social networks.
-    </p>
     <FollowFacebook/>
     <FollowTwitter/>
     <FollowInstagram/>

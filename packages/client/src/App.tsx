@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Container from 'muicss/lib/react/container'
 
 import { Switch, Route, Redirect } from "react-router-dom"
 
@@ -36,9 +35,9 @@ const Layout = () => {
         </StyleContainer>
       </Route>
       <Route path='/about'>
-        <Container fluid={true}>
+        <TallStyleContainer>
           <About/>
-        </Container>
+        </TallStyleContainer>
       </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path='/mock'>

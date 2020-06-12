@@ -290,10 +290,6 @@ interface Props {
 
 export const SocialShare: React.FC<Props> = ({ fromSuccess }) => {
   return <>
-    <h3>
-      {fromSuccess ? 'Care to spare a few seconds?' : 'Help us spread the word'}
-    </h3>
-    <p>Your family and friends might not know how easy it is to start voting at home. Why not share this comfort with them?</p>
     <ButtonsWrapper fromSuccess={fromSuccess}>
       <ShareFacebook/>
       <ShareTwitter/>
