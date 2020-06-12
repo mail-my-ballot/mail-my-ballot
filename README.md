@@ -21,6 +21,9 @@ yarn client gulp start // client on localhost:3000
 
 These commands will likely fail until you have setup the configuration correctly (see below).
 
+### Node version when developing on Linux
+On many Linux distros, running the above command may yield compile errors for about `Array.flatMap` and `Object.fromEntries` not being functions.  This issue has been observed [here](https://github.com/mail-my-ballot/mail-my-ballot/issues/11) and [here](https://github.com/mail-my-ballot/mail-my-ballot/pull/19).  The root problem ([documented here](https://github.com/mail-my-ballot/mail-my-ballot/pull/19#issuecomment-643043047)) is that Nodejs v10 (default on Unix) does not support `Object.fromEntries` and `Array.flatMap`.  The solution is to use a more recent version of Node (^v12).  The easiest way for me was to [use nvm](https://github.com/nvm-sh/nvm).  This error does not arise in OSX.
+
 ### Configuration
 Running the app requires some configuration setting.  All of those are exported in `env/env.js`.  It has two dependencies that are not checked into source control:
 
