@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { toast } from 'react-toastify'
-import styled, { css, keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import { RoundedButton } from './util/Button'
-import { Input } from 'muicss/react'
+import { useAppHistory } from '../lib/path'
 
 const shareText = 'I just signed up to Vote by Mail.  You can signup too in under 2 minutes at https://mailmyballot.org.  No printer, envelope, or stamp needed.'
 
@@ -12,9 +12,9 @@ export const SocialButtonWrapper = styled.a`
   width: 100%;
   justify-content: center;
 
-  & button { width: 90%; }
+  & button { width: 60%; }
   @media screen and (min-width: 1366px) {
-    & button { width: 70%; }
+    & button { width: 40%; }
   }
 
   /* Ensures Icons & Labels are alligned */
@@ -30,34 +30,25 @@ export const SocialButtonWrapper = styled.a`
   & button > span { flex: 9; }
 `
 
-const ButtonsWrapper = styled.div<{ fromSuccess?: boolean }>`
-  display: flex;
-  width: 100%;
-  justify-content: ${(p) => p.fromSuccess ? 'space-around' : 'center'};
-  flex-flow: row wrap;
+/**
+ * Opens the given link in a new window. The window dimensions can be customized.
+ */
+export const openInNewWindow = (href: string, width = 720, height = 600) => {
+  window.open(href, '', `width=${width},height=${height}`)
+}
 
-  @media screen and (min-width: 1366px) {
-    & a, & #shareByEmail {
-      width: ${(p) => p.fromSuccess ? '40%' : '100%'};
-    }
-    & a > button, & #shareByEmail > button {
-      width: ${(p) => p.fromSuccess ? '100%' : '70%'}
-    }
-  }
-`
-
-/** Opens a new tab to share about MailMyBallot */
+/** Opens a new window to share about MailMyBallot */
 export const ShareFacebook: React.FC = () => {
   const href = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmailmyballot.org%2F&amp;src=sdkpreparse'
-  return <SocialButtonWrapper href={href} target="_blank" rel="noopener noreferrer">
+  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
-      <span>Share on Facebook</span>
+      <span>Share</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
 
-/** Opens a a new tab with a pre-defined message to tweet about MailMyBallot */
+/** Opens a a new window with a pre-defined message to tweet about MailMyBallot */
 export const ShareTwitter: React.FC = () => {
   const refSrc = 'ref_src=twsrc%5Etfw'
   const text = encodeURI(`text=${shareText}`)
@@ -65,32 +56,30 @@ export const ShareTwitter: React.FC = () => {
   const related = 'related=mailmyballot'
   const hashtag = 'hashtag=mailmyballot,voteathome'
   const params = [refSrc, text, via, related, hashtag].join('&')
+  const href = `https://twitter.com/share?${params}`
 
-  return <SocialButtonWrapper
-    href={`https://twitter.com/share?${params}`}
-    target="_blank" rel="noopener noreferrer"
-    id="twitter_share"
-  >
+  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
     <RoundedButton color='primary'>
       <i className="fa fa-twitter"/>
-      <span>Share on Twitter</span>
+      <span>Share</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
 
 /** Copies the site URL to the clipboard, notifies the user about this event */
 export const ShareLink: React.FC = () => {
+  const { oid } = useAppHistory()
+
   const onClick = () => {
     const textField = document.createElement('textarea')
-    textField.innerText = 'https://mailmyballot.org'
+    textField.innerText = `https://mailmyballot.org/#/org/${oid}`
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
     textField.remove()
+
     toast(
-      <div style={{ padding: 20 }}>
-        Link copied to clipboard
-      </div>,
+      'Link copied to clipboard',
       {
         type: 'info',
       }
@@ -100,184 +89,31 @@ export const ShareLink: React.FC = () => {
   return <SocialButtonWrapper onClick={onClick}>
     <RoundedButton color='primary'>
       <i className="fa fa-link"/>
-      <span>Share by link</span>
+      <span>Share</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
 
-const EmailButtonWrapper = styled(SocialButtonWrapper).attrs({ as: 'div' })`
-  position: relative;
-
-  & > button {
-    /* position: relative; */
-    overflow: visible;
-  }
-`
-
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1 }
-`
-const fadeOut = keyframes`
-  from { opacity: 1 }
-  to { opacity: 0; }
-`
-const grow = keyframes`
-  from { height: 0 }
-  to { height: 470% }
-`
-const shrink = keyframes`
-  from { height: 470% }
-  to { height: 0 }
-`
-
-type emailVisibility = '' | 'visible' | 'hiding'
-const EmailFields = styled.div<{ visibility: emailVisibility }>`
-  width: 100%;
-  height: 470%;
-  position: absolute;
-  bottom: 0; right: 0;
-
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 0 4px #0005;
-
-  display: ${p => p.visibility === '' ? 'none' : 'flex'};
-  flex-direction: row;
-  flex-flow: row wrap;
-  align-items: flex-end;
-  justify-content: center;
-  animation: ${
-    p => p.visibility === 'visible'
-      ? css`${grow} ease .25s both`
-      : css`${shrink} ease .25s both, ${fadeOut} ease .25s both`
-  };
-
-  & > .mui-textfield, & > span, & > a {
-    width: 90%;
-    height: 25%;
-    margin: 0;
-    box-sizing: border-box;
-    z-index: 9;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    animation: ${
-      p => p.visibility === 'visible'
-        ? css`${fadeIn} ease .3s both`
-        : '' // There's already a exit animation on the parent
-    }
-  }
-
-  & > .mui-textfield > label {
-    overflow: hidden;
-  }
-
-
-  & > span, & > a {
-    width: 50%;
-    height: 30%;
-
-    border: none;
-    background: none;
-  }
-  & > span:hover, & > a:hover {
-    text-decoration: none;
-    background-color: #00000008;
-  }
-  & > span > i, & > a > i {
-    padding-right: 8px;
-  }
-
-  & > span { color: #607D8B; }
-`
-
 /**
- * Allows users to set a destination + name and launches their email
- * client in order to send a pre-defined email message.
+ * Launches users' email client in order to send a pre-defined email message.
  */
 export const ShareEmail: React.FC = () => {
-  // Will pop a small context menu which allows users to set the details
-  // about the email destination
-  //
-  // We don't use a boolean here in order to allow smooth hiding animations
-  const [ visibility, setVisibility ] = useState<emailVisibility>('')
-
-  // Let the user set who will receive the email
-  const [ name, setName ] = useState('')
-  const [ email, setEmail ] = useState('')
-
   // These are not yet editable in our app, however the user can freely
   // edit the content of the message.
-  const title = `Hey ${name}, I've started to vote at home.`
+  const title = 'Hey, I\'ve started to vote at home.'
   const body = encodeURI(
-`Hello ${name},
+`Hello,
 
 ${shareText}`
   )
+  const href = `mailto:?subject=${title}&body=${body}`
 
-  // Create a context menu which can hide/show itself when the user is
-  // interacting with ShareEmail
-  //
-  // The fromButton prevents any click within the menu to hide the context
-  // menu.
-  const toggleVisibility = (fromButton: boolean) => {
-    if (visibility === 'visible' && fromButton) {
-      setVisibility('hiding')
-      setTimeout(
-        () => setVisibility(''),
-        // Should be a bit more than the animation-duration
-        300,
-      )
-    } else if (visibility === '') {
-      setVisibility('visible')
-    }
-  }
-
-  const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.currentTarget.dataset
-    if (name) {
-      setName(e.currentTarget.value)
-    } else {
-      setEmail(e.currentTarget.value)
-    }
-  }
-
-  return <EmailButtonWrapper id="shareByEmail">
-    <RoundedButton color='primary' onClick={() => toggleVisibility(false)}>
+  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
+    <RoundedButton color='primary'>
       <i className="fa fa-envelope-o"/>
-      <span>Share by Email</span>
-      <EmailFields visibility={visibility}>
-        <Input
-          type="text"
-          onChange={onChangeField}
-          data-name="true"
-          value={name}
-          floatingLabel={true} label="Recipient's Name"
-          autoFocus={true}
-        />
-        <Input
-          type="text"
-          onChange={onChangeField}
-          value={email}
-          floatingLabel={true} label="Recipient's Email"
-        />
-        <span onClick={() => toggleVisibility(true)}>
-          <i className="fa fa-close"/>
-          <span>Cancel</span>
-        </span>
-        <a
-          href={`mailto:${email}?subject=${title}&body=${body}`}
-          target="_blank" rel="noopener noreferrer"
-        >
-          <i className="fa fa-paper-plane-o"/>
-          <span>Send</span>
-        </a>
-      </EmailFields>
+      <span>Share</span>
     </RoundedButton>
-  </EmailButtonWrapper>
+  </SocialButtonWrapper>
 }
 
 interface Props {
@@ -290,11 +126,9 @@ interface Props {
 
 export const SocialShare: React.FC<Props> = ({ fromSuccess }) => {
   return <>
-    <ButtonsWrapper fromSuccess={fromSuccess}>
-      <ShareFacebook/>
-      <ShareTwitter/>
-      <ShareLink/>
-      <ShareEmail/>
-    </ButtonsWrapper>
+    <ShareTwitter/>
+    <ShareFacebook/>
+    {!fromSuccess && <ShareLink/>}
+    <ShareEmail/>
   </>
 }

@@ -1,42 +1,43 @@
 import React from 'react'
-import { SocialButtonWrapper } from './SocialShare'
+import { SocialButtonWrapper, openInNewWindow } from './SocialShare'
 import { RoundedButton } from './util/Button'
 
 const FollowTwitter: React.FC = () => {
+  const href = 'https://twitter.com/intent/follow?screen_name=mailmyballot'
   return <SocialButtonWrapper
     title="Follow @MailMyBallot on Twitter"
-    href="https://twitter.com/intent/follow?screen_name=mailmyballot"
-    target="_blank" rel="noopener noreferrer"
+    onClick={() => openInNewWindow(href)}
   >
     <RoundedButton color='primary'>
       <i className="fa fa-twitter"/>
-      <span>Follow on Twitter</span>
+      <span>Follow</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
 
 const FollowInstagram: React.FC = () => {
+  const href = 'https://www.instagram.com/mailmyballot'
+
   return <SocialButtonWrapper
     title="Follow @MailMyBallot on Instagram"
-    href="https://www.instagram.com/mailmyballot"
-    target="_blank" rel="noopener noreferrer"
+    onClick={() => openInNewWindow(href)}
   >
     <RoundedButton color='primary'>
       <i className="fa fa-instagram"/>
-      <span>Follow on Instagram</span>
+      <span>Follow</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
 
 const FollowFacebook: React.FC = () => {
+  const href = 'https://www.facebook.com/Mail-My-Ballot-103074334722159/'
   return <SocialButtonWrapper
     title="Follow @MailMyBallot on Facebook"
-    href="https://www.facebook.com/Mail-My-Ballot-103074334722159/"
-    target="_blank" rel="noopener noreferrer"
+    onClick={() => openInNewWindow(href, 1024)}
   >
     <RoundedButton color='primary'>
       <i className="fa fa-facebook"/>
-      <span>Follow on Facebook</span>
+      <span>Follow</span>
     </RoundedButton>
   </SocialButtonWrapper>
 }
