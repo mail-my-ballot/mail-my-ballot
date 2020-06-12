@@ -253,14 +253,14 @@ I'm sending you this email because I've just discovered how easy it is to vote a
           onChange={onChangeField}
           data-name="true"
           value={name}
-          floatingLabel={true} label="Name"
+          floatingLabel={true} label="Recipient's Name"
           autoFocus={true}
         />
         <Input
           type="text"
           onChange={onChangeField}
           value={email}
-          floatingLabel={true} label="Email"
+          floatingLabel={true} label="Recipient's Email"
         />
         <span onClick={() => toggleVisibility(true)}>
           <i className="fa fa-close"/>
