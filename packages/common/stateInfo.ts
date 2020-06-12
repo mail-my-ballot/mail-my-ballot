@@ -17,10 +17,10 @@ export const implementedStates = [
   'Wisconsin',
 ] as const
 export type ImplementedState = ExtendsState<(typeof implementedStates)[number]>
-const implementedStateSet = new Set<string>(implementedStates)
-export const isImplementedState = (x: string): x is ImplementedState => implementedStateSet.has(x)
+// We can't use set here because it seems Google Translator deplays the DOM loading and therefore the resulting set will be empty
+export const isImplementedState = (x: string): x is ImplementedState => implementedStates.some(state => state === x)
 export type ImplementedStateField = {state: ImplementedState}
-export const isImplementedLocale = (l: Locale): l is Locale<ImplementedState> => implementedStateSet.has(l.state)
+export const isImplementedLocale = (l: Locale): l is Locale<ImplementedState> => implementedStates.some(state => state === l.state)
 
 export interface BaseInfo extends Locale {
   state: ImplementedState
