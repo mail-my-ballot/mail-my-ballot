@@ -11,6 +11,7 @@ const CustomToastContainer = styled(ToastContainer)`
   @media screen and (min-width: 592px) {
     & .Toastify__toast {
       border-radius: 4px;
+      text-align: center;
     }
   }
 `
