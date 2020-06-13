@@ -170,7 +170,7 @@ export const SocialShare: React.FC = () => {
   return <>
     <ShareLink/>
     <ShareTwitter/>
-    <ShareEmail/>
     <ShareFacebook/>
+    <ShareEmail/>
   </>
 }
