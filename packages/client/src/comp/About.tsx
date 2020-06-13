@@ -4,6 +4,7 @@ import { useAppHistory } from '../lib/path'
 import { RoundedButton } from './util/Button'
 import { SocialFollow } from './SocialFollow'
 import { SocialShare, SocialButtonWrapper } from './SocialShare'
+import { Row, Col } from 'muicss/react'
 
 export const About = () => {
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
@@ -24,9 +25,15 @@ export const About = () => {
         <span>Get Started</span>
       </RoundedButton>
     </SocialButtonWrapper>
-    <h3>Follow</h3>
-    <SocialFollow/>
-    <h3>Share</h3>
-    <SocialShare/>
+    <Row>
+      <Col md={6} style={{ textAlign: 'center' }}>
+        <h3>Follow</h3>
+        <SocialFollow/>
+      </Col>
+      <Col md={6} style={{ textAlign: 'center' }}>
+        <h3>Share</h3>
+        <SocialShare/>
+      </Col>
+    </Row>
   </div>
 }

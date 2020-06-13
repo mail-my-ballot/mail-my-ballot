@@ -20,8 +20,13 @@ export const SocialButtonWrapper = styled.a`
   justify-content: center;
 
   & button { width: 60%; padding: 0; }
-  @media screen and (min-width: 1366px) {
+  @media screen and (min-width: 768px) {
     & button { width: 35%; }
+
+    /* Normalizes the button width when displayed inside columns */
+    [class*="mui-col"] & button {
+      width: 60%;
+    }
   }
 
   /* Ensures Icons & Labels are alligned */
@@ -91,6 +96,27 @@ export const ShareTwitter: React.FC = () => {
   </SocialButtonWrapper>
 }
 
+const CopyLinkWrapper = styled(SocialButtonWrapper)`
+  & button {
+    width: 90%;
+  }
+  @media screen and (min-width: 768px) {
+    & button {
+      width: 50%;
+    }
+    [class*="mui-col"] & button {
+      width: 90%;
+    }
+  }
+  & button > i {
+    flex: 3;
+    font-style: normal;
+  }
+  & button > span {
+    flex: 1;
+  }
+`
+
 /** Copies the site URL to the clipboard, notifies the user about this event */
 export const ShareLink: React.FC = () => {
   const { oid } = useAppHistory()
@@ -110,12 +136,12 @@ export const ShareLink: React.FC = () => {
     )
   }
 
-  return <SocialButtonWrapper onClick={onClick}>
+  return <CopyLinkWrapper onClick={onClick}>
     <RoundedButton color='primary'>
-      <i className="fa fa-link"/>
+      <i>mailmyballot.org</i>
       <span>Copy</span>
     </RoundedButton>
-  </SocialButtonWrapper>
+  </CopyLinkWrapper>
 }
 
 /**
