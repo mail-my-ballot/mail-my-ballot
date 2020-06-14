@@ -55,9 +55,16 @@ const toTemplate = (state: ImplementedState): string => {
   }
 }
 
+const subject = (state: ImplementedState) => {
+  switch (state) {
+    case 'Wyoming': return 'Absentee Ballot Request'
+    default: return 'Vote By Mail Request'
+  }
+}
+
 export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter => {
   return new Letter(
-    info.state == 'Wyoming' ? 'Absentee Ballot Request' : 'Vote By Mail Request',
+    subject(info.state),
     nunjucks.render(
       toTemplate(info.state),
       {
