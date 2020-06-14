@@ -201,5 +201,5 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     city: 'Laramie',
     county: 'Albany County',
     state: 'Wyoming',
-  }]
+  }],
 }

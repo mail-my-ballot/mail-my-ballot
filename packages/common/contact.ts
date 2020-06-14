@@ -14,7 +14,7 @@ export const availableStates = [
   'New York',
   'Virginia',
   'Wisconsin',
-  'Wyoming'
+  'Wyoming',
 ] as const
 
 const availableStatesSet = new Set(availableStates)
