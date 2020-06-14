@@ -34,7 +34,7 @@ Running the app requires some configuration setting.  All of those are exported 
 ## Configuration Details
 Below are the settings that need to be set to get an environment to work.
 
-- **Mailgun**: You only need these to send emails (last step in signup flow).  It's easy to get set up for free.
+- **Mailgun**: You only need these to send emails (last step in signup flow).  It's easy to get set up for free.  Since you don't have access to our domain records, you will probabyl want to set your emails to be sent from the sanbox domain that mailgun sets up automatically when you sign up.
 
 - **Twilio**: You only need these to send faxes (last step in signup flow).  It's easy to get set up for free.
 

@@ -15,6 +15,7 @@ export const implementedStates = [
   'Nevada',
   'New York',
   'Wisconsin',
+  'Wyoming',
 ] as const
 export type ImplementedState = ExtendsState<(typeof implementedStates)[number]>
 // We can't use set here because it seems Google Translator deplays the DOM loading and therefore the resulting set will be empty
@@ -108,6 +109,10 @@ export interface WisconsinInfo extends _Id, BaseInfo {
   idPhoto?: string
 }
 
+export interface WyomingInfo extends _Id, BaseInfo{
+  state: 'Wyoming'
+}
+
 
 export type StateInfo = (
   | ArizonaInfo
@@ -120,4 +125,5 @@ export type StateInfo = (
   | NevadaInfo
   | NewYorkInfo
   | WisconsinInfo
+  | WyomingInfo
 )

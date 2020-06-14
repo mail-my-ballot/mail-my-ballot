@@ -5,3 +5,7 @@ export const Center = styled.div`
   margin-right: auto;
   text-align: center;
 `
+
+export const Red = styled.sup`
+  color: rgb(220, 14, 82);
+`

@@ -15,6 +15,7 @@ import { InvalidContact } from '../contact/InvalidContact'
 import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
+import { Wyoming } from './Wyoming'
 import { StyledPanel } from '../util/Panel'
 
 
@@ -36,6 +37,7 @@ const StateFormSwitch: React.FC<SwitchProps> = ({
     case 'Nevada': return <Nevada />
     case 'New York': return <NewYork />
     case 'Wisconsin': return <Wisconsin />
+    case 'Wyoming': return <Wyoming />
   }
 }
 
