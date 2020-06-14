@@ -8,7 +8,7 @@ const FollowTwitter: React.FC = () => {
     title="Follow @MailMyBallot on Twitter"
     onClick={() => openInNewWindow(href)}
   >
-    <RoundedButton color='primary'>
+    <RoundedButton color='primary' style={{ backgroundColor: '#00acee' }}>
       <i className="fa fa-twitter"/>
       <span>Follow</span>
     </RoundedButton>
@@ -22,7 +22,11 @@ const FollowInstagram: React.FC = () => {
     title="Follow @MailMyBallot on Instagram"
     onClick={() => openInNewWindow(href)}
   >
-    <RoundedButton color='primary'>
+    <RoundedButton style={{
+      backgroundImage: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
+      color: 'white',
+      filter: 'brightness(1.1)',
+    }}>
       <i className="fa fa-instagram"/>
       <span>Follow</span>
     </RoundedButton>
@@ -35,7 +39,7 @@ const FollowFacebook: React.FC = () => {
     title="Follow @MailMyBallot on Facebook"
     onClick={() => openInNewWindow(href, 1024)}
   >
-    <RoundedButton color='primary'>
+    <RoundedButton color='primary' style={{ backgroundColor: '#3b5998' }}>
       <i className="fa fa-facebook"/>
       <span>Follow</span>
     </RoundedButton>

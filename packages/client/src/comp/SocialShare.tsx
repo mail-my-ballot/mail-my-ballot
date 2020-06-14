@@ -70,7 +70,7 @@ export const ShareFacebook: React.FC = () => {
   const { oid } = useAppHistory()
   const href = `https://www.facebook.com/sharer/sharer.php?u=${link(oid)}&amp;src=sdkpreparse`
   return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
-    <RoundedButton color='primary'>
+    <RoundedButton color='primary' style={{ backgroundColor: '#3b5998' }}>
       <i className="fa fa-facebook"/>
       <span>Share</span>
     </RoundedButton>
@@ -89,7 +89,7 @@ export const ShareTwitter: React.FC = () => {
   const href = `https://twitter.com/share?${params}`
 
   return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
-    <RoundedButton color='primary'>
+    <RoundedButton color='primary' style={{ backgroundColor: '#00acee' }}>
       <i className="fa fa-twitter"/>
       <span>Share</span>
     </RoundedButton>
