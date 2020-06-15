@@ -179,8 +179,8 @@ ${shareText(oid)}`
 export const SocialShare: React.FC = () => {
   return <>
     <ShareLink/>
-    <ShareTwitter/>
     <ShareFacebook/>
+    <ShareTwitter/>
     <ShareEmail/>
   </>
 }
