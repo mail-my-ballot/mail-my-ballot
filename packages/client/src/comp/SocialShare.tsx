@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
@@ -130,16 +130,13 @@ const CopyLinkWrapper = styled(SocialButtonWrapper)`
 
 /** Copies the site URL to the clipboard, notifies the user about this event */
 export const ShareLink: React.FC = () => {
+  const inputEl = useRef<HTMLInputElement>(null)
   const { oid } = useAppHistory()
   const url = link(oid)
-  const onClick = () => {
-    const textField = document.createElement('textarea')
-    textField.innerText = url
-    document.body.appendChild(textField)
-    textField.select()
-    document.execCommand('copy')
-    textField.remove()
 
+  const onClick = () => {
+    inputEl?.current?.select()
+    document.execCommand('copy')
     toast(
       'Link copied to clipboard',
       {
@@ -151,7 +148,7 @@ export const ShareLink: React.FC = () => {
   return <CopyLinkWrapper onClick={onClick}>
     <RoundedButton color='primary'>
       {/* Should we allow the value of this input to change? */}
-      <input value={url}/>
+      <input ref={inputEl} value={url}/>
       <span>Copy</span>
     </RoundedButton>
   </CopyLinkWrapper>
