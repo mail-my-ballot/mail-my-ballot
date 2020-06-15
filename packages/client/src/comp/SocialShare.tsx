@@ -108,21 +108,33 @@ const CopyLinkWrapper = styled(SocialButtonWrapper)`
       width: 90%;
     }
   }
-  & button > i {
-    flex: 3;
-    font-style: normal;
-  }
   & button > span {
     flex: 1;
+  }
+  & button > input {
+    flex: 3;
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+    box-sizing: border-box;
+
+    text-align: center;
+    border: 1px solid #0002;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  & button > input:focus {
+    outline: none;
   }
 `
 
 /** Copies the site URL to the clipboard, notifies the user about this event */
 export const ShareLink: React.FC = () => {
   const { oid } = useAppHistory()
+  const url = link(oid)
   const onClick = () => {
     const textField = document.createElement('textarea')
-    textField.innerText = link(oid)
+    textField.innerText = url
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
@@ -138,7 +150,8 @@ export const ShareLink: React.FC = () => {
 
   return <CopyLinkWrapper onClick={onClick}>
     <RoundedButton color='primary'>
-      <i>mailmyballot.org</i>
+      {/* Should we allow the value of this input to change? */}
+      <input value={url}/>
       <span>Copy</span>
     </RoundedButton>
   </CopyLinkWrapper>
