@@ -139,6 +139,7 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-dev-cee81)
 - [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-dev-cee81)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-dev-cee81)
 
 ### Staging
 - [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-staging)
@@ -146,6 +147,7 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-staging)
 - [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-staging)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-staging/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-staging)
 
 ### Production
 - [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-prod)
@@ -153,6 +155,7 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 - [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-prod)
 - [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-prod)
 - [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-prod/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-prod)
 
 ## Resources
 ### Asthetics
