@@ -1,8 +1,20 @@
 import React from 'react'
+import styled from 'styled-components'
 import { HashRouter } from 'react-router-dom'
+import { Slide, ToastContainer } from "react-toastify"
 import { ModalProvider } from 'styled-react-modal'
 import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer } from '../lib/unstated'
 
+import 'react-toastify/dist/ReactToastify.css'
+
+const CustomToastContainer = styled(ToastContainer)`
+  @media screen and (min-width: 592px) {
+    & .Toastify__toast {
+      border-radius: 4px;
+      text-align: center;
+    }
+  }
+`
 
 // export for testing purposes
 export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
@@ -14,6 +26,17 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
             <VoterContainer.Provider>
               <ModalProvider>
                 {children}
+                <CustomToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={true}
+                  newestOnTop={true}
+                  closeOnClick={true}
+                  rtl={false}
+                  pauseOnFocusLoss={true}
+                  pauseOnHover={true}
+                  transition={Slide}
+                />
               </ModalProvider>
             </VoterContainer.Provider>
           </FeatureFlagsContainer.Provider>
