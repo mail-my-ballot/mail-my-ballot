@@ -3,6 +3,7 @@ import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
 import styled from 'styled-components'
 import { Muted } from './Text'
+import { useRef } from 'preact/compat'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -42,7 +43,7 @@ export const Upload: React.FC<Props> = ({
   required,
   maxSizeMB,
 }) => {
-  const ref = React.useRef<HTMLInputElement | null>()
+  const ref = useRef<HTMLInputElement | null>()
   const [image, setImage] = React.useState<Image>()
 
   const onClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {

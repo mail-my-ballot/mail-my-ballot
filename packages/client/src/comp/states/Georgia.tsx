@@ -23,7 +23,7 @@ export const Georgia = () => {
   }
 
   return <SignatureBase<GeorgiaInfo> enrichValues={enrichValues}>
-    <Select ref={partyRef} label='Primary Party Ballot' defaultValue='Select' {...{required: true}}>
+    <Select ref={partyRef => partyRef} label='Primary Party Ballot' defaultValue='Select' {...{required: true}}>
       <Option key={0} hidden={true}/>
       {[...georgiaParty].sort().map((value, key) => {
         return <Option value={value} key={key+1} label={value}/>

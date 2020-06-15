@@ -84,7 +84,7 @@ export const ContactModal: React.FC<Props> = ({
   >
     <h4>Select Election Jurisdiction</h4>
     <AppForm>
-      <Select ref={contactRef} label='Select Jurisdiction' defaultValue={contactKey}>
+      <Select ref={contactRef || null} label='Select Jurisdiction' defaultValue={contactKey}>
         {contactKeys.sort().map((contactKey, idx) => {
           return <Option
             value={contactKey}

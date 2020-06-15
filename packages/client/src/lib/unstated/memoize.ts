@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRef } from 'preact/compat'
 
 // From https://stackoverflow.com/a/52645018/8930600
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,7 +14,7 @@ const deepEqual = (a: any, b: any): boolean => {
 
 // From https://stackoverflow.com/a/54096391/8930600
 export const useDeepMemoize = <T extends object | null>(val: T): T => {
-  const ref = React.useRef<T>()
+  const ref = useRef<T>()
 
   if (!deepEqual(val, ref.current)) {
     ref.current = val

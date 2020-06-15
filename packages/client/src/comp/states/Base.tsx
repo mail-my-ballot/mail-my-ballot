@@ -72,7 +72,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   return <AppForm onSubmit={handleSubmit}>
     <NameInput
       id='name'
-      ref={nameRef}
+      ref={nameRef => nameRef}
       defaultValue={query.name}
       required
     />
@@ -85,19 +85,19 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     <ContactInfo locale={locale} contact={contact}/>
     <BirthDateInput
       id='birthdate'
-      ref={birthdateRef}
+      ref={birthdateRef => birthdateRef}
       defaultValue={query.birthdate}
       required
     />
     <EmailInput
       id='email'
-      ref={emailRef}
+      ref={emailRef => emailRef}
       defaultValue={query.email}
       required
     />
     <PhoneInput
       id='telephone'
-      ref={phoneRef}
+      ref={phoneRef => phoneRef}
       defaultValue={query.telephone}
     />
     <Togglable
@@ -107,7 +107,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       (checked) => <BaseInput
         id='mailing'
         label='Mailing Address'
-        ref={mailingRef}
+        ref={mailingRef => mailingRef}
         required={checked}
       />
     }</Togglable>

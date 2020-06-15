@@ -1,10 +1,11 @@
 import React from 'react'
 import { Checkbox } from 'muicss/react'
+import { useRef } from 'preact/compat'
 
 type ControlRef<T> = React.RefObject<T> & { value: () => string | null }
 
 export function useControlRef<T>(): ControlRef<T> {
-  const ref = React.useRef<T>(null)
+  const ref = useRef<T>(null)
   return {
     ...ref,
     value: function() {
@@ -17,7 +18,7 @@ export function useControlRef<T>(): ControlRef<T> {
 type CheckedRef = React.RefObject<Checkbox> & { value: () => boolean | null }
 
 export function useCheckboxRef(): CheckedRef {
-  const ref = React.useRef<Checkbox>(null)
+  const ref = useRef<Checkbox>(null)
   return {
     ...ref,
     value: function() {

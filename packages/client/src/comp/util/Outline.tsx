@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useRef } from 'preact/compat'
 
 const RawOutline = styled.div`
   border-width: 2px;
@@ -18,7 +19,7 @@ interface SizableChilren {
 }
 
 export const GoldRatioOutline: React.FC<SizableChilren> = ({children}) => {
-  const parentRef = React.useRef<HTMLDivElement>(null)
+  const parentRef = useRef<HTMLDivElement>(null)
   const [size, setSize] = React.useState<Sizable | null>(null)
   let timer: number | null = null
   
@@ -43,7 +44,7 @@ export const GoldRatioOutline: React.FC<SizableChilren> = ({children}) => {
   })
 
   return <RawOutline>
-    <div style={{width: 'auto'}} ref={parentRef}>
+    <div style={{width: 'auto'}} ref={parentRef => parentRef}>
       {size ? children(size) : null}
     </div>
   </RawOutline>

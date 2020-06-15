@@ -6,7 +6,7 @@
     "@tianhuil/simple-trpc": "^1.8.0",
     "muicss": "^0.10.1",
     "preact": "^10.4.4",
-    "preact-compat": "^4.0.0",
+    "preact-compat": "^3.19.0",
     "react-facebook-pixel": "^0.1.3",
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.1.2",

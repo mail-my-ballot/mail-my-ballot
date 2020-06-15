@@ -114,7 +114,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
           <BaseInput
             id='addr-input'  // This id is used for Warning Box to fill form quickly
             label='Full Address'
-            ref={addrRef}
+            ref={addrRef => addrRef}
             pattern={`(?!${partialAddr}$).*`}
             required
             defaultValue={ address?.queryAddr ?? defaultAddress() }

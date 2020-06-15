@@ -1,6 +1,7 @@
 import React from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import styled from 'styled-components'
+import { useRef } from 'preact/compat'
 
 import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
@@ -35,7 +36,7 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Canvas: React.FC<Props> = ({ setSignature }) => {
-  const ref = React.useRef<SignatureCanvas>(null)
+  const ref = useRef<SignatureCanvas>(null)
   const [dirty, setDirty] = React.useState<boolean>(false)
 
   const onBegin = () => {
@@ -71,7 +72,7 @@ export const Canvas: React.FC<Props> = ({ setSignature }) => {
             canvasProps={
               {width, height, 'data-testid': 'canvas'} as React.CanvasHTMLAttributes<HTMLCanvasElement>
             }
-            ref={ref}
+            ref={ref => ref}
             onBegin={onBegin}
             onEnd={onEnd}
           />

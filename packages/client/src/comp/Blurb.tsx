@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRef } from 'preact/compat'
 import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import { StyleContainer } from './util/Container'
@@ -68,7 +69,7 @@ const SubmitButton = styled(RoundedButton)`
 export const Blurb: React.FC<{}> = () => {
   const { path, pushAddress } = useAppHistory()
   const { address } = AddressContainer.useContainer()
-  const zipRef = React.useRef<HTMLInputElement>(null)
+  const zipRef = useRef<HTMLInputElement>(null)
 
   // mobile browsers don't support 100vh, so use this trick instead
   // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html
@@ -118,7 +119,7 @@ export const Blurb: React.FC<{}> = () => {
               pattern='[0-9]{5}'
               placeholder='ZIP code'
               defaultValue={defaultValue()}
-              ref={zipRef} />
+              ref={zipRef => zipRef} />
             <SubmitButton
               id='start-submit'
               data-testid='start-submit'
