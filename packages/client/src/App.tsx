@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 
 import { About } from './comp/About'
 import { Footer } from './comp/Footer'
@@ -27,8 +27,7 @@ const TallStyleContainer = styled(StyleContainer)`
 
 
 const Layout = () => {
-  return (
-  <BrowserRouter>
+  return (<>
     <Switch>
       <Route path='/status'>
         <StyleContainer>
@@ -92,7 +91,7 @@ const Layout = () => {
       <DevInfo/>
     </StyleContainer>
     <Footer/>
-  </BrowserRouter>)
+  </>)
 }
 
 const App = () => (<>
