@@ -74,6 +74,7 @@
     "nunjucks": "^3.2.1",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
+    "pdf-lib": "^1.7.0",
     "pug": "^2.0.4",
     "strip-indent": "^3.0.0",
     "twilio": "^3.43.0"
