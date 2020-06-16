@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Helmet} from "react-helmet"
 
 import { Switch, Route, Redirect } from "react-router-dom"
 
@@ -20,6 +21,7 @@ import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
+import { processEnvOrThrow } from './common'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -96,6 +98,9 @@ const Layout = () => {
 
 const App = () => (<>
   <UnstatedContainer>
+    <Helmet>
+      <script src={`https://www.googleoptimize.com/optimize.js?id=${processEnvOrThrow('REACT_APP_GOOGLE_OPTIMIZE')}`}></script>
+    </Helmet>
     <Initialize/>
     <Layout/>
   </UnstatedContainer>
