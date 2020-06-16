@@ -28,14 +28,32 @@ export const fillNewHampshire = () => fillFormWrapper(
     // Qualified Voter
     pages[0].drawText('X', {
       ...options,
-      x: 85,
+      x: 86,
       y: height-100,
     })
     // Disabled
     pages[0].drawText('X', {
       ...options,
-      x: 85,
+      x: 86,
       y: height-315,
+    })
+    // Primary Election
+    pages[0].drawText('X', {
+      ...options,
+      x: 112,
+      y: height-618,
+    })
+    // Democratic Party
+    pages[0].drawText('X', {
+      ...options,
+      x: 229,
+      y: height-635,
+    })
+    // Republican Party
+    pages[0].drawText('X', {
+      ...options,
+      x: 348,
+      y: height-635,
     })
     // General Election
     pages[0].drawText('X', {
@@ -46,17 +64,17 @@ export const fillNewHampshire = () => fillFormWrapper(
 
     pages[1].drawText('George Washington', {
       ...options,
-      x: 85,
+      x: 86,
       y: height-60,
     })
     pages[1].drawText('Mount Vernon', {
       ...options,
-      x: 85,
+      x: 86,
       y: height-130,
     })
     pages[1].drawText('Same as above', {
       ...options,
-      x: 85,
+      x: 86,
       y: height-210,
     })
     pages[1].drawText('123-456-7890', {
