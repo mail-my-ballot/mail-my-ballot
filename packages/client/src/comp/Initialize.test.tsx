@@ -6,7 +6,7 @@ import { UnstatedContainer } from './StateContainer'
 test('Initialize picks up utm parameters', () => {
   Object.defineProperty(window, 'location', {
     value: {
-      href: 'https://example.com/#/?utm_campaign=campaignid1234'
+      href: 'https://example.com?utm_campaign=campaignid1234'
     }
   })
 
