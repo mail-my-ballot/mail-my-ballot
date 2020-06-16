@@ -1,12 +1,16 @@
 import { PDFDocument, StandardFonts, rgb, PDFPage, PDFPageDrawTextOptions } from 'pdf-lib'
 import fs from 'fs'
 
+interface FillFormArg {
+  pages: PDFPage[]
+  options: PDFPageDrawTextOptions
+  check: (page: number, x: number, y: number) => void
+  text: (page: number, text: string, x: number, y: number) => void
+}
+
 const fillFormWrapper = async (
   filename: string,
-  fillForm: (
-    pages: PDFPage[],
-    options: PDFPageDrawTextOptions
-  ) => void,
+  fillForm: (arg: FillFormArg) => void,
 ): Promise<Buffer> => {
   const buffer = fs.readFileSync(filename)
   const doc = await PDFDocument.load(buffer)
@@ -16,81 +20,34 @@ const fillFormWrapper = async (
     color: rgb(0.96, 0.1, 0.1)
   }
   const pages = doc.getPages()
-  fillForm(pages, options)
+  const text = (page: number, text: string, x: number, y: number) => {
+    const { height } = pages[page].getSize()
+    pages[page].drawText(text, {...options, x, y: height - y})
+  }
+  fillForm({
+    pages,
+    options,
+    text,
+    check: (page, x, y) => text(page, 'X', x, y),
+  })
   return Buffer.from(await doc.save())
 }
 
 export const fillNewHampshire = () => fillFormWrapper(
   __dirname + '/forms/New_Hampshire.pdf',
-  (pages, options) => {
-    const { height } = pages[0].getSize()
+  ({check, text}) => {
+    check(0, 86, 100) // Qualified Voter
+    check(0, 86, 315) // Disabled
+    check(0, 112, 618) // Primary Election
+    check(0, 229, 635) // Democratic Party
+    check(0, 348, 635) // Republican Party
+    check(0, 112, 665) // General Election
 
-    // Qualified Voter
-    pages[0].drawText('X', {
-      ...options,
-      x: 86,
-      y: height-100,
-    })
-    // Disabled
-    pages[0].drawText('X', {
-      ...options,
-      x: 86,
-      y: height-315,
-    })
-    // Primary Election
-    pages[0].drawText('X', {
-      ...options,
-      x: 112,
-      y: height-618,
-    })
-    // Democratic Party
-    pages[0].drawText('X', {
-      ...options,
-      x: 229,
-      y: height-635,
-    })
-    // Republican Party
-    pages[0].drawText('X', {
-      ...options,
-      x: 348,
-      y: height-635,
-    })
-    // General Election
-    pages[0].drawText('X', {
-      ...options,
-      x: 112,
-      y: height-665,
-    })
-
-    pages[1].drawText('George Washington', {
-      ...options,
-      x: 86,
-      y: height-60,
-    })
-    pages[1].drawText('Mount Vernon', {
-      ...options,
-      x: 86,
-      y: height-130,
-    })
-    pages[1].drawText('Same as above', {
-      ...options,
-      x: 86,
-      y: height-210,
-    })
-    pages[1].drawText('123-456-7890', {
-      ...options,
-      x: 250,
-      y: height-240,
-    })
-    pages[1].drawText('george.washington@gmail.com', {
-      ...options,
-      x: 250,
-      y: height-300,
-    })
-    pages[1].drawText('01/01/2020', {
-      ...options,
-      x: 480,
-      y: height-340,
-    })
+    text(1, 'George Washington', 86, 60)
+    text(1, 'Mount Vernon', 86, 130)
+    text(1, 'Same as above', 86, 210)
+    text(1, '123-456-7890', 250, 240)
+    text(1, 'george.washington@gmail.com', 250, 300) // 'Same as above'
+    text(1, '01/01/2020', 480, 340) // 'Same as above'
   }
 )
