@@ -3,10 +3,10 @@ import { render } from '@testing-library/react'
 import { Initialize } from './Initialize'
 import { UnstatedContainer } from './StateContainer'
 
-test('Initialize picks up utm parameters', () => {
+test('Initialize picks up parameters', () => {
   Object.defineProperty(window, 'location', {
     value: {
-      href: 'https://example.com?utm_campaign=campaignid1234'
+      href: 'https://example.com'
     }
   })
 
@@ -16,5 +16,5 @@ test('Initialize picks up utm parameters', () => {
   )
 
   const userData = localStorage.getItem('voter-data')
-  expect(userData).toContain('campaignid1234')
+  expect(userData).toContain('uid')
 })
