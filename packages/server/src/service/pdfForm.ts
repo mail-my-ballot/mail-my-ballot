@@ -2,17 +2,26 @@ import { PDFDocument, StandardFonts, rgb, PDFPage, PDFPageDrawTextOptions } from
 import fs from 'fs'
 
 import { NewHampshireInfo } from '../common'
+import { createPdfBuffer } from './pdf'
 
 interface FillFormArg {
+  doc: PDFDocument
   pages: PDFPage[]
   options: PDFPageDrawTextOptions
   check: (page: number, x: number, y: number) => void
   text: (page: number, text: string, x: number, y: number) => void
+  placeImage: (page: number, imageBuffer: Buffer, x: number, y: number) => Promise<void>
+}
+
+export const toSignatureBuffer = async (dataUrl: string, maxWidth: number, maxHeight: number): Promise<Buffer> => {
+  const html = '<style>@page{margin: 0mm;} body{margin: 0px;}</style>' +
+    `<img src='${dataUrl}' style='max-width: ${maxWidth}; max-height: ${maxHeight}; padding: 0; margin: 0; border: 0 solid #fff;'/>`
+  return createPdfBuffer(html, {width: (maxWidth) + 'px', height: (maxHeight) + 'px', border: '0px'})
 }
 
 const fillFormWrapper = async (
   filename: string,
-  fillForm: (arg: FillFormArg) => void,
+  fillForm: (arg: FillFormArg) => Promise<void>,
 ): Promise<Buffer> => {
   const buffer = fs.readFileSync(filename)
   const doc = await PDFDocument.load(buffer)
@@ -26,11 +35,23 @@ const fillFormWrapper = async (
     const { height } = pages[page].getSize()
     pages[page].drawText(text, {...options, x, y: height - y})
   }
-  fillForm({
+  const placeImage = async (page: number, imageBuffer: Buffer, x: number, y: number): Promise<void> => {
+    const { height } = pages[page].getSize()
+    const [image] = await doc.embedPdf(imageBuffer)
+    pages[page].drawPage(image, {
+      ...image.scale(1.0),
+      x,
+      y: height - y,
+    })
+  }
+
+  await fillForm({
+    doc,
     pages,
     options,
     text,
     check: (page, x, y) => text(page, 'X', x, y),
+    placeImage,
   })
   return Buffer.from(await doc.save())
 }
@@ -39,7 +60,7 @@ export const fillNewHampshire = (
   stateInfo: NewHampshireInfo
 ) => fillFormWrapper(
   __dirname + '/forms/New_Hampshire.pdf',
-  ({check, text}) => {
+  async ({check, text, placeImage}) => {
     check(0, 86, 100) // Qualified Voter
     check(0, 86, 315) // Disabled
     if (stateInfo.primaryParty !== 'No Primary') {
@@ -58,5 +79,8 @@ export const fillNewHampshire = (
     text(1, stateInfo.phone, 250, 240)
     text(1, stateInfo.email, 250, 300)
     text(1, new Date().toISOString().split('T')[0], 480, 340)
+
+    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
+    await placeImage(1, signatureBuffer, 250, 360)
   }
 )
