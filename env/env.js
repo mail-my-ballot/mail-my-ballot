@@ -117,6 +117,7 @@ const test = removeNullValues({
   GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
   TWILIO_DISABLE: 1,
+  REACT_APP_GOOGLE_OPTIMIZE: 'test-opt'
 })
 
 const ci = removeNullValues({
