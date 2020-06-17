@@ -1,10 +1,9 @@
 import React from 'react'
-import { useLocation } from "react-router-dom"
 
 import { Switchable, Choice } from './Switchable'
 import { Upload } from './Upload'
 import { Canvas } from './Canvas'
-import { parseQS } from '../../lib/path'
+import { useAppHistory } from '../../lib/path'
 import styled from 'styled-components'
 
 const width = 300
@@ -20,13 +19,12 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Signature: React.FC<Props> = ({ setSignature }) => {
-  const { search } = useLocation()
-  const params = parseQS(search)
+  const { query } = useAppHistory()
   return <Margin>
-    <Switchable visible={Boolean(!params.case)}>
+    <Switchable visible={query['case'] !== 'upload'}>
     {
       (choice: Choice) => {
-        if (choice === 'canvas' || params.case === 'a') {
+        if (choice === 'canvas') {
           return <div>
             <div>
               <Canvas setSignature={setSignature} width={width} height={height}/>
