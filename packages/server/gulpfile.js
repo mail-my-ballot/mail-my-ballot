@@ -84,6 +84,7 @@ gulp.task('pug', () => gulp.src('./src/views/*.pug').pipe(gulp.dest('./dist/view
 gulp.task('md', () => gulp.src('./src/service/letter/views/*.md').pipe(gulp.dest('./dist/service/letter/views')))
 gulp.task('png', () => gulp.src('./src/service/letter/*.png').pipe(gulp.dest('./dist/service/letter')))
 gulp.task('jpg', () => gulp.src('./src/service/letter/*.jpg').pipe(gulp.dest('./dist/service/letter')))
+gulp.task('pdf', () => gulp.src('./src/service/forms/*.pdf').pipe(gulp.dest('./dist/service/forms')))
 gulp.task('check', (cb) => {
   const executable = './dist/index.js'
   if (!fs.existsSync(executable)) throw Error(`Compile did not create ${executable}`)
@@ -99,6 +100,7 @@ gulp.task('build',
       'md',
       'png',
       'jpg',
+      'pdf',
     ),
     'check',
   )
