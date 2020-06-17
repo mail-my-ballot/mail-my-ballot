@@ -9,8 +9,8 @@ interface FillFormArg {
   pages: PDFPage[]
   options: PDFPageDrawTextOptions
   check: (page: number, x: number, y: number) => void
-  text: (page: number, text: string, x: number, y: number) => void
-  placeImage: (page: number, imageBuffer: Buffer, x: number, y: number) => Promise<void>
+  text: (text: string, page: number, x: number, y: number) => void
+  placeImage: (imageBuffer: Buffer, page: number, x: number, y: number) => Promise<void>
 }
 
 export const toSignatureBuffer = async (dataUrl: string, maxWidth: number, maxHeight: number): Promise<Buffer> => {
@@ -31,11 +31,11 @@ const fillFormWrapper = async (
     color: rgb(0.96, 0.1, 0.1)
   }
   const pages = doc.getPages()
-  const text = (page: number, text: string, x: number, y: number) => {
+  const text = (text: string, page: number, x: number, y: number) => {
     const { height } = pages[page].getSize()
     pages[page].drawText(text, {...options, x, y: height - y})
   }
-  const placeImage = async (page: number, imageBuffer: Buffer, x: number, y: number): Promise<void> => {
+  const placeImage = async (imageBuffer: Buffer, page: number, x: number, y: number): Promise<void> => {
     const { height } = pages[page].getSize()
     const [image] = await doc.embedPdf(imageBuffer)
     pages[page].drawPage(image, {
@@ -50,7 +50,7 @@ const fillFormWrapper = async (
     pages,
     options,
     text,
-    check: (page, x, y) => text(page, 'X', x, y),
+    check: (page, x, y) => text('X', page, x, y),
     placeImage,
   })
   return Buffer.from(await doc.save())
@@ -73,14 +73,14 @@ export const fillNewHampshire = (
     }
     check(0, 112, 665) // General Election
 
-    text(1, stateInfo.name, 86, 60)
-    text(1, stateInfo.uspsAddress, 86, 130)
-    text(1, stateInfo.mailingAddress ?? 'Same as above', 86, 210)
-    text(1, stateInfo.phone, 250, 240)
-    text(1, stateInfo.email, 250, 300)
-    text(1, new Date().toISOString().split('T')[0], 480, 340)
+    text(stateInfo.name, 1, 86, 60)
+    text(stateInfo.uspsAddress, 1, 86, 130)
+    text(stateInfo.mailingAddress ?? 'Same as above', 1, 86, 210)
+    text(stateInfo.phone, 1, 250, 240)
+    text(stateInfo.email, 1, 250, 300)
+    text(new Date().toISOString().split('T')[0], 1, 480, 340)
 
     const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
-    await placeImage(1, signatureBuffer, 250, 360)
+    await placeImage(signatureBuffer, 1, 250, 360)
   }
 )
