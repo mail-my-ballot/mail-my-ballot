@@ -10,7 +10,7 @@ interface FillFormArg {
   options: PDFPageDrawTextOptions
   check: (page: number, x: number, y: number) => void
   text: (text: string, page: number, x: number, y: number) => void
-  placeImage: (imageBuffer: Buffer, page: number, x: number, y: number) => Promise<void>
+  placeImage: (imageBuffer: Uint8Array, page: number, x: number, y: number) => Promise<void>
 }
 
 export const toSignatureBuffer = async (dataUrl: string, maxWidth: number, maxHeight: number): Promise<Buffer> => {
@@ -19,12 +19,24 @@ export const toSignatureBuffer = async (dataUrl: string, maxWidth: number, maxHe
   return createPdfBuffer(html, {width: (maxWidth) + 'px', height: (maxHeight) + 'px', border: '0px'})
 }
 
+/**
+ * Need to make Uint8Array right away because buffer is reused
+ * https://github.com/nodejs/node/issues/11132#issuecomment-277157700
+ * */
+const readBinaryFile = (filename: string): Promise<Uint8Array> => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, (err, data) => {
+      err ? reject(err) : resolve(new Uint8Array(data.buffer))
+    })
+  })
+}
+
 const fillFormWrapper = async (
   filename: string,
   fillForm: (arg: FillFormArg) => Promise<void>,
 ): Promise<Buffer> => {
-  const buffer = fs.readFileSync(filename)
-  const doc = await PDFDocument.load(buffer)
+  const byteArray = await readBinaryFile(filename)
+  const doc = await PDFDocument.load(byteArray)
   const options = {
     font: await doc.embedFont(StandardFonts.Helvetica),
     size: 12,
@@ -35,7 +47,7 @@ const fillFormWrapper = async (
     const { height } = pages[page].getSize()
     pages[page].drawText(text, {...options, x, y: height - y})
   }
-  const placeImage = async (imageBuffer: Buffer, page: number, x: number, y: number): Promise<void> => {
+  const placeImage = async (imageBuffer: Uint8Array, page: number, x: number, y: number): Promise<void> => {
     const { height } = pages[page].getSize()
     const [image] = await doc.embedPdf(imageBuffer)
     pages[page].drawPage(image, {
@@ -81,6 +93,6 @@ export const fillNewHampshire = (
     text(new Date().toISOString().split('T')[0], 1, 480, 340)
 
     const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
-    await placeImage(signatureBuffer, 1, 250, 360)
+    await placeImage(new Uint8Array(signatureBuffer.buffer), 1, 250, 360)
   }
 )
