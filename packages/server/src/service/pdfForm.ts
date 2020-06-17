@@ -1,6 +1,8 @@
 import { PDFDocument, StandardFonts, rgb, PDFPage, PDFPageDrawTextOptions } from 'pdf-lib'
 import fs from 'fs'
 
+import { NewHampshireInfo } from '../common'
+
 interface FillFormArg {
   pages: PDFPage[]
   options: PDFPageDrawTextOptions
@@ -33,21 +35,28 @@ const fillFormWrapper = async (
   return Buffer.from(await doc.save())
 }
 
-export const fillNewHampshire = () => fillFormWrapper(
+export const fillNewHampshire = (
+  stateInfo: NewHampshireInfo
+) => fillFormWrapper(
   __dirname + '/forms/New_Hampshire.pdf',
   ({check, text}) => {
     check(0, 86, 100) // Qualified Voter
     check(0, 86, 315) // Disabled
-    check(0, 112, 618) // Primary Election
-    check(0, 229, 635) // Democratic Party
-    check(0, 348, 635) // Republican Party
+    if (stateInfo.primaryParty !== 'No Primary') {
+      check(0, 112, 618) // Primary Election
+      if (stateInfo.primaryParty === 'Democratic Party') {
+        check(0, 229, 635) // Democratic Party
+      } else if (stateInfo.primaryParty === 'Republican Party') {
+        check(0, 348, 635) // Republican Party
+      }
+    }
     check(0, 112, 665) // General Election
 
-    text(1, 'George Washington', 86, 60)
-    text(1, 'Mount Vernon', 86, 130)
-    text(1, 'Same as above', 86, 210)
-    text(1, '123-456-7890', 250, 240)
-    text(1, 'george.washington@gmail.com', 250, 300) // 'Same as above'
-    text(1, '01/01/2020', 480, 340) // 'Same as above'
+    text(1, stateInfo.name, 86, 60)
+    text(1, stateInfo.uspsAddress, 86, 130)
+    text(1, stateInfo.mailingAddress ?? 'Same as above', 86, 210)
+    text(1, stateInfo.phone, 250, 240)
+    text(1, stateInfo.email, 250, 300)
+    text(1, new Date().toISOString().split('T')[0], 480, 340)
   }
 )

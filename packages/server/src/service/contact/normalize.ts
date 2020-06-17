@@ -27,8 +27,11 @@ const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string
     }
 
     // Only city
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    case 'Maine': return city! + ':'
+    case 'Maine':
+    case 'New Hampshire': {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return city! + ':'
+    }
 
     // hybrid count or city
     case 'Maryland': // Baltimore city is independent of county

@@ -1,21 +1,21 @@
 import React from 'react'
 
+import { Arizona } from './Arizona'
 import { Florida } from './Florida'
-import { Michigan } from './Michigan'
 import { Georgia } from './Georgia'
-import { Wisconsin } from './Wisconsin'
-
-import { Maryland } from './Maryland'
 import { Maine } from './Maine'
+import { Maryland } from './Maryland'
+import { Michigan } from './Michigan'
+import { Nebraska } from './Nebraska'
 import { Nevada } from './Nevada'
+import { NewHampshire } from './NewHampshire'
+import { NewYork } from './NewYork'
+import { Wisconsin } from './Wisconsin'
+import { Wyoming } from './Wyoming'
 import { AddressContainer, ContactContainer } from '../../lib/unstated'
 import { Locale, isImplementedLocale, ContactMethod, ImplementedState } from '../../common'
 import { useAppHistory } from '../../lib/path'
 import { InvalidContact } from '../contact/InvalidContact'
-import { Nebraska } from './Nebraska'
-import { Arizona } from './Arizona'
-import { NewYork } from './NewYork'
-import { Wyoming } from './Wyoming'
 import { StyledPanel } from '../util/Panel'
 
 
@@ -35,6 +35,7 @@ const StateFormSwitch: React.FC<SwitchProps> = ({
     case 'Michigan': return <Michigan />
     case 'Nebraska': return <Nebraska />
     case 'Nevada': return <Nevada />
+    case 'New Hampshire': return <NewHampshire />
     case 'New York': return <NewYork />
     case 'Wisconsin': return <Wisconsin />
     case 'Wyoming': return <Wyoming />

@@ -2,6 +2,7 @@ import marked from 'marked'
 import nunjucks from 'nunjucks'
 
 import { processEnvOrThrow, StateInfo, ContactMethod, ImplementedState } from '../../common'
+import { fillNewHampshire } from '../pdfForm'
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
@@ -11,6 +12,7 @@ nunjucks.configure(__dirname + '/views', {
 interface Options { 
   signature?: string
   idPhoto?: string
+  form?: Buffer
 }
 
 export class Letter {
@@ -20,14 +22,21 @@ export class Letter {
   method: ContactMethod
   signature?: string
   idPhoto?: string
+  form?: Buffer
 
-  constructor(subject: string, md: string, method: ContactMethod, { signature, idPhoto }: Options = {}) {
+  constructor(
+    subject: string,
+    md: string,
+    method: ContactMethod,
+    { signature, idPhoto, form }: Options = {},
+  ) {
     this.subject = subject
     this.md = md
     this.html = marked(md)
     this.method = method
     this.signature = signature
     this.idPhoto = idPhoto
+    this.form = form
   }
 }
 
@@ -39,7 +48,7 @@ const envVars = {
   election: processEnvOrThrow('REACT_APP_ELECTION_AND_DATE'),
 }
 
-const toTemplate = (state: ImplementedState): string => {
+const template = (state: ImplementedState): string => {
   switch(state) {
     case 'Arizona': return 'Arizona.md'
     case 'Florida': return 'Florida.md'
@@ -49,6 +58,7 @@ const toTemplate = (state: ImplementedState): string => {
     case 'Michigan': return 'Michigan.md'
     case 'Nebraska': return 'Nebraska.md'
     case 'Nevada': return 'Nevada.md'
+    case 'New Hampshire': return 'NewHampshire.md'
     case 'New York': return 'NewYork.md'
     case 'Wisconsin': return 'Wisconsin.md'
     case 'Wyoming': return 'Wyoming.md'
@@ -62,11 +72,22 @@ const subject = (state: ImplementedState) => {
   }
 }
 
-export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId: string): Letter => {
+const pdfForm = async (info: StateInfo): Promise<Buffer | undefined> => {
+  switch(info.state) {
+    case 'New Hampshire': return fillNewHampshire(info)
+    default: return undefined
+  }
+}
+
+export const toLetter = async (
+  info: StateInfo,
+  method: ContactMethod,
+  confirmationId: string
+): Promise<Letter> => {
   return new Letter(
     subject(info.state),
     nunjucks.render(
-      toTemplate(info.state),
+      template(info.state),
       {
         ...info,
         ...envVars,
@@ -76,6 +97,10 @@ export const toLetter = (info: StateInfo, method: ContactMethod, confirmationId:
       }
     ),
     method,
-    { signature: info.signature, idPhoto: info.idPhoto }
+    {
+      signature: info.signature,
+      idPhoto: info.idPhoto,
+      form: await pdfForm(info),
+    }
   )
 }
