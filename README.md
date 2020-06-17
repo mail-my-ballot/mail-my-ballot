@@ -62,7 +62,7 @@ git ls-files | grep proto
 ```
 
 #### Google Maps API
-You will have to enable Google Maps geolocation and set `GOOGLE_MAPS_API_KEY` in order to do the ZIP code to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
+You will have to enable Google Maps `geolocation` and `geocoding` APIs, then set `GOOGLE_MAPS_API_KEY` in order to do the ZIP code to state and address to election official lookups.  Instructions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key).
 
 #### Express session secrets
 Set `SESSION_SECRET` to a random string of your choice to encrypt sessions.
@@ -78,7 +78,7 @@ Each package has it's own `gulpfile.js`.
 ### Running tasks
 To invoke the grunt file, run commands like
 ```bash
-yarn server gulp script --env developement --file src/script/fetchData.ts
+yarn server gulp script --env development --file src/script/fetchData.ts
 ```
 
 The command `yarn server gulp` and `yarn client gulp` run their respective gulpfiles.  Check out the gulpfiles for more commands.

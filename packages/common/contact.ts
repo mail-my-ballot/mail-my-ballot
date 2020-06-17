@@ -12,6 +12,7 @@ export const availableStates = [
   'Nebraska',
   'Nevada',
   'New York',
+  'Oklahoma',
   'Virginia',
   'Wisconsin',
   'Wyoming',
@@ -39,6 +40,7 @@ const stateMethods: Record<AvailableState, StateMethod> = {
   'Virginia': 'fax-email',
   'Minnesota': 'fax-email',
   'New York': 'fax-email',
+  'Oklahoma': 'fax',
   'Wyoming': 'email',
 }
 

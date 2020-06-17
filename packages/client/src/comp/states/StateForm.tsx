@@ -4,7 +4,6 @@ import { Florida } from './Florida'
 import { Michigan } from './Michigan'
 import { Georgia } from './Georgia'
 import { Wisconsin } from './Wisconsin'
-
 import { Maryland } from './Maryland'
 import { Maine } from './Maine'
 import { Nevada } from './Nevada'
@@ -15,6 +14,7 @@ import { InvalidContact } from '../contact/InvalidContact'
 import { Nebraska } from './Nebraska'
 import { Arizona } from './Arizona'
 import { NewYork } from './NewYork'
+import { Oklahoma } from './Oklahoma'
 import { Wyoming } from './Wyoming'
 import { StyledPanel } from '../util/Panel'
 
@@ -36,6 +36,7 @@ const StateFormSwitch: React.FC<SwitchProps> = ({
     case 'Nebraska': return <Nebraska />
     case 'Nevada': return <Nevada />
     case 'New York': return <NewYork />
+    case 'Oklahoma': return <Oklahoma />
     case 'Wisconsin': return <Wisconsin />
     case 'Wyoming': return <Wyoming />
   }

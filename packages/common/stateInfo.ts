@@ -14,6 +14,7 @@ export const implementedStates = [
   'Nebraska',
   'Nevada',
   'New York',
+  'Oklahoma',
   'Wisconsin',
   'Wyoming',
 ] as const
@@ -101,6 +102,10 @@ export interface NewYorkInfo extends _Id, BaseInfo {
   state: 'New York'
 }
 
+export interface OklahomaInfo extends _Id, SignatureBaseInfo {
+  state: 'Oklahoma'
+}
+
 export interface WisconsinInfo extends _Id, BaseInfo {
   // https://elections.wi.gov/sites/elections.wi.gov/files/2019-02/Faxing%20or%20Emailing%20Absentee%20Ballots.pdf
   // no signature required
@@ -124,6 +129,7 @@ export type StateInfo = (
   | NebraskaInfo
   | NevadaInfo
   | NewYorkInfo
+  | OklahomaInfo
   | WisconsinInfo
   | WyomingInfo
 )
