@@ -81,8 +81,8 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     })
 
     return data(id, async (): Promise<void> => {
-      const letter = toLetter(info, method, id)
-      const pdfBuffer = await toPdfBuffer(letter.html)
+      const letter = await toLetter(info, method, id)
+      const pdfBuffer = await toPdfBuffer(letter.html, letter.form)
 
       // Send email (perhaps only to voter)
       const mgResponse = await sendSignupEmail(

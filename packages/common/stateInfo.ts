@@ -13,6 +13,7 @@ export const implementedStates = [
   'Michigan',
   'Nebraska',
   'Nevada',
+  'New Hampshire',
   'New York',
   'Wisconsin',
   'Wyoming',
@@ -97,6 +98,17 @@ export interface NevadaInfo extends _Id, SignatureBaseInfo {
   idPhoto?: string
 }
 
+export const newHampshirePrimaryParty = ['No Primary', 'Democratic Party', 'Republican Party'] as const
+export type NewHampshirePrimaryParty = (typeof newHampshirePrimaryParty)[number]
+export const isNewHampshirePrimaryParty = (
+  x: string | null
+): x is NewHampshirePrimaryParty => newHampshirePrimaryParty.includes(x as NewHampshirePrimaryParty)
+
+export interface NewHampshireInfo extends _Id, SignatureBaseInfo {
+  state: 'New Hampshire'
+  primaryParty: NewHampshirePrimaryParty
+}
+
 export interface NewYorkInfo extends _Id, BaseInfo {
   state: 'New York'
 }
@@ -113,7 +125,6 @@ export interface WyomingInfo extends _Id, BaseInfo{
   state: 'Wyoming'
 }
 
-
 export type StateInfo = (
   | ArizonaInfo
   | FloridaInfo
@@ -124,6 +135,7 @@ export type StateInfo = (
   | NebraskaInfo
   | NevadaInfo
   | NewYorkInfo
+  | NewHampshireInfo
   | WisconsinInfo
   | WyomingInfo
 )

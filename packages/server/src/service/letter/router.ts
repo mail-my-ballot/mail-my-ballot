@@ -54,6 +54,14 @@ export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => 
       party: 'Non-Partisan',
       state,
     }
+
+    case 'New Hampshire': return {
+      ...commonStateInfo,
+      signature,
+      primaryParty: 'No Primary',
+      state,
+    }
+
     default: return {
       ...commonStateInfo,
       signature,
@@ -99,6 +107,6 @@ router.get('/:state/:key?', async (req, res) => {
 
   if (!method) return renderLetter('Could not find contact method for elections official')
 
-  const letter = toLetter(info, method, confirmationId)
+  const letter = await toLetter(info, method, confirmationId)
   return renderLetter(letter.html)
 })

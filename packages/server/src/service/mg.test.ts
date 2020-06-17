@@ -6,7 +6,7 @@ import { toSignupEmailData } from './mg'
 
 const email = 'email@example.com'
 
-const check = (info: StateInfo, checkSignature = false): void => {
+const check = async (info: StateInfo, checkSignature = false): Promise<void> => {
   const sampleMethod: ContactMethod = {
     stateMethod: 'fax-email',
     emails: ['official@elections.gov'],
@@ -16,7 +16,7 @@ const check = (info: StateInfo, checkSignature = false): void => {
   const officialsEmails = sampleMethod.emails
   const confirmationId = 'abc123'
   
-  const letter = toLetter(info, sampleMethod, confirmationId)
+  const letter = await toLetter(info, sampleMethod, confirmationId)
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -35,16 +35,16 @@ const check = (info: StateInfo, checkSignature = false): void => {
   }
 }
 
-test('florida', () => {
+test('florida', async () => {
   const info = createMock<FloridaInfo>({
     county: 'Miami-Dade County',
     email,
   })
 
-  check(info)
+  await check(info)
 })
 
-test('michigan', () => {
+test('michigan', async () => {
   const info = createMock<MichiganInfo>({
     city: 'Grand Rapids City',
     county: 'Kent County',
@@ -52,16 +52,16 @@ test('michigan', () => {
     email,
   })
 
-  check(info, true)
+  await check(info, true)
 })
 
-test('georgia', () => {
+test('georgia', async () => {
   const info = createMock<GeorgiaInfo>({
     county: 'Fulton County',
     email,
   })
 
-  check(info)
+  await check(info)
 })
 
 test('wisconsin', () => {

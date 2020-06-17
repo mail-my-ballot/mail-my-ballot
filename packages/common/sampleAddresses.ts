@@ -170,6 +170,22 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     city: 'Carson City',
     state: 'Nevada',
   }],
+  'New Hampshire': [{
+    address: '54 Hanover St, Manchester, NH 03101',
+    city: 'Manchester',
+    county: 'Hillsborough County',
+    state: 'New Hampshire',
+  }, {
+    address: '29 W Broadway, Derry, NH 03038',
+    city: 'Derry',
+    county: 'Rockingham County',
+    state: 'New Hampshire',
+  }, {
+    address: '49 S Main St Suite 104, Concord, NH 03301',
+    city: 'Concord',
+    county: 'Merrimack County',
+    state: 'New Hampshire',
+  }],
   'New York': [{
     address: '335 Adams St #2700, Brooklyn, NY 11201',
     city: 'Brooklyn',
