@@ -14,7 +14,7 @@ const BlueH2 = styled.h2`
 `
 
 export const Success: React.FC = () => {
-  const { pushStart } = useAppHistory()
+  const { pushStartSection } = useAppHistory()
   const { id } = useParams()
 
   return <div>
@@ -27,7 +27,11 @@ export const Success: React.FC = () => {
       <p>Check your inbox for the signup email and <b>Reply All</b> with &ldquo;<i>I confirm this request.</i>&rdquo;  (This is not strictly necessary but election officials appreciate the confirmation.)</p>
     </StyledPanel>
     <Center>
-      <RoundedButton color='primary' variant='raised' onClick={pushStart}>
+      <RoundedButton
+        color='primary'
+        variant='raised'
+        onClick={() => pushStartSection('start')}
+      >
         Start Over
       </RoundedButton>
     </Center>

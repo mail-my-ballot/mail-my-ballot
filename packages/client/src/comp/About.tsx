@@ -9,7 +9,7 @@ import { Row, Col } from 'muicss/react'
 export const About = () => {
   const brandName = processEnvOrThrow('REACT_APP_BRAND_NAME')
   const url = processEnvOrThrow('REACT_APP_URL')
-  const { pushStart } = useAppHistory()
+  const { pushStartSection } = useAppHistory()
 
   return <div>
     <h1>About Us</h1>
@@ -21,7 +21,11 @@ export const About = () => {
       Vote at Home is a non-partisan 501(c)3 that empowers voters, letting them decide when, how and where they vote.
     </p>
     <SocialButtonWrapper>
-      <RoundedButton color='primary' variant='raised' onClick={pushStart}>
+      <RoundedButton
+        color='primary'
+        variant='raised'
+        onClick={() => pushStartSection('start')}
+      >
         <span>Get Started</span>
       </RoundedButton>
     </SocialButtonWrapper>
