@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [Florida Department of State](https://dos.myflorida.com/elections/for-voters/voting/vote-by-mail/)' %}
 

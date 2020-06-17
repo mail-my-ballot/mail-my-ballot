@@ -13,21 +13,8 @@ I am writing to request an Absentee or Vote-by-Mail ballot through [{{brandName}
 
 {{contactMethod(method)}}
 
-Below are the details of my application:
-
-- Name: **{{name}}**
-- Birth Year: **{{birthdate}}**
-- Voter Registration Address: **{{uspsAddress}}**
-{% if mailingAddress %}
-- Mailing Address: {{mailingAddress}}
-{% else %}
-- Mailing Address: Same as registration address
-{% endif %}
-- Email: {{email}}
-{% block body %}
+{% block text %}
 {% endblock %}
-
-Thank you in advance for your help.  If you have any questions, please feel free to reach out at [{{email}}](mailto:{{email}}).
 
 Sincerely,
 

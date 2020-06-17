@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [New York State Board of Elections](https://www.elections.ny.gov/votingabsentee.html)' %}
 

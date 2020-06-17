@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [Maine Revised Statutes §753-A](https://www.mainelegislature.org/legis/statutes/21-A/title21-Asec753-A.html)' %}
 

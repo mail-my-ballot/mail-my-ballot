@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [Arizona Secretary of State](https://azsos.gov/votebymail)' %}
 
