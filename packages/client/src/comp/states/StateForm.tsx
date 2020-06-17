@@ -61,17 +61,17 @@ interface Props {
 export const StateForm: React.FC<Props> = ({ignoreError}) => {
   const { address, locale } = AddressContainer.useContainer()
   const { contact, method } = ContactContainer.useContainer()
-  const { path, pushAddress, pushStart } = useAppHistory()
+  const { path, pushAddress, pushStartSection } = useAppHistory()
 
   // if we do not have locale or address data, go back
   if (!locale || !address) {
     if (ignoreError) return null
     if (!path) {
-      pushStart()
+      pushStartSection('start')
     } else if (path.type === 'state') {
       pushAddress(path.state)
     } else {
-      pushStart()
+      pushStartSection('start')
     }
     return null
   }

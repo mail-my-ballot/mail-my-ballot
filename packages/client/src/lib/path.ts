@@ -6,7 +6,10 @@ import { useDeepMemoize } from "./unstated"
 export type QueryParams = Record<string, string>
 
 const allPathEnums = [
-  'start',
+  // Remember to see if these values match the ones for PageSectionPath
+  'start', 'about',
+
+  // Non sections
   'address',
   'state',
   'stateRedirect',
@@ -19,8 +22,12 @@ interface PathBase {
   oid: string
 }
 
-export interface StartPath extends PathBase {
-  type: 'start'
+/**
+ * Sections found on the front page, this Path does not need any param
+ * other than oid, i.e. id, state, etc.
+ */
+export interface StartSectionPath extends PathBase {
+  type: 'start' | 'about'
 }
 export interface AddressPath extends PathBase {
   type: 'address'
@@ -41,7 +48,7 @@ export interface SuccessPath extends PathBase {
 }
 
 export type Path = (
-  | StartPath
+  | StartSectionPath
   | AddressPath
   | StatePath
   | StateRedirectPath
@@ -63,6 +70,11 @@ export const pathData: PathData = {
     path: '/org/:oid',
     toRawUrl: ({oid}) => `/org/${oid}`,
     scrollId: 'start',
+  },
+  'about': {
+    path: '/org/:oid#about',
+    toRawUrl: ({oid}) => `/org/${oid}#about`,
+    scrollId: 'about'
   },
   'address': {
     path: '/org/:oid/address/:state/:zip?',
@@ -91,7 +103,7 @@ const isEmpty = (query: QueryParams) => {
 }
 
 export const toUrl = <P extends Path>(path: P, query: QueryParams = {}): string => {
-  // arg -- can't get around this typecast  
+  // arg -- can't get around this typecast
   const rawUrl = (pathData[path.type] as PathDatum<P>).toRawUrl(path)
   const queryUrl = isEmpty(query) ?  '' : ('?' + new URLSearchParams(query).toString())
 
@@ -104,7 +116,7 @@ export const defaultUrl = toUrl({type:'start', oid:defaultOid})
 const rawToPath = <P extends Path>(
   url: string,
   pathEnum: PathEnum,
-  query: QueryParams, 
+  query: QueryParams,
   exact = false
 ): P | null => {
   const { path } = pathData[pathEnum]
@@ -119,7 +131,7 @@ const rawToPath = <P extends Path>(
 }
 
 export const toPath = (pathname: string, query: QueryParams): Path | null => {
-  const matches = allPathEnums.map(e => rawToPath<StartPath>(pathname, e, query, true))
+  const matches = allPathEnums.map(e => rawToPath<StartSectionPath>(pathname, e, query, true))
   return matches.reduce((x, y) => x || y, null)
 }
 
@@ -140,7 +152,7 @@ export const useAppHistory = () => {
   const query = useDeepMemoize(parseQS(search))
   const path = useDeepMemoize(toPath(pathname, query))
   const oid = path?.oid || defaultOid
-  
+
   const pushScroll = React.useCallback((path: Path, query: QueryParams = {}) => {
     history.push(toUrl(path, query))
     scrollToId(pathData[path.type].scrollId)
@@ -151,7 +163,12 @@ export const useAppHistory = () => {
     path,
     oid,
     query,
-    pushStart: React.useCallback(() => pushScroll({oid, type: 'start'}), [oid, pushScroll]),
+    pushStartSection: React.useCallback(
+      (section: StartSectionPath['type']) => {
+        pushScroll({oid, type: section})
+      },
+      [oid, pushScroll]
+    ),
     pushAddress: React.useCallback((state: string, zip?: string) => {
       pushScroll({oid, type: 'address', state, zip}, {...query, scroll: '1'})
     }, [oid, query, pushScroll]),
