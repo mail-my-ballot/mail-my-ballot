@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [Maryland Code §9-305](https://codes.findlaw.com/md/election-law/md-code-elec-law-sect-9-305.html)' %}
 
