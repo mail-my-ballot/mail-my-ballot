@@ -33,7 +33,7 @@ export const Arizona = () => {
       }
     }}
   >
-    <Select ref={partyRef} label='Primary Party Ballot' defaultValue='Select' {...{required: true}}>
+    <Select ref={partyRef} label='Party for Primary Ballot' defaultValue='Select' {...{required: true}}>
       <Option key={0} hidden={true}/>
       {[...arizonaParty].sort().map((value, key) => {
         return <Option value={value} key={key+1} label={value}/>

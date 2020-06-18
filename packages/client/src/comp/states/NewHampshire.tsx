@@ -22,7 +22,7 @@ export const NewHampshire = () => {
       }
     }}
   >
-    <Select ref={primaryPartyRef} label='Primary Party' defaultValue='Select' {...{required: true}}>
+    <Select ref={primaryPartyRef} label='Party for Primary Ballot' defaultValue='Select' {...{required: true}}>
       <Option key={0} hidden={true}/>
       {[...newHampshirePrimaryParty].sort().map((value, key) => {
         return <Option value={value} key={key+1} label={value}/>
