@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { Slide, ToastContainer } from "react-toastify"
 import { ModalProvider } from 'styled-react-modal'
 import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer } from '../lib/unstated'
@@ -17,7 +17,7 @@ const CustomToastContainer = styled(ToastContainer)`
 `
 
 // export for testing purposes
-export const UnstatedContainer: React.FC<{}> = ({ children }) => (<BrowserRouter>
+export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
   <QueryContainer.Provider>
     <AddressContainer.Provider>
       <ContactContainer.Provider>
@@ -44,4 +44,4 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<BrowserRouter
       </ContactContainer.Provider>
     </AddressContainer.Provider>
   </QueryContainer.Provider>
-</BrowserRouter>)
+</HashRouter>)
