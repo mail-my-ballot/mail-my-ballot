@@ -60,6 +60,7 @@ const template = (state: ImplementedState): string => {
     case 'Nevada': return 'Nevada.md'
     case 'New Hampshire': return 'NewHampshire.md'
     case 'New York': return 'NewYork.md'
+    case 'Oklahoma': return 'Oklahoma.md'
     case 'Wisconsin': return 'Wisconsin.md'
     case 'Wyoming': return 'Wyoming.md'
   }

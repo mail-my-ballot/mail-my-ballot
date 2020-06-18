@@ -67,6 +67,7 @@ export const keys = (
     case 'Nebraska':
     case 'New Hampshire':
     case 'New York':
+    case 'Oklahoma':
     case 'Wyoming': {
       return [normalizeLocaleKey(locale)]
     }
