@@ -6,12 +6,13 @@ export type Choice = 'upload' | 'canvas'
 
 interface Props {
   children: (choice: Choice) => React.ReactNode
+  visible: boolean
 }
 
-export const Switchable: React.FC<Props> = ({children}) => {
+export const Switchable: React.FC<Props> = ({children, visible}) => {
   const [choice, setChoice] = React.useState<Choice>('upload')
   return <>
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div style={{display: visible ? 'flex' : 'none' , justifyContent: 'center'}}>
       <SmallButton
         style={{marginRight: '0', borderRadius: '4px 0 0 4px'}}
         color='primary'

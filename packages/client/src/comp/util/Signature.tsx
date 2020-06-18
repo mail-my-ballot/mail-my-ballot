@@ -3,6 +3,7 @@ import React from 'react'
 import { Switchable, Choice } from './Switchable'
 import { Upload } from './Upload'
 import { Canvas } from './Canvas'
+import { useAppHistory } from '../../lib/path'
 import styled from 'styled-components'
 
 const width = 300
@@ -18,8 +19,9 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Signature: React.FC<Props> = ({ setSignature }) => {
+  const { query } = useAppHistory()
   return <Margin>
-    <Switchable>
+    <Switchable visible={query['case'] !== 'upload'}>
     {
       (choice: Choice) => {
         if (choice === 'canvas') {
