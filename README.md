@@ -92,13 +92,15 @@ Please do this before you submit a PR.
 
 ## Adding a State
 To add a new state, you will need to complete the following steps:
-1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials).
-1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`
+1. Increment version number and publish a new version of the [elections official data](https://github.com/mail-my-ballot/elections-officials), if you need updated data.
+1. Match the version number in the environment variable `ELECTIONS_OFFICIALS_VERSION`, if you need updated data.
 1. Add the state to `availableStates` and `implementedStates` const arrays in `common`.  This should start generating type errors from incomplete switch statements when you run
     ```bash
     yarn build
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
+    
+    Some states require us to fill out their PDF for the application.  This means determining the X/Y coordinates for each input box.  Use the file `packages/server/src/service/pdfForm.proto.ts` as a test harness for laying out the application (see [New Hampshire](https://github.com/mail-my-ballot/mail-my-ballot/pull/33) for an example).
 
 
 ## Notes on Submitting Code
