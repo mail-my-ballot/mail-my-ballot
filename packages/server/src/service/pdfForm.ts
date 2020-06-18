@@ -87,7 +87,8 @@ export const fillNewHampshire = (
 
     text(stateInfo.name, 1, 86, 60)
     text(stateInfo.uspsAddress, 1, 86, 130)
-    text(stateInfo.mailingAddress ?? 'Same as above', 1, 86, 210)
+    // Sic: we want 'Same as above' even when stateInfo.mailingAddress === ''
+    text(stateInfo.mailingAddress ? stateInfo.mailingAddress : 'Same as above', 1, 86, 210)
     text(stateInfo.phone, 1, 250, 240)
     text(stateInfo.email, 1, 250, 300)
     text(new Date().toISOString().split('T')[0], 1, 480, 340)
