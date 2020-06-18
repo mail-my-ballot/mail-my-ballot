@@ -57,14 +57,15 @@ const addresses: [string, string][] = [
   ['21516 Telegraph Rd, Brownstown Charter Twp, MI 48183', 'Brownstown Township:Wayne County'],
   ['32414 W Jefferson Ave, Rockwood, MI 48173', 'Brownstown Township:Wayne County'],
   ['1730 Mead Ln, White Lake, MI 48386', 'White Lake Township:Oakland County'],
+  // Google just returns Ann Arbor for locality
+  ['2376 Westbrooke Cir N, Ann Arbor, MI 48105', 'Ann Arbor Township:Washtenaw County'],
+  ['21385 Glen Lodge Rd, Ferndale, MI 48220, USA', 'Royal Oak Township:Oakland County'],
 
   // Special cases
   ['10995 W Jefferson Ave, River Rouge, MI 48229', 'River Rouge City:Wayne County'],
   ['916 Parkview Ave, Battle Creek, MI 49017, USA', 'Pennfield Township:Calhoun County'],
   ['117 W Prudence Ln, Battle Creek, MI 49037, USA', 'Bedford Township:Calhoun County'],
-  // Google just returns Ann Arbor for locality
-  ['2376 Westbrooke Cir N, Ann Arbor, MI 48105', 'Ann Arbor Township:Washtenaw County'],
-  ['21385 Glen Lodge Rd, Ferndale, MI 48220, USA', 'Royal Oak Township:Oakland County']
+  ['954 Baldwin St, Traverse City, MI 49686, USA', 'Traverse City City:Grand Traverse County'],
 ]
 
 testEach(addresses)(
@@ -81,7 +82,7 @@ testEach(addresses)(
     expect(address?.latLong, errMsg).toBeTruthy()
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const contact = await getMichiganContact(address?.latLong!, {cacheQuery: true})
+    const contact = await getMichiganContact(address?.latLong!, address?.county!, {cacheQuery: true})
   
     expect(contact, errMsg).toBeTruthy()
     expect(
