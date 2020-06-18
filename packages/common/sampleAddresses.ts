@@ -202,6 +202,26 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     county: 'Albany County',
     state: 'New York',
   }],
+  'Oklahoma': [
+    {
+      address: '330 NE 10th St, Oklahoma City, OK 73104',
+      city: 'Oklahoma City',
+      county: 'Oklahoma County',
+      state: 'Oklahoma'
+    },
+    {
+      address: '1 W 3rd St, Tulsa, OK 74103',
+      city: 'Tulsa',
+      county: 'Tulsa County',
+      state: 'Oklahoma'
+    },
+    {
+      address: '115 E Gray St, Norman, OK 73069',
+      city: 'Norman',
+      county: 'Cleveland County',
+      state: 'Oklahoma'
+    }
+  ],
   'Wyoming': [{
     address: '121 W 15th St #204, Cheyenne, WY 82001',
     city: 'Cheyenne',
