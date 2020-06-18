@@ -1,4 +1,4 @@
-{% extends "Base.md" %}
+{% extends "LetterBase.md" %}
 
 {% set guidance = 'the [Oklahoma Department of Elections](https://www.ok.gov/elections/Voter_Info/Absentee_Voting)' %}
 
