@@ -1,0 +1,5 @@
+{
+  "scope": "vote-by-mail",
+  "alias": ["michael.mailmyballot.org"],
+  "public": false
+}

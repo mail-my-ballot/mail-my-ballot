@@ -87,6 +87,11 @@ const staging = removeNullValues({
   TWILIO_DIVERT: 1,
 })
 
+const michael = {
+  ...staging,
+  REACT_APP_URL: 'https://michael.mailmyballot.org/',
+}
+
 const production = removeNullValues({
   ...staging,
   NODE_ENV: 'production',
@@ -129,6 +134,7 @@ module.exports = {
   development,
   staging,
   production,
+  michael,
   test,
   ci,
 }
