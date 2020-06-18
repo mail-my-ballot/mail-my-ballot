@@ -34,7 +34,14 @@ export const loadMichigan = async (
 ): Promise<Record<string, RawContact & { key: string }>> => {
   return Object.fromEntries(
     Object.entries(data)
-      .map(([key, rec]) => [(rec as { fipscode: string }).fipscode, {...rec, key}])
+      .map(([key, rec]) => {
+        if (!rec.county) throw Error('Encountered Michigan record without count field during loading')
+
+        return [
+          (rec as { fipscode: string }).fipscode + ':' + rec.county.toLowerCase(),
+          {...rec, key}
+        ]
+      })
   )
 }
 
