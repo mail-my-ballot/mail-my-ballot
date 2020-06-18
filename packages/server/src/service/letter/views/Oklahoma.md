@@ -4,6 +4,6 @@
 
 {% block body %}
 - County: **{{county}}**
-- Elections: **{{election}}**
+- Elections: generally, all elections through the end of the calendar year; in particular, **{{election}}**
 
 {% endblock %}
