@@ -13,8 +13,6 @@ automatic_scaling:
 #   - warmup
 
 handlers:
-  - url: /_ah/warmup
-    script: auto
   - url: /.*
     secure: always
     redirect_http_response_code: 301
