@@ -14,15 +14,23 @@ const loadBase64 = (filename: string) => {
 
 const baseStateInfo: Omit<BaseInfo, 'contact'> = {
   state: 'Florida',
-  name: 'George Washington',
+  name: 'George Ford Washington Jr.',
   email: 'george.washington@gmail.com',
   phone: '+1 (234)-567-8901',
-  birthdate: '04-01-1756',
-  uspsAddress: 'Mount Vernon',
+  birthdate: '1756-04-01',
+  uspsAddress: '35 Mount Vernon St Apt 3C, Vernon, NJ 00000',
+  mailingAddress: '55 Fifth Avenue Apt 10F, New York, NY 34562',
   county: 'Fairfax',
   city: 'Fairfax',
   oid: 'default',
-  latLong: [0, 0]
+  latLong: [0, 0],
+  address: {
+    queryAddr: '35 Mount Vernon St Apt 3C, Vernon, NJ 00000',
+    fullAddr: '35 Mount Vernon St Apt 3C, Vernon, NJ 00000',
+    postcode: '00000',
+    state: 'NJ',
+    country: 'USA',
+  }
 }
 
 const signature = 'data:image/png;base64,' + loadBase64('signature.png')
@@ -59,6 +67,15 @@ export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => 
       ...commonStateInfo,
       signature,
       primaryParty: 'No Primary',
+      state,
+    }
+
+    case 'North Carolina': return {
+      ...commonStateInfo,
+      signature,
+      idType: 'North Carolina License Number',
+      idData: '47826834534597',
+      dateMoved: '2020-10-01',
       state,
     }
 

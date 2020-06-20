@@ -60,6 +60,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       phone: phoneRef.value() || '',
       uspsAddress,
       contact,
+      address,
     }
 
     const info = enrichValues(baseInfo)

@@ -2,6 +2,7 @@ import { _Id } from './util'
 import { Locale } from './locale'
 import { ContactData } from './contact'
 import { ExtendsState } from './states'
+import { Address } from './address'
 
 // States for which we now support
 export const implementedStates = [
@@ -15,6 +16,7 @@ export const implementedStates = [
   'Nevada',
   'New Hampshire',
   'New York',
+  'North Carolina',
   'Oklahoma',
   'Wisconsin',
   'Wyoming',
@@ -33,6 +35,7 @@ export interface BaseInfo extends Locale {
   birthdate: string
   uspsAddress: string
   mailingAddress?: string
+  address: Address
   oid: string
   ip?: string
   userAgent?: string
@@ -114,6 +117,17 @@ export interface NewYorkInfo extends _Id, BaseInfo {
   state: 'New York'
 }
 
+export const northCarolinaIdentityType = ['North Carolina License Number', 'Last 4 numbers of SSN'] as const
+export type NorthCarolinaIdentityType = (typeof northCarolinaIdentityType)[number]
+export const isNorthCarolinaIdentity = (x: string | null): x is NorthCarolinaIdentityType => northCarolinaIdentityType.includes(x as NorthCarolinaIdentityType)
+
+export interface NorthCarolinaInfo extends _Id, SignatureBaseInfo {
+  state: 'North Carolina'
+  idType: NorthCarolinaIdentityType
+  idData: string
+  dateMoved?: string
+}
+
 export interface OklahomaInfo extends _Id, SignatureBaseInfo {
   state: 'Oklahoma'
 }
@@ -141,6 +155,7 @@ export type StateInfo = (
   | NevadaInfo
   | NewYorkInfo
   | NewHampshireInfo
+  | NorthCarolinaInfo
   | OklahomaInfo
   | WisconsinInfo
   | WyomingInfo
