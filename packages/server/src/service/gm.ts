@@ -33,7 +33,8 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
   const country = findByType(components, 'country')
   const state = findByType(components, 'administrative_area_level_1')
   const postcode = findByType(components, 'postal_code')
-  const county = findByType(components, 'administrative_area_level_2')
+  if (!country || !state || !postcode) return null
+
   const city = (
     findByType(components, 'locality')
     ?? findByType(components, 'sublocality')
@@ -42,20 +43,20 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
     findByType(components, 'administrative_area_level_3'),
     findByType(components, 'administrative_area_level_4'),
     findByType(components, 'administrative_area_level_5'),
-  ]
-  const fullAddr = result.formatted_address
-
-  if (!country || !state || !postcode) return null
-
+  ].filter((c): c is string => !!c)
+  
   return {
     latLong: getLatLong(result.geometry.location),
-    fullAddr,
+    fullAddr: result.formatted_address,
     city,
     country,
     state,
     postcode,
-    county,
-    otherCities: otherCities.filter((c): c is string => !!c)
+    county: findByType(components, 'administrative_area_level_2'),
+    otherCities: otherCities,
+    streetNumber: findByType(components, 'street_number'),
+    street: findByType(components, 'route'),
+    unit: findByType(components, 'subpremise'),
   }
 }
 

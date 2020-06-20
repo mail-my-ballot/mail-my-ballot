@@ -202,6 +202,22 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     county: 'Albany County',
     state: 'New York',
   }],
+  'North Carolina': [{
+    address: '615 S College St, Charlotte, NC 28202',
+    city: 'Charlotte',
+    county: 'Mecklenburg County',
+    state: 'North Carolina',
+  }, {
+    address: '800 S Salisbury St, Raleigh, NC 27602',
+    city: 'Raleigh',
+    county: 'Wake County',
+    state: 'North Carolina',
+  }, {
+    address: '111 W February 1 Pl, Greensboro, NC 27401',
+    city: 'Greensboro',
+    county: 'Guilford County',
+    state: 'North Carolina',
+  }],
   'Oklahoma': [
     {
       address: '330 NE 10th St, Oklahoma City, OK 73104',

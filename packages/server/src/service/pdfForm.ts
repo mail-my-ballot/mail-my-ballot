@@ -2,6 +2,7 @@ import { PDFDocument, StandardFonts, rgb, PDFPage, PDFPageDrawTextOptions } from
 import fs from 'fs'
 
 import { NewHampshireInfo } from '../common'
+import { NorthCarolinaInfo } from '../common'
 import { createPdfBuffer } from './pdf'
 
 interface FillFormArg {
@@ -43,9 +44,12 @@ const fillFormWrapper = async (
     color: rgb(0.96, 0.1, 0.1)
   }
   const pages = doc.getPages()
-  const text = (text: string, page: number, x: number, y: number) => {
+  const text = (text: string, page: number, x: number, y: number, size?: number) => {
     const { height } = pages[page].getSize()
-    pages[page].drawText(text, {...options, x, y: height - y})
+    if(!size) {
+      size = options.size
+    }
+    pages[page].drawText(text, {...options, x, y: height - y, size: size})
   }
   const placeImage = async (imageBuffer: Uint8Array, page: number, x: number, y: number): Promise<void> => {
     const { height } = pages[page].getSize()
@@ -95,5 +99,123 @@ export const fillNewHampshire = (
 
     const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
     await placeImage(new Uint8Array(signatureBuffer.buffer), 1, 250, 360)
+  }
+)
+
+// Return [street address, city, state, zip code]
+function splitAddress(address: string) {
+  // We're going to have a problem here if someone puts a commma
+  // between street address and apartment number.
+  const streetAddress = address.split(',')[0]
+  const city = address.split(',')[1].trim()
+  const state = address.split(',')[2].split(' ')[1]
+  const zipCode = address.split(',')[2].split(' ')[2]
+  return [streetAddress, city, state, zipCode]
+}
+
+// Return [first name, middle name, last name, suffix].
+function splitFullName(fullName: string) {
+  const nameSplit = fullName.split(' ')
+  let firstName = ''
+  let lastName = ''
+  let middleName = ''
+  let suffix = ''
+  firstName = nameSplit[0]
+  if(nameSplit.length == 2) {
+    lastName = nameSplit[1]     
+  } else if(nameSplit.length == 3) {
+    if(nameSplit[2].length < 4 
+        && (nameSplit[2].toLowerCase().includes('jr')
+        || nameSplit[2].toLowerCase().includes('sr'))) {
+          lastName = nameSplit[1]
+          suffix = nameSplit[2]
+        } else {
+          lastName = nameSplit[2]
+          middleName = nameSplit[1]
+        }
+  } else if(nameSplit.length == 4) {
+    middleName = nameSplit[1]
+    lastName = nameSplit[2]
+    suffix = nameSplit[3]
+  } else {
+    throw new Error('Cannot handle this name.')
+  }
+  return [firstName, middleName, lastName, suffix]
+}
+
+export const fillNorthCarolina = (
+  stateInfo: NorthCarolinaInfo
+) => fillFormWrapper(
+  __dirname + '/forms/North_Carolina.pdf',
+  async ({check, text, placeImage}) => {
+    const nameSplit = splitFullName(stateInfo.name)
+    text(nameSplit[2], 2, 56, 90)
+    text(nameSplit[0], 2, 226, 90)
+    text(nameSplit[1], 2, 355, 90)
+    text(nameSplit[3], 2, 440, 90)
+
+    const birthdateSplit = stateInfo.birthdate.split('-')
+    // Month
+    text(birthdateSplit[1], 2, 481, 90)
+    // Day
+    text(birthdateSplit[2], 2, 508, 90)
+    // Year
+    text(birthdateSplit[0], 2, 542, 90)
+
+    switch(stateInfo.idType) {
+      case 'North Carolina License Number':
+        text(stateInfo.idData, 2, 370, 134)
+        break
+      case 'Last 4 numbers of SSN':
+        text(stateInfo.idData[0], 2, 497, 134)
+        text(stateInfo.idData[1], 2, 520, 134)
+        text(stateInfo.idData[2], 2, 543, 134)
+        text(stateInfo.idData[3], 2, 566, 134)
+        break
+      default:
+        throw new Error('Invalid North Carolina idType.')
+    }
+
+    const uspsSplit = splitAddress(stateInfo.uspsAddress)
+    text(uspsSplit[0], 2, 60, 175)
+    text(uspsSplit[1], 2, 55, 207)
+    text(uspsSplit[2], 2, 134, 207, 9)
+    text(uspsSplit[3], 2, 158, 207, 9)
+
+    if(stateInfo.dateMoved) {
+      check(2, 396, 170)
+      const dateMovedSplit = stateInfo.dateMoved.split('-')
+      // Month
+      text(dateMovedSplit[1], 2, 311, 198)
+      // Day
+      text(dateMovedSplit[2], 2, 338, 198)
+      // Year
+      text(dateMovedSplit[0], 2, 362, 198)
+    } else {
+      check(2, 375, 170)
+    }
+
+    // Get county data from contact.
+    text(stateInfo.contact.county ? stateInfo.contact.county.split(' ')[0] : '', 2, 200, 207)
+
+    check(2, 498, 272) // General election
+
+    // Sic: we want 'Same as above' even when stateInfo.mailingAddress === ''
+    if(!stateInfo.mailingAddress) {
+      text('Same as above', 2, 56, 300)
+    } else {
+      const mailingSplit = splitAddress(stateInfo.mailingAddress)
+      text(mailingSplit[0], 2, 56, 300)
+      text(mailingSplit[1], 2, 56, 335)
+      text(mailingSplit[2], 2, 208, 335)
+      text(mailingSplit[3], 2, 240, 335)
+    }
+
+    text(stateInfo.phone, 2, 420, 240)
+    text(stateInfo.email, 2, 100, 240)
+    text(new Date().toISOString().split('T')[0], 2, 230, 745)
+
+    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
+    await placeImage(new Uint8Array(signatureBuffer.buffer), 2, 76, 760)
   }
 )
