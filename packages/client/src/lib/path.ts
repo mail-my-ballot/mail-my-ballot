@@ -5,11 +5,17 @@ import { useDeepMemoize } from "./unstated"
 
 export type QueryParams = Record<string, string>
 
-const allPathEnums = [
-  // Remember to see if these values match the ones for PageSectionPath
-  'start', 'about',
+const startSectionsEnum = [
+  'start',
+  'about',
+  'howItWorks',
+  'getInvolved',
+  'team',
+  'contact',
+] as const
 
-  // Non sections
+const allPathEnums = [
+  ...startSectionsEnum,
   'address',
   'state',
   'stateRedirect',
@@ -27,7 +33,7 @@ interface PathBase {
  * other than oid, i.e. id, state, etc.
  */
 export interface StartSectionPath extends PathBase {
-  type: 'start' | 'about'
+  type: (typeof startSectionsEnum)[number]
 }
 export interface AddressPath extends PathBase {
   type: 'address'
@@ -75,6 +81,26 @@ export const pathData: PathData = {
     path: '/org/:oid#about',
     toRawUrl: ({oid}) => `/org/${oid}#about`,
     scrollId: 'about'
+  },
+  'howItWorks': {
+    path: '/org/:oid#howItWorks',
+    toRawUrl: ({oid}) => `/org/${oid}#howItWorks`,
+    scrollId: 'howItWorks'
+  },
+  'getInvolved': {
+    path: '/org/:oid#getInvolved',
+    toRawUrl: ({oid}) => `/org/${oid}#getInvolved`,
+    scrollId: 'getInvolved'
+  },
+  'team': {
+    path: '/org/:oid#team',
+    toRawUrl: ({oid}) => `/org/${oid}#team`,
+    scrollId: 'team'
+  },
+  'contact': {
+    path: '/org/:oid#contact',
+    toRawUrl: ({oid}) => `/org/${oid}#contact`,
+    scrollId: 'contact'
   },
   'address': {
     path: '/org/:oid/address/:state/:zip?',
