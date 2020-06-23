@@ -21,7 +21,7 @@ test('AddressForm works', async () => {
   })
 
   const { getByLabelText, getByTestId } = render(
-    <RawAddressForm state='Florida'/>,
+    <RawAddressForm rawState='Florida'/>,
     { wrapper: UnstatedContainer }
   )
 

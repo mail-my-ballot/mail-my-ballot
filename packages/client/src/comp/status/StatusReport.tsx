@@ -1,15 +1,15 @@
 import React from 'react'
 
-import { vbmStatus, isState } from '../../common'
+import { vbmStatus, State } from '../../common'
 import { Automatic, Website, Mail, VbmApp, VoteDotOrg, Unidentified } from './Status'
 import { useAppHistory } from '../../lib/path'
 
-export const StatusReport: React.FC<{state: string}> = ({state, children}) => {
+export const StatusReport: React.FC<{state: State, rawState: string}> = ({state, rawState, children}) => {
   const { path } = useAppHistory()
   const zip = (path?.type === 'address') ? path.zip : undefined
 
-  if (!isState(state)) {
-    return <Unidentified state={state}/>
+  if (!state) {
+    return <Unidentified state={rawState}/>
   }
   const status = vbmStatus(state)
   const args = {...status, state, zip}
