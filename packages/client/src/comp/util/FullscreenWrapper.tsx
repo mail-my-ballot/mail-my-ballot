@@ -27,9 +27,6 @@ export const FullscreenWrapper = styled.div<Props>`
   min-height: 100vh;
   padding: 4em 0;
   box-sizing: border-box;
-  position: relative;
-  z-index: 9;
-  box-shadow: 0 0 14px #0003;
 
   display: flex;
   align-items: ${
