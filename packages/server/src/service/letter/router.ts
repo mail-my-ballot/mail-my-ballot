@@ -32,7 +32,8 @@ const baseStateInfo: Omit<BaseInfo, 'contact'> = {
     unit: 'Apt 3C',
     city: 'Vernon',
     postcode: '00000',
-    state: 'NJ',
+    state: 'New Jersey',
+    stateAbbr: 'NJ',
     country: 'USA',
   }
 }
