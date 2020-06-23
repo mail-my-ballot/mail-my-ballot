@@ -51,6 +51,8 @@ Then make sure `env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `./secrets/[
 
   Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
 
+For more details, check out [here](https://github.com/mail-my-ballot/mail-my-ballot/issues/30).
+
 ### Testing Individual services
 To experiment with or verify an individual service, you can call the "prototype" files from the command line for the individual services, (e.g.):
 ```bash
