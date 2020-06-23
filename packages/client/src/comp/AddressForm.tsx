@@ -3,7 +3,7 @@ import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { QueryContainer, AddressContainer, ContactContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import { sampleAddresses, ImplementedState, getState } from '../common'
 import { AppForm } from './util/Form'
 import { Unidentified } from './status/Status'
+import { toast } from 'react-toastify'
 
 const FlexBox = styled.div`
   display: flex;
@@ -41,9 +42,10 @@ const FlexFixed = styled.div`
 export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawState, zip}) => {
   const { path, pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
-  const { load, error, success } = QueryContainer.useContainer()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
+  const [fetchingData, setFetchingData] = React.useState(false)
+
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
@@ -82,7 +84,8 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
     if (addr === null) throw Error('address ref not set')
     if (!state) throw Error('This can never happen: already checked if state is valid')
 
-    load('Fetching information about your address')
+    toast.info('Searching data for the address')
+    setFetchingData(true)
     try {
       setContact(null)
       setAddress(null)
@@ -92,20 +95,24 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
           const {contact, address} = result.data
           setContact(contact)
           setAddress(address)
+          setFetchingData(false)
           break
         }
         case 'error': {
-          error(<><b>Server Error:</b> {result.message}</>)
+          toast.error(<><b>Server Error:</b> {result.message}</>)
+          setFetchingData(false)
           return
         }
       }
       pushState(state)
-      await success(<><b>Success</b> fetching information about your address</>)
+      toast.success(<><b>Success</b> information found about your address</>)
     } catch(e) {
       if (e instanceof TimeoutError) {
-        error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        toast.error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        setFetchingData(false)
       } else if (e instanceof TypeError) {
-        error(<><b>Connection Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        toast.error(<><b>Connection Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
+        setFetchingData(false)
       } else {
         throw e
       }
@@ -136,6 +143,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
               variant='raised'
               data-testid='submit'
               style={{flexGrow: 0}}
+              disabled={fetchingData}
             >Find my election official
             </RoundedButton>
           </div>
