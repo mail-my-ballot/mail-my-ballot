@@ -13,5 +13,3 @@
 
 
 {% endblock %}
-
-<!-- Additionally, consider: I am requesting to be added to the "permanent absentee voter list" for all upcoming elections. -->
