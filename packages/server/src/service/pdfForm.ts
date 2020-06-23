@@ -10,7 +10,7 @@ interface FillFormArg {
   pages: PDFPage[]
   options: PDFPageDrawTextOptions
   check: (page: number, x: number, y: number) => void
-  text: (text: string, page: number, x: number, y: number) => void
+  text: (text: string, page: number, x: number, y: number, size?: number) => void
   placeImage: (imageBuffer: Uint8Array, page: number, x: number, y: number) => Promise<void>
 }
 
@@ -102,17 +102,6 @@ export const fillNewHampshire = (
   }
 )
 
-// Return [street address, city, state, zip code]
-function splitAddress(address: string) {
-  // We're going to have a problem here if someone puts a commma
-  // between street address and apartment number.
-  const streetAddress = address.split(',')[0]
-  const city = address.split(',')[1].trim()
-  const state = address.split(',')[2].split(' ')[1]
-  const zipCode = address.split(',')[2].split(' ')[2]
-  return [streetAddress, city, state, zipCode]
-}
-
 // Return [first name, middle name, last name, suffix].
 function splitFullName(fullName: string) {
   const nameSplit = fullName.split(' ')
@@ -176,11 +165,13 @@ export const fillNorthCarolina = (
         throw new Error('Invalid North Carolina idType.')
     }
 
-    const uspsSplit = splitAddress(stateInfo.uspsAddress)
-    text(uspsSplit[0], 2, 60, 175)
-    text(uspsSplit[1], 2, 55, 207)
-    text(uspsSplit[2], 2, 134, 207, 9)
-    text(uspsSplit[3], 2, 158, 207, 9)
+    const streetAddress = ((stateInfo.address.streetNumber ? stateInfo.address.streetNumber : '')
+                           + ' ' + (stateInfo.address.street ? stateInfo.address.street : '')
+                           + ' ' + (stateInfo.address.unit ? stateInfo.address.unit : ''))
+    text(streetAddress, 2, 60, 175)
+    text(stateInfo.address.city ? stateInfo.address.city : '', 2, 55, 207)
+    text(stateInfo.address.state ? stateInfo.address.state : '', 2, 134, 207, 9)
+    text(stateInfo.address.postcode ? stateInfo.address.postcode : '', 2, 158, 207, 9)
 
     if(stateInfo.dateMoved) {
       check(2, 396, 170)
@@ -204,11 +195,7 @@ export const fillNorthCarolina = (
     if(!stateInfo.mailingAddress) {
       text('Same as above', 2, 56, 300)
     } else {
-      const mailingSplit = splitAddress(stateInfo.mailingAddress)
-      text(mailingSplit[0], 2, 56, 300)
-      text(mailingSplit[1], 2, 56, 335)
-      text(mailingSplit[2], 2, 208, 335)
-      text(mailingSplit[3], 2, 240, 335)
+      text(stateInfo.mailingAddress, 2, 56, 300, 9)
     }
 
     text(stateInfo.phone, 2, 420, 240)
