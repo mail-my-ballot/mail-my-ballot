@@ -44,6 +44,7 @@ const Steps = styled(Row)`
       ${cssQuery.desktop.all} { height: 15vh; }
       ${cssQuery.desktop.short} { height: 19vh; }
       ${cssQuery.mobile.landscape.all} { height: 30vh; }
+      ${cssQuery.mobile.wide} { height: 16vh; }
       box-sizing: border-box;
 
       display: flex;

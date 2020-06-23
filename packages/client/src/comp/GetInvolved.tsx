@@ -26,20 +26,34 @@ const CardWrapper = styled.div`
   justify-content: center;
 `
 
+const desktopAndTabletFix = `
+  width: 38%;
+  height: 18.8em;
+  margin: 0;
+  :nth-child(1) {
+    margin-right: 2em;
+  }
+`
+
 const Card = styled.div`
   background-color: white;
-  height: 19em;
-  width: 75%;
+  height: 23em;
+  width: 90%;
   margin: 1em 0;
   padding: 2em;
-  ${cssQuery.desktop.all} {
-    width: 30%;
-    height: 15.8em;
-    margin: 0;
-    :nth-child(1) {
-      margin-right: 2em;
-    }
+  box-sizing: border-box;
+
+  ${cssQuery.mobile.wide} {
+    ${desktopAndTabletFix}
+    width: 46%;
+    height: 22em;
   }
+
+  ${cssQuery.mobile.landscape.all} { height: 17.5em; }
+
+  ${cssQuery.desktop.all} { ${desktopAndTabletFix} }
+  ${cssQuery.desktop.tall} { height: 19em; }
+  ${cssQuery.desktop.narrow} { width: 45%; height: 20em; }
 
   img {
     height: 25%;
