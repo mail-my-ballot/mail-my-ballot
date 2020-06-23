@@ -13,6 +13,7 @@ const CustomToastContainer = styled(ToastContainer)`
     & .Toastify__toast {
       border-radius: 4px;
       text-align: center;
+      white-space: pre-wrap;
     }
   }
 `
