@@ -170,7 +170,7 @@ export const fillNorthCarolina = (
                            + ' ' + (stateInfo.address.unit ? stateInfo.address.unit : ''))
     text(streetAddress, 2, 60, 175)
     text(stateInfo.address.city ? stateInfo.address.city : '', 2, 55, 207)
-    text(stateInfo.address.state ? stateInfo.address.state : '', 2, 134, 207, 9)
+    text(stateInfo.address.stateAbbr ? stateInfo.address.stateAbbr : '', 2, 134, 207, 9)
     text(stateInfo.address.postcode ? stateInfo.address.postcode : '', 2, 158, 207, 9)
 
     if(stateInfo.dateMoved) {

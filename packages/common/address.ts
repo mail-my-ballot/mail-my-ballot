@@ -7,6 +7,7 @@ export interface Address {
   county?: string
   postcode: string
   state: string
+  stateAbbr?: string
   country: string
 
   // Street address components

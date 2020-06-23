@@ -11,8 +11,13 @@ const apiKey = processEnvOrThrow('GOOGLE_MAPS_API_KEY')
 
 const findByType = (
   components: google.maps.GeocoderAddressComponent[],
-  type: string
-) => components.find(c => c.types.includes(type))?.long_name
+  type: string,
+  getShortName?: boolean
+) => {
+  return (getShortName 
+           ? components.find(c => c.types.includes(type))?.short_name
+           : components.find(c => c.types.includes(type))?.long_name)
+}
 
 const rawGeocode = async (query: string): Promise<google.maps.GeocoderResult | null> => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=${apiKey}`
@@ -51,6 +56,7 @@ export const toAddress = (result: google.maps.GeocoderResult): Omit<Address, 'qu
     city,
     country,
     state,
+    stateAbbr: findByType(components, 'administrative_area_level_1', true),
     postcode,
     county: findByType(components, 'administrative_area_level_2'),
     otherCities: otherCities,
