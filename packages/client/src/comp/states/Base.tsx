@@ -13,6 +13,7 @@ import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/un
 import { ContactInfo } from '../contact/ContactInfo'
 import { AppForm } from '../util/Form'
 import { Center } from '../util/Util'
+import { toast } from 'react-toastify'
 
 export type StatelessInfo = Omit<BaseInfo, 'state'>
 
@@ -31,6 +32,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   const { address, locale } = AddressContainer.useContainer()
   const { contact } = ContactContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
+  const [fetchingData, setFetchingData] = React.useState(false)
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
@@ -45,7 +47,14 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    if (!address || !uspsAddress || !contact) return  // TODO: Add warning
+    toast.info('Signup in progress')
+    setFetchingData(true)
+
+    if (!address || !uspsAddress || !contact) {
+      toast.error('Please fill all the required fields')
+      setFetchingData(false)
+      return
+    }
 
     const baseInfo: StatelessInfo = {
       city: contact.city ?? city,
@@ -63,10 +72,20 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     }
 
     const info = enrichValues(baseInfo)
-    if (!info) return  // TODO: Add warning
+    if (!info) {
+      toast.error('Please fill all the required fields in the right format')
+      setFetchingData(false)
+      return
+    }
     const result = await client.register(info, voter)
-    result.type === 'data' && pushSuccess(result.data)
-    // TODO: Add warning if error
+    if(result.type === 'data'){
+      pushSuccess(result.data)
+      toast.success('Signup successfully submitted')
+      setFetchingData(false)
+    } else {
+      toast.error('Error sending data to the server')
+      setFetchingData(false)
+    }
   }
 
   return <AppForm onSubmit={handleSubmit}>
@@ -113,7 +132,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     }</Togglable>
     { children }
     <Center>
-      <RoundedButton color='primary' variant='raised' data-testid='submit'>
+      <RoundedButton color='primary' variant='raised' data-testid='submit' disabled={fetchingData}>
         Submit signup
       </RoundedButton>
     </Center>
@@ -132,7 +151,7 @@ export const SignatureBase = <Info extends StateInfo>(
     if (!values) return null
 
     if (!signature) {
-      alert('Please sign form')
+      toast.error('Please fill out the signature field')
       return null
     }
 

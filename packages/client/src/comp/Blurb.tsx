@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import { RoundedButton } from './util/Button'
 import { StyleContainer } from './util/Container'
 import { useAppHistory } from '../lib/path'
@@ -69,6 +70,7 @@ export const Blurb: React.FC<{}> = () => {
   const { path, pushAddress } = useAppHistory()
   const { address } = AddressContainer.useContainer()
   const zipRef = React.useRef<HTMLInputElement>(null)
+  const [fetchingData, setFetchingData] = React.useState(false)
 
   // mobile browsers don't support 100vh, so use this trick instead
   // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html
@@ -84,10 +86,17 @@ export const Blurb: React.FC<{}> = () => {
     event.preventDefault()
     const zip = zipRef?.current?.value
     if (!zip) return
+    toast.info("Searching ZIP code")
+    setFetchingData(true)
     const resp = await client.fetchState(zip)
-    if (resp.type === 'error') return
-    pushAddress(resp.data, zip)
-    // TODO: handle error
+    if (resp.type === 'error') {
+      toast.error("Error finding the ZIP code")
+      setFetchingData(false)
+    } else {
+      toast.success("ZIP code successfully found")
+      pushAddress(resp.data, zip)
+      setFetchingData(false)
+    }
   }
 
   const defaultValue = () => {
@@ -123,6 +132,7 @@ export const Blurb: React.FC<{}> = () => {
               id='start-submit'
               data-testid='start-submit'
               variant='raised'
+              disabled={fetchingData}
             >
               Start
             </SubmitButton>

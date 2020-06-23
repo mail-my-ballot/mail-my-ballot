@@ -27,8 +27,8 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
               <ModalProvider>
                 {children}
                 <CustomToastContainer
-                  position="top-center"
-                  autoClose={5000}
+                  position="top-right"
+                  autoClose={3000}
                   hideProgressBar={true}
                   newestOnTop={true}
                   closeOnClick={true}
