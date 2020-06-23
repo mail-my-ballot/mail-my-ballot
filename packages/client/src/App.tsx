@@ -21,6 +21,7 @@ import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
 import { Navbar } from './comp/Navbar'
 import { HowItWorks } from './comp/HowItWorks'
+import { GetInvolved } from './comp/GetInvolved'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -53,6 +54,9 @@ const Layout = () => {
         </ScrollHook>
         <ScrollHook pathEnum='howItWorks'>
           <HowItWorks/>
+        </ScrollHook>
+        <ScrollHook pathEnum='getInvolved'>
+          <GetInvolved/>
         </ScrollHook>
         <StyleContainer>
           <WarningMsg/>
