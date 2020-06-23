@@ -57,3 +57,66 @@ export type State = (typeof allStates)[number]
 export const isState = (x: string): x is State => allStates.some(state => state === x)
 export type StateField = {state: State}
 export type ExtendsState<T extends State> = T extends State ? T : never
+
+const stateAbbreviations: Record<State, string> = {
+  'Arizona': 'AZ',
+  'Alabama': 'AL',
+  'Alaska': 'AK',
+  'Arkansas': 'AR',
+  'California': 'CA',
+  'Colorado': 'CO',
+  'Connecticut': 'CT',
+  'Delaware': 'DE',
+  'District of Columbia': 'DC',
+  'Florida': 'FL',
+  'Georgia': 'GA',
+  'Hawaii': 'HI',
+  'Idaho': 'ID',
+  'Illinois': 'IL',
+  'Indiana': 'IN',
+  'Iowa': 'IA',
+  'Kansas': 'KS',
+  'Kentucky': 'KY',
+  'Louisiana': 'LA',
+  'Maine': 'ME',
+  'Maryland': 'MD',
+  'Massachusetts': 'MA',
+  'Michigan': 'MI',
+  'Minnesota': 'MN',
+  'Mississippi': 'MS',
+  'Missouri': 'MO',
+  'Montana': 'MT',
+  'Nebraska': 'NE',
+  'Nevada': 'NV',
+  'New Hampshire': 'NH',
+  'New Jersey': 'NJ',
+  'New Mexico': 'NM',
+  'New York': 'NY',
+  'North Carolina': 'NC',
+  'North Dakota': 'ND',
+  'Ohio': 'OH',
+  'Oklahoma': 'OK',
+  'Oregon': 'OR',
+  'Pennsylvania': 'PA',
+  'Rhode Island': 'RI',
+  'South Carolina': 'SC',
+  'South Dakota': 'SD',
+  'Tennessee': 'TN',
+  'Texas': 'TX',
+  'Utah': 'UT',
+  'Vermont': 'VT',
+  'Virginia': 'VA',
+  'Washington': 'WA',
+  'West Virginia': 'WV',
+  'Wisconsin': 'WI',
+  'Wyoming': 'WY',
+}
+
+export const getState = (str: string): State => {
+  return Object.keys(stateAbbreviations)
+    .filter(stateName => {
+      const stateAbbreviation = stateAbbreviations[stateName as State]
+      return stateName.toLowerCase() === str.toLowerCase() || stateAbbreviation.toLowerCase() === str.toLowerCase()
+    })
+    .map(stateName => stateName as State)[0]
+}

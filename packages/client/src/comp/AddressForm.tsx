@@ -11,7 +11,7 @@ import { StatusReport } from './status/StatusReport'
 import { useParams } from 'react-router-dom'
 import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
-import { sampleAddresses, ImplementedState } from '../common'
+import { sampleAddresses, ImplementedState, getState } from '../common'
 import { AppForm } from './util/Form'
 
 const FlexBox = styled.div`
@@ -37,7 +37,7 @@ const FlexFixed = styled.div`
 `
 
 // pulled out for testing
-export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, zip}) => {
+export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawState, zip}) => {
   const { path, pushState } = useAppHistory()
   const addrRef = useControlRef<Input>()
   const { load, error, success } = QueryContainer.useContainer()
@@ -54,6 +54,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
     }
   }, [addrRef, path])
 
+  const state = getState(rawState)
   const partialAddr = zip ? ' ' + state + ', ' + zip : null
 
   const defaultAddress = () => {
@@ -106,7 +107,7 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
     }
   }
 
-  return <StatusReport state={state}>
+  return <StatusReport state={state} rawState={rawState}>
     <AppForm onSubmit={handleSubmit}>
       <p><b>Enter Your Full Address</b> to find your local election official</p>
       <FlexBox>
@@ -142,5 +143,5 @@ export const RawAddressForm: React.FC<{state: string, zip?: string}> = ({state, 
 export const AddressForm = () => {
   const { state, zip } = useParams()
   if (!state) throw Error('state not set in AddressForm')
-  return <RawAddressForm state={state} zip={zip} />
+  return <RawAddressForm rawState={state} zip={zip} />
 }
