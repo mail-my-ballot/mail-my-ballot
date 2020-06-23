@@ -19,6 +19,7 @@ import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
+import { Navbar } from './comp/Navbar'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -27,6 +28,7 @@ const TallStyleContainer = styled(StyleContainer)`
 
 const Layout = () => {
   return (<>
+    <Navbar/>
     <Switch>
       <Route path='/status'>
         <StyleContainer>
