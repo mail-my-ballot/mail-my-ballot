@@ -6,7 +6,7 @@
 - Phone: **{{phone}}**
 - City or Township: **{{city}}**
 - County: **{{county}}**
-- Election: **{{election}}**
+- Election: generally, all elections through the end of the calendar year; in particular, **{{election}}**
 {% if permanentList %}
 - Permanent List: Automatically send me an application to vote absentee for all future elections.
 {% endif %}
