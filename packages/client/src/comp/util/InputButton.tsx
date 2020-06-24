@@ -18,12 +18,15 @@ interface Props {
   id?: string
   'data-testid'?: string
   pattern?: string
+  value?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   defaultValue?: string
 }
 
 interface StyleProps {
   buttonColor?: string
   buttonBackground?: string
+  className?: string
 }
 
 const Wrapper = styled.form<StyleProps>`
@@ -130,10 +133,13 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
     placeholder,
     id,
     pattern,
+    value,
+    onChange,
     defaultValue,
     "data-testid": dataTestId,
     // Styling
     buttonColor, buttonBackground,
+    className,
   },
   ref,
 ) => {
@@ -141,6 +147,7 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
     buttonColor={buttonColor}
     buttonBackground={buttonBackground}
     onSubmit={onSubmit}
+    className={className}
   >
     <input
       type={type ?? 'text'}
@@ -149,6 +156,10 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
       data-testid={dataTestId}
       id={id}
       pattern={pattern}
+      value={value}
+      onChange={onChange}
+      // eslint will complain if we use `value && !onChange`
+      readOnly={value ? (value !== undefined) && !onChange : undefined}
       defaultValue={defaultValue}
       ref={ref}
     />
