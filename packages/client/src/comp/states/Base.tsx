@@ -47,8 +47,6 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.persist()  // allow async function call
     event.preventDefault()
-    toast.info('Signup in progress')
-    setFetchingData(true)
 
     if (!address || !uspsAddress || !contact) {
       toast.error('Please fill all the required fields')
@@ -78,15 +76,16 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       setFetchingData(false)
       return
     }
+    toast.info('Signup in progress')
+    setFetchingData(true)
     const result = await client.register(info, voter)
     if(result.type === 'data'){
       pushSuccess(result.data)
       toast.success('Signup successfully submitted')
-      setFetchingData(false)
     } else {
       toast.error('Error sending data to the server')
-      setFetchingData(false)
     }
+    setFetchingData(false)
   }
 
   return <AppForm onSubmit={handleSubmit}>

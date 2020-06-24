@@ -91,12 +91,11 @@ export const Blurb: React.FC<{}> = () => {
     const resp = await client.fetchState(zip)
     if (resp.type === 'error') {
       toast.error("Error finding the ZIP code")
-      setFetchingData(false)
     } else {
       toast.success("ZIP code successfully found")
       pushAddress(resp.data, zip)
-      setFetchingData(false)
     }
+    setFetchingData(false)
   }
 
   const defaultValue = () => {
