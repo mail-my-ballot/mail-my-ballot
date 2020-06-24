@@ -23,6 +23,7 @@ import { Navbar } from './comp/Navbar'
 import { HowItWorks } from './comp/HowItWorks'
 import { GetInvolved } from './comp/GetInvolved'
 import { Team } from './comp/Team'
+import { Contact } from './comp/Contact'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -61,6 +62,9 @@ const Layout = () => {
         </ScrollHook>
         <ScrollHook pathEnum='team'>
           <Team/>
+        </ScrollHook>
+        <ScrollHook pathEnum='contact'>
+          <Contact/>
         </ScrollHook>
         <StyleContainer>
           <WarningMsg/>
