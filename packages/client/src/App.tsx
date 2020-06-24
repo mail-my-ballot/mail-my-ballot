@@ -13,7 +13,6 @@ import { Status } from './comp/Status'
 import { WarningMsg } from './comp/WarningMsg'
 import { Blurb } from './comp/Blurb'
 import { StateForm } from './comp/states/StateForm'
-import { Notification } from './comp/Notification'
 import { ScrollHook } from './comp/Path'
 import { pathData, defaultUrl } from './lib/path'
 import { UnstatedContainer } from './comp/StateContainer'
@@ -67,7 +66,6 @@ const Layout = () => {
           <ScrollHook pathEnum='address' pageStart>
             <AddressForm/>
           </ScrollHook>
-          <Notification/>
           <WarningMsg/>
         </TallStyleContainer>
       </Route>
@@ -81,7 +79,6 @@ const Layout = () => {
           <ScrollHook pathEnum='state'>
             <StateForm/>
           </ScrollHook>
-          <Notification/>
           <WarningMsg/>
         </TallStyleContainer>
       </Route>
