@@ -12,7 +12,7 @@ const apiKey = processEnvOrThrow('GOOGLE_MAPS_API_KEY')
 const findByType = (
   components: google.maps.GeocoderAddressComponent[],
   type: string,
-  getShortName?: boolean
+  getShortName = false,
 ) => {
   return (getShortName 
            ? components.find(c => c.types.includes(type))?.short_name
