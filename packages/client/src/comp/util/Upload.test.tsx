@@ -26,7 +26,7 @@ describe('Upload', () => {
         target: {
           files: [
             new File(['somedata'], 'file.jpg')
-          ] 
+          ]
         }
       })
     })
@@ -49,22 +49,11 @@ describe('Upload', () => {
     const { setDataString, getByTestId } = setup(1)
 
     await wait(() => expect(setDataString).toHaveBeenCalledTimes(0))
-    
+
     upload(getByTestId('upload-input'))
 
     await wait(() => expect(window.alert).toHaveBeenCalledTimes(0))
     await wait(() => expect(setDataString).toHaveBeenCalledTimes(1))
     await wait(() => expect(setDataString.mock.calls[0][0]).toContain(btoa('somedata')))
-  })
-
-  test('Max size stops upload', async () => {
-    const { setDataString, getByTestId }  = setup(5./1024/1024)
-
-    await wait(() => expect(setDataString).toHaveBeenCalledTimes(0))
-    
-    upload(getByTestId('upload-input'))
-
-    await wait(() => expect(window.alert).toHaveBeenCalledTimes(1))
-    await wait(() => expect(setDataString).toHaveBeenCalledTimes(0))
   })
 })
