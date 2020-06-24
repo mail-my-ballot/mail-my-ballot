@@ -99,6 +99,6 @@ export const VoteDotOrg = ({state, zip}: StatusProps<Statuses.VoteDotOrg>) => {
 export const Unidentified = ({state}: StateField) => (<>
   <h1 data-testid='status-title'>Sorry!</h1>
   <p data-testid='status-detail'>
-    Unfortunately, we do not have any information on vote by mail for {state}.
+    Unfortunately, {state} is not a valid state.
   </p>
 </>)

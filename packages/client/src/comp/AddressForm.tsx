@@ -13,6 +13,7 @@ import { useAppHistory } from '../lib/path'
 import styled from 'styled-components'
 import { sampleAddresses, ImplementedState, getState } from '../common'
 import { AppForm } from './util/Form'
+import { Unidentified } from './status/Status'
 
 const FlexBox = styled.div`
   display: flex;
@@ -55,6 +56,9 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   }, [addrRef, path])
 
   const state = getState(rawState)
+  if (!state) {
+    return <Unidentified state={rawState}/>
+  }
   const partialAddr = zip ? ' ' + state + ', ' + zip : null
 
   const defaultAddress = () => {
@@ -76,6 +80,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
 
     const addr = addrRef.value()
     if (addr === null) throw Error('address ref not set')
+    if (!state) throw Error('This can never happen: already checked if state is valid')
 
     load('Fetching information about your address')
     try {
@@ -107,7 +112,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
     }
   }
 
-  return <StatusReport state={state} rawState={rawState}>
+  return <StatusReport state={state}>
     <AppForm onSubmit={handleSubmit}>
       <p><b>Enter Your Full Address</b> to find your local election official</p>
       <FlexBox>
