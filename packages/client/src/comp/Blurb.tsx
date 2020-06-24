@@ -86,15 +86,11 @@ export const Blurb: React.FC<{}> = () => {
     event.preventDefault()
     const zip = zipRef?.current?.value
     if (!zip) return
-    toast.info("Searching ZIP code")
     setFetchingData(true)
     const resp = await client.fetchState(zip)
     if (resp.type === 'error') {
-      toast.dismiss()
-      toast.error("Error finding the ZIP code")
+      toast.error('Error finding the ZIP code')
     } else {
-      toast.dismiss()
-      toast.success("ZIP code successfully found")
       pushAddress(resp.data, zip)
     }
     setFetchingData(false)
@@ -119,7 +115,7 @@ export const Blurb: React.FC<{}> = () => {
         </Text>
         <AppForm onSubmit={handleSubmit}>
           <Text><b>Enter your ZIP code</b> to get started</Text>
-          <FlexContainer> 
+          <FlexContainer>
             {/* id is used by WarningMsg to fill out zipcode */}
             <ZipInput
               id='start-zip'

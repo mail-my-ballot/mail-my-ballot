@@ -66,7 +66,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   const defaultAddress = () => {
     // if zip was provided, return partial address
     if (partialAddr) return partialAddr
-  
+
     // fill in default address
     if (process.env.REACT_APP_DEFAULT_ADDRESS) {
       const addresses = sampleAddresses[state as ImplementedState] ?? []
@@ -90,35 +90,34 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
       setContact(null)
       setAddress(null)
       const result = await client.fetchContactAddress(addr)
+      toast.dismiss()
       switch(result.type) {
         case 'data': {
           const {contact, address} = result.data
           setContact(contact)
           setAddress(address)
-          setFetchingData(false)
+
+
           break
         }
         case 'error': {
-          toast.dismiss()
-          toast.error(<><b>Server Error:</b> {result.message}</>)
-          setFetchingData(false)
+          toast.error(<><b>Server Error:</b> {result.message}.  Try resubmitting.  If this persists, try again in a little while.</>)
           return
         }
       }
       pushState(state)
       toast.dismiss()
-      toast.success(<><b>Success</b> information found about your address</>)
     } catch(e) {
-      setFetchingData(false)
+      toast.dismiss()
       if (e instanceof TimeoutError) {
-        toast.dismiss()
         toast.error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else if (e instanceof TypeError) {
-        toast.dismiss()
         toast.error(<><b>Connection Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else {
-        throw e
+        toast.error(<><b>Unknown Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       }
+    } finally {
+      setFetchingData(false)
     }
   }
 
@@ -134,7 +133,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
             pattern={`(?!${partialAddr}$).*`}
             required
             defaultValue={ address?.queryAddr ?? defaultAddress() }
-            translate="no" 
+            translate="no"
             lang="en"
           />
         </FlexGrow>

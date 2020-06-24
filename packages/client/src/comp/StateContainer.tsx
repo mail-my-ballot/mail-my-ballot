@@ -32,7 +32,7 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
                 newestOnTop={true}
                 closeOnClick={true}
                 rtl={false}
-                limit={1}
+                limit={2}
                 pauseOnFocusLoss={true}
                 pauseOnHover={true}
                 transition={Slide}
