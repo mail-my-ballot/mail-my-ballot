@@ -31,6 +31,5 @@ const useFeatureFlagsContainer = (initialFeatureFlags: FeatureFlags | null = nul
 
 export const FeatureFlagsContainer = createContainer(useFeatureFlagsContainer)
 
-export * from './query'
 export * from './voter'
 export * from './memoize'

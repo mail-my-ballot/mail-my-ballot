@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { HashRouter } from 'react-router-dom'
 import { Slide, ToastContainer } from "react-toastify"
 import { ModalProvider } from 'styled-react-modal'
-import { QueryContainer, AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer } from '../lib/unstated'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -18,30 +18,28 @@ const CustomToastContainer = styled(ToastContainer)`
 
 // export for testing purposes
 export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
-  <QueryContainer.Provider>
-    <AddressContainer.Provider>
-      <ContactContainer.Provider>
-        <AnalyticsContainer.Provider>
-          <FeatureFlagsContainer.Provider>
-            <VoterContainer.Provider>
-              <ModalProvider>
-                {children}
-                <CustomToastContainer
-                  position="top-right"
-                  autoClose={3000}
-                  hideProgressBar={true}
-                  newestOnTop={true}
-                  closeOnClick={true}
-                  rtl={false}
-                  pauseOnFocusLoss={true}
-                  pauseOnHover={true}
-                  transition={Slide}
-                />
-              </ModalProvider>
-            </VoterContainer.Provider>
-          </FeatureFlagsContainer.Provider>
-        </AnalyticsContainer.Provider>
-      </ContactContainer.Provider>
-    </AddressContainer.Provider>
-  </QueryContainer.Provider>
+  <AddressContainer.Provider>
+    <ContactContainer.Provider>
+      <AnalyticsContainer.Provider>
+        <FeatureFlagsContainer.Provider>
+          <VoterContainer.Provider>
+            <ModalProvider>
+              {children}
+              <CustomToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={true}
+                newestOnTop={true}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss={true}
+                pauseOnHover={true}
+                transition={Slide}
+              />
+            </ModalProvider>
+          </VoterContainer.Provider>
+        </FeatureFlagsContainer.Provider>
+      </AnalyticsContainer.Provider>
+    </ContactContainer.Provider>
+  </AddressContainer.Provider>
 </HashRouter>)
