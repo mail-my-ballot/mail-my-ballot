@@ -44,6 +44,7 @@ export const NorthCarolina = () => {
       id='identityData'
       ref={idDataRef}
       label='Identity Information'
+      pattern='\d\d\d\d+'
       required={true}
     />
     <Togglable
