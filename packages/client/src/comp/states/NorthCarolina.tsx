@@ -6,7 +6,7 @@ import Option from 'muicss/lib/react/option'
 import { NorthCarolinaInfo, northCarolinaIdentityType, isNorthCarolinaIdentity} from '../../common'
 import { SignatureBase, StatelessInfo, NoSignature } from './Base'
 import { useControlRef } from '../util/ControlRef'
-import { BaseInput } from '../util/Input'
+import { BaseInput, DateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 
 export const NorthCarolina = () => {
@@ -50,10 +50,8 @@ export const NorthCarolina = () => {
       id='mailing'
       label='I have not lived at this address for more than 30 days'
     >{
-      (checked) => <BaseInput
-        floatingLabel={false}
-        label='Date moved (mm/dd/yyyy)'
-        type='date'
+      (checked) => <DateInput
+        label='Date moved'
         ref={dateMovedRef}
         required={checked}
       />
