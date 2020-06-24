@@ -21,7 +21,7 @@ export const NorthCarolina = () => {
     const idData = idDataRef.value()
     if (!idData) return null
 
-    const dateMoved = dateMovedRef.value() || ''
+    const dateMoved = dateMovedRef.value() || undefined
 
     return {
       ...baseInfo,

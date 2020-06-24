@@ -17,7 +17,7 @@ const baseStateInfo: Omit<BaseInfo, 'contact'> = {
   name: 'George Ford Washington Jr.',
   email: 'george.washington@gmail.com',
   phone: '+1 (234)-567-8901',
-  birthdate: '1756-04-01',
+  birthdate: '04/01/1756',
   uspsAddress: '35 Mount Vernon St Apt 3C, Vernon, NJ 00000',
   mailingAddress: '55 Fifth Avenue Apt 10F, New York, NY 34562',
   county: 'Fairfax',
@@ -80,7 +80,7 @@ export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => 
       signature,
       idType: 'North Carolina License Number',
       idData: '47826834534597',
-      dateMoved: '2020-10-01',
+      dateMoved: '10/01/2020',
       state,
     }
 
