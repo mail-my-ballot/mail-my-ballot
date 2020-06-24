@@ -5,7 +5,7 @@ import { BaseInfo, StateInfo, isImplementedLocale } from '../../common'
 import { client } from '../../lib/trpc'
 import { RoundedButton } from '../util/Button'
 import { useControlRef } from '../util/ControlRef'
-import { BaseInput, PhoneInput, EmailInput, NameInput, BirthDateInput } from '../util/Input'
+import { BaseInput, PhoneInput, EmailInput, NameInput, BirthdateInput } from '../util/Input'
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
@@ -84,7 +84,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       disabled
     />
     <ContactInfo locale={locale} contact={contact}/>
-    <BirthDateInput
+    <BirthdateInput
       id='birthdate'
       ref={birthdateRef}
       defaultValue={query.birthdate}
