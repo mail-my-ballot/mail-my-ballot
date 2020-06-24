@@ -3,7 +3,7 @@ import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
 import styled from 'styled-components'
 import { Muted } from './Text'
-import { compressImage, getBase64Size } from '../../lib/compressImage'
+import { compressImage } from '../../lib/compressImage'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -45,8 +45,7 @@ export const Upload: React.FC<Props> = ({
 }) => {
   const ref = React.useRef<HTMLInputElement | null>()
   const [image, setImage] = React.useState<ImageDetails>()
-  // Used outside production builds, allows us to check the compressed image
-  const anchorRef = React.useRef<HTMLAnchorElement | null>()
+  const [loading, setLoading] = React.useState(false)
 
   const onClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.preventDefault()
@@ -56,6 +55,8 @@ export const Upload: React.FC<Props> = ({
   const maxSizeMBReal = maxSizeMB ?? 1
 
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
+
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
       const data = await toDataUrl(file)
@@ -63,19 +64,13 @@ export const Upload: React.FC<Props> = ({
         const compressed = await compressImage(data)
         setImage({name: file.name, data: compressed})
         setDataString(compressed)
-
-        // Updates non-production helpers
-        if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-          if (anchorRef.current) {
-            anchorRef.current.style.display = 'inline-block'
-            anchorRef.current.href = compressed
-          }
-        }
       } else {
         setImage({name: file.name, data: data})
         setDataString(data)
       }
     }
+
+    setLoading(false)
   }
 
   const centerBlock: React.CSSProperties = {
@@ -84,37 +79,51 @@ export const Upload: React.FC<Props> = ({
     marginRight: 'auto',
   }
 
+  // The content displayed inside GoldenRatioOutline
+  const OutlineChild = () => {
+    if (loading) {
+      return <i
+        className="fa fa-circle-o-notch fa-spin"
+        style={{ fontSize: 32, color: '#2592f655' }}
+      />
+    }
+
+    if (image) {
+      return <>
+        <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
+        <Muted>{image.name}</Muted>
+        <SmallButton
+          color='primary'
+          onClick={(e) => {
+            e.stopPropagation()
+            e.preventDefault()
+            setImage(undefined)
+          }}
+        >
+          Clear Upload
+        </SmallButton>
+      </>
+    }
+
+    return <>
+      <h1 style={{marginTop: '0', paddingTop: '0'}}>
+        <i className="fa fa-upload" aria-hidden="true"/>
+      </h1>
+      <Muted>Limit: {maxSizeMBReal}MB</Muted>
+      <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
+    </>
+  }
+
   return <div>
     <div onClick={onClick}>
     <GoldRatioOutline>
-      {
-        ({width, height}) => (<div data-testid='upload-click-target' style={{width, height}}>
+      {({width, height}) => (
+        <div data-testid='upload-click-target' style={{width, height}}>
           <FlexBox>
-          {
-            (image) ? <>
-                <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
-                <Muted>{image.name}</Muted>
-                <SmallButton
-                  color='primary'
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    e.preventDefault()
-                    setImage(undefined)
-                  }}
-                >
-                  Clear Upload
-                </SmallButton>
-              </>
-              : <>{
-                // eslint-disable-next-line
-                }<h1 style={{marginTop: '0', paddingTop: '0'}}><i className="fa fa-upload" aria-hidden="true"/></h1>
-                  <Muted>Limit: {maxSizeMBReal}MB</Muted>
-                  <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
-                </>
-          }
+            <OutlineChild/>
           </FlexBox>
-        </div>)
-      }
+        </div>
+      )}
     </GoldRatioOutline>
     </div>
     <input
@@ -127,27 +136,5 @@ export const Upload: React.FC<Props> = ({
       accept='image/*,.pdf'
       required={required}
     />
-    {
-      // Allows to download the image when outside production versions
-      process.env.REACT_APP_ENVIRONMENT !== 'production' &&
-      <a
-        href='#downloadImage'
-        download='resized.jpg'
-        ref={el => anchorRef.current = el}
-        style={{ display: 'none' }}
-      >
-        Download Resized
-        {` ${getBase64Size(image?.data ?? '').toFixed(2)}`} MB
-        <button onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          if (anchorRef.current) {
-            anchorRef.current.style.display = 'none'
-          }
-        }}>
-          Hide This
-        </button>
-      </a>
-    }
   </div>
 }
