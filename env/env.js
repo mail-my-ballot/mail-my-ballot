@@ -113,6 +113,7 @@ const production = removeNullValues({
   GOOGLE_CLIENT_CALLBACK: 'https://app.mailmyballot.org/auth/google/callback',
   GOOGLE_STORAGE_BUCKET: 'mmb-prod.appspot.com',
   EMAIL_FAX_OFFICIALS: 1,
+  TWILIO_DIVERT: undefined,
 })
 
 const test = removeNullValues({
