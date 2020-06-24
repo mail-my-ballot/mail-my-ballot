@@ -93,7 +93,6 @@ export const Upload: React.FC<Props> = ({
         <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
         <Muted>{image.name}</Muted>
         <SmallButton
-          color='primary'
           onClick={(e) => {
             e.stopPropagation()
             e.preventDefault()
@@ -109,7 +108,6 @@ export const Upload: React.FC<Props> = ({
       <h1 style={{marginTop: '0', paddingTop: '0'}}>
         <i className="fa fa-upload" aria-hidden="true"/>
       </h1>
-      <Muted>Limit: {maxSizeMBReal}MB</Muted>
       <SmallButton color='primary' style={centerBlock} >{label}</SmallButton>
     </>
   }
