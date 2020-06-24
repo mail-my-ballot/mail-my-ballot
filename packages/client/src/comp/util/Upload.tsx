@@ -16,11 +16,12 @@ const toDataUrl = (file: File): Promise<string> => {
   })
 }
 
+/** Returns an approximation of the base64 image data in MB */
 const getBase64Size = (imgSrc: string) => {
   const split = imgSrc.split(',')
   // To prevent errors
   if (split.length === 0) return 0
-  return split[split.length-1].length * 0.75
+  return split[split.length-1].length * 0.75 / Math.pow(1024, 2)
 }
 
 interface Props {
@@ -113,7 +114,7 @@ export const Upload: React.FC<Props> = ({
         // compare its compressed size, an estimate of the size is sent
         // to the console
         if (anchorRef.current) {
-          console.log(`Image was resized to ~= ${getBase64Size(resized)} bytes`)
+          console.log(`Image was resized to ~= ${getBase64Size(resized)} MB`)
           anchorRef.current.href = resized
           anchorRef.current.style.display = 'inline-block'
         }
@@ -155,6 +156,16 @@ export const Upload: React.FC<Props> = ({
             (image) ? <>
                 <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
                 <Muted>{image.name}</Muted>
+                <SmallButton
+                  color='primary'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    setImage(undefined)
+                  }}
+                >
+                  Clear Upload
+                </SmallButton>
               </>
               : <>{
                 // eslint-disable-next-line
@@ -194,8 +205,10 @@ export const Upload: React.FC<Props> = ({
         style={{ display: 'none' }}
       >
         Download Resized
-        {` ${(getBase64Size(image?.data ?? '') / Math.pow(1024, 2)).toFixed(2)}`} MB
-        <button onClick={() => {
+        {` ${getBase64Size(image?.data ?? '').toFixed(2)}`} MB
+        <button onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
           if (anchorRef.current) {
             anchorRef.current.style.display = 'none'
           }
