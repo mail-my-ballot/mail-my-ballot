@@ -60,14 +60,10 @@ export const Upload: React.FC<Props> = ({
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
       const data = await toDataUrl(file)
-      if (file.size > (maxSizeMBReal * 1024 * 1024)) {
-        const compressed = await compressImage(data)
-        setImage({name: file.name, data: compressed})
-        setDataString(compressed)
-      } else {
-        setImage({name: file.name, data: data})
-        setDataString(data)
-      }
+      const shouldCompress = file.size > (maxSizeMBReal * 1024 * 1024)
+      const compressed = shouldCompress ? await compressImage(data) : data
+      setImage({name: file.name, data: compressed})
+      setDataString(compressed)
     }
 
     setLoading(false)
