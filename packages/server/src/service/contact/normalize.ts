@@ -29,6 +29,7 @@ const normalizeKey = lowerCase(({ state, county, city }: OptionalLocale): string
 
     // Only city
     case 'Maine':
+    case 'Massachusetts':
     case 'New Hampshire': {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return city! + ':'

@@ -10,6 +10,7 @@ export const implementedStates = [
   'Georgia',
   'Maine',
   'Maryland',
+  'Massachusetts',
   'Michigan',
   'Nebraska',
   'Nevada',
@@ -89,6 +90,9 @@ export interface MarylandInfo extends _Id, SignatureBaseInfo {
   state: 'Maryland'
 }
 
+export interface MassachusettsInfo extends _Id, SignatureBaseInfo {
+  state: 'Massachusetts'
+}
 
 export interface NebraskaInfo extends _Id, SignatureBaseInfo {
   state: 'Nebraska'
@@ -136,6 +140,7 @@ export type StateInfo = (
   | GeorgiaInfo
   | MaineInfo
   | MarylandInfo
+  | MassachusettsInfo
   | MichiganInfo
   | NebraskaInfo
   | NevadaInfo

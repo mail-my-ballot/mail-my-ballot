@@ -55,6 +55,7 @@ const template = (state: ImplementedState): string => {
     case 'Georgia': return 'Georgia.md'
     case 'Maine': return 'Maine.md'
     case 'Maryland': return 'Maryland.md'
+    case 'Massachusetts': return 'Massachusetts.md'
     case 'Michigan': return 'Michigan.md'
     case 'Nebraska': return 'Nebraska.md'
     case 'Nevada': return 'Nevada.md'

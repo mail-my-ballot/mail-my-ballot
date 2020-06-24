@@ -134,6 +134,22 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     county: 'Montgomery County',
     state: 'Maryland',
   }],
+  'Massachusetts': [{
+    address: '265 Franklin St #1700, Boston, MA 02110',
+    city: 'Boston',
+    county: 'Suffolk County',
+    state: 'Massachusetts',
+  }, {
+    address: '311 Main St #200, Worcester, MA 01608',
+    city: 'Worcester',
+    county: 'Worcester County',
+    state: 'Massachusetts',
+  }, {
+    address: '1441 Main St, Springfield, MA 01103',
+    city: 'Springfield',
+    county: 'Hampden County',
+    state: 'Massachusetts',
+  }],
   'Maine': [{
     address: '443 Congress St, Portland, ME 04101',
     city: 'Portland',
