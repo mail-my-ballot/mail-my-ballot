@@ -99,18 +99,22 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
           break
         }
         case 'error': {
+          toast.dismiss()
           toast.error(<><b>Server Error:</b> {result.message}</>)
           setFetchingData(false)
           return
         }
       }
       pushState(state)
+      toast.dismiss()
       toast.success(<><b>Success</b> information found about your address</>)
     } catch(e) {
       setFetchingData(false)
       if (e instanceof TimeoutError) {
+        toast.dismiss()
         toast.error(<><b>Timeout Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else if (e instanceof TypeError) {
+        toast.dismiss()
         toast.error(<><b>Connection Error:</b> Try resubmitting.  If this persists, try again in a little while.</>)
       } else {
         throw e

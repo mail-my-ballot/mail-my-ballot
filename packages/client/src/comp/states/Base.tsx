@@ -49,6 +49,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     event.preventDefault()
 
     if (!address || !uspsAddress || !contact) {
+      toast.dismiss()
       toast.error('Please fill all the required fields')
       setFetchingData(false)
       return
@@ -72,6 +73,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
 
     const info = enrichValues(baseInfo)
     if (!info) {
+      toast.dismiss()
       toast.error('Please fill all the required fields in the right format')
       setFetchingData(false)
       return
@@ -81,8 +83,10 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     const result = await client.register(info, voter)
     if(result.type === 'data'){
       pushSuccess(result.data)
+      toast.dismiss()
       toast.success('Signup successfully submitted')
     } else {
+      toast.dismiss()
       toast.error('Error sending data to the server')
     }
     setFetchingData(false)
@@ -151,6 +155,7 @@ export const SignatureBase = <Info extends StateInfo>(
     if (!values) return null
 
     if (!signature) {
+      toast.dismiss()
       toast.error('Please fill out the signature field')
       return null
     }
