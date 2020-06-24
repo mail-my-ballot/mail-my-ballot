@@ -143,26 +143,21 @@ export const fillNorthCarolina = (
     text(nameSplit[1], 2, 355, 90)
     text(nameSplit[3], 2, 440, 90)
 
-    const birthdateSplit = stateInfo.birthdate.split('-')
+    const birthdateSplit = stateInfo.birthdate.split('/')
     // Month
-    text(birthdateSplit[1], 2, 481, 90)
+    text(birthdateSplit[0], 2, 481, 90)
     // Day
-    text(birthdateSplit[2], 2, 508, 90)
+    text(birthdateSplit[1], 2, 508, 90)
     // Year
-    text(birthdateSplit[0], 2, 542, 90)
+    text(birthdateSplit[2], 2, 542, 90)
 
-    switch(stateInfo.idType) {
-      case 'North Carolina License Number':
-        text(stateInfo.idData, 2, 370, 134)
-        break
-      case 'Last 4 numbers of SSN':
-        text(stateInfo.idData[0], 2, 497, 134)
-        text(stateInfo.idData[1], 2, 520, 134)
-        text(stateInfo.idData[2], 2, 543, 134)
-        text(stateInfo.idData[3], 2, 566, 134)
-        break
-      default:
-        throw new Error('Invalid North Carolina idType.')
+    if (stateInfo.idType == 'North Carolina License Number') {
+      text(stateInfo.idData, 2, 370, 134)
+    } else {  // stateInfo.idType == 'Last 4 numbers of SSN'
+      text(stateInfo.idData[0], 2, 497, 134)
+      text(stateInfo.idData[1], 2, 520, 134)
+      text(stateInfo.idData[2], 2, 543, 134)
+      text(stateInfo.idData[3], 2, 566, 134)
     }
 
     const streetAddress = ((stateInfo.address.streetNumber ? stateInfo.address.streetNumber : '')
@@ -175,13 +170,13 @@ export const fillNorthCarolina = (
 
     if(stateInfo.dateMoved) {
       check(2, 396, 170)
-      const dateMovedSplit = stateInfo.dateMoved.split('-')
+      const dateMovedSplit = stateInfo.dateMoved.split('/')
       // Month
-      text(dateMovedSplit[1], 2, 311, 198)
+      text(dateMovedSplit[0], 2, 311, 198)
       // Day
-      text(dateMovedSplit[2], 2, 338, 198)
+      text(dateMovedSplit[1], 2, 338, 198)
       // Year
-      text(dateMovedSplit[0], 2, 362, 198)
+      text(dateMovedSplit[2], 2, 362, 198)
     } else {
       check(2, 375, 170)
     }
