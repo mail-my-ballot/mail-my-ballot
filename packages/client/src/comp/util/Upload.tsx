@@ -3,6 +3,7 @@ import { SmallButton } from './Button'
 import { GoldRatioOutline } from './Outline'
 import styled from 'styled-components'
 import { Muted } from './Text'
+import { compressImage, getBase64Size } from '../../lib/compressImage'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -14,14 +15,6 @@ const toDataUrl = (file: File): Promise<string> => {
       reject(reader.result)
     }
   })
-}
-
-/** Returns an approximation of the base64 image data in MB */
-const getBase64Size = (imgSrc: string) => {
-  const split = imgSrc.split(',')
-  // To prevent errors
-  if (split.length === 0) return 0
-  return split[split.length-1].length * 0.75 / Math.pow(1024, 2)
 }
 
 interface Props {
@@ -52,8 +45,7 @@ export const Upload: React.FC<Props> = ({
 }) => {
   const ref = React.useRef<HTMLInputElement | null>()
   const [image, setImage] = React.useState<ImageDetails>()
-  // If the image is above 1mb it is loaded and compressed used this canvas
-  const canvasRef = React.useRef<HTMLCanvasElement | null>()
+  // Used outside production builds, allows us to check the compressed image
   const anchorRef = React.useRef<HTMLAnchorElement | null>()
 
   const onClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -61,79 +53,25 @@ export const Upload: React.FC<Props> = ({
     if (ref.current) ref.current.click()
   }
 
-  // The highest value, in pixels, that either width or height can have
-  const highestDimension = 2000
-  const Compress = async (file: File) => {
-    const image = new Image()
-    const data = await toDataUrl(file)
-    image.src = data
-
-    // It takes some time to load the image, which is why we have to await
-    // for the image to load with this function
-    image.onload = () => {
-      const context = canvasRef.current?.getContext('2d')
-
-      // Clears previous uploads & resets canvas size
-      if (context) {
-        context.canvas.width = highestDimension
-        context.canvas.height = highestDimension
-      }
-      context?.clearRect(0, 0, context?.canvas.width, context?.canvas.height)
-
-      // Decide if the image needs resizing
-      const { naturalWidth: width, naturalHeight: height } = image
-      let newWidth = width
-      let newHeight = height
-
-      if (Math.max(width, height) > highestDimension) {
-        const portrait = height > width
-        // Downscale ratio
-        const ratio = portrait ? width / height : height / width
-        if (portrait) {
-          newHeight = highestDimension
-          newWidth = highestDimension * ratio
-        } else {
-          newWidth = highestDimension
-          newHeight = highestDimension * ratio
-        }
-      }
-
-      // The canvas might have some unused space since (unless the picture is a square)
-      // either the width or height are going to be 2000px. We don't need
-      // to save that.
-      if (context) {
-        context.canvas.width = newWidth
-        context.canvas.height = newHeight
-      }
-
-      context?.drawImage(image, 0, 0, newWidth, newHeight)
-      const resized = context?.canvas.toDataURL('image/jpeg') ?? ''
-
-      if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-        // Updates the anchor element so we might download the image and
-        // compare its compressed size, an estimate of the size is sent
-        // to the console
-        if (anchorRef.current) {
-          console.log(`Image was resized to ~= ${getBase64Size(resized)} MB`)
-          anchorRef.current.href = resized
-          anchorRef.current.style.display = 'inline-block'
-        }
-      }
-
-      setImage({name: file.name, data: resized})
-      setDataString(resized)
-    }
-  }
-
   const maxSizeMBReal = maxSizeMB ?? 1
 
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
+      const data = await toDataUrl(file)
       if (file.size > (maxSizeMBReal * 1024 * 1024)) {
-        await Compress(file)
+        const compressed = await compressImage(data)
+        setImage({name: file.name, data: compressed})
+        setDataString(compressed)
+
+        // Updates non-production helpers
+        if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+          if (anchorRef.current) {
+            anchorRef.current.style.display = 'inline-block'
+            anchorRef.current.href = compressed
+          }
+        }
       } else {
-        const data = await toDataUrl(file)
         setImage({name: file.name, data: data})
         setDataString(data)
       }
@@ -189,14 +127,8 @@ export const Upload: React.FC<Props> = ({
       accept='image/*,.pdf'
       required={required}
     />
-    <canvas
-      ref={el => canvasRef.current = el}
-      width={highestDimension}
-      height={highestDimension}
-      style={{ display: 'none' }}
-    />
     {
-      // Allows to download the image when on debug versions
+      // Allows to download the image when outside production versions
       process.env.REACT_APP_ENVIRONMENT !== 'production' &&
       <a
         href='#downloadImage'
