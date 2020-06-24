@@ -101,7 +101,7 @@ To add a new state, you will need to complete the following steps:
     yarn build
     ```
     Fixing those errors by pattern matching should get you a new state.  Becareful to follow the state-by-state regulations for VBM signup.  For reference, here are the core commits adding [Arizona](https://github.com/mail-my-ballot/mail-my-ballot/commit/arizona) and [New York](https://github.com/mail-my-ballot/mail-my-ballot/commit/new_york).
-    
+
     Some states require us to fill out and submit their PDF form for the signup.  This means determining the `X/Y` coordinates for each input box.  Use the file `packages/server/src/service/pdfForm.proto.ts` as a test harness for laying out the application (see [New Hampshire](https://github.com/mail-my-ballot/mail-my-ballot/pull/33) for an example).
 
 
@@ -168,6 +168,9 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 
 ### Markdown Library
 We're using [Marked](https://www.npmjs.com/package/marked), which has more dependents, downloads, and is smaller than [Showdown](https://www.npmjs.com/package/showdown).  The documentation on how to run it in node is available [here](https://marked.js.org/#/USING_ADVANCED.md#options)
+
+### Notifications
+We're using [Toast](https://www.npmjs.com/package/react-toastify) for notifications.  The general style is to not report success, occasionally report queries about loading, and always report errors.
 
 ## Elections Resources
 ### From Vote at Home Insitute

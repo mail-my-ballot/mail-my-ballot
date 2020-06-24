@@ -51,7 +51,6 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     if (!address || !uspsAddress || !contact) {
       toast.dismiss()
       toast.error('Please fill all the required fields')
-      setFetchingData(false)
       return
     }
 
@@ -73,23 +72,21 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
 
     const info = enrichValues(baseInfo)
     if (!info) {
-      toast.dismiss()
-      toast.error('Please fill all the required fields in the right format')
-      setFetchingData(false)
+      // Do not dismiss previous errors which may give more details on bad fields
+      toast.error('Please fill all the required fields in the right formats')
       return
     }
     toast.info('Signup in progress')
     setFetchingData(true)
     const result = await client.register(info, voter)
+    setFetchingData(false)
+    toast.dismiss()
     if(result.type === 'data'){
       pushSuccess(result.data)
-      toast.dismiss()
-      toast.success('Signup successfully submitted')
+
     } else {
-      toast.dismiss()
-      toast.error('Error sending data to the server')
+      toast.error('Error signing up.  Try resubmitting.  If this persists, try again in a little while.')
     }
-    setFetchingData(false)
   }
 
   return <AppForm onSubmit={handleSubmit}>
@@ -155,7 +152,7 @@ export const SignatureBase = <Info extends StateInfo>(
     if (!values) return null
 
     if (!signature) {
-      toast.dismiss()
+      // Do not dismiss previous errors which may give more details on bad fields
       toast.error('Please fill out the signature field')
       return null
     }
