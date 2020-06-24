@@ -24,11 +24,20 @@ export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(
   />
 })
 
-export const BirthDateInput = React.forwardRef<Input, InputProps>(function BirthDateInput(props, ref) {
+export const DateInput = React.forwardRef<Input, InputProps>(function DateInput(props, ref) {
+  console.log(props.label)
   return <BaseInput
-    label='Birthdate (mm/dd/yyyy)'
-    floatingLabel={false}
-    type='date'
+    type='text'
+    pattern='^(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d\d$'
+    {...props}
+    label={`${props.label} (mm/dd/yyyy)`}
+    ref={ref}
+  />
+})
+
+export const BirthdateInput = React.forwardRef<Input, InputProps>(function BirthdateInput(props, ref) {
+  return <DateInput
+    label='Birthdate'
     {...props}
     ref={ref}
   />
