@@ -86,7 +86,7 @@ export const Upload: React.FC<Props> = ({
 
     if (image) {
       return <>
-        <img src={image.data} style={{maxHeight: '150px'}} alt='thumbnail'/>
+        <img src={image.data} style={{maxHeight: '40%'}} alt='thumbnail'/>
         <Muted>{image.name}</Muted>
         <SmallButton
           onClick={(e) => {
