@@ -8,7 +8,7 @@ import { FullscreenWrapper } from './util/FullscreenWrapper'
 import { UnderlineAnchor } from './util/UnderlineAnchor'
 import { Container } from 'muicss/react'
 
-export const TeamWrapper = styled(FullscreenWrapper)`
+const Wrapper = styled(FullscreenWrapper)`
   .mui-container > p, .mui-container > h4 {
     ${cssQuery.desktop.all} { width: 65%; }
     ${cssQuery.mobile.landscape.all} { width: 75%; }
@@ -120,7 +120,7 @@ const Person: React.FC<PersonProps> = ({
 export const Team: React.FC = () => {
   const { pushStartSection } = useAppHistory()
 
-  return <TeamWrapper columnChildContent={true} centerChildContent={true}>
+  return <Wrapper columnChildContent={true} centerChildContent={true}>
     <Container>
       <h1>Who are we?</h1>
       <p>
@@ -186,5 +186,5 @@ export const Team: React.FC = () => {
         How to get involved
       </UnderlineAnchor>
     </Container>
-  </TeamWrapper>
+  </Wrapper>
 }
