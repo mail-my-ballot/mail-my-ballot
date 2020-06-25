@@ -9,6 +9,6 @@ test('BlurbForm works', async() => {
     { wrapper: UnstatedContainer }
   )
 
-  const linkElement = getByText(/^Vote by Mail$/i)
+  const linkElement = getByText(/^MailMyBallot streamlines state vote-by-mail applications by digitizing the voter’s signup process\.$/i)
   expect(linkElement).toBeInTheDocument()
 })

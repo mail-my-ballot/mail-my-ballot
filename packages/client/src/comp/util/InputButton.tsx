@@ -7,6 +7,7 @@ interface Props {
   // Form Submit & button label
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   buttonLabel: string
+  buttonTestId?: string
   // Input
   type?: React.InputHTMLAttributes<HTMLInputElement>['type']
   /**
@@ -16,7 +17,7 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLInputElement>) => void
   placeholder?: string
   id?: string
-  'data-testid'?: string
+  dataTestId?: string
   pattern?: string
   value?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -127,6 +128,7 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
     // Button
     onSubmit,
     buttonLabel,
+    buttonTestId,
     // Input
     onClick,
     type,
@@ -136,7 +138,7 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
     value,
     onChange,
     defaultValue,
-    "data-testid": dataTestId,
+    dataTestId,
     // Styling
     buttonColor, buttonBackground,
     className,
@@ -163,7 +165,7 @@ export const InputButton = React.forwardRef<HTMLInputElement, Props & StyleProps
       defaultValue={defaultValue}
       ref={ref}
     />
-    <Button color='primary'>
+    <Button color='primary' data-testid={buttonTestId}>
       {buttonLabel}
     </Button>
   </Wrapper>
