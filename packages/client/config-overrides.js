@@ -1,5 +1,9 @@
 module.exports = function override(config, env) {
-  //do stuff with the webpack config...
+  require('react-app-rewire-postcss')(config, {
+    plugins: loader => [
+      require('autoprefixer')()
+   ]
+ })
   config;
   config.resolve.symlinks = false
   return config
