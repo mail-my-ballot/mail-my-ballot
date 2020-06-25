@@ -13,65 +13,54 @@ const Wrapper = styled(FullscreenWrapper)`
   background-color: #fafafa;
   box-shadow: 0 12px 14px -10px rgba(0, 0, 0, 0.25) inset;
 
+  .mui-contaier {
+    flex-flow: row wrap;
+  }
+
   ${cssQuery.desktop.all} {
     .mui-container {
       flex-direction: row-reverse;
       align-items: center;
-      justify-content: space-around;
+      flex-flow: row-reverse wrap;
     }
   }
 `
 
 const Headline = styled.div`
   width: 90%;
-  text-align: center;
-  h1 { padding-top: 0; }
+  text-align: left;
+  h1 { padding-top: 1em; }
+  ${cssQuery.mobile.narrow} { h1 { padding-top: 0; } }
 
-  ${cssQuery.desktop.all} {
-    width: 40%;
-  }
-  ${cssQuery.mobile.wide} {
-    width: 50%;
-  }
-
-  .social {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    h5 {
-      /* So it is not wrapped */
-      width: 100%;
-      text-align: center;
-    }
-  }
+  ${cssQuery.mobile.narrow} { text-align: center; }
+  ${cssQuery.desktop.all} { width: 40%; p { width: 80%; } }
+  ${cssQuery.mobile.wide} { width: 50%; }
 `
 
+// The images use vh as its sizing factor to ensure all devices can get the
+// same overlapped effect.
 const Images = styled.div`
   position: relative;
   width: 100%;
   height: 90vh;
-  ${cssQuery.mobile.landscape.all} {
-    height: 180vh;
-  }
+  ${cssQuery.mobile.landscape.all} { height: 180vh; }
   margin: 8vh 0;
 
   ${cssQuery.desktop.all} {
     width: 40%;
-    height: 70vh;
-    ${cssQuery.desktop.tall} { height: 50vh; }
+    ${cssQuery.desktop.wide} { width: 35%; }
+    height: 80vh;
+    ${cssQuery.desktop.tall} { height: 60vh; }
     margin: 0;
   }
 
   img {
-    width: 90%;
+    width: 85%;
     height: 47vh;
-    ${cssQuery.desktop.all} {
-      height: 37vh;
-      ${cssQuery.desktop.tall} { height: 27vh; }
-    }
-    ${cssQuery.mobile.landscape.all} {
-      height: 93vh;
-    }
+    ${cssQuery.desktop.short} { height: 42vh; }
+    ${cssQuery.desktop.tall} { height: 31vh; }
+    ${cssQuery.mobile.landscape.all} { height: 93vh; }
+
     object-fit: cover;
     position: absolute;
 
@@ -85,6 +74,20 @@ const Images = styled.div`
       top: 0;
       left: 0;
     }
+  }
+`
+
+const Social = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  box-sizing: border-box;
+  padding: 0 30%;
+  ${cssQuery.mobile.narrow} { padding: 0; }
+  h5 {
+    /* So it is not wrapped */
+    width: 100%;
+    text-align: center;
   }
 `
 
@@ -105,13 +108,13 @@ export const About: React.FC = () => {
         <p>
           <a href="https://mailmyballot.org" target="_blank" rel="noopener noreferrer">MailMyBallot</a> is a <a href="https://www.voteathome.org" target="_blank" rel="noopener noreferrer">Vote at Home</a> project. We are a non-partisan non-profit {/* Organization? */} that empowers voters, letting them decide when, how and where they vote.
         </p>
-        <div className="social">
-          <h5>Share</h5>
-          <SocialShare/>
-          <h5>Follow</h5>
-          <SocialFollow/>
-        </div>
       </Headline>
+      <Social>
+        <h5>Share</h5>
+        <SocialShare/>
+        <h5>Follow</h5>
+        <SocialFollow/>
+      </Social>
     </Container>
   </Wrapper>
 }
