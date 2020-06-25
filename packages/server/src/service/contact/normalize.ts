@@ -62,9 +62,15 @@ export const normalizeLocaleKey = ({state, city, county}: OptionalLocale): strin
 }
 
 const normalizeContact = (contact: RawContact): RawContact => {
-  return {
-    ...contact,
-    faxes: contact.faxes?.map(e164)
+  try {
+    const faxes = contact.faxes?.map(e164)
+    return {
+      ...contact,
+      faxes,
+    }
+  } catch(e) {
+    console.error(`Error in Contact ${JSON.stringify(contact)}`)
+    throw e
   }
 }
 
