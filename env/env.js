@@ -49,7 +49,6 @@ const development = removeNullValues({
   REACT_APP_URL: 'http://localhost:3000/',
   FIRESTORE_URL: 'https://mmb-dev-cee81.firebaseio.com',
   REACT_APP_SERVER: 'http://localhost:8080',
-  REACT_APP_GOOGLE_OPTIMIZE: 'OPT-WXTPPJ6',
   GOOGLE_CLIENT_ID: DEV.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: DEV.GOOGLE_CLIENT_SECRET,
   SESSION_SECRET: DEV.SESSION_SECRET,
@@ -78,7 +77,6 @@ const staging = removeNullValues({
   REACT_APP_URL: 'https://staging.mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-staging.firebaseio.com',
   REACT_APP_SERVER: 'https://app-staging.mailmyballot.org/',
-  REACT_APP_GOOGLE_OPTIMIZE: 'OPT-WXTPPJ6',
   GOOGLE_CLIENT_ID: STAGING.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: STAGING.GOOGLE_CLIENT_SECRET,
   SESSION_SECRET: STAGING.SESSION_SECRET,
@@ -105,7 +103,6 @@ const production = removeNullValues({
   REACT_APP_URL: 'https://mailmyballot.org/',
   FIRESTORE_URL: 'https://mmb-prod.firebaseio.com',
   REACT_APP_SERVER: 'https://app.mailmyballot.org/',
-  REACT_APP_GOOGLE_OPTIMIZE: 'OPT-MV3ZTJZ',
   GOOGLE_CLIENT_ID: PROD.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: PROD.GOOGLE_CLIENT_SECRET,
   SESSION_SECRET: PROD.SESSION_SECRET,
@@ -126,7 +123,6 @@ const test = removeNullValues({
   GOOGLE_MAPS_API_KEY: DEV.GOOGLE_MAPS_API_KEY,
   MG_DISABLE: 1,
   TWILIO_DISABLE: 1,
-  REACT_APP_GOOGLE_OPTIMIZE: 'test-opt'
 })
 
 const ci = removeNullValues({
