@@ -4,7 +4,7 @@
 Below are the details of my application:
 
 - Name: **{{name}}**
-- Birth Year: **{{birthdate}}**
+- Birth Date: **{{birthdate}}**
 - Voter Registration Address: **{{uspsAddress}}**
 {% if mailingAddress %}
 - Mailing Address: {{mailingAddress}}
