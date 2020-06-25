@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { HashRouter } from 'react-router-dom'
 import { Slide, ToastContainer } from "react-toastify"
 import { ModalProvider } from 'styled-react-modal'
-import { AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer, FetchingDataContainer } from '../lib/unstated'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -24,19 +24,21 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
         <FeatureFlagsContainer.Provider>
           <VoterContainer.Provider>
             <ModalProvider>
-              {children}
-              <CustomToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={true}
-                closeOnClick={true}
-                rtl={false}
-                limit={2}
-                pauseOnFocusLoss={true}
-                pauseOnHover={true}
-                transition={Slide}
-              />
+              <FetchingDataContainer.Provider>
+                {children}
+                <CustomToastContainer
+                  position="top-right"
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  newestOnTop={true}
+                  closeOnClick={true}
+                  rtl={false}
+                  limit={2}
+                  pauseOnFocusLoss={true}
+                  pauseOnHover={true}
+                  transition={Slide}
+                />
+              </FetchingDataContainer.Provider>
             </ModalProvider>
           </VoterContainer.Provider>
         </FeatureFlagsContainer.Provider>
