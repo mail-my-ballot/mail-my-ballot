@@ -39,11 +39,6 @@ const Layout = () => {
           <Status/>
         </StyleContainer>
       </Route>
-      <Route path='/about'>
-        <TallStyleContainer>
-          <About/>
-        </TallStyleContainer>
-      </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path='/mock'>
         <TallStyleContainer>
@@ -65,6 +60,9 @@ const Layout = () => {
         </ScrollHook>
         <ScrollHook pathEnum='contact'>
           <Contact/>
+        </ScrollHook>
+        <ScrollHook pathEnum='about'>
+          <About/>
         </ScrollHook>
         <StyleContainer>
           <WarningMsg/>
