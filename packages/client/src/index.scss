@@ -19,6 +19,7 @@ body {
     font-size:      16px;
     line-height:    1.5
   }
+  cursor: var(--pageCursor);
 }
 
 h1, h2, h3, h4 {
@@ -34,7 +35,7 @@ h1 {
   padding-top:    120px;
   @media only screen and (max-width: 544px) {
     font-size:      32px;
-    line-height:    42px;  
+    line-height:    42px;
     padding-top:    40px;
   }
 }
@@ -44,7 +45,7 @@ h2 {
   line-height:  48px;
   @media only screen and (max-width: 544px) {
     font-size:      24px;
-    line-height:    32px;  
+    line-height:    32px;
   }
 }
 
@@ -53,7 +54,7 @@ h3 {
   line-height:  42px;
   @media only screen and (max-width: 544px) {
     font-size:      20px;
-    line-height:    28px;  
+    line-height:    28px;
   }
 }
 
