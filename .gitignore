@@ -90,3 +90,4 @@ dist/
 tsconfig.tsbuildinfo
 venv
 .vercel
+env/secrets/*
