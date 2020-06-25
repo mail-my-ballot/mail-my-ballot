@@ -45,11 +45,11 @@ We're sorry this happened, if you try again and the error persists try contactin
   return <InputButton
     onSubmit={handleSubmit}
     buttonLabel='Enter'
-
+    buttonTestId='start-submit'
     type='number'
     placeholder='ZIP Code'
     id='start-zip'
-    data-testid='start-zip'
+    dataTestId='start-zip'
     pattern='[0-9]{5}'
     defaultValue={defaultValue()}
     ref={zipRef}
