@@ -2,6 +2,8 @@ import { toLetter } from '.'
 import { stateInfo, sampleMethod } from './router'
 import { implementedStates } from '../../common'
 
+beforeAll(() => jest.setTimeout(10000))
+
 test('Leter for all states render correctly', async () => {
   const confirmationId = 'sampleConfirmationId'
 
@@ -14,12 +16,12 @@ test('Leter for all states render correctly', async () => {
       confirmationId
     )
   }))
-  
+
   letters.forEach(letter => {
     expect(letter?.md).toContain(confirmationId)
     /*
       A poor man's test for missing fields
-      since most fields are '**{{field}}**' 
+      since most fields are '**{{field}}**'
     */
     expect(letter?.md).not.toContain('****')
   })

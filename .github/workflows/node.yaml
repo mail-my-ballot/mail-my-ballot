@@ -17,10 +17,44 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install --global lerna
-    - run: yarn bootstrap
-    - run: yarn build
-    - run: yarn lint
-    - run: yarn test
+
+    # Cache node_modules
+    - name: Cache ~/.npm
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm  # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: npm--${{ runner.os }}-${{ matrix.node-version }}
+    - name: cache node_modules/
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules--${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
+    - name: cache packages/client/node_modules/
+      uses: actions/cache@v2
+      with:
+        path: packages/client/node_modules
+        key: packages/client/node-modules--${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
+    - name: cache packages/common/node_modules/
+      uses: actions/cache@v2
+      with:
+        path: packages/common/node_modules
+        key: packages/common/node-modules--${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
+    - name: cache packages/server/node_modules/
+      uses: actions/cache@v2
+      with:
+        path: packages/server/node_modules
+        key: packages/server/node-modules--${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
+    - name: Install Lerna
+      run: npm install --global lerna
+    - name: Boostrap
+      run: yarn bootstrap
+
+    # Back to doing real work
+    - name: Build
+      run: yarn build
+    - name: Lint
+      run: yarn lint
+    - name: Test
+      run: yarn test
       env:
         CI: true
