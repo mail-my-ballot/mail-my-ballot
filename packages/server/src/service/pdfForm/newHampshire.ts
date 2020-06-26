@@ -27,7 +27,7 @@ export const fillNewHampshire = (
     text(stateInfo.email, 1, 250, 300)
     text(new Date().toISOString().split('T')[0], 1, 480, 340)
 
-    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
-    await placeImage(new Uint8Array(signatureBuffer.buffer), 1, 250, 360)
+    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 150, 30)
+    await placeImage(new Uint8Array(signatureBuffer.buffer), 1, 220, 352)
   }
 )

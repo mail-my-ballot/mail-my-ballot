@@ -67,7 +67,7 @@ export const fillNorthCarolina = (
     text(stateInfo.email, 2, 100, 240)
     text(new Date().toISOString().split('T')[0], 2, 230, 745)
 
-    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 200, 50)
-    await placeImage(new Uint8Array(signatureBuffer.buffer), 2, 76, 760)
+    const signatureBuffer = await toSignatureBuffer(stateInfo.signature, 120, 30)
+    await placeImage(new Uint8Array(signatureBuffer.buffer), 2, 84, 755)
   }
 )
