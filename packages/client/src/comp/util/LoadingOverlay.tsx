@@ -21,6 +21,7 @@ const OverlayStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: wait;
 
   i {
     font-size: 32px;

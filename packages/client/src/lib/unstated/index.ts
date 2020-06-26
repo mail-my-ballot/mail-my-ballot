@@ -38,30 +38,7 @@ export const FeatureFlagsContainer = createContainer(useFeatureFlagsContainer)
 const useFetchingDataContainer = (initialFetching = false) => {
   const [fetchingData, setFetchingData] = React.useState(initialFetching)
 
-  const handleChanges = (fetching: boolean, waitForPromise?: Promise<unknown>) => {
-    const cursor = fetching ? 'wait' : 'initial'
-    document.documentElement.style.setProperty('--pageCursor', cursor)
-    setFetchingData(fetching)
-
-    waitForPromise?.then(() => {
-      setFetchingData(false)
-      document.documentElement.style.setProperty('--pageCursor', 'initial')
-    })
-  }
-
-  return {
-    fetchingData,
-    /**
-     * Allows to change the cursor being displayed on screen, when fetchingData
-     * is true it changes to match the OS default cursor for loading data.
-     *
-     * @param fetching The state which fetchingData will be set, will override
-     * previous values
-     * @param waitForPromise Upon completion of the promise automatically sets
-     * fetchingData to false
-     */
-    setFetchingData: handleChanges,
-  }
+  return { fetchingData, setFetchingData }
 }
 
 export const FetchingDataContainer = createContainer(useFetchingDataContainer)
