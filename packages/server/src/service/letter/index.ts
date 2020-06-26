@@ -4,13 +4,14 @@ import nunjucks from 'nunjucks'
 import { processEnvOrThrow, StateInfo, ContactMethod, ImplementedState } from '../../common'
 import { fillNewHampshire } from '../pdfForm'
 import { fillNorthCarolina } from '../pdfForm'
+import { makeImageAttachment } from '../mg'
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
   noCache: !!process.env.NUNJUNKS_DISABLE_CACHE
 })
 
-interface Options { 
+interface Options {
   signature?: string
   idPhoto?: string
   form?: Buffer
@@ -97,7 +98,13 @@ export const toLetter = async (
         ...envVars,
         confirmationId,
         method,
-        warning: !process.env.EMAIL_FAX_OFFICIALS
+        warning: !process.env.EMAIL_FAX_OFFICIALS,
+        signatureFile: info.signature
+          ? makeImageAttachment(info.signature, 'signature', '')[0].filename
+          : undefined,
+        idPhotoFile: info.idPhoto
+          ? makeImageAttachment(info.idPhoto, 'identification', '')[0].filename
+          : undefined,
       }
     ),
     method,

@@ -20,7 +20,7 @@ Sincerely,
 
 {{name}}{% if signature %} (Signature Below and Attached)
 
-<img style='max-width: 400px;' src='{{signature}}'/>
+<img style='max-width: 400px;' src='cid:{{signatureFile}}'/>
 {% endif %}
 
 <font style='font-size:75%;'>

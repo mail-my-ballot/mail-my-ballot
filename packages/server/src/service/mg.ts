@@ -3,13 +3,12 @@ import mailgun from 'mailgun-js'
 import { Letter } from './letter'
 import { processEnvOrThrow } from '../common'
 
-
 export const mg = mailgun({
   domain: processEnvOrThrow('MG_DOMAIN'),
   apiKey: processEnvOrThrow('MG_API_KEY'),
 })
 
-const makeImageAttachment = (
+export const makeImageAttachment = (
   image: string,
   filename: string,  // without file extension
   to: string,        // just for error reporting
@@ -58,6 +57,7 @@ export const toSignupEmailData = (
     html,
     text: md,
     attachment,
+    inline: attachment,
     ...mgData,
   }
 }
