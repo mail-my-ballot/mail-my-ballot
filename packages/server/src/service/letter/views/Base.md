@@ -2,7 +2,7 @@
 
 {% if warning %}
 <p style='color:red;'>
-The request was not sent from production.  <b>No email was sent to an election official.</b>  If you want to send a real request, do so from <a href='https://MailMyBallot.org'>MailMyBallot.org.</a><p>
+The request was not sent from production.  <b>No email or fax was sent to an election official.</b>  Had this been sent from production, you would have continued to receive this email <b>and</b> the election official would have also been contacted as outlined below.  If you want to send an official request, do so from <a href='https://MailMyBallot.org'>MailMyBallot.org.</a><p>
 <p>
 
 {% endif %}

@@ -22,11 +22,11 @@ app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
 
 app.get('/_ah/warmup', (_, res) => {
-  res.status(200).end()
+  res.status(200).send('')
 })
 
 app.get('/_ah/warmup/', (_, res) => {
-  res.status(200).end()
+  res.status(200).send('')
 })
 
 app.get('/', (_, res: Response) => {
