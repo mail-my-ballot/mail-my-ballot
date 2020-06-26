@@ -16,8 +16,8 @@ const landscape = '(orientation: landscape)'
 export const cssQuery = {
   /** Desktops are wide devices, with a good amount of height, and on landscape */
   desktop: {
-    /** Devices that are at least 992px wide, 620px tall, and on landscape */
-    get all() { return `${media} ${minWidth(992)} and ${minHeight(620)} and ${landscape}` },
+    /** Devices that are at least 992px wide, 520px tall, and on landscape */
+    get all() { return `${media} ${minWidth(992)} and ${minHeight(520)} and ${landscape}` },
     /** Devices up to 1199px and landscape */
     get narrow() { return `${media} ${maxWidth(1119)} and ${landscape}` },
     /** Devices at least 1200px wide */
@@ -58,8 +58,8 @@ export const cssQuery = {
     },
 
     landscape: {
-      /** Max height 619px and landscape */
-      get all() { return `${media} ${maxHeight(619)} and ${landscape}` },
+      /** Max height 519px and landscape */
+      get all() { return `${media} ${maxHeight(519)} and ${landscape}` },
 
       /** Max height 360px */
       get short() { return `${media} ${maxHeight(360)} and ${landscape}` },
