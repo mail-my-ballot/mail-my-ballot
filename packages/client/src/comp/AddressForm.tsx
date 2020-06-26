@@ -3,7 +3,7 @@ import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { AddressContainer, ContactContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer, FetchingDataContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
@@ -44,7 +44,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   const addrRef = useControlRef<Input>()
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
-  const [fetchingData, setFetchingData] = React.useState(false)
+  const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
 
 
   // When we first arrive at page, set focus and move cursor to beginning
@@ -84,19 +84,16 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
     if (addr === null) throw Error('address ref not set')
     if (!state) throw Error('This can never happen: already checked if state is valid')
 
-    toast.info('Searching data for the address')
     setFetchingData(true)
     try {
       setContact(null)
       setAddress(null)
       const result = await client.fetchContactAddress(addr)
-      toast.dismiss()
       switch(result.type) {
         case 'data': {
           const {contact, address} = result.data
           setContact(contact)
           setAddress(address)
-
 
           break
         }
@@ -106,7 +103,6 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
         }
       }
       pushState(state)
-      toast.dismiss()
     } catch(e) {
       toast.dismiss()
       if (e instanceof TimeoutError) {

@@ -5,7 +5,7 @@ import { RoundedButton } from './util/Button'
 import { StyleContainer } from './util/Container'
 import { useAppHistory } from '../lib/path'
 import { client } from '../lib/trpc'
-import { AddressContainer } from '../lib/unstated'
+import { AddressContainer, FetchingDataContainer } from '../lib/unstated'
 import { AppForm } from './util/Form'
 
 
@@ -70,7 +70,7 @@ export const Blurb: React.FC<{}> = () => {
   const { path, pushAddress } = useAppHistory()
   const { address } = AddressContainer.useContainer()
   const zipRef = React.useRef<HTMLInputElement>(null)
-  const [fetchingData, setFetchingData] = React.useState(false)
+  const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
 
   // mobile browsers don't support 100vh, so use this trick instead
   // https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html

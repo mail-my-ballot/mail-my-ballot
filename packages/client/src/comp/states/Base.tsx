@@ -9,7 +9,7 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthdateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer, VoterContainer, ContactContainer } from '../../lib/unstated'
+import { AddressContainer, VoterContainer, ContactContainer, FetchingDataContainer } from '../../lib/unstated'
 import { ContactInfo } from '../contact/ContactInfo'
 import { AppForm } from '../util/Form'
 import { Center } from '../util/Util'
@@ -32,7 +32,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   const { address, locale } = AddressContainer.useContainer()
   const { contact } = ContactContainer.useContainer()
   const { voter } = VoterContainer.useContainer()
-  const [fetchingData, setFetchingData] = React.useState(false)
+  const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
 
   const nameRef = useControlRef<Input>()
   const birthdateRef = useControlRef<Input>()
@@ -76,14 +76,11 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
       toast.error('Please fill all the required fields in the right formats')
       return
     }
-    toast.info('Signup in progress')
     setFetchingData(true)
     const result = await client.register(info, voter)
     setFetchingData(false)
-    toast.dismiss()
     if(result.type === 'data'){
       pushSuccess(result.data)
-
     } else {
       toast.error('Error signing up.  Try resubmitting.  If this persists, try again in a little while.')
     }
