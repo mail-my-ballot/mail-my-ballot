@@ -49,7 +49,6 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
     event.preventDefault()
 
     if (!address || !uspsAddress || !contact) {
-      toast.dismiss()
       toast.error('Please fill all the required fields')
       return
     }
