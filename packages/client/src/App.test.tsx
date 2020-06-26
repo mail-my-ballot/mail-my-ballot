@@ -9,7 +9,7 @@ jest.mock('./lib/path')
 jest.mock('./lib/analytics')
 jest.mock('./lib/trpc')
 
-describe('App', () => {  
+describe('App', () => {
   beforeAll(() => {
     mocked(client, true).fetchState = jest.fn().mockResolvedValue({
       type: 'data',
@@ -27,11 +27,11 @@ describe('App', () => {
 
     const mockedPageView = mocked(pageView)
 
-    const { getByTestId } = render(<App />)
+    const { getAllByTestId } = render(<App />)
 
     act(() => {
       fireEvent.change(
-        getByTestId('start-zip'),
+        getAllByTestId('start-zip')[0],
         {
           target: {
             value: '33131'
@@ -39,7 +39,7 @@ describe('App', () => {
         }
       )
       fireEvent(
-        getByTestId('start-submit'),
+        getAllByTestId('start-submit')[0],
         new MouseEvent('click', {
           bubbles: true,
           cancelable: true,
