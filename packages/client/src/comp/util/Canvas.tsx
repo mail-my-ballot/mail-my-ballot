@@ -47,7 +47,7 @@ export const Canvas: React.FC<Props> = ({ setSignature }) => {
     if (ref.current.isEmpty()) {
       setSignature(null)
     } else {
-      setSignature(ref.current.toDataURL())
+      setSignature(ref.current.getTrimmedCanvas().toDataURL())
     }
   }
 
