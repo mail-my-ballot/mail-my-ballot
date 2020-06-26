@@ -1,7 +1,8 @@
 import fs from 'fs'
-import { fillNorthCarolina, toSignatureBuffer } from './pdfForm'
-import { stateInfo } from './letter/router'
-import { NorthCarolinaInfo } from '../../../common/stateInfo'
+import { fillNorthCarolina } from '.'
+import { toSignatureBuffer } from './util'
+import { stateInfo } from '../letter/router'
+import { NorthCarolinaInfo } from '../../../../common/stateInfo'
 
 
 const main = async () => {
