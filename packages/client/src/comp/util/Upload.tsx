@@ -4,6 +4,7 @@ import { GoldRatioOutline } from './Outline'
 import styled from 'styled-components'
 import { Muted } from './Text'
 import { compressImage } from '../../lib/compressImage'
+import { FetchingDataContainer } from '../../lib/unstated'
 
 const toDataUrl = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -45,7 +46,7 @@ export const Upload: React.FC<Props> = ({
 }) => {
   const ref = React.useRef<HTMLInputElement | null>()
   const [image, setImage] = React.useState<ImageDetails>()
-  const [loading, setLoading] = React.useState(false)
+  const { setFetchingData } = FetchingDataContainer.useContainer()
 
   const onClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.preventDefault()
@@ -55,7 +56,7 @@ export const Upload: React.FC<Props> = ({
   const maxSizeMBReal = maxSizeMB ?? 1
 
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLoading(true)
+    setFetchingData(true)
 
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
@@ -66,7 +67,7 @@ export const Upload: React.FC<Props> = ({
       setDataString(compressed)
     }
 
-    setLoading(false)
+    setFetchingData(false)
   }
 
   const centerBlock: React.CSSProperties = {
@@ -77,13 +78,6 @@ export const Upload: React.FC<Props> = ({
 
   // The content displayed inside GoldenRatioOutline
   const OutlineChild = () => {
-    if (loading) {
-      return <i
-        className="fa fa-circle-o-notch fa-spin"
-        style={{ fontSize: 32, color: '#2592f655' }}
-      />
-    }
-
     if (image) {
       return <>
         <img src={image.data} style={{maxHeight: '40%'}} alt='thumbnail'/>
