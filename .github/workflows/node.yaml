@@ -47,6 +47,7 @@ jobs:
       run: npm install --global lerna
     - name: Boostrap
       run: yarn bootstrap
+    # Back to doing real work
     - name: Build
       run: yarn build
     - name: Lint
