@@ -17,10 +17,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install --global lerna
-    - run: yarn bootstrap
-    - run: yarn build
-    - run: yarn lint
-    - run: yarn test
+    - name: cache node_modules/
+      uses: actions/cache@v2
+        path: ./node_modules
+        key: node-modules--${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
+    - name: Install Lerna
+      run: npm install --global lerna
+    - name: Boostrap
+      run: yarn bootstrap
+    - name: Build
+      run: yarn build
+    - name: Lint
+      run: yarn lint
+    - name: Test
+      run: yarn test
       env:
         CI: true
