@@ -4,15 +4,19 @@ import { Upload } from './Upload'
 
 import { render, fireEvent, wait, act } from '@testing-library/react'
 import { mocked } from 'ts-jest/utils'
+import { UnstatedContainer } from '../StateContainer'
 
 describe('Upload', () => {
   const setup = (maxSizeMB: number) => {
     const setDataString = jest.fn<void, [string]>()
-    const { getByTestId } = render(<Upload
-      label='label'
-      setDataString={setDataString}
-      maxSizeMB={maxSizeMB}
-    />)
+    const { getByTestId } = render(
+      <Upload
+        label='label'
+        setDataString={setDataString}
+        maxSizeMB={maxSizeMB}
+      />,
+      { wrapper: UnstatedContainer }
+    )
 
     const clickInputSpy = jest.spyOn(HTMLInputElement.prototype, 'click')
         mocked(window, true).alert = jest.fn()
