@@ -17,6 +17,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    # Cache node_modules
+    - name: Cache npm files
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm  # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: npm--${{ runner.os }}-${{ matrix.node-version }}
     - name: cache node_modules/
       uses: actions/cache@v2
       with:
