@@ -6,6 +6,7 @@ import { ModalProvider } from 'styled-react-modal'
 import { AddressContainer, ContactContainer, AnalyticsContainer, VoterContainer, FeatureFlagsContainer, FetchingDataContainer } from '../lib/unstated'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { LoadingOverlay } from './util/LoadingOverlay'
 
 const CustomToastContainer = styled(ToastContainer)`
   @media screen and (min-width: 592px) {
@@ -26,6 +27,7 @@ export const UnstatedContainer: React.FC<{}> = ({ children }) => (<HashRouter>
             <ModalProvider>
               <FetchingDataContainer.Provider>
                 {children}
+                <LoadingOverlay/>
                 <CustomToastContainer
                   position="top-right"
                   autoClose={3000}
