@@ -9,9 +9,9 @@ export const splitFullName = (fullName: string) => {
   let suffix = ''
   firstName = nameSplit[0]
   if(nameSplit.length == 2) {
-    lastName = nameSplit[1]     
+    lastName = nameSplit[1]
   } else if(nameSplit.length == 3) {
-    if(nameSplit[2].length < 4 
+    if(nameSplit[2].length < 4
         && (nameSplit[2].toLowerCase().includes('jr')
         || nameSplit[2].toLowerCase().includes('sr'))) {
           lastName = nameSplit[1]
