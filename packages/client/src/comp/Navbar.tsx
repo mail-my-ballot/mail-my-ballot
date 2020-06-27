@@ -69,6 +69,7 @@ const Wrapper = styled.div<NavExpanded & { visible: boolean }>`
   width: 100%;
   height: var(${p => p.expanded ? '--expandedHeight' : '--height'});
   padding: var(--verticalPad) 5%;
+  ${cssQuery.desktop.all} { padding: var(--verticalPad) 14%; }
   box-sizing: border-box;
 
   position: fixed;
@@ -84,6 +85,10 @@ const Wrapper = styled.div<NavExpanded & { visible: boolean }>`
   align-items: flex-start;
   align-content: flex-start;
   justify-content: space-between;
+  ${cssQuery.desktop.all} {
+    align-items: center;
+    justify-content: flex-end;
+  }
 
   animation: ${
     p => p.visible
@@ -96,9 +101,13 @@ const Wrapper = styled.div<NavExpanded & { visible: boolean }>`
 
 const Logo = styled(Link)`
   height: var(--contentHeight);
-  /* Total space - NavToggle size */
-  width: calc(90% - var(--contentHeight));
-  ${cssQuery.desktop.all} { width: 30%; }
+  /* Total space - NavToggle size - LocaleToggle size */
+  width: calc(90% - var(--contentHeight) - var(--contentHeight));
+  ${cssQuery.desktop.all} {
+    width: unset;
+    position: absolute;
+    left: 15%;
+  }
 
   /* Centers image on the padded, non-expanded area */
   display: flex;
@@ -111,16 +120,20 @@ const Logo = styled(Link)`
   }
 `
 
-const NavToggle = styled(Button)<NavExpanded>`
+const NavToggleButton = styled(Button)<Partial<NavExpanded>>`
   --color: ${p => p.expanded ? '#f44336' : '#2196f3'};
+  --iconRotation: ${p => p.expanded ? '-90deg' : '0'};
   --wrapperSize: var(--contentHeight);
   --iconSize: calc(var(--wrapperSize) * 0.35);
-  --iconRotation: ${p => p.expanded ? '-90deg' : '0'};
+  ${cssQuery.desktop.all} {
+    --wrapperSize: calc(var(--contentHeight) * 0.7);
+    --iconSize: calc(var(--wrapperSize) * 0.4);
+  }
 
   /* In order to make the Material Ripple a perfect circle */
-  width: var(--contentHeight);
-  height: var(--contentHeight);
-  border-radius: var(--contentHeight);
+  width: var(--wrapperSize);
+  height: var(--wrapperSize);
+  border-radius: var(--wrapperSize);
   margin: 0;
 
   /* The Material Ripple already indicates interaction */
@@ -130,13 +143,71 @@ const NavToggle = styled(Button)<NavExpanded>`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${cssQuery.desktop.all} { display: none; }
-
+  padding: 0; margin: 0;
   i {
     font-size: var(--iconSize);
     color: var(--color);
     transform: rotate(var(--iconRotation));
     transition: color ease .3s, transform ease .15s;
+  }
+`
+
+const NavLinksToggle = styled(NavToggleButton)<NavExpanded>`
+  ${cssQuery.desktop.all} { display: none; }
+`
+
+const LocaleToggle = styled.div<NavExpanded>`
+  /*
+    Since em are relative to the parent element, we use rem here to ensure
+    margins are kept in proportion on all devices
+  */
+  --rowWidth: 10.5rem;
+  --rowHeight: 3.5rem;
+  overflow: visible;
+  position: relative;
+
+  /* Keeps as the last item on Navbar */
+  ${cssQuery.desktop.all} { order: 2; }
+
+  .picker {
+    width: var(--rowWidth);
+
+    position: fixed;
+    top: 0;
+    /* We use margin instead of top so the sliding animation works */
+    margin-top: calc(var(--height) * 1.15);
+    margin-left: calc(var(--rowWidth) / -3);
+    ${cssQuery.mobile.wide} {
+      margin-left: calc(var(--rowWidth) / -3.8);
+    }
+    ${cssQuery.desktop.narrow} {
+      margin-left: calc(var(--rowWidth) / -2.8);
+    }
+
+    background-color: #fff;
+    border-radius: 4px;
+
+    animation: ${
+      p => p.expanded
+        ? css`${slideDown} ease .4s both`
+        : css`${slideUp} ease .2s both`
+    };
+    pointer-events: ${p => p.expanded ? 'initial' : 'none'};
+
+    button {
+      width: 100%;
+      height: var(--rowHeight);
+      /* MuiCSS Buttons have predefined margins/paddings */
+      padding: 0; margin: 0;
+
+      font-weight: bold;
+
+      box-sizing: box-sizing;
+      border-bottom: 1px solid #0001;
+    }
+    a:nth-last-child(1) {
+      button { border-bottom: none; }
+    }
   }
 `
 
@@ -172,7 +243,7 @@ const NavLinks = styled.div<NavExpanded>`
   ${cssQuery.desktop.all} {
     display: flex;
     flex-direction: row;
-    width: 50%;
+    width: 60%;
     height: 100%;
     font-size: 0.75em;
   }
@@ -202,7 +273,8 @@ const NavLinks = styled.div<NavExpanded>`
 
 export const Navbar = () => {
   const { pushStartSection } = useAppHistory()
-  const [expanded, setExpanded] = React.useState(false)
+  const [linksExpanded, setLinksExpanded] = React.useState(false)
+  const [localesExpanded, setLocalesExpanded] = React.useState(false)
   const [visible, setVisibility] = React.useState(true)
   const [scrollY, setScrollY] = React.useState(window.pageYOffset)
 
@@ -215,29 +287,59 @@ export const Navbar = () => {
         }
       } else {
         if (window.pageYOffset > scrollY) {
-          setVisibility(false)
+          if ((localesExpanded || linksExpanded) === false) {
+            console.log(`${localesExpanded} ${linksExpanded}`)
+            console.log('hey')
+            setVisibility(false)
+          }
         }
       }
       setScrollY(window.pageYOffset)
     }
-  }, [visible, scrollY])
+  }, [visible, scrollY, localesExpanded, linksExpanded])
 
-  const toggleExpanded = () => setExpanded(!expanded)
+  const toggleLinksExpanded = () => {
+    setLocalesExpanded(false)
+    setLinksExpanded(!linksExpanded)
+  }
+  const toggleLocalesExpanded = () => {
+    setLinksExpanded(false)
+    setLocalesExpanded(!localesExpanded)
+  }
 
   /** Pushes page section and closes the navbar */
   const pushAndClose = (section: StartSectionPath['type']) => {
     pushStartSection(section)
-    if (expanded) toggleExpanded()
+    if (linksExpanded) toggleLinksExpanded()
   }
 
-  return <Wrapper expanded={expanded} visible={visible}>
+  return <Wrapper expanded={linksExpanded} visible={visible}>
     <Logo to="#" onClick={() => pushAndClose('start')}>
         <img src={logo} alt="Mail My Ballot"/>
     </Logo>
-    <NavToggle onClick={toggleExpanded} expanded={expanded} variant="flat">
-      <i className={`fa ${expanded ? 'fa-close' : 'fa-navicon'}`}/>
-    </NavToggle>
-    <NavLinks expanded={expanded}>
+    <LocaleToggle expanded={localesExpanded}>
+      <NavToggleButton onClick={toggleLocalesExpanded} expanded={localesExpanded} variant="flat">
+      <i className={`fa ${localesExpanded ? 'fa-close' : 'fa-language'}`}/>
+      </NavToggleButton>
+      <div className="picker mui--z3" onClick={toggleLocalesExpanded}>
+        <a href="https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=https%3A%2F%2Fmailmyballot.org%2F">
+          <Button variant="flat">汉语</Button>
+        </a>
+        <a href="https://translate.google.com/translate?hl=&sl=en&tl=es&u=https%3A%2F%2Fmailmyballot.org%2F">
+          <Button variant="flat">Español</Button>
+        </a>
+        <a href="https://translate.google.com/translate?hl=&sl=en&tl=tl&u=https%3A%2F%2Fmailmyballot.org">
+          <Button variant="flat">Filipino</Button>
+        </a>
+        <a href="https://translate.google.com/translate?sl=en&tl=vi&u=https%3A%2F%2Fmailmyballot.org">
+          <Button variant="flat">Tiếng Việt</Button>
+        </a>
+      </div>
+    </LocaleToggle>
+    <NavLinksToggle onClick={toggleLinksExpanded} expanded={linksExpanded} variant="flat">
+      <i className={`fa ${linksExpanded ? 'fa-close' : 'fa-navicon'}`}/>
+    </NavLinksToggle>
+    <NavLinks expanded={linksExpanded}>
       <Link to="#about" onClick={() => pushAndClose('about')}>
         About
       </Link>
