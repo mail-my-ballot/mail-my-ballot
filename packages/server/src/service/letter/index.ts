@@ -2,8 +2,7 @@ import marked from 'marked'
 import nunjucks from 'nunjucks'
 
 import { processEnvOrThrow, StateInfo, ContactMethod, ImplementedState } from '../../common'
-import { fillNewHampshire } from '../pdfForm'
-import { fillNorthCarolina } from '../pdfForm'
+import { fillMinnesota, fillNewHampshire, fillNorthCarolina } from '../pdfForm'
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
@@ -57,6 +56,7 @@ const template = (state: ImplementedState): string => {
     case 'Maine': return 'Maine.md'
     case 'Maryland': return 'Maryland.md'
     case 'Michigan': return 'Michigan.md'
+    case 'Minnesota': return 'Minnesota.md'
     case 'Nebraska': return 'Nebraska.md'
     case 'Nevada': return 'Nevada.md'
     case 'New Hampshire': return 'NewHampshire.md'
@@ -79,6 +79,7 @@ const pdfForm = async (info: StateInfo): Promise<Buffer | undefined> => {
   switch(info.state) {
     case 'New Hampshire': return fillNewHampshire(info)
     case 'North Carolina': return fillNorthCarolina(info)
+    case 'Minnesota': return fillMinnesota(info)
     default: return undefined
   }
 }

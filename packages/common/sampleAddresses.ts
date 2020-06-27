@@ -150,6 +150,22 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     county: 'Penobscot County',
     state: 'Maine',
   }],
+  'Minnesota': [{
+    address: '81 S 9th St Suite 200, Minneapolis, MN 55402',
+    city: 'Minneapolis',
+    county: 'Hennepin County',
+    state: 'Minnesota',
+  }, {
+    address: '401 Robert St N #150, St Paul, MN 55101',
+    city: 'St Paul',
+    county: 'Ramsey County',
+    state: 'Minnesota',
+  }, {
+    address: '220 S Broadway STE 100, Rochester, MN 55904',
+    city: 'Rochester',
+    county: 'Olmsted County',
+    state: 'Minnesota',
+  }],
   'Nevada': [{
     address: '575 W Symphony Park Ave, Las Vegas, NV 89106',
     city: 'Las Vegas',
