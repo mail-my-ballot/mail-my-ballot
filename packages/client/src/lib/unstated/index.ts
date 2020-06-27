@@ -43,5 +43,5 @@ const useFetchingDataContainer = (initialFetching = false) => {
 
 export const FetchingDataContainer = createContainer(useFetchingDataContainer)
 
-export * from './voter'
+export * from './experiment'
 export * from './memoize'

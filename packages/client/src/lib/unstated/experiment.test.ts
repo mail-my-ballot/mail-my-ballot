@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { mocked } from 'ts-jest/utils'
 
-import { ExperimentContainer } from './voter'
+import { ExperimentContainer } from './experiment'
 import { useAppHistory } from '../path'
 jest.mock('../path')
 
