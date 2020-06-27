@@ -3,7 +3,7 @@ import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { AddressContainer, ContactContainer, VoterContainer, FetchingDataContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer, ExperimentContainer, FetchingDataContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
@@ -45,7 +45,7 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
   const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
-  const { experimentGroup } = VoterContainer.useContainer()
+  const { experimentGroup } = ExperimentContainer.useContainer()
   const addressC2a = experimentGroup('AddressC2a')
 
   // When we first arrive at page, set focus and move cursor to beginning

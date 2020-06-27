@@ -29,11 +29,11 @@ const randomUserId = () => {
 }
 
 /** Set initial state without overwriting data in localStorage */
-const useVoterContainer = () => {
+const useExperimentContainer = () => {
   const existingVoter = loadLocalStorage()
   const [voter, setVoter] = React.useState<Voter>({
     ...{ uid: randomUserId() },
-    ...existingVoter 
+    ...existingVoter
   })
   const { query } = useAppHistory()
   const voterMemo = useDeepMemoize(voter)
@@ -57,4 +57,4 @@ const useVoterContainer = () => {
   return { voter: voterMemo, conservativeUpdateVoter, experimentGroup }
 }
 
-export const VoterContainer = createContainer(useVoterContainer)
+export const ExperimentContainer = createContainer(useExperimentContainer)

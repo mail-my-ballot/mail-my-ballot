@@ -9,7 +9,7 @@ import { BaseInput, PhoneInput, EmailInput, NameInput, BirthdateInput } from '..
 import { Togglable } from '../util/Togglable'
 import { useAppHistory } from '../../lib/path'
 import { Signature } from '../util/Signature'
-import { AddressContainer, VoterContainer, ContactContainer, FetchingDataContainer } from '../../lib/unstated'
+import { AddressContainer, ExperimentContainer, ContactContainer, FetchingDataContainer } from '../../lib/unstated'
 import { ContactInfo } from '../contact/ContactInfo'
 import { AppForm } from '../util/Form'
 import { Center } from '../util/Util'
@@ -31,7 +31,7 @@ export const Base = <Info extends StateInfo>({ enrichValues, children }: Props<I
   const { pushSuccess, oid, query } = useAppHistory()
   const { address, locale } = AddressContainer.useContainer()
   const { contact } = ContactContainer.useContainer()
-  const { voter } = VoterContainer.useContainer()
+  const { voter } = ExperimentContainer.useContainer()
   const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
 
   const nameRef = useControlRef<Input>()

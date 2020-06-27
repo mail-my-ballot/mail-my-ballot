@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { mocked } from 'ts-jest/utils'
 
-import { VoterContainer } from './voter'
+import { ExperimentContainer } from './voter'
 import { useAppHistory } from '../path'
 jest.mock('../path')
 
@@ -9,13 +9,13 @@ const renderWithMockedQuery = (query: Record<string, string>) => {
   mocked(useAppHistory).mockReturnValue({query} as ReturnType<typeof useAppHistory>)
 
   return renderHook(
-    () => VoterContainer.useContainer(),
+    () => ExperimentContainer.useContainer(),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { wrapper: VoterContainer.Provider as any }
+    { wrapper: ExperimentContainer.Provider as any }
   )
 }
 
-describe('testing VoterContainer', () => {
+describe('testing ExperimentContainer', () => {
   test('data can be created', () => {
     const { result } = renderWithMockedQuery({})
     const uid = result.current.voter.uid
