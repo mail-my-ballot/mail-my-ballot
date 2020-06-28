@@ -326,6 +326,9 @@ export const Navbar = () => {
       </NavToggleButton>
       <div className="picker mui--z3" onClick={toggleLocalesExpanded}>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
+          <Button variant="flat">اَلْعَرَبِيَّةُ</Button>
+        </a>
+        <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
           <Button variant="flat">汉语</Button>
         </a>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=es&u=${url}`}>
