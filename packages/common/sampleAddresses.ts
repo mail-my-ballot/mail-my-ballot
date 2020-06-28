@@ -157,7 +157,7 @@ export const sampleAddresses: Record<ImplementedState, AddressData[]> = {
     state: 'Minnesota',
   }, {
     address: '401 Robert St N #150, St Paul, MN 55101',
-    city: 'St Paul',
+    city: 'Saint Paul',
     county: 'Ramsey County',
     state: 'Minnesota',
   }, {

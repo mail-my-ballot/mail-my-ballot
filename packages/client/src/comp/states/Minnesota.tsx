@@ -35,13 +35,14 @@ export const Minnesota = () => {
         return <Option value={value} key={key+1} label={value}/>
       })}
     </Select>
+    <p>Enter the relevant information based on your choice above.  If &apos;None&apos; 
+      please confirm by typing &apos;None&apos;:
+    </p>
     <BaseInput
       id='identityData'
       ref={idDataRef}
       label='Identity Information'
-      pattern='\d\d\d\d+'
-      hidden={idTypeRef.value() === 'None'}
-      required={idTypeRef.value() !== 'None'}
+      required={true}
     />
   </SignatureBase>
 }
