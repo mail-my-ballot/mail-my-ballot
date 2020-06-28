@@ -8,7 +8,7 @@ import { toContact, getContactRecords, getContact as _getContact } from './conta
 import { geocode } from './gm'
 import { toPdfBuffer } from './pdf'
 import { storageFileFromId } from './storage'
-import { toLetter } from './letter'
+import { Letter } from './letter'
 import { sendFaxes } from './twilio'
 import { TwilioResponse } from './types'
 
@@ -81,8 +81,8 @@ export class VbmRpc implements ImplRpc<IVbmRpc, Request> {
     })
 
     return data(id, async (): Promise<void> => {
-      const letter = await toLetter(info, method, id)
-      const pdfBuffer = await toPdfBuffer(letter.html, letter.form)
+      const letter = new Letter(info, method, id)
+      const pdfBuffer = await toPdfBuffer(letter.render('html'), await letter.form)
 
       // Send email (perhaps only to voter)
       const mgResponse = await sendSignupEmail(

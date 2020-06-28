@@ -1,46 +1,20 @@
+import mailgun from 'mailgun-js'
 import marked from 'marked'
 import nunjucks from 'nunjucks'
 
 import { processEnvOrThrow, StateInfo, ContactMethod, ImplementedState } from '../../common'
 import { fillNewHampshire } from '../pdfForm'
 import { fillNorthCarolina } from '../pdfForm'
-import { makeImageAttachment } from '../mg'
+
+export const mg = mailgun({
+  domain: processEnvOrThrow('MG_DOMAIN'),
+  apiKey: processEnvOrThrow('MG_API_KEY'),
+})
 
 nunjucks.configure(__dirname + '/views', {
   autoescape: true,
   noCache: !!process.env.NUNJUNKS_DISABLE_CACHE
 })
-
-interface Options {
-  signature?: string
-  idPhoto?: string
-  form?: Buffer
-}
-
-export class Letter {
-  subject: string
-  md: string
-  html: string
-  method: ContactMethod
-  signature?: string
-  idPhoto?: string
-  form?: Buffer
-
-  constructor(
-    subject: string,
-    md: string,
-    method: ContactMethod,
-    { signature, idPhoto, form }: Options = {},
-  ) {
-    this.subject = subject
-    this.md = md
-    this.html = marked(md)
-    this.method = method
-    this.signature = signature
-    this.idPhoto = idPhoto
-    this.form = form
-  }
-}
 
 const envVars = {
   brandName: processEnvOrThrow('REACT_APP_BRAND_NAME'),
@@ -48,6 +22,21 @@ const envVars = {
   feedbackEmail: processEnvOrThrow('REACT_APP_FEEDBACK_ADDR'),
   electionsEmail: processEnvOrThrow('REACT_APP_ELECTION_OFFICIAL_ADDR'),
   election: processEnvOrThrow('REACT_APP_ELECTION_AND_DATE'),
+}
+
+const subject = (state: ImplementedState) => {
+  switch (state) {
+    case 'Wyoming': return 'Absentee Ballot Request'
+    default: return 'Vote By Mail Request'
+  }
+}
+
+const pdfForm = async (info: StateInfo): Promise<Buffer | undefined> => {
+  switch(info.state) {
+    case 'New Hampshire': return fillNewHampshire(info)
+    case 'North Carolina': return fillNorthCarolina(info)
+    default: return undefined
+  }
 }
 
 const template = (state: ImplementedState): string => {
@@ -69,49 +58,89 @@ const template = (state: ImplementedState): string => {
   }
 }
 
-const subject = (state: ImplementedState) => {
-  switch (state) {
-    case 'Wyoming': return 'Absentee Ballot Request'
-    default: return 'Vote By Mail Request'
-  }
-}
+export class Letter {
+  readonly confirmationId: string
+  readonly subject: string
+  readonly method: ContactMethod
+  readonly info: StateInfo
+  readonly signatureAttachment?: mailgun.Attachment
+  readonly idPhotoAttachment?: mailgun.Attachment
+  readonly form?: Promise<Buffer | undefined>
 
-const pdfForm = async (info: StateInfo): Promise<Buffer | undefined> => {
-  switch(info.state) {
-    case 'New Hampshire': return fillNewHampshire(info)
-    case 'North Carolina': return fillNorthCarolina(info)
-    default: return undefined
+  constructor(
+    info: StateInfo,
+    method: ContactMethod,
+    confirmationId: string,
+    customSubject?: string,
+  ) {
+    this.confirmationId = confirmationId
+    this.subject = customSubject ?? subject(info.state)
+    this.method = method
+    this.info = info,
+    this.signatureAttachment = this.makeAttachment('signature')
+    this.idPhotoAttachment = this.makeAttachment('identification')
+    this.form = pdfForm(info)
   }
-}
 
-export const toLetter = async (
-  info: StateInfo,
-  method: ContactMethod,
-  confirmationId: string
-): Promise<Letter> => {
-  return new Letter(
-    subject(info.state),
-    nunjucks.render(
-      template(info.state),
+  /**
+   * Returns a generated markdown of this Letter.
+   * @param dest There's a few differences between the HTML standards used
+   * in the main email providers and the one found around the web, dest
+   * allows to adapt the resulted markdown for these differences.
+   */
+  md = (dest: 'email' | 'html') => {
+    return nunjucks.render(
+      template(this.info.state),
       {
-        ...info,
+        ...this.info,
         ...envVars,
-        confirmationId,
-        method,
+        confirmationId: this.confirmationId,
+        method: this.method,
         warning: !process.env.EMAIL_FAX_OFFICIALS,
-        signatureFile: info.signature
-          ? makeImageAttachment(info.signature, 'signature', '')[0].filename
-          : undefined,
-        idPhotoFile: info.idPhoto
-          ? makeImageAttachment(info.idPhoto, 'identification', '')[0].filename
-          : undefined,
-      }
-    ),
-    method,
-    {
-      signature: info.signature,
-      idPhoto: info.idPhoto,
-      form: await pdfForm(info),
+        signature: dest === 'email'
+          ? `cid:${this.signatureAttachment?.filename}`
+          : this.info.signature,
+        idPhoto: dest === 'email'
+          ? `cid:${this.idPhotoAttachment?.filename}`
+          : this.info.idPhoto,
+      },
+    )
+  }
+
+  /**
+   * Parses the generated markdown for this Letter.
+   * @param dest There's a few differences between the HTML standards used
+   * in the main email providers and the one found around the web, dest
+   * allows to adapt the resulted markdown for these differences.
+   */
+  render = (dest: 'email' | 'html') => marked(this.md(dest))
+
+  /**
+   * If image is empty or undefined then it returns undefined, on errors
+   * (i.e. invalid image) it also returns undefined but logs the incident
+   * on the console.
+   *
+   * @param filename Will define the title of the filename
+   */
+  private makeAttachment = (filename: 'signature' | 'identification') => {
+    const image = filename === 'signature' ? this.info.signature : this.info.idPhoto
+
+    if (!image) {
+      return undefined
     }
-  )
+
+    const match = image.match(/data:image\/(.+);base64,(.+)/)
+
+    // this.isValid() will be able to identify this Letter has issues,
+    // being able to properly report errors later on.
+    if (!match) {
+      console.log(`Unable to read image ${filename} image to ${this.info.email}. Omitting attachment.`)
+      return undefined
+    }
+
+    const data = Buffer.from(match[2], 'base64')
+    const filenameExt = `${filename}.${match[1]}`
+
+    return new mg.Attachment({data, filename: filenameExt})
+  }
 }
