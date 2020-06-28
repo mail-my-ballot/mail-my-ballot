@@ -326,19 +326,21 @@ export const Navbar = () => {
       </NavToggleButton>
       <div className="picker mui--z3" onClick={toggleLocalesExpanded}>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
-          <Button variant="flat">اَلْعَرَبِيَّةُ</Button>
+          <Button variant="flat">
+            {'\u0627\u064e\u0644\u0652\u0639\u064e\u0631\u064e\u0628\u0650\u064a\u064e\u0651\u0629\u064f'}
+          </Button>
         </a>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
-          <Button variant="flat">汉语</Button>
+          <Button variant="flat">{'\u6c49\u8bed'}</Button>
         </a>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=es&u=${url}`}>
-          <Button variant="flat">Español</Button>
+          <Button variant="flat">Espa&ntilde;ol</Button>
         </a>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=tl&u=${url}`}>
           <Button variant="flat">Filipino</Button>
         </a>
         <a href={`https://translate.google.com/translate?sl=en&tl=vi&u=${url}`}>
-          <Button variant="flat">Tiếng Việt</Button>
+          <Button variant="flat">Ti{'\u1ebf'}ng Vi{'\u1ec7'}t</Button>
         </a>
       </div>
     </LocaleToggle>
