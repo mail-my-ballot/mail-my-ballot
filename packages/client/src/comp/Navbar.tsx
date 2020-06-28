@@ -6,6 +6,7 @@ import { Button } from 'muicss/react'
 import { Link } from 'react-router-dom'
 import { useAppHistory, StartSectionPath } from '../lib/path'
 import { cssQuery } from './util/cssQuery'
+import { processEnvOrThrow } from '../common'
 
 
 interface NavExpanded {
@@ -313,6 +314,8 @@ export const Navbar = () => {
     if (linksExpanded) toggleLinksExpanded()
   }
 
+  const url = encodeURI(processEnvOrThrow('REACT_APP_URL'))
+
   return <Wrapper expanded={linksExpanded} visible={visible}>
     <Logo to="#" onClick={() => pushAndClose('start')}>
         <img src={logo} alt="Mail My Ballot"/>
@@ -322,16 +325,16 @@ export const Navbar = () => {
       <i className={`fa ${localesExpanded ? 'fa-close' : 'fa-language'}`}/>
       </NavToggleButton>
       <div className="picker mui--z3" onClick={toggleLocalesExpanded}>
-        <a href="https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=https%3A%2F%2Fmailmyballot.org%2F">
+        <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
           <Button variant="flat">汉语</Button>
         </a>
-        <a href="https://translate.google.com/translate?hl=&sl=en&tl=es&u=https%3A%2F%2Fmailmyballot.org%2F">
+        <a href={`https://translate.google.com/translate?hl=&sl=en&tl=es&u=${url}`}>
           <Button variant="flat">Español</Button>
         </a>
-        <a href="https://translate.google.com/translate?hl=&sl=en&tl=tl&u=https%3A%2F%2Fmailmyballot.org">
+        <a href={`https://translate.google.com/translate?hl=&sl=en&tl=tl&u=${url}`}>
           <Button variant="flat">Filipino</Button>
         </a>
-        <a href="https://translate.google.com/translate?sl=en&tl=vi&u=https%3A%2F%2Fmailmyballot.org">
+        <a href={`https://translate.google.com/translate?sl=en&tl=vi&u=${url}`}>
           <Button variant="flat">Tiếng Việt</Button>
         </a>
       </div>
