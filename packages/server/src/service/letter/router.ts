@@ -3,7 +3,7 @@ import { Router} from 'express'
 import { getContact, getFirstContact, getContactRecords } from '../contact'
 import { toContactMethod, StateInfo, ImplementedState, implementedStates, BaseInfo, ContactMethod, isImplementedState } from '../../common'
 import fs from 'fs'
-import { toLetter } from '.'
+import { Letter } from '.'
 
 
 export const router = Router()
@@ -46,7 +46,7 @@ export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => 
     ...baseStateInfo,
     contact: await getFirstContact(state)
   }
-  
+
   switch(state) {
     case 'Wisconsin': return {
       ...commonStateInfo,
@@ -129,6 +129,6 @@ router.get('/:state/:key?', async (req, res) => {
 
   if (!method) return renderLetter('Could not find contact method for elections official')
 
-  const letter = await toLetter(info, method, confirmationId)
-  return renderLetter(letter.html)
+  const letter = new Letter(info, method, confirmationId)
+  return renderLetter(letter.render('html'))
 })
