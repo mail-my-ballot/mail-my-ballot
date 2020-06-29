@@ -19,6 +19,7 @@ import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
+import { Pardon } from './comp/Pardon'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -91,11 +92,17 @@ const Layout = () => {
   </>)
 }
 
-const App = () => (<>
-  <UnstatedContainer>
-    <Initialize/>
-    <Layout/>
-  </UnstatedContainer>
-</>)
+const App = () => {
+  if (process.env.REACT_APP_PARDON) {
+    return <Pardon/>
+  } else {
+    return (<>
+      <UnstatedContainer>
+        <Initialize/>
+        <Layout/>
+      </UnstatedContainer>
+    </>)
+  }
+}
 
 export default App
