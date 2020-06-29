@@ -20,22 +20,18 @@ const fadeIn = keyframes`
 
 const slideUp = keyframes`
   from {
-    opacity: 1;
     transform: translateY(calc(var(--height) * 0));
   }
   to {
-    opacity: 0;
     transform: translateY(calc(var(--height) * -1));
   }
 `
 
 const slideDown = keyframes`
   from {
-    opacity: 0;
     transform: translateY(calc(var(--height) * -1));
   }
   to {
-    opacity: 1;
     transform: translateY(calc(var(--height) * 0));
   }
 `
@@ -96,8 +92,9 @@ const Wrapper = styled.div<NavExpanded & { visible: boolean }>`
       ? css`${slideDown} ease .25s both`
       : css`${slideUp} ease .25s both`
   };
+  opacity: ${p => p.visible ? '1' : '0'};
 
-  transition: height ease .45s;
+  transition: height ease .45s, opacity ease .2s;
 `
 
 const Logo = styled(Link)`
@@ -190,9 +187,11 @@ const LocaleToggle = styled.div<NavExpanded>`
 
     animation: ${
       p => p.expanded
-        ? css`${slideDown} ease .4s both`
-        : css`${slideUp} ease .2s both`
+      ? css`${slideDown} ease .4s both`
+      : css`${slideUp} ease .2s both`
     };
+    opacity: ${p => p.expanded ? '1' : '0'};
+    transition: opacity ease .2s;
     pointer-events: ${p => p.expanded ? 'initial' : 'none'};
 
     button {
