@@ -19,6 +19,11 @@ import { UnstatedContainer } from './comp/StateContainer'
 import { StateRedirect } from './comp/StateRedirect'
 import { MockPage } from './comp/MockPage'
 import { StyleContainer } from './comp/util/Container'
+import { Navbar } from './comp/Navbar'
+import { HowItWorks } from './comp/HowItWorks'
+import { GetInvolved } from './comp/GetInvolved'
+import { Team } from './comp/Team'
+import { Contact } from './comp/Contact'
 
 const TallStyleContainer = styled(StyleContainer)`
   min-height: 100vh;
@@ -27,16 +32,12 @@ const TallStyleContainer = styled(StyleContainer)`
 
 const Layout = () => {
   return (<>
+    <Navbar/>
     <Switch>
       <Route path='/status'>
         <StyleContainer>
           <Status/>
         </StyleContainer>
-      </Route>
-      <Route path='/about'>
-        <TallStyleContainer>
-          <About/>
-        </TallStyleContainer>
       </Route>
       <Redirect exact from='/' to={defaultUrl}/>
       <Route exact path='/mock'>
@@ -47,6 +48,21 @@ const Layout = () => {
       <Route exact path={pathData['start'].path}>
         <ScrollHook pathEnum='start'>
           <Blurb/>
+        </ScrollHook>
+        <ScrollHook pathEnum='howItWorks'>
+          <HowItWorks/>
+        </ScrollHook>
+        <ScrollHook pathEnum='getInvolved'>
+          <GetInvolved/>
+        </ScrollHook>
+        <ScrollHook pathEnum='team'>
+          <Team/>
+        </ScrollHook>
+        <ScrollHook pathEnum='contact'>
+          <Contact/>
+        </ScrollHook>
+        <ScrollHook pathEnum='about'>
+          <About/>
         </ScrollHook>
         <StyleContainer>
           <WarningMsg/>

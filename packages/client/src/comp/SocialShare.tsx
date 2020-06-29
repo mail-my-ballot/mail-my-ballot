@@ -2,8 +2,10 @@ import React, { useRef } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
-import { RoundedButton } from './util/Button'
 import { useAppHistory } from '../lib/path'
+import { Button } from 'muicss/react'
+import { cssQuery } from './util/cssQuery'
+import { InputButton } from './util/InputButton'
 
 const link = (oid: string) => `https://mailmyballot.org/#/org/${oid}/`
 
@@ -16,29 +18,32 @@ const shareText = (oid: string) => {
 
 export const SocialButtonWrapper = styled.a`
   display: flex;
-  width: 100%;
+  width: 33%;
   justify-content: center;
 
-  & button { width: 60%; padding: 0; }
-  @media screen and (min-width: 768px) {
-    & button { width: 35%; }
-
-    /* Normalizes the button width when displayed inside columns */
-    [class*="mui-col"] & button {
-      width: 60%;
+  & button {
+    width: 95%;
+    padding: 0;
+    border-radius: 4px;
+    height: 3.1em;
+    display: flex;
+    ${cssQuery.desktop.all} {
+      width: 90%;
     }
   }
 
   /* Ensures Icons & Labels are alligned */
-  & button { display: flex; }
   & button > i,
   & button > span {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
   }
-  & button > span { flex: 3; }
+  & button > span { flex: 2; font-weight: bold; }
+
+  /* Icon effects */
   & button > i {
     flex: 1;
     background-color: #0001;
@@ -69,11 +74,15 @@ export const openInNewWindow = (href: string, width = 720, height = 600) => {
 export const ShareFacebook: React.FC = () => {
   const { oid } = useAppHistory()
   const href = `https://www.facebook.com/sharer/sharer.php?u=${link(oid)}&amp;src=sdkpreparse`
-  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
-    <RoundedButton color='primary' style={{ backgroundColor: '#3b5998' }}>
+  return <SocialButtonWrapper>
+    <Button
+      onClick={() => openInNewWindow(href)}
+      color='primary'
+      style={{backgroundColor: '#3b5998'}}
+    >
       <i className="fa fa-facebook"/>
       <span>Share</span>
-    </RoundedButton>
+    </Button>
   </SocialButtonWrapper>
 }
 
@@ -88,43 +97,30 @@ export const ShareTwitter: React.FC = () => {
   const params = [refSrc, text, via, related, hashtag].join('&')
   const href = `https://twitter.com/share?${params}`
 
-  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
-    <RoundedButton color='primary' style={{ backgroundColor: '#00acee' }}>
+  return <SocialButtonWrapper>
+    <Button
+      onClick={() => openInNewWindow(href)}
+      color='primary'
+      style={{backgroundColor: '#00acee'}}
+    >
       <i className="fa fa-twitter"/>
       <span>Share</span>
-    </RoundedButton>
+    </Button>
   </SocialButtonWrapper>
 }
 
-const CopyLinkWrapper = styled(SocialButtonWrapper)`
-  & button {
-    width: 90%;
+const ShareLinkButton = styled(InputButton)`
+  --inputButton__width: 90%;
+  margin: 0.3em 0;
+  margin-left: 5%;
+  ${cssQuery.desktop.all} {
+    --inputButton__width: 70%;
+    margin-left: 15%;
   }
-  @media screen and (min-width: 768px) {
-    & button {
-      width: 50%;
-    }
-    [class*="mui-col"] & button {
-      width: 90%;
-    }
-  }
-  & button > span {
-    flex: 1;
-  }
-  & button > input {
-    flex: 3;
-    width: 100%;
-    height: 100%;
-    padding-left: 15px;
-    box-sizing: border-box;
+  box-shadow: none;
 
-    text-align: center;
-    border: 1px solid #0002;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-  }
-  & button > input:focus {
-    outline: none;
+  button {
+    flex: 1;
   }
 `
 
@@ -145,13 +141,16 @@ export const ShareLink: React.FC = () => {
     )
   }
 
-  return <CopyLinkWrapper onClick={onClick}>
-    <RoundedButton color='primary'>
-      {/* Should we allow the value of this input to change? */}
-      <input ref={inputEl} value={url}/>
-      <span>Copy</span>
-    </RoundedButton>
-  </CopyLinkWrapper>
+  return <ShareLinkButton
+    value={url}
+    buttonLabel="Copy"
+    ref={inputEl}
+    onSubmit={(e) => {
+      e.preventDefault()
+      onClick()
+    }}
+    onClick={onClick}
+  />
 }
 
 /**
@@ -168,11 +167,14 @@ export const ShareEmail: React.FC = () => {
 ${shareText(oid)}`
   const href = `mailto:?subject=${title}&body=${body}`
 
-  return <SocialButtonWrapper onClick={() => openInNewWindow(href)}>
-    <RoundedButton color='primary'>
+  return <SocialButtonWrapper>
+    <Button
+      color='primary'
+      onClick={() => openInNewWindow(href)}
+    >
       <i className="fa fa-envelope-o"/>
       <span>Share</span>
-    </RoundedButton>
+    </Button>
   </SocialButtonWrapper>
 }
 
