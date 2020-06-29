@@ -25,7 +25,6 @@ export const NameInput = React.forwardRef<Input, InputProps>(function NameInput(
 })
 
 export const DateInput = React.forwardRef<Input, InputProps>(function DateInput(props, ref) {
-  console.log(props.label)
   return <BaseInput
     type='text'
     pattern='^(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d\d$'

@@ -35,5 +35,9 @@ export const experiments = [
   new Experiment('AddressC2a', [
     ['FindOfficial', 1],
     ['RequestVBM', 1]
+  ]),
+  new Experiment('SignatureType', [
+    ['Upload', 1],
+    ['Both', 1]
   ])
 ]

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Switchable, Choice } from './Switchable'
+import { trackEvent } from '../../lib/analytics'
 import { Upload } from './Upload'
 import { Canvas } from './Canvas'
-import { useAppHistory } from '../../lib/path'
+import { ExperimentContainer } from '../../lib/unstated'
 import styled from 'styled-components'
 
 const width = 300
@@ -19,9 +20,15 @@ type Props = React.PropsWithChildren<{
 }>
 
 export const Signature: React.FC<Props> = ({ setSignature }) => {
-  const { query } = useAppHistory()
+  const { experimentGroup } = ExperimentContainer.useContainer()
+  const signatureType = experimentGroup('SignatureType')
+
+  useEffect(() => {
+    trackEvent('Experiment', 'Signature Type', signatureType)
+  }, [signatureType])
+
   return <Margin>
-    <Switchable visible={query['case'] !== 'upload'}>
+    <Switchable visible={signatureType !== 'Upload'}>
     {
       (choice: Choice) => {
         if (choice === 'canvas') {

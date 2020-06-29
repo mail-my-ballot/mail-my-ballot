@@ -5,6 +5,7 @@ export interface _ExperimentGroup<Name extends string, Group extends string> {
 
 export type ExperimentType = (
   | _ExperimentGroup<'AddressC2a', 'FindOfficial' | 'RequestVBM'>
+  | _ExperimentGroup<'SignatureType', 'Upload' | 'Both'>
 )
 
 export type ExperimentName = ExperimentType extends { name: infer Name } ? Name : never

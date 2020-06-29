@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
@@ -15,6 +15,7 @@ import { sampleAddresses, ImplementedState, getState } from '../common'
 import { AppForm } from './util/Form'
 import { Unidentified } from './status/Status'
 import { toast } from 'react-toastify'
+import { trackEvent } from '../lib/analytics'
 
 const FlexBox = styled.div`
   display: flex;
@@ -47,6 +48,10 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
   const { experimentGroup } = ExperimentContainer.useContainer()
   const addressC2a = experimentGroup('AddressC2a')
+
+  useEffect(() => {
+    trackEvent('Experiment', 'AddressC2a', addressC2a)
+  }, [addressC2a])
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
