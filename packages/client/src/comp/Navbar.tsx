@@ -321,7 +321,7 @@ export const Navbar = () => {
     </Logo>
     <LocaleToggle expanded={localesExpanded}>
       <NavToggleButton onClick={toggleLocalesExpanded} expanded={localesExpanded} variant="flat">
-      <i className={`fa ${localesExpanded ? 'fa-close' : 'fa-language'}`}/>
+      <i className={`fa ${localesExpanded ? 'fa-close' : 'fa-globe'}`}/>
       </NavToggleButton>
       <div className="picker mui--z3" onClick={toggleLocalesExpanded}>
         <a href={`https://translate.google.com/translate?hl=&sl=en&tl=zh-CN&u=${url}`}>
