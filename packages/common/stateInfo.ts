@@ -39,8 +39,9 @@ export interface BaseInfo extends Locale {
   oid: string
   ip?: string
   userAgent?: string
-  signature?: string
   idPhoto?: string
+  signature?: string
+  signatureUsedCanvas?: boolean
   contact: ContactData
 }
 
