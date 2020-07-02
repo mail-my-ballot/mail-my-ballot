@@ -85,6 +85,7 @@ const staging = removeNullValues({
   GOOGLE_STORAGE_BUCKET: 'mmb-staging.appspot.com',
   REACT_APP_TIMEOUT: 10000,
   TWILIO_DIVERT: 1,
+  REACT_APP_PARDON: 1,
 })
 
 const michael = {
