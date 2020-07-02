@@ -20,7 +20,7 @@ const main = async() => {
     firestore.query<User>(firestore.db.collection('User')),
     firestore.query<Org>(firestore.db.collection('Org')),
   ])
-  
+
   const date = new Date().toISOString()
 
   const filename = __dirname + `/data/infos-${env}-${date}.json`
@@ -29,20 +29,14 @@ const main = async() => {
     user,
     org,
   }))
-  
+
   console.log(`Writing results to ${filename}`)
   console.log(`${stateInfo.length} voters written`)
   console.log(`${user.length} users written`)
   console.log(`${org.length} orgs written`)
 
-  const df = new DataFrame(stateInfo)
-  const res = df.groupBy(row => row.oid)
-    .select(group => ({
-      oid: group.first().oid,
-      count: group.count(),
-    }))
-    .inflate()
-    .toCSV()
+  const df = new DataFrame(user)
+  const res = df.select(u => u.emails[0].value).toArray()
   console.log(res)
 }
 
