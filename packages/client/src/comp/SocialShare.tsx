@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { RoundedButton } from './util/Button'
 import { useAppHistory } from '../lib/path'
 
-const link = (oid: string) => `https://mailmyballot.org/#/org/${oid}/`
+const link = (oid: string) => `https://votebymail.io/#/org/${oid}/`
 
 // Because useAppHistory can only be used within Functional Components we
 // will need to manually acquire and pass `oid` on each component using
@@ -65,7 +65,7 @@ export const openInNewWindow = (href: string, width = 720, height = 600) => {
   window.open(encodeURI(href), '', `width=${width},height=${height}`)
 }
 
-/** Opens a new window to share about MailMyBallot */
+/** Opens a new window to share about VoteByMail */
 export const ShareFacebook: React.FC = () => {
   const { oid } = useAppHistory()
   const href = `https://www.facebook.com/sharer/sharer.php?u=${link(oid)}&amp;src=sdkpreparse`
@@ -77,14 +77,14 @@ export const ShareFacebook: React.FC = () => {
   </SocialButtonWrapper>
 }
 
-/** Opens a a new window with a pre-defined message to tweet about MailMyBallot */
+/** Opens a a new window with a pre-defined message to tweet about VoteByMail */
 export const ShareTwitter: React.FC = () => {
   const { oid } = useAppHistory()
   const refSrc = 'ref_src=twsrc%5Etfw'
   const text = `text=${shareText(oid)}`
-  const via = 'via=mailmyballot'
-  const related = 'related=mailmyballot'
-  const hashtag = 'hashtag=mailmyballot,voteathome'
+  const via = 'via=votebymail'
+  const related = 'related=votebymail'
+  const hashtag = 'hashtag=votebymail'
   const params = [refSrc, text, via, related, hashtag].join('&')
   const href = `https://twitter.com/share?${params}`
 
@@ -161,7 +161,7 @@ export const ShareEmail: React.FC = () => {
   const { oid } = useAppHistory()
   // These are not yet editable in our app, however the user can freely
   // edit the content of the message.
-  const title = 'Sign up to Vote by Mail in 2 minutes on MailMyBallot.org'
+  const title = 'Sign up to Vote by Mail in 2 minutes on VoteByMail.io'
   const body =
 `Hello,
 

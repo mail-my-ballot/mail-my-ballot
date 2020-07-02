@@ -16,15 +16,13 @@ const FooterWrapper  = styled.div`
 `
 
 export const Footer = () => <FooterWrapper>
-  <a href='https://mailmyballot.org/'>MailMyBallot.org</a>
-  <VBar/>
-  A <a href='https://www.voteathome.org'>Vote at Home</a> Project
+  <a href='https://votebymail.io/'>VoteByMail.io</a>
   <VBar/>
   <Link to='/about'>About Us</Link>
   <VBar/>
-  <a href='https://www.voteathome.org/site-terms/'>Privacy Policy</a>
+  <a href='https://www.votebymail.io/site-terms/'>Privacy Policy</a>
   <VBar/>
-  <a href='https://www.voteathome.org/site-terms/'>Terms of Service</a>
+  <a href='https://www.votebymail.io/site-terms/'>Terms of Service</a>
 
   {/*
     These are temporary social links, since the home page, including the
@@ -35,11 +33,11 @@ export const Footer = () => <FooterWrapper>
     <i className='fa fa-facebook'/>
   </a>
   <VBar/>
-  <a href='https://twitter.com/mailmyballot?ref_src=twsrc%5Etfw' rel='noopener noreferrer' target='_blank'>
+  <a href='https://twitter.com/votebymail?ref_src=twsrc%5Etfw' rel='noopener noreferrer' target='_blank'>
     <i className='fa fa-twitter'/>
   </a>
   <VBar/>
-  <a href='https://www.instagram.com/mailmyballot'>
+  <a href='https://www.instagram.com/votebymail'>
     <i className='fa fa-instagram'/>
   </a>
 </FooterWrapper>

@@ -3,9 +3,9 @@ import { SocialButtonWrapper, openInNewWindow } from './SocialShare'
 import { RoundedButton } from './util/Button'
 
 const FollowTwitter: React.FC = () => {
-  const href = 'https://twitter.com/intent/follow?screen_name=mailmyballot'
+  const href = 'https://twitter.com/intent/follow?screen_name=votebymail'
   return <SocialButtonWrapper
-    title="Follow @MailMyBallot on Twitter"
+    title="Follow @VoteByMail on Twitter"
     onClick={() => openInNewWindow(href)}
   >
     <RoundedButton color='primary' style={{ backgroundColor: '#00acee' }}>
@@ -16,10 +16,10 @@ const FollowTwitter: React.FC = () => {
 }
 
 const FollowInstagram: React.FC = () => {
-  const href = 'https://www.instagram.com/mailmyballot'
+  const href = 'https://www.instagram.com/votebymail'
 
   return <SocialButtonWrapper
-    title="Follow @MailMyBallot on Instagram"
+    title="Follow @VoteByMail on Instagram"
     onClick={() => openInNewWindow(href)}
   >
     <RoundedButton style={{
@@ -34,9 +34,9 @@ const FollowInstagram: React.FC = () => {
 }
 
 const FollowFacebook: React.FC = () => {
-  const href = 'https://www.facebook.com/Mail-My-Ballot-103074334722159/'
+  const href = 'https://'
   return <SocialButtonWrapper
-    title="Follow @MailMyBallot on Facebook"
+    title="Follow @VoteByMail on Facebook"
     onClick={() => openInNewWindow(href, 1024)}
   >
     <RoundedButton color='primary' style={{ backgroundColor: '#3b5998' }}>

@@ -21,17 +21,17 @@ export const initializeAnalytics = ({ facebookId, googleId }: Analytics) => {
   const trackers: ReactGA.Tracker[] = [
     {
       trackingId: processEnvOrThrow('REACT_APP_GOOGLE_UA'),
-      gaOptions: { name: 'MMBTracker' }
+      gaOptions: { name: 'VBMTracker' }
     },
     ...clientTracker,
   ]
 
   ReactGA.initialize(trackers)
-  ReactGA.pageview(window.location.hash, ['ClientTracker', 'MMBTracker'])
+  ReactGA.pageview(window.location.hash, ['ClientTracker', 'VBMTracker'])
 }
 
 /* run this after history push to have up to date url */
 export const pageView = () => {
   ReactPixel.pageView()
-  ReactGA.pageview(window.location.hash, ['ClientTracker', 'MMBTracker'])
+  ReactGA.pageview(window.location.hash, ['ClientTracker', 'VBMTracker'])
 }

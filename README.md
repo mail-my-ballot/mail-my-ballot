@@ -1,4 +1,4 @@
-# MailMyBallot.org
+# VoteByMail.io
 ![](https://github.com/mail-my-ballot/mail-my-ballot/workflows/Node.js%20CI/badge.svg)
 
 ## Getting Started
@@ -40,14 +40,14 @@ Below are the settings that need to be set to get an environment to work.
 
 - **Incoming fax numbers**: To test Twilio, we setup an incoming fax number.  ([FaxBurner](https://www.faxburner.com/)) offers a free temporary one.  Set `RECEIVE_FAX_NUMBER` to this number.
 
-- **Dev Firestore Access**: Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
+- **Dev Firestore Access**: Goto the [Firebase Console](https://console.firebase.google.com/u/0/project/vbm-dev-281821/settings/serviceaccounts/adminsdk) and generate a new key and place it in `packages/server/secrets/[...].json`.
 Then make sure `env.js` has `GOOGLE_APPLICATION_CREDENTIALS` set to `./secrets/[...].json` (override using `developmentRaw`).
 
 - **Google OAuth**: (development of organizer-facing pages only) Following the instructions [here](http://www.passportjs.org/docs/google/):
 
-  1. Enable [Google+ API from the Console](https://console.developers.google.com/apis/api/plus.googleapis.com/overview?project=mmb-staging)
-  2. Once you have done the above, you should be able to turn on the [OAuth Conset screen](https://console.developers.google.com/apis/credentials/consent?project=mmb-staging)
-  3. Once you have done the above, you should be able to create [OAuth Credentials](https://console.developers.google.com/apis/credentials?project=mmb-staging)
+  1. Enable [Google+ API from the Console](https://console.developers.google.com/apis/api/plus.googleapis.com/overview?project=vbm-staging)
+  2. Once you have done the above, you should be able to turn on the [OAuth Conset screen](https://console.developers.google.com/apis/credentials/consent?project=vbm-staging)
+  3. Once you have done the above, you should be able to create [OAuth Credentials](https://console.developers.google.com/apis/credentials?project=vbm-staging)
 
   Download and save these credentials for dev, prod, and staging.  Thes eare the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` fields.
 
@@ -116,7 +116,7 @@ The best way to showcase changes to your site is to host your own staging instan
 The client is hosted by [Vercel](https://vercel.com/), which is also called Zeit and Now.  If you create and deploy to your own zeit hosting instance and point it to the dev or staging backend instance, you should be able to experiment / show off your own front-end.
 
 ### App Engine (Server Hosting)
-To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=mmb-staging&folder&organizationId) and follow the prompts.
+To get started, goto [AppEngine Getting Started](https://console.cloud.google.com/appengine/start?project=vbm-staging&folder&organizationId) and follow the prompts.
 
 Don't forget to set indexes.  To do this, run the command resulting from
 ```bash
@@ -138,28 +138,28 @@ Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/5405
 
 ## Web Data
 ### Development
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-dev-cee81)
-- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-dev-cee81)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-dev-cee81)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-dev-cee81)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-dev-cee81/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-dev-cee81)
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-dev-281821)
+- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-dev-281821)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-dev-281821)
+- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-dev-281821)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-dev-281821/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-dev-281821)
 
 ### Staging
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-staging)
-- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-staging)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-staging)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-staging)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-staging/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-staging)
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-staging)
+- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-staging)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-staging)
+- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-staging)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-staging/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-staging)
 
 ### Production
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=mmb-prod)
-- [Console](https://console.cloud.google.com/home/dashboard?project=mmb-prod)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=mmb-prod)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=mmb-prod)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/mmb-prod/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=mmb-prod)
+- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-prod-281821)
+- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-prod-281821)
+- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-prod-281821)
+- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-prod-281821)
+- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-prod-281821/database/firestore/rules)
+- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-prod-281821)
 
 ## Resources
 ### Asthetics
@@ -172,14 +172,8 @@ We're using [Marked](https://www.npmjs.com/package/marked), which has more depen
 ### Notifications
 We're using [Toast](https://www.npmjs.com/package/react-toastify) for notifications.  The general style is to not report success, occasionally report queries about loading, and always report errors.
 
-## Elections Resources
-### From Vote at Home Insitute
-- [Vote by Mail in the Primary](https://www.voteathome.org/wp-content/uploads/2019/08/2020-Presidential-Primary-Guide-to-Mail-Ballot-Voting.pdf)
-- [Vote by Mail in the General Election](https://www.voteathome.org/wp-content/uploads/2019/07/NVAHI-Guide-to-When_How-to-Apply-2020.pdf)
-- [Ballot Ready COVID-19](https://docs.google.com/spreadsheets/d/1nCgI28asUZi4FVihJd4YbjfdSUC4K3SMEECsMpyaQQE/edit?ts=5e8fa7d8#gid=1917493118)
-
 ## About Us
-This repository is for [MailMyBallot.org](https://mailmyballot.org), a [National Vote at Home Institute](https://voteathome.org) project.
+This repository is for VoteByMail.io.
 
 ## Contributors
 - [tianhuil](https://github.com/tianhuil/)
