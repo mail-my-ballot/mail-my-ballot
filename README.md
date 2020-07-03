@@ -136,31 +136,6 @@ yarn server gulp deploy --env staging [environment]
 
 Alternative (not used): follow this [SO answer](https://stackoverflow.com/a/54055525/8930600), put all secrets in a special file that is not stored in source control.
 
-## Web Data
-### Development
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-dev-281821)
-- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-dev-281821)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-dev-281821)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-dev-281821)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-dev-281821/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-dev-281821)
-
-### Staging
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-staging)
-- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-staging)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-staging)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-staging)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-staging/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-staging)
-
-### Production
-- [Log Viewer](https://console.cloud.google.com/logs/viewer?project=vbm-prod-281821)
-- [Console](https://console.cloud.google.com/home/dashboard?project=vbm-prod-281821)
-- [Firestore Data Viewer](https://console.cloud.google.com/firestore/data?project=vbm-prod-281821)
-- [Storage Viewer](https://console.cloud.google.com/storage/browser?project=vbm-prod-281821)
-- [Firestore Permission Rules](https://console.firebase.google.com/u/0/project/vbm-prod-281821/database/firestore/rules)
-- [Quotas](https://console.cloud.google.com/iam-admin/quotas?project=vbm-prod-281821)
-
 ## Resources
 ### Asthetics
 - [MUI CSS Colors](https://www.muicss.com/docs/v1/getting-started/colors)
