@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Input from 'muicss/lib/react/input'
 
 import { RoundedButton } from './util/Button'
 import { client } from '../lib/trpc'
-import { AddressContainer, ContactContainer, FetchingDataContainer } from '../lib/unstated'
+import { AddressContainer, ContactContainer, ExperimentContainer, FetchingDataContainer } from '../lib/unstated'
 import { useControlRef } from './util/ControlRef'
 import { TimeoutError } from '@tianhuil/simple-trpc/dist/timedFetch'
 import { BaseInput } from './util/Input'
@@ -15,6 +15,7 @@ import { sampleAddresses, ImplementedState, getState } from '../common'
 import { AppForm } from './util/Form'
 import { Unidentified } from './status/Status'
 import { toast } from 'react-toastify'
+import { trackEvent } from '../lib/analytics'
 
 const FlexBox = styled.div`
   display: flex;
@@ -45,7 +46,12 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
   const { address, setAddress } = AddressContainer.useContainer()
   const { setContact } = ContactContainer.useContainer()
   const { fetchingData, setFetchingData } = FetchingDataContainer.useContainer()
+  const { experimentGroup } = ExperimentContainer.useContainer()
+  const addressC2a = experimentGroup('AddressC2a')
 
+  useEffect(() => {
+    trackEvent('Experiment', 'AddressC2a', addressC2a)
+  }, [addressC2a])
 
   // When we first arrive at page, set focus and move cursor to beginning
   React.useEffect(() => {
@@ -119,7 +125,11 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
 
   return <StatusReport state={state}>
     <AppForm onSubmit={handleSubmit}>
-      <p><b>Enter Your Full Address</b> to find your local election official</p>
+      <p><b>Enter Your Full Address</b> to
+        { addressC2a === 'FindOfficial'
+          ? ' find your local election official'
+          : ' sign up for Vote by Mail' }
+      </p>
       <FlexBox>
         <FlexGrow>
           <BaseInput
@@ -142,7 +152,9 @@ export const RawAddressForm: React.FC<{rawState: string, zip?: string}> = ({rawS
               data-testid='submit'
               style={{flexGrow: 0}}
               disabled={fetchingData}
-            >Find my election official
+            >{ addressC2a === 'FindOfficial'
+                ? 'Find my election official'
+                : 'Go to signup form' }
             </RoundedButton>
           </div>
         </FlexFixed>

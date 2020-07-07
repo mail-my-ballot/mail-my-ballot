@@ -35,3 +35,11 @@ export const pageView = () => {
   ReactPixel.pageView()
   ReactGA.pageview(window.location.hash, ['ClientTracker', 'MMBTracker'])
 }
+
+export const trackEvent = (category: string, action: string, value: string) => {
+  ReactGA.event({
+    category,
+    action,
+    label: value || 'No label'
+  })
+}

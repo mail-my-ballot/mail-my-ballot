@@ -1,7 +1,7 @@
 import React from 'react'
 import { client } from '../lib/trpc'
 import { useAppHistory } from '../lib/path'
-import { AnalyticsContainer, FeatureFlagsContainer, VoterContainer, useDeepMemoize } from '../lib/unstated'
+import { AnalyticsContainer, FeatureFlagsContainer, ExperimentContainer, useDeepMemoize } from '../lib/unstated'
 import { initializeAnalytics } from '../lib/analytics'
 import { UTM } from '../common'
 
@@ -9,7 +9,7 @@ export const Initialize: React.FC = () => {
   const { oid } = useAppHistory()
   const { setAnalytics } = AnalyticsContainer.useContainer()
   const { setFeatureFlags } = FeatureFlagsContainer.useContainer()
-  const { conservativeUpdateVoter } = VoterContainer.useContainer()
+  const { conservativeUpdateVoter } = ExperimentContainer.useContainer()
   const { query } = useAppHistory()
   const utm: UTM = useDeepMemoize({
     utmSource: query['utm_source'],
