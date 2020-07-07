@@ -1,6 +1,8 @@
 # MailMyBallot.org
 ![](https://github.com/mail-my-ballot/mail-my-ballot/workflows/Node.js%20CI/badge.svg)
 
+This repo is no longer actively maintained and has been migrated to https://github.com/vote-by-mail/website.
+
 ## Getting Started
 
 ### Manual Dependencies
