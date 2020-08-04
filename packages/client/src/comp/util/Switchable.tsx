@@ -2,34 +2,33 @@ import React from 'react'
 import { SmallButton } from './Button'
 
 
-export type Choice = 'upload' | 'canvas'
-
 interface Props {
-  children: (choice: Choice) => React.ReactNode
+  children: (usedCanvas: boolean) => React.ReactNode
   visible: boolean
+  usedCanvas: boolean
+  setUsedCanvas: (_: boolean) => void
 }
 
-export const Switchable: React.FC<Props> = ({children, visible}) => {
-  const [choice, setChoice] = React.useState<Choice>('upload')
+export const Switchable: React.FC<Props> = ({children, visible, usedCanvas, setUsedCanvas}) => {
   return <>
     <div style={{display: visible ? 'flex' : 'none' , justifyContent: 'center'}}>
       <SmallButton
         style={{marginRight: '0', borderRadius: '4px 0 0 4px'}}
         color='primary'
-        disabled={choice === 'upload'}
-        onClick={() => setChoice('upload')}
+        disabled={!usedCanvas}
+        onClick={() => setUsedCanvas(false)}
       >
         Upload
       </SmallButton>
       <SmallButton
         style={{marginLeft: '0', borderRadius: '0 4px 4px 0'}}
         color='primary'
-        disabled={choice === 'canvas'}
-        onClick={() => setChoice('canvas')}
+        disabled={usedCanvas}
+        onClick={() => setUsedCanvas(true)}
       >
         Pad
       </SmallButton>
     </div>
-    {(choice && children) && children(choice)}
+    {(visible && children) && children(usedCanvas)}
   </>
 }

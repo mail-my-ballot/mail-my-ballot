@@ -142,6 +142,7 @@ export const SignatureBase = <Info extends StateInfo>(
   {enrichValues, children}: Props<NoSignature<Info>>
 ) => {
   const [signature, setSignature] = React.useState<string | null>()
+  const [usedCanvas, setUsedCanvas] = React.useState(false)
 
   const enrichValuesWithSignature = (baseInfo: StatelessInfo): Info | null => {
     const values = enrichValues(baseInfo)
@@ -157,6 +158,7 @@ export const SignatureBase = <Info extends StateInfo>(
       ...baseInfo,
       ...values,
       signature,
+      signatureUsedCanvas: usedCanvas,
     } as Info  // hack b/c it cannot understand how to distribute over types
   }
 
@@ -164,6 +166,6 @@ export const SignatureBase = <Info extends StateInfo>(
     enrichValues={enrichValuesWithSignature}
   >
     { children }
-    <Signature setSignature={setSignature}/>
+    <Signature setSignature={setSignature} setUsedCanvas={setUsedCanvas} usedCanvas={usedCanvas}/>
   </Base>
 }
