@@ -1,4 +1,4 @@
-import { toLetter } from '.'
+import { Letter } from '.'
 import { stateInfo, sampleMethod } from './router'
 import { implementedStates } from '../../common'
 
@@ -10,7 +10,7 @@ test('Leter for all states render correctly', async () => {
   const letters = await Promise.all(implementedStates.map(async state => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const info = await stateInfo(state)
-    return toLetter(
+    return new Letter(
       info,
       sampleMethod,
       confirmationId
@@ -18,11 +18,11 @@ test('Leter for all states render correctly', async () => {
   }))
 
   letters.forEach(letter => {
-    expect(letter?.md).toContain(confirmationId)
+    expect(letter?.md('html')).toContain(confirmationId)
     /*
       A poor man's test for missing fields
       since most fields are '**{{field}}**'
     */
-    expect(letter?.md).not.toContain('****')
+    expect(letter?.md('html')).not.toContain('****')
   })
 })

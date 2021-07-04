@@ -1,7 +1,7 @@
 import { createMock } from 'ts-auto-mock'
 
 import { FloridaInfo, MichiganInfo, StateInfo, GeorgiaInfo, WisconsinInfo, ContactMethod } from "../common"
-import { toLetter } from './letter'
+import { Letter } from './letter'
 import { toSignupEmailData } from './mg'
 
 const email = 'email@example.com'
@@ -12,11 +12,11 @@ const check = async (info: StateInfo, checkSignature = false): Promise<void> => 
     emails: ['official@elections.gov'],
     faxes: [],
   }
-  
+
   const officialsEmails = sampleMethod.emails
   const confirmationId = 'abc123'
-  
-  const letter = await toLetter(info, sampleMethod, confirmationId)
+
+  const letter = new Letter(info, sampleMethod, confirmationId)
   expect(letter).toBeTruthy()
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -24,7 +24,7 @@ const check = async (info: StateInfo, checkSignature = false): Promise<void> => 
   expect(emailDataProd.to.length).toBeGreaterThanOrEqual(2)
   expect(emailDataProd.to).toContain(email)
   expect(emailDataProd.html).toContain(confirmationId)
-  
+
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const emailData = toSignupEmailData(letter!, info.email, officialsEmails)
   expect(emailData.to).toEqual([email])
