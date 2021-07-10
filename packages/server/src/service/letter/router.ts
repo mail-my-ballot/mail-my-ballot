@@ -84,6 +84,14 @@ export const stateInfo = async (state: ImplementedState): Promise<StateInfo> => 
       state,
     }
 
+    case 'Minnesota': return {
+      ...commonStateInfo,
+      signature,
+      idType: 'Minnesota Issued Driver\'s License or ID Card',
+      idData: '47826834534597',
+      state,
+    }
+
     default: return {
       ...commonStateInfo,
       signature,

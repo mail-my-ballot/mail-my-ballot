@@ -1,6 +1,7 @@
 import { PDFDocument, StandardFonts, rgb, PDFPage, PDFPageDrawTextOptions } from 'pdf-lib'
 import fs from 'fs'
 
+export { fillMinnesota } from './minnesota'
 export { fillNorthCarolina } from './northCarolina'
 export { fillNewHampshire } from './newHampshire'
 
